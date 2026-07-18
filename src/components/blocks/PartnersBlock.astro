@@ -1,0 +1,55 @@
+---
+import type { Block } from "../../schemas/blocks";
+import SectionHeader from "../ui/SectionHeader.astro";
+import CtaButton from "../ui/CtaButton.astro";
+
+const { eyebrow, heading, logos, cta } = Astro.props as Extract<
+  Block,
+  { type: "partners" }
+>;
+---
+
+<section class="block">
+  <div class="shell">
+    <SectionHeader eyebrow={eyebrow} heading={heading} />
+    <div class="grid">
+      {logos.map((logo) => <div class="logo">{logo}</div>)}
+    </div>
+    {cta && <div class="center"><CtaButton href={cta.href} label={cta.label} style="navy" /></div>}
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 18px;
+    align-items: center;
+  }
+  .logo {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 5 / 2;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--surface-page);
+    color: var(--text-faint);
+    font-weight: 800;
+    font-size: 0.9rem;
+    letter-spacing: 0.03em;
+  }
+  .center {
+    margin-top: 40px;
+    text-align: center;
+  }
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+  @media (max-width: 520px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>
