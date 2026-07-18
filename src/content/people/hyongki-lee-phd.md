@@ -8,4 +8,4 @@ photo: /images/people/hyongki-lee-phd.webp
 order: 5
 ---
 
-A specialist in spaceborne geodesy (satellite altimetry, SAR/InSAR, and GRACE) leading SAR-based flood mapping and forecasting for GEOGLOWS.
+Dr. Lee specializes in using spaceborne and airborne geodetic instruments including satellite altimetry, SAR/InSAR, and GRACE to better understand Earth system sciences. His primary research includes quantifying and characterizing terrestrial water dynamics using remote sensing data toward applications for water resources management.

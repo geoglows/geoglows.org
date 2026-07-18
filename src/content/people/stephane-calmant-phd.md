@@ -8,4 +8,4 @@ photo: /images/people/stephane-calmant-phd.webp
 order: 6
 ---
 
-Investigates spatial and temporal variation in surface waters using SWOT and satellite radar altimetry.
+Dr. Calmant is a project investigator at the Laboratoire d'Études en Géophysique et Océanographie Spatiales (LEGOS) in France, working on the characterization of spatial and temporal variations in surface waters based on SWOT measurements and other satellite radar altimetry sources.
