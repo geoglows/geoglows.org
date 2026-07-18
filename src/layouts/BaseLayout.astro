@@ -27,6 +27,11 @@ const site = (await getEntry("settings", "site"))!.data;
       crossorigin
     />
     <link rel="icon" href="/images/geo-logo-navy.svg" />
+    <script is:inline>
+      if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        document.documentElement.classList.add("reveal-ready");
+      }
+    </script>
   </head>
   <body>
     <SiteNav nav={site.nav} cta={site.navCta} />
@@ -38,5 +43,8 @@ const site = (await getEntry("settings", "site"))!.data;
       columns={site.footerColumns}
       legal={site.footerLegal}
     />
+    <script>
+      import "../scripts/reveal";
+    </script>
   </body>
 </html>

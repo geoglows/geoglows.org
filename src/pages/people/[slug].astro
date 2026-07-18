@@ -1,0 +1,150 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Icon from "../../components/ui/Icon.astro";
+
+export async function getStaticPaths() {
+  const people = await getCollection("people");
+  return people.map((person) => ({ params: { slug: person.id }, props: { person } }));
+}
+
+const { person } = Astro.props;
+const { Content } = await render(person);
+const p = person.data;
+const affiliation = [p.organization, p.country].filter(Boolean).join(" · ");
+
+function initials(name: string): string {
+  return name
+    .replace(/^(Dr\.?|Prof\.?|PhD)\s+/i, "")
+    .split(/\s+/)
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+}
+
+const socials = [
+  { key: "linkedin", label: "LinkedIn", href: p.linkedin },
+  { key: "website", label: "Website", href: p.website },
+  { key: "orcid", label: "ORCID", href: p.orcid },
+  { key: "mail", label: "Email", href: p.email ? `mailto:${p.email}` : undefined },
+].filter((s) => s.href);
+---
+
+<BaseLayout title={`${p.name} | GEOGLOWS`} description={p.title}>
+  <section class="block">
+    <div class="shell profile">
+      <a class="back" href="/about#about">← Back to the team</a>
+      <div class="head">
+        {
+          p.photo ? (
+            <img class="photo" src={p.photo} alt={p.name} width="160" height="160" />
+          ) : (
+            <span class="avatar">{initials(p.name)}</span>
+          )
+        }
+        <div class="meta">
+          <h1>{p.name}</h1>
+          {p.title && <p class="title">{p.title}</p>}
+          {affiliation && <p class="affiliation">{affiliation}</p>}
+          {
+            socials.length > 0 && (
+              <div class="socials">
+                {socials.map((s) => (
+                  <a href={s.href} class="social" aria-label={s.label} target="_blank" rel="noopener">
+                    <Icon name={s.key} size={18} />
+                    <span>{s.label}</span>
+                  </a>
+                ))}
+              </div>
+            )
+          }
+        </div>
+      </div>
+      <div class="bio"><Content /></div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .profile {
+    max-width: 760px;
+  }
+  .back {
+    display: inline-block;
+    margin-bottom: 28px;
+    color: var(--accent-text);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+  .head {
+    display: flex;
+    gap: 26px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .photo,
+  .avatar {
+    flex: none;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+  }
+  .photo {
+    object-fit: cover;
+    box-shadow: var(--shadow-md);
+  }
+  .avatar {
+    display: grid;
+    place-items: center;
+    background: radial-gradient(circle at 30% 30%, #3a5a7a, #243754);
+    color: #fff;
+    font-weight: 800;
+    font-size: 2.4rem;
+  }
+  h1 {
+    font-size: clamp(1.7rem, 3.4vw, 2.4rem);
+  }
+  .title {
+    margin-top: 6px;
+    color: var(--text-body);
+    font-size: 1.05rem;
+  }
+  .affiliation {
+    margin-top: 2px;
+    color: var(--text-faint);
+    font-size: 0.9rem;
+  }
+  .socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .social {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 13px;
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    color: var(--accent-text);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: border-color 0.16s ease;
+  }
+  .social:hover {
+    border-color: var(--accent-text);
+  }
+  .bio {
+    margin-top: 32px;
+    color: var(--text-body);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  .bio :global(p) {
+    margin-bottom: 1em;
+  }
+</style>
