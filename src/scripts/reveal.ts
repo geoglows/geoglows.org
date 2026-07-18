@@ -21,7 +21,7 @@ if (prefersReducedMotion || !("IntersectionObserver" in window)) {
         entry.target.classList.toggle("is-visible", entry.isIntersecting);
       }
     },
-    { rootMargin: "-8% 0px -8% 0px", threshold: 0.08 },
+    { rootMargin: "0px 0px -18% 0px", threshold: 0 },
   );
   targets.forEach((el) => observer.observe(el));
 }
