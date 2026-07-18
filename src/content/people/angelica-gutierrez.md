@@ -4,6 +4,7 @@ title: "Director, GEOGLOWS Program"
 organization: "NOAA (Ret.)"
 country: "USA"
 groups: ["Project leaders", "Steering committee"]
+photo: /images/people/angelica-gutierrez.webp
 order: 2
 ---
 
