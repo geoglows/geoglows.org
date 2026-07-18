@@ -18,7 +18,19 @@ const ticker = (await getEntry("settings", "site"))!.data.ticker;
 ---
 
 <header class="hero">
-  {image && <img class="hero-photo" src={image} alt="" />}
+  {
+    image && (
+      <img
+        class="hero-photo"
+        src={image}
+        alt=""
+        width="1600"
+        height="840"
+        fetchpriority="high"
+        decoding="async"
+      />
+    )
+  }
   <div class="hero-circles" aria-hidden="true">
     {
       discs.map((d) => (
@@ -175,7 +187,7 @@ const ticker = (await getEntry("settings", "site"))!.data.ticker;
     display: none;
   }
   .hero-card .tag {
-    color: var(--accent);
+    color: var(--accent-text);
     font-size: 0.66rem;
     font-weight: 800;
     letter-spacing: 0.1em;

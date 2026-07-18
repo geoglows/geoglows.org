@@ -1,0 +1,92 @@
+---
+interface Props {
+  name: string;
+  title?: string;
+  organization?: string;
+  country?: string;
+  photo?: string;
+  initials: string;
+  href: string;
+}
+const { name, title, organization, country, photo, initials, href } = Astro.props;
+const affiliation = [organization, country].filter(Boolean).join(" · ");
+---
+
+<a class="person" href={href}>
+  {
+    photo ? (
+      <img class="photo" src={photo} alt={name} width="56" height="56" loading="lazy" decoding="async" />
+    ) : (
+      <span class="avatar">{initials}</span>
+    )
+  }
+  <div class="info">
+    <h3>{name}</h3>
+    {title && <p class="title">{title}</p>}
+    {affiliation && <p class="affiliation">{affiliation}</p>}
+    <span class="more">View profile →</span>
+  </div>
+</a>
+
+<style>
+  .person {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    padding: 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-page);
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+    color: var(--text-strong);
+    transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+  }
+  .person:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-text);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .person:hover {
+      transform: none;
+    }
+  }
+  .photo,
+  .avatar {
+    flex: none;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+  }
+  .photo {
+    object-fit: cover;
+  }
+  .avatar {
+    display: grid;
+    place-items: center;
+    background: radial-gradient(circle at 30% 30%, #3a5a7a, #243754);
+    color: #fff;
+    font-weight: 800;
+    font-size: 0.95rem;
+  }
+  h3 {
+    font-size: 1rem;
+  }
+  .title {
+    margin-top: 2px;
+    color: var(--text-body);
+    font-size: 0.85rem;
+  }
+  .affiliation {
+    color: var(--text-faint);
+    font-size: 0.8rem;
+  }
+  .more {
+    display: inline-block;
+    margin-top: 8px;
+    color: var(--accent-text);
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+</style>

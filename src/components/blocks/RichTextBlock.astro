@@ -1,0 +1,55 @@
+---
+import { marked } from "marked";
+import type { Block } from "../../schemas/blocks";
+import SectionHeader from "../ui/SectionHeader.astro";
+
+const { eyebrow, heading, body, background } = Astro.props as Extract<
+  Block,
+  { type: "richText" }
+>;
+const html = marked.parse(body);
+---
+
+<section class:list={["block", { muted: background === "muted" }]}>
+  <div class="shell">
+    {
+      (eyebrow || heading) && (
+        <SectionHeader eyebrow={eyebrow} heading={heading ?? ""} align="left" />
+      )
+    }
+    <div class="prose" set:html={html} />
+  </div>
+</section>
+
+<style>
+  .muted {
+    background: var(--surface-muted);
+  }
+  .prose {
+    max-width: 72ch;
+    color: var(--text-body);
+    font-size: 1.02rem;
+  }
+  .prose :global(h2),
+  .prose :global(h3) {
+    margin: 1.6em 0 0.4em;
+    color: var(--text-strong);
+  }
+  .prose :global(h3) {
+    font-size: 1.2rem;
+  }
+  .prose :global(p) {
+    margin-bottom: 1em;
+  }
+  .prose :global(ul) {
+    margin: 0 0 1em;
+    padding-left: 1.2em;
+  }
+  .prose :global(li) {
+    margin-bottom: 0.4em;
+  }
+  .prose :global(a) {
+    color: var(--accent-strong);
+    font-weight: 600;
+  }
+</style>
