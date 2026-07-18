@@ -14,7 +14,7 @@ const affiliation = [organization, country].filter(Boolean).join(" · ");
 <article class="person">
   {
     photo ? (
-      <img class="photo" src={photo} alt={name} />
+      <img class="photo" src={photo} alt={name} width="56" height="56" loading="lazy" decoding="async" />
     ) : (
       <span class="avatar">{initials}</span>
     )

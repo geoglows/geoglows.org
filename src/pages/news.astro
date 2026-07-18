@@ -10,7 +10,7 @@ const entries = (await getCollection("news")).sort(
 ---
 
 <BaseLayout
-  title="News & Events — GEOGLOWS"
+  title="News & Events | GEOGLOWS"
   description="Releases, training, and impact stories from the GEOGLOWS community."
 >
   <section class="block">
@@ -19,6 +19,7 @@ const entries = (await getCollection("news")).sort(
         eyebrow="News & events"
         heading="Latest from the community"
         align="left"
+        level={1}
       />
       <div class="grid">
         {entries.map((entry) => <NewsCard {...entry.data} />)}

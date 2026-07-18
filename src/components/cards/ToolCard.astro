@@ -35,7 +35,7 @@ const { name, tagline, category, icon, href } = Astro.props;
   }
   .tool:hover {
     transform: translateY(-3px);
-    border-color: var(--accent);
+    border-color: var(--accent-text);
   }
   @media (prefers-reduced-motion: reduce) {
     .tool:hover {
@@ -49,7 +49,7 @@ const { name, tagline, category, icon, href } = Astro.props;
     height: 40px;
     border-radius: 9px;
     background: var(--surface-wash);
-    color: var(--accent);
+    color: var(--accent-text);
   }
   .category {
     font-size: 0.66rem;
@@ -67,7 +67,7 @@ const { name, tagline, category, icon, href } = Astro.props;
     font-size: 0.85rem;
   }
   .go {
-    color: var(--accent);
+    color: var(--accent-text);
     font-size: 0.82rem;
     font-weight: 800;
   }

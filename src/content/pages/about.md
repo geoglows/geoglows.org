@@ -1,5 +1,5 @@
 ---
-title: About — GEOGLOWS
+title: About | GEOGLOWS
 blocks:
   - type: richText
     eyebrow: About GEOGLOWS
@@ -34,8 +34,8 @@ blocks:
 
       ### 3. Essential Water Variables & observations
 
-      Advancing the accuracy and accessibility of Essential Water Variables (EWVs)
-      — from the GEOSS Water Strategy through ongoing work with CEOS and partners.
+      Advancing the accuracy and accessibility of Essential Water Variables (EWVs),
+      from the GEOSS Water Strategy through ongoing work with CEOS and partners.
 
 
       ### 4. Partnerships, engagement & communication

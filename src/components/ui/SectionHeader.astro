@@ -6,8 +6,10 @@ interface Props {
   heading: string;
   intro?: string;
   align?: "center" | "left";
+  level?: 1 | 2;
 }
-const { eyebrow, heading, intro, align = "center" } = Astro.props;
+const { eyebrow, heading, intro, align = "center", level = 2 } = Astro.props;
+const Heading = `h${level}` as "h1" | "h2";
 ---
 
 <div class:list={["section-header", align]}>
@@ -19,7 +21,7 @@ const { eyebrow, heading, intro, align = "center" } = Astro.props;
       </p>
     )
   }
-  <h2>{heading}</h2>
+  <Heading>{heading}</Heading>
   {intro && <p class="intro">{intro}</p>}
 </div>
 
@@ -35,6 +37,7 @@ const { eyebrow, heading, intro, align = "center" } = Astro.props;
   .section-header.center .eyebrow {
     justify-content: center;
   }
+  h1,
   h2 {
     font-size: clamp(1.7rem, 3.4vw, 2.5rem);
   }

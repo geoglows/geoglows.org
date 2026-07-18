@@ -11,4 +11,4 @@ The Climate Trends tool offers a platform for visualizing hydrologic-cycle varia
 
 ## About the app
 
-Users access data through interactive maps and plots — tracking precipitation, evaporation, soil moisture, and other key variables — to understand the patterns and trends shaping the planet's hydrological systems.
+Users access data through interactive maps and plots, tracking precipitation, evaporation, soil moisture, and other key variables, to understand the patterns and trends shaping the planet's hydrological systems.

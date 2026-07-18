@@ -11,7 +11,7 @@ const topics = [...new Set(entries.flatMap((entry) => entry.data.topics))].sort(
 ---
 
 <BaseLayout
-  title="Publications — GEOGLOWS"
+  title="Publications | GEOGLOWS"
   description="The peer-reviewed science behind GEOGLOWS streamflow forecasts."
 >
   <section class="block">
@@ -21,6 +21,7 @@ const topics = [...new Set(entries.flatMap((entry) => entry.data.topics))].sort(
         heading="The science behind the service"
         intro="Search and filter the peer-reviewed research behind GEOGLOWS."
         align="left"
+        level={1}
       />
       <div class="tools">
         <input
@@ -44,7 +45,7 @@ const topics = [...new Set(entries.flatMap((entry) => entry.data.topics))].sort(
       <div class="list">
         {entries.map((entry) => <PublicationRow {...entry.data} />)}
       </div>
-      <p id="pub-empty" class="empty" hidden>No publications match — try another search or topic.</p>
+      <p id="pub-empty" class="empty" hidden>No publications match. Try another search or topic.</p>
     </div>
   </section>
 </BaseLayout>
@@ -85,8 +86,8 @@ const topics = [...new Set(entries.flatMap((entry) => entry.data.topics))].sort(
     cursor: pointer;
   }
   .topic-chip[aria-pressed="true"] {
-    background: var(--accent);
-    border-color: var(--accent);
+    background: var(--accent-text);
+    border-color: var(--accent-text);
     color: #fff;
   }
   .count {

@@ -1,5 +1,5 @@
 ---
-title: Getting Started — GEOGLOWS
+title: Getting Started | GEOGLOWS
 blocks:
   - type: richText
     eyebrow: Getting started
@@ -8,7 +8,7 @@ blocks:
       GEOGLOWS uses streamflow forecasting technology to help communities around
       the world prepare for and respond to water-related threats. The service
       delivers accurate, real-time forecasts of river discharge for millions of
-      stream segments worldwide — free and open to all.
+      stream segments worldwide, free and open to all.
 
 
       Whether you are new to GEOGLOWS or deepening your technical skills, this is
