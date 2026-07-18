@@ -53,4 +53,30 @@ const publications = defineCollection({
   }),
 });
 
-export const collections = { settings, pages, news, publications };
+const tools = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/tools" }),
+  schema: z.object({
+    name: z.string(),
+    tagline: z.string(),
+    category: z.string().default("Tools"),
+    icon: z.string().default("globe"),
+    image: z.string().optional(),
+    appUrl: z.string().optional(),
+    order: z.number().default(0),
+  }),
+});
+
+const people = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/people" }),
+  schema: z.object({
+    name: z.string(),
+    title: z.string().optional(),
+    organization: z.string().optional(),
+    country: z.string().optional(),
+    group: z.string().default("Project leaders"),
+    photo: z.string().optional(),
+    order: z.number().default(0),
+  }),
+});
+
+export const collections = { settings, pages, news, publications, tools, people };

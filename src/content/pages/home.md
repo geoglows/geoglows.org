@@ -13,13 +13,13 @@ blocks:
     image: /images/hero-delta.webp
     ctas:
       - { label: Open Hydroviewer, href: https://apps.geoglows.org, style: amber }
-      - { label: Access the Data & API, href: "/#tools", style: white }
-      - { label: How the model works, href: "/#about", style: outline }
+      - { label: Access the Data & API, href: /tools, style: white }
+      - { label: How the model works, href: /about, style: outline }
     featured:
       tag: Featured
       title: "New: 85-year retrospective now on AWS Open Data"
       text: The full simulation, 1940–present, is free to download for every river reach worldwide.
-      href: "/#tools"
+      href: /tools
   - type: statBand
     stats:
       - { value: 7.2M, label: river reaches forecast daily }
@@ -73,7 +73,7 @@ blocks:
     eyebrow: The GEOGLOWS community
     heading: Delivered in partnership
     logos: [GEO, ECMWF, NASA, NOAA, BYU, Esri, Aquaveo, Microsoft, World Bank, UNESCO, SERVIR, USAID]
-    cta: { label: Meet the partners, href: "/#about" }
+    cta: { label: Meet the partners, href: /about }
   - type: howItWorks
     eyebrow: How it works
     heading: From global weather to your river
@@ -94,5 +94,5 @@ blocks:
     heading: Start using global streamflow forecasts today
     ctas:
       - { label: Open Hydroviewer, href: https://apps.geoglows.org, style: amber }
-      - { label: Access the Data & API, href: "/#tools", style: navy }
+      - { label: Access the Data & API, href: /tools, style: navy }
 ---

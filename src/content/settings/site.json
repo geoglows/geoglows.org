@@ -2,11 +2,11 @@
   "brandName": "GEOGLOWS",
   "tagline": "Earth Intelligence for All",
   "nav": [
-    { "label": "Getting Started", "href": "/#coverage" },
-    { "label": "Tools & Data", "href": "/#tools" },
+    { "label": "Getting Started", "href": "/getting-started" },
+    { "label": "Tools & Data", "href": "/tools" },
     { "label": "Publications", "href": "/publications" },
     { "label": "News", "href": "/news" },
-    { "label": "About", "href": "/#about" }
+    { "label": "About", "href": "/about" }
   ],
   "navCta": { "label": "Open Hydroviewer", "href": "https://apps.geoglows.org" },
   "ticker": [
@@ -20,27 +20,27 @@
       "title": "Tools & Data",
       "links": [
         { "label": "Hydroviewer", "href": "https://apps.geoglows.org" },
-        { "label": "REST API", "href": "/#tools" },
-        { "label": "AWS Open Data", "href": "/#tools" },
-        { "label": "All tools", "href": "/#tools" }
+        { "label": "All tools", "href": "/tools" },
+        { "label": "Getting started", "href": "/getting-started" },
+        { "label": "Publications", "href": "/publications" }
       ]
     },
     {
       "title": "Learn",
       "links": [
-        { "label": "Getting started", "href": "/#coverage" },
-        { "label": "The science", "href": "/#about" },
+        { "label": "Getting started", "href": "/getting-started" },
+        { "label": "About GEOGLOWS", "href": "/about" },
         { "label": "Publications", "href": "/publications" },
-        { "label": "Training", "href": "/news" }
+        { "label": "News & events", "href": "/news" }
       ]
     },
     {
       "title": "Community",
       "links": [
-        { "label": "Partners", "href": "/#about" },
+        { "label": "Partners", "href": "/about" },
         { "label": "News & events", "href": "/news" },
         { "label": "LinkedIn", "href": "https://www.linkedin.com/company/geoglows" },
-        { "label": "Contact", "href": "/#about" }
+        { "label": "Contact", "href": "mailto:secretariat@geoglows.org" }
       ]
     }
   ],
