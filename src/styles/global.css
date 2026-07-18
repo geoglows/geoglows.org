@@ -73,24 +73,20 @@ img {
    Only active when JS adds .reveal-ready and the user allows motion, so
    reduced-motion and no-JS visitors always see fully-rendered content. */
 @media (prefers-reduced-motion: no-preference) {
-  /* Each section's inner items start offset; the observer sets a per-item
-     transition-delay so they cascade (header first, then cards one by one). */
-  .reveal-ready .hero-inner > *,
-  .reveal-ready main .stat-band > .inner > *,
-  .reveal-ready main .block > .shell > *:not(.grid):not(.layout),
-  .reveal-ready main .block > .shell > .grid > *,
-  .reveal-ready main .block > .shell > .layout > * {
+  /* Whole section fades and rises as a unit, so dark section backgrounds never
+     show as empty boxes. Revealed once and kept, so nothing disappears on scroll. */
+  .reveal-ready .hero-inner,
+  .reveal-ready main .stat-band,
+  .reveal-ready main .block {
     opacity: 0;
-    transform: translateY(40px);
+    transform: translateY(32px);
     transition:
-      opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+      opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .reveal-ready .hero-inner.is-visible > *,
-  .reveal-ready main .stat-band.is-visible > .inner > *,
-  .reveal-ready main .block.is-visible > .shell > *,
-  .reveal-ready main .block.is-visible > .shell > .grid > *,
-  .reveal-ready main .block.is-visible > .shell > .layout > * {
+  .reveal-ready .hero-inner.is-visible,
+  .reveal-ready main .stat-band.is-visible,
+  .reveal-ready main .block.is-visible {
     opacity: 1;
     transform: none;
   }

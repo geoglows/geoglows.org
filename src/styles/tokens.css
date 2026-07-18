@@ -40,7 +40,7 @@
   --hairline-on-dark: rgba(233, 240, 246, 0.15);
 
   /* section vertical rhythm */
-  --block-space: clamp(56px, 8vw, 104px);
+  --block-space: clamp(44px, 5vw, 76px);
 
   /* elevation */
   --shadow-sm: 0 1px 2px rgba(29, 29, 36, 0.06), 0 4px 14px rgba(29, 29, 36, 0.06);
