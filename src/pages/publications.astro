@@ -1,0 +1,103 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeader from "../components/ui/SectionHeader.astro";
+import PublicationRow from "../components/cards/PublicationRow.astro";
+
+const entries = (await getCollection("publications")).sort(
+  (a, b) => b.data.year - a.data.year,
+);
+const topics = [...new Set(entries.flatMap((entry) => entry.data.topics))].sort();
+---
+
+<BaseLayout
+  title="Publications — GEOGLOWS"
+  description="The peer-reviewed science behind GEOGLOWS streamflow forecasts."
+>
+  <section class="block">
+    <div class="shell">
+      <SectionHeader
+        eyebrow="Publications"
+        heading="The science behind the service"
+        intro="Search and filter the peer-reviewed research behind GEOGLOWS."
+        align="left"
+      />
+      <div class="tools">
+        <input
+          id="pub-search"
+          type="search"
+          placeholder="Search title, author, or journal…"
+          aria-label="Search publications"
+        />
+        <div class="chips" role="group" aria-label="Filter by topic">
+          <button class="topic-chip" data-topic="all" aria-pressed="true">All topics</button>
+          {
+            topics.map((topic) => (
+              <button class="topic-chip" data-topic={topic} aria-pressed="false">
+                {topic}
+              </button>
+            ))
+          }
+          <span id="pub-count" class="count">{entries.length} of {entries.length}</span>
+        </div>
+      </div>
+      <div class="list">
+        {entries.map((entry) => <PublicationRow {...entry.data} />)}
+      </div>
+      <p id="pub-empty" class="empty" hidden>No publications match — try another search or topic.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import "../scripts/publications-filter";
+</script>
+
+<style>
+  .tools {
+    margin-bottom: 8px;
+  }
+  #pub-search {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--surface-muted);
+    color: var(--text-strong);
+    font: inherit;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-top: 12px;
+  }
+  .topic-chip {
+    padding: 5px 15px;
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    background: var(--surface-page);
+    color: var(--text-body);
+    font: inherit;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  .topic-chip[aria-pressed="true"] {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+  }
+  .count {
+    margin-left: auto;
+    color: var(--text-faint);
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .empty {
+    padding: 28px 0;
+    color: var(--text-faint);
+    text-align: center;
+  }
+</style>

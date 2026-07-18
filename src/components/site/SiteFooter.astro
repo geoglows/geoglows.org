@@ -1,0 +1,103 @@
+---
+import type { z } from "astro:content";
+import type { linkSchema } from "../../schemas/shared";
+
+type Link = z.infer<typeof linkSchema>;
+
+interface Props {
+  blurb: string;
+  columns: { title: string; links: Link[] }[];
+  legal: Link[];
+}
+const { blurb, columns, legal } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="shell">
+    <div class="footer-top">
+      <div class="brand-col">
+        <img src="/images/geo-logo-white.svg" alt="GEO" />
+        <p>{blurb}</p>
+      </div>
+      {
+        columns.map((col) => (
+          <div class="footer-col">
+            <b>{col.title}</b>
+            {col.links.map((link) => (
+              <a href={link.href}>{link.label}</a>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+    <div class="footer-bottom">
+      <span>© {year} GEOGLOWS · A Group on Earth Observations initiative.</span>
+      <span class="legal">
+        {legal.map((link) => <a href={link.href}>{link.label}</a>)}
+      </span>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-navy-deep);
+    color: #aab8c9;
+    padding: 56px 0 34px;
+  }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap: 34px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(170, 184, 201, 0.16);
+  }
+  .brand-col img {
+    height: 34px;
+    margin-bottom: 14px;
+  }
+  .brand-col p {
+    max-width: 34ch;
+    font-size: 0.86rem;
+    color: #8a9bb0;
+  }
+  .footer-col b {
+    display: block;
+    margin-bottom: 10px;
+    color: #eaf0f6;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .footer-col a {
+    display: block;
+    margin-bottom: 7px;
+    color: #aab8c9;
+    font-size: 0.88rem;
+    text-decoration: none;
+  }
+  .footer-col a:hover {
+    color: #fff;
+  }
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding-top: 20px;
+    font-size: 0.8rem;
+    color: #748399;
+  }
+  .legal a {
+    margin-left: 16px;
+    color: #748399;
+    text-decoration: none;
+  }
+  @media (max-width: 820px) {
+    .footer-top {
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+    }
+  }
+</style>

@@ -1,0 +1,42 @@
+---
+import type { Block } from "../../schemas/blocks";
+import HeroBlock from "./HeroBlock.astro";
+import StatBandBlock from "./StatBandBlock.astro";
+import CoverageBlock from "./CoverageBlock.astro";
+import ImpactStoriesBlock from "./ImpactStoriesBlock.astro";
+import ValuePropsBlock from "./ValuePropsBlock.astro";
+import UseCasesBlock from "./UseCasesBlock.astro";
+import TestimonialsBlock from "./TestimonialsBlock.astro";
+import PartnersBlock from "./PartnersBlock.astro";
+import HowItWorksBlock from "./HowItWorksBlock.astro";
+import NewsletterBlock from "./NewsletterBlock.astro";
+import ClosingCtaBlock from "./ClosingCtaBlock.astro";
+import NewsGridBlock from "./NewsGridBlock.astro";
+
+const registry = {
+  hero: HeroBlock,
+  statBand: StatBandBlock,
+  coverage: CoverageBlock,
+  impactStories: ImpactStoriesBlock,
+  valueProps: ValuePropsBlock,
+  useCases: UseCasesBlock,
+  testimonials: TestimonialsBlock,
+  partners: PartnersBlock,
+  howItWorks: HowItWorksBlock,
+  newsletter: NewsletterBlock,
+  closingCta: ClosingCtaBlock,
+  newsGrid: NewsGridBlock,
+} as const;
+
+interface Props {
+  blocks: Block[];
+}
+const { blocks } = Astro.props;
+---
+
+{
+  blocks.map((block) => {
+    const Component = registry[block.type];
+    return <Component {...(block as any)} />;
+  })
+}
