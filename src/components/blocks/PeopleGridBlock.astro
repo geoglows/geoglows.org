@@ -30,7 +30,11 @@ const people = (await getCollection("people"))
     <div class="grid">
       {
         people.map((person) => (
-          <PersonCard {...person.data} initials={initials(person.data.name)} />
+          <PersonCard
+            {...person.data}
+            initials={initials(person.data.name)}
+            bio={person.body}
+          />
         ))
       }
     </div>
