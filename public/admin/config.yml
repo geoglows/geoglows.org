@@ -316,6 +316,10 @@ collections:
       - { label: Country, name: country, widget: string, required: false }
       - { label: Groups, name: groups, widget: select, multiple: true, options: [Project leaders, Steering committee, Collaborators, Technical team], default: [Project leaders] }
       - { label: Photo, name: photo, widget: image, required: false }
+      - { label: LinkedIn URL, name: linkedin, widget: string, required: false }
+      - { label: Website URL, name: website, widget: string, required: false }
+      - { label: Email, name: email, widget: string, required: false }
+      - { label: ORCID URL, name: orcid, widget: string, required: false }
       - { label: Order, name: order, widget: number, default: 0, value_type: int }
       - { label: Bio, name: body, widget: markdown }
 

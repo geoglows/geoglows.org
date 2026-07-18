@@ -76,6 +76,10 @@ const people = defineCollection({
     country: z.string().optional(),
     groups: z.array(z.string()).default(["Project leaders"]),
     photo: z.string().optional(),
+    linkedin: z.string().optional(),
+    website: z.string().optional(),
+    email: z.string().optional(),
+    orcid: z.string().optional(),
     order: z.number().default(0),
   }),
 });
