@@ -39,12 +39,13 @@ const impactStoriesBlock = z.object({
 });
 
 const iconItem = z.object({ icon: z.string(), title: z.string(), text: z.string() });
+const titleTextItem = z.object({ title: z.string(), text: z.string() });
 
 const valuePropsBlock = z.object({
   type: z.literal("valueProps"),
   eyebrow: z.string().optional(),
   heading: z.string(),
-  items: z.array(iconItem),
+  items: z.array(titleTextItem),
   cta: linkSchema.optional(),
 });
 

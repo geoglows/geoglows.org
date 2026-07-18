@@ -53,9 +53,9 @@ blocks:
     eyebrow: Open science & transparency
     heading: Built on methods anyone can verify
     items:
-      - { icon: layers, title: Transparent & validated, text: The hydrologic model and bias-correction methods are peer-reviewed, documented, and continuously evaluated against gauge data. }
-      - { icon: globe, title: Openly available, text: Every forecast and the full retrospective are free through a public REST API and AWS Open Data, no login, no cost. }
-      - { icon: partners, title: Partnerships that scale, text: GEOGLOWS unites space agencies, universities, and national services around solutions that reach every basin. }
+      - { title: Transparent & validated, text: The hydrologic model and bias-correction methods are peer-reviewed, documented, and continuously evaluated against gauge data. }
+      - { title: Openly available, text: Every forecast and the full retrospective are free through a public REST API and AWS Open Data, no login, no cost. }
+      - { title: Partnerships that scale, text: GEOGLOWS unites space agencies, universities, and national services around solutions that reach every basin. }
     cta: { label: Browse the publications, href: /publications }
   - type: testimonials
     quotes:

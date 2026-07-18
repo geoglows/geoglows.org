@@ -83,5 +83,12 @@ const { heading, text, buttonLabel } = Astro.props as Extract<
     color: var(--cta-ink);
     font-weight: 800;
     cursor: pointer;
+    transition: filter 0.16s ease;
+  }
+  button:hover {
+    filter: brightness(1.06);
+  }
+  button:active {
+    filter: brightness(0.96);
   }
 </style>

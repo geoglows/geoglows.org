@@ -115,6 +115,11 @@ const { nav, cta } = Astro.props;
     background: var(--surface-page);
     color: var(--text-strong);
     cursor: pointer;
+    transition: border-color 0.16s ease, color 0.16s ease;
+  }
+  .nav-toggle:hover {
+    border-color: var(--accent-text);
+    color: var(--accent-text);
   }
 
   @media (max-width: 880px) {

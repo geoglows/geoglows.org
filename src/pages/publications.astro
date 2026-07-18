@@ -85,9 +85,19 @@ const topics = [...new Set(entries.flatMap((entry) => entry.data.topics))].sort(
     font-weight: 600;
     cursor: pointer;
   }
+  .topic-chip {
+    transition: border-color 0.16s ease, color 0.16s ease;
+  }
+  .topic-chip:hover {
+    border-color: var(--accent-text);
+    color: var(--accent-text);
+  }
   .topic-chip[aria-pressed="true"] {
     background: var(--accent-text);
     border-color: var(--accent-text);
+    color: #fff;
+  }
+  .topic-chip[aria-pressed="true"]:hover {
     color: #fff;
   }
   .count {

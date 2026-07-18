@@ -34,6 +34,14 @@
   --cta: var(--color-amber);
   --cta-ink: #3a2a06;
 
+  /* text on the always-dark navy sections (stat band, footer) */
+  --ink-on-dark: #eaf2f7;
+  --ink-on-dark-muted: #a6bccb;
+  --hairline-on-dark: rgba(233, 240, 246, 0.15);
+
+  /* section vertical rhythm */
+  --block-space: clamp(56px, 8vw, 104px);
+
   /* elevation */
   --shadow-sm: 0 1px 2px rgba(29, 29, 36, 0.06), 0 4px 14px rgba(29, 29, 36, 0.06);
   --shadow-md: 0 2px 6px rgba(29, 29, 36, 0.08), 0 16px 40px rgba(29, 29, 36, 0.1);

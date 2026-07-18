@@ -73,7 +73,7 @@ const [lead, ...rest] = stats;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: clamp(20px, 3vw, 40px);
-    border-left: 1px solid rgba(223, 231, 240, 0.14);
+    border-left: 1px solid var(--hairline-on-dark);
     padding-left: clamp(24px, 4vw, 56px);
   }
   .value {
@@ -88,7 +88,7 @@ const [lead, ...rest] = stats;
   .label {
     display: block;
     margin-top: 8px;
-    color: #9fb0c6;
+    color: var(--ink-on-dark-muted);
     font-size: 0.82rem;
   }
   @media (max-width: 860px) {
