@@ -1,0 +1,92 @@
+---
+import type { z } from "astro:content";
+import type { linkSchema } from "../../schemas/shared";
+
+type Link = z.infer<typeof linkSchema>;
+
+interface Props {
+  nav: Link[];
+  cta: Link;
+}
+const { nav, cta } = Astro.props;
+---
+
+<nav class="site-nav" aria-label="Main">
+  <div class="shell nav-inner">
+    <a href="/" class="brand" aria-label="GEOGLOWS home">
+      <img class="logo logo-light" src="/images/geo-logo-navy.svg" alt="GEO" />
+      <img class="logo logo-dark" src="/images/geo-logo-white.svg" alt="GEO" />
+    </a>
+    <div class="links">
+      {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+      <a class="cta" href={cta.href}>{cta.label}</a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 60;
+    background: color-mix(in srgb, var(--surface-page) 88%, transparent);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    padding-block: 12px;
+  }
+  .brand {
+    display: inline-flex;
+  }
+  .logo {
+    height: 38px;
+  }
+  .logo-dark {
+    display: none;
+  }
+  .links {
+    display: flex;
+    align-items: center;
+    gap: 26px;
+    margin-left: auto;
+  }
+  .links a {
+    color: var(--text-strong);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+  .links a:hover {
+    color: var(--accent);
+  }
+  .cta {
+    padding: 9px 18px;
+    border-radius: 8px;
+    background: var(--color-green);
+    color: #fff !important;
+    white-space: nowrap;
+  }
+  @media (max-width: 880px) {
+    .links a:not(.cta) {
+      display: none;
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .logo-light {
+      display: none;
+    }
+    :root:not([data-theme="light"]) .logo-dark {
+      display: block;
+    }
+  }
+  :global(:root[data-theme="dark"]) .logo-light {
+    display: none;
+  }
+  :global(:root[data-theme="dark"]) .logo-dark {
+    display: block;
+  }
+</style>

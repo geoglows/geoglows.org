@@ -1,0 +1,84 @@
+---
+interface Props {
+  title: string;
+  authors: string[];
+  year: number;
+  journal?: string;
+  doi?: string;
+  url?: string;
+  topics: string[];
+}
+const { title, authors, year, journal, doi, url, topics } = Astro.props;
+const searchText = [title, authors.join(" "), journal, ...topics]
+  .filter(Boolean)
+  .join(" ")
+  .toLowerCase();
+---
+
+<article
+  class="pub"
+  data-search={searchText}
+  data-topics={topics.join("|")}
+  data-year={year}
+>
+  <h3>{url ? <a href={url}>{title}</a> : title}</h3>
+  <p class="meta">
+    {authors.join("; ")}
+    {journal && <> · <em>{journal}</em></>}
+    · <span class="year">{year}</span>
+  </p>
+  <div class="topics">
+    {topics.map((topic) => <span class="topic">{topic}</span>)}
+    {doi && <span class="doi">doi:{doi}</span>}
+  </div>
+</article>
+
+<style>
+  .pub {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  h3 {
+    font-size: 1rem;
+    line-height: 1.35;
+  }
+  h3 a {
+    color: var(--text-strong);
+    text-decoration: none;
+  }
+  h3 a:hover {
+    color: var(--accent);
+  }
+  .meta {
+    margin-top: 4px;
+    color: var(--text-body);
+    font-size: 0.85rem;
+  }
+  .year {
+    color: var(--accent-strong);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-items: center;
+    margin-top: 8px;
+  }
+  .topic {
+    padding: 2px 9px;
+    border-radius: 4px;
+    background: var(--surface-wash);
+    color: var(--accent);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .doi {
+    color: var(--text-faint);
+    font-size: 0.74rem;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+  }
+</style>

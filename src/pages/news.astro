@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeader from "../components/ui/SectionHeader.astro";
+import NewsCard from "../components/cards/NewsCard.astro";
+
+const entries = (await getCollection("news")).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime(),
+);
+---
+
+<BaseLayout
+  title="News & Events — GEOGLOWS"
+  description="Releases, training, and impact stories from the GEOGLOWS community."
+>
+  <section class="block">
+    <div class="shell">
+      <SectionHeader
+        eyebrow="News & events"
+        heading="Latest from the community"
+        align="left"
+      />
+      <div class="grid">
+        {entries.map((entry) => <NewsCard {...entry.data} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

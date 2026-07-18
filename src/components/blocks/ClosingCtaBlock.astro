@@ -1,0 +1,35 @@
+---
+import type { Block } from "../../schemas/blocks";
+import CtaButton from "../ui/CtaButton.astro";
+const { heading, ctas } = Astro.props as Extract<Block, { type: "closingCta" }>;
+---
+
+<section class="block muted closing">
+  <div class="shell">
+    <h2>{heading}</h2>
+    <div class="ctas">
+      {ctas.map((cta) => <CtaButton href={cta.href} label={cta.label} style={cta.style} />)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .muted {
+    background: var(--surface-muted);
+  }
+  .closing {
+    text-align: center;
+  }
+  h2 {
+    max-width: 18ch;
+    margin: 0 auto;
+    font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+  }
+  .ctas {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 28px;
+  }
+</style>
