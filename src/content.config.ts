@@ -49,6 +49,7 @@ const publications = defineCollection({
     doi: z.string().optional(),
     url: z.string().optional(),
     topics: z.array(z.string()).default([]),
+    image: z.string().optional(),
     abstract: z.string().optional(),
   }),
 });
