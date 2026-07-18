@@ -4,6 +4,7 @@ title: "Water & Hydro-climatic Disasters Lead"
 organization: "RCMRD"
 country: "Kenya"
 groups: ["Collaborators"]
+photo: /images/people/calvince-wara.webp
 order: 4
 ---
 

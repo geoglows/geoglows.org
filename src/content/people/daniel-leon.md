@@ -3,6 +3,7 @@ name: "Daniel Leon"
 title: "Hydrology Lead"
 organization: "GEOPathways Latin America"
 groups: ["Collaborators"]
+photo: /images/people/daniel-leon.webp
 order: 6
 ---
 

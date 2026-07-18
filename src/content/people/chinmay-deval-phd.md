@@ -4,6 +4,7 @@ title: "Water Security Thematic Lead"
 organization: "SERVIR / University of Alabama, Huntsville"
 country: "USA"
 groups: ["Collaborators"]
+photo: /images/people/chinmay-deval-phd.webp
 order: 3
 ---
 
