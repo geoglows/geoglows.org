@@ -43,6 +43,9 @@ const href = url ?? (doi ? `https://doi.org/${doi}` : undefined);
 </article>
 
 <style>
+  .pub[hidden] {
+    display: none;
+  }
   .pub {
     display: flex;
     flex-direction: column;
