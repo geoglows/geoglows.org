@@ -3,7 +3,7 @@ backend:
   name: github
   repo: geoglows/geoglows.org
   branch: main
-  base_url: https://geoglows-org.vercel.app # this deployment's own origin (update to final domain)
+  base_url: https://geoglowsorg.vercel.app # this deployment's own origin (update if a custom domain is added)
   auth_endpoint: api/auth
 
 # Lets editors run the admin against local files during development:
