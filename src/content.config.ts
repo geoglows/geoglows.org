@@ -74,10 +74,28 @@ const people = defineCollection({
     title: z.string().optional(),
     organization: z.string().optional(),
     country: z.string().optional(),
-    group: z.string().default("Project leaders"),
+    groups: z.array(z.string()).default(["Project leaders"]),
     photo: z.string().optional(),
     order: z.number().default(0),
   }),
 });
 
-export const collections = { settings, pages, news, publications, tools, people };
+const workingGroups = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/working-groups" }),
+  schema: z.object({
+    number: z.number(),
+    title: z.string(),
+    summary: z.string(),
+    order: z.number().default(0),
+  }),
+});
+
+export const collections = {
+  settings,
+  pages,
+  news,
+  publications,
+  tools,
+  people,
+  workingGroups,
+};

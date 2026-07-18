@@ -122,6 +122,12 @@ const peopleGridBlock = z.object({
   group: z.string().optional(),
 });
 
+const workingGroupsBlock = z.object({
+  type: z.literal("workingGroups"),
+  eyebrow: z.string().optional(),
+  heading: z.string(),
+});
+
 export const blockSchema = z.discriminatedUnion("type", [
   heroBlock,
   statBandBlock,
@@ -138,6 +144,7 @@ export const blockSchema = z.discriminatedUnion("type", [
   richTextBlock,
   toolsGridBlock,
   peopleGridBlock,
+  workingGroupsBlock,
 ]);
 
 export type Block = z.infer<typeof blockSchema>;
