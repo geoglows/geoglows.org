@@ -1,6 +1,4 @@
 ---
-import { marked } from "marked";
-
 interface Props {
   name: string;
   title?: string;
@@ -8,53 +6,51 @@ interface Props {
   country?: string;
   photo?: string;
   initials: string;
-  bio?: string;
+  href: string;
 }
-const { name, title, organization, country, photo, initials, bio } = Astro.props;
+const { name, title, organization, country, photo, initials, href } = Astro.props;
 const affiliation = [organization, country].filter(Boolean).join(" · ");
-const bioHtml = bio?.trim() ? marked.parse(bio) : "";
 ---
 
-<article class="person">
-  <div class="head">
-    {
-      photo ? (
-        <img class="photo" src={photo} alt={name} width="56" height="56" loading="lazy" decoding="async" />
-      ) : (
-        <span class="avatar">{initials}</span>
-      )
-    }
-    <div class="info">
-      <h3>{name}</h3>
-      {title && <p class="title">{title}</p>}
-      {affiliation && <p class="affiliation">{affiliation}</p>}
-    </div>
-  </div>
+<a class="person" href={href}>
   {
-    bioHtml && (
-      <details class="bio">
-        <summary>Read bio</summary>
-        <div class="bio-body" set:html={bioHtml} />
-      </details>
+    photo ? (
+      <img class="photo" src={photo} alt={name} width="56" height="56" loading="lazy" decoding="async" />
+    ) : (
+      <span class="avatar">{initials}</span>
     )
   }
-</article>
+  <div class="info">
+    <h3>{name}</h3>
+    {title && <p class="title">{title}</p>}
+    {affiliation && <p class="affiliation">{affiliation}</p>}
+    <span class="more">View profile →</span>
+  </div>
+</a>
 
 <style>
   .person {
     display: flex;
-    flex-direction: column;
-    height: 100%;
+    gap: 14px;
+    align-items: center;
     padding: 16px;
     border: 1px solid var(--border);
     border-radius: var(--radius);
     background: var(--surface-page);
     box-shadow: var(--shadow-sm);
+    text-decoration: none;
+    color: var(--text-strong);
+    transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
   }
-  .head {
-    display: flex;
-    gap: 14px;
-    align-items: center;
+  .person:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--accent-text);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .person:hover {
+      transform: none;
+    }
   }
   .photo,
   .avatar {
@@ -86,42 +82,11 @@ const bioHtml = bio?.trim() ? marked.parse(bio) : "";
     color: var(--text-faint);
     font-size: 0.8rem;
   }
-  .bio {
-    margin-top: 14px;
-  }
-  .bio summary {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    list-style: none;
-    cursor: pointer;
-    color: var(--accent-text);
-    font-size: 0.82rem;
-    font-weight: 700;
-  }
-  .bio summary::-webkit-details-marker {
-    display: none;
-  }
-  .bio summary::after {
-    content: "↓";
-    font-size: 0.75rem;
-    transition: transform 0.2s ease;
-  }
-  .bio[open] summary::after {
-    transform: rotate(180deg);
-  }
-  .bio-body {
+  .more {
+    display: inline-block;
     margin-top: 8px;
-    color: var(--text-body);
-    font-size: 0.88rem;
-    line-height: 1.55;
-  }
-  .bio-body :global(p) {
-    margin: 0;
-  }
-  .bio summary:focus-visible {
-    outline: 2px solid var(--cta);
-    outline-offset: 3px;
-    border-radius: 4px;
+    color: var(--accent-text);
+    font-size: 0.78rem;
+    font-weight: 700;
   }
 </style>

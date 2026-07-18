@@ -33,7 +33,7 @@ const people = (await getCollection("people"))
           <PersonCard
             {...person.data}
             initials={initials(person.data.name)}
-            bio={person.body}
+            href={`/people/${person.id}`}
           />
         ))
       }
