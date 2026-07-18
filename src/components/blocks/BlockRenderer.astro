@@ -12,6 +12,10 @@ import HowItWorksBlock from "./HowItWorksBlock.astro";
 import NewsletterBlock from "./NewsletterBlock.astro";
 import ClosingCtaBlock from "./ClosingCtaBlock.astro";
 import NewsGridBlock from "./NewsGridBlock.astro";
+import RichTextBlock from "./RichTextBlock.astro";
+import ToolsGridBlock from "./ToolsGridBlock.astro";
+import PeopleGridBlock from "./PeopleGridBlock.astro";
+import WorkingGroupsBlock from "./WorkingGroupsBlock.astro";
 
 const registry = {
   hero: HeroBlock,
@@ -26,6 +30,10 @@ const registry = {
   newsletter: NewsletterBlock,
   closingCta: ClosingCtaBlock,
   newsGrid: NewsGridBlock,
+  richText: RichTextBlock,
+  toolsGrid: ToolsGridBlock,
+  peopleGrid: PeopleGridBlock,
+  workingGroups: WorkingGroupsBlock,
 } as const;
 
 interface Props {

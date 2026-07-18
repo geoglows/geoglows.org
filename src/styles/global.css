@@ -64,12 +64,52 @@ img {
   padding-inline: var(--gutter);
 }
 
+/* Consistent vertical rhythm for every content section */
+.block {
+  padding-block: var(--block-space);
+}
+
+/* Scroll-reveal: sections fade and rise as they enter the viewport.
+   Only active when JS adds .reveal-ready and the user allows motion, so
+   reduced-motion and no-JS visitors always see fully-rendered content. */
+@media (prefers-reduced-motion: no-preference) {
+  /* Whole section fades and rises as a unit, so dark section backgrounds never
+     show as empty boxes. Revealed once and kept, so nothing disappears on scroll. */
+  .reveal-ready .hero-inner,
+  .reveal-ready main .stat-band,
+  .reveal-ready main .block {
+    opacity: 0;
+    transform: translateY(32px);
+    transition:
+      opacity 0.65s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal-ready .hero-inner.is-visible,
+  .reveal-ready main .stat-band.is-visible,
+  .reveal-ready main .block.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .eyebrow {
   display: inline-flex;
   align-items: center;
   gap: 9px;
   margin-bottom: 12px;
-  color: var(--accent);
+  color: var(--accent-text);
   font-size: 0.76rem;
   font-weight: 700;
   letter-spacing: 0.15em;

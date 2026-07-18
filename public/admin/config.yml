@@ -3,7 +3,7 @@ backend:
   name: github
   repo: geoglows/geoglows.org
   branch: main
-  base_url: https://geoglows-org.vercel.app # this deployment's own origin (update to final domain)
+  base_url: https://geoglowsorg.vercel.app # this deployment's own origin (update if a custom domain is added)
   auth_endpoint: api/auth
 
 # Lets editors run the admin against local files during development:
@@ -158,7 +158,6 @@ collections:
                 name: items
                 widget: list
                 fields:
-                  - { label: Icon, name: icon, widget: select, options: [layers, globe, partners, waves, drop, bars, flood, capacity] }
                   - { label: Title, name: title, widget: string }
                   - { label: Text, name: text, widget: text }
               - label: Button
@@ -252,6 +251,92 @@ collections:
                 fields:
                   - { label: Label, name: label, widget: string }
                   - { label: Link, name: href, widget: string }
+          - label: Rich text
+            name: richText
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string, required: false }
+              - { label: Body, name: body, widget: markdown }
+              - { label: Background, name: background, widget: select, options: [page, muted], default: page }
+          - label: Tools grid
+            name: toolsGrid
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - { label: Category filter, name: category, widget: string, required: false, hint: "Leave blank to show all tools." }
+          - label: People grid
+            name: peopleGrid
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Group filter, name: group, widget: string, required: false, hint: "e.g. Project leaders, Steering committee, Collaborators" }
+          - label: Working groups
+            name: workingGroups
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+
+  - name: tools
+    label: Tools
+    label_singular: Tool
+    folder: src/content/tools
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    identifier_field: name
+    sortable_fields: [order, name]
+    fields:
+      - { label: Name, name: name, widget: string }
+      - { label: Tagline, name: tagline, widget: string }
+      - { label: Category, name: category, widget: select, options: [Forecasting, Groundwater, Analysis, Mapping], default: Analysis }
+      - { label: Icon, name: icon, widget: select, options: [layers, globe, partners, waves, drop, bars, flood, capacity], default: globe }
+      - { label: Image, name: image, widget: image, required: false }
+      - { label: App URL, name: appUrl, widget: string, required: false }
+      - { label: Order, name: order, widget: number, default: 0, value_type: int }
+      - { label: Description, name: body, widget: markdown }
+
+  - name: people
+    label: People
+    label_singular: Person
+    folder: src/content/people
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    identifier_field: name
+    sortable_fields: [group, order, name]
+    fields:
+      - { label: Name, name: name, widget: string }
+      - { label: Title, name: title, widget: string, required: false }
+      - { label: Organization, name: organization, widget: string, required: false }
+      - { label: Country, name: country, widget: string, required: false }
+      - { label: Groups, name: groups, widget: select, multiple: true, options: [Project leaders, Steering committee, Collaborators, Technical team], default: [Project leaders] }
+      - { label: Photo, name: photo, widget: image, required: false }
+      - { label: LinkedIn URL, name: linkedin, widget: string, required: false }
+      - { label: Website URL, name: website, widget: string, required: false }
+      - { label: Email, name: email, widget: string, required: false }
+      - { label: ORCID URL, name: orcid, widget: string, required: false }
+      - { label: Order, name: order, widget: number, default: 0, value_type: int }
+      - { label: Bio, name: body, widget: markdown }
+
+  - name: working-groups
+    label: Working Groups
+    label_singular: Working Group
+    folder: src/content/working-groups
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    identifier_field: title
+    sortable_fields: [order, number]
+    fields:
+      - { label: Number, name: number, widget: number, value_type: int }
+      - { label: Title, name: title, widget: string }
+      - { label: Summary, name: summary, widget: text }
+      - { label: Order, name: order, widget: number, default: 0, value_type: int }
 
   - name: news
     label: News & Events
@@ -287,4 +372,5 @@ collections:
       - { label: Journal, name: journal, widget: string, required: false }
       - { label: URL, name: url, widget: string, required: false }
       - { label: Topics, name: topics, widget: list, field: { label: Topic, name: topic, widget: string } }
+      - { label: Image, name: image, widget: image, required: false }
       - { label: Abstract, name: abstract, widget: text, required: false }

@@ -2,7 +2,7 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeader from "../components/ui/SectionHeader.astro";
-import PublicationRow from "../components/cards/PublicationRow.astro";
+import PublicationCard from "../components/cards/PublicationCard.astro";
 
 const entries = (await getCollection("publications")).sort(
   (a, b) => b.data.year - a.data.year,
@@ -11,7 +11,7 @@ const topics = [...new Set(entries.flatMap((entry) => entry.data.topics))].sort(
 ---
 
 <BaseLayout
-  title="Publications — GEOGLOWS"
+  title="Publications | GEOGLOWS"
   description="The peer-reviewed science behind GEOGLOWS streamflow forecasts."
 >
   <section class="block">
@@ -21,6 +21,7 @@ const topics = [...new Set(entries.flatMap((entry) => entry.data.topics))].sort(
         heading="The science behind the service"
         intro="Search and filter the peer-reviewed research behind GEOGLOWS."
         align="left"
+        level={1}
       />
       <div class="tools">
         <input
@@ -41,10 +42,10 @@ const topics = [...new Set(entries.flatMap((entry) => entry.data.topics))].sort(
           <span id="pub-count" class="count">{entries.length} of {entries.length}</span>
         </div>
       </div>
-      <div class="list">
-        {entries.map((entry) => <PublicationRow {...entry.data} />)}
+      <div class="grid">
+        {entries.map((entry) => <PublicationCard {...entry.data} />)}
       </div>
-      <p id="pub-empty" class="empty" hidden>No publications match — try another search or topic.</p>
+      <p id="pub-empty" class="empty" hidden>No publications match. Try another search or topic.</p>
     </div>
   </section>
 </BaseLayout>
@@ -84,9 +85,19 @@ const topics = [...new Set(entries.flatMap((entry) => entry.data.topics))].sort(
     font-weight: 600;
     cursor: pointer;
   }
+  .topic-chip {
+    transition: border-color 0.16s ease, color 0.16s ease;
+  }
+  .topic-chip:hover {
+    border-color: var(--accent-text);
+    color: var(--accent-text);
+  }
   .topic-chip[aria-pressed="true"] {
-    background: var(--accent);
-    border-color: var(--accent);
+    background: var(--accent-text);
+    border-color: var(--accent-text);
+    color: #fff;
+  }
+  .topic-chip[aria-pressed="true"]:hover {
     color: #fff;
   }
   .count {
@@ -94,6 +105,12 @@ const topics = [...new Set(entries.flatMap((entry) => entry.data.topics))].sort(
     color: var(--text-faint);
     font-size: 0.78rem;
     font-variant-numeric: tabular-nums;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+    margin-top: 28px;
   }
   .empty {
     padding: 28px 0;

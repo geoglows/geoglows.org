@@ -1,0 +1,88 @@
+---
+import { getCollection, render } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import CtaButton from "../../components/ui/CtaButton.astro";
+
+export async function getStaticPaths() {
+  const tools = await getCollection("tools");
+  return tools.map((tool) => ({ params: { slug: tool.id }, props: { tool } }));
+}
+
+const { tool } = Astro.props;
+const { Content } = await render(tool);
+---
+
+<BaseLayout title={`${tool.data.name} | GEOGLOWS`} description={tool.data.tagline}>
+  <section class="block">
+    <div class="shell narrow">
+      <p class="category">{tool.data.category}</p>
+      <h1>{tool.data.name}</h1>
+      <p class="tagline">{tool.data.tagline}</p>
+      {
+        tool.data.image && (
+          <img class="hero" src={tool.data.image} alt="" width="1600" height="1000" loading="lazy" decoding="async" />
+        )
+      }
+      <div class="prose"><Content /></div>
+      {
+        tool.data.appUrl && (
+          <div class="launch">
+            <CtaButton href={tool.data.appUrl} label={`Explore ${tool.data.name}`} style="green" />
+          </div>
+        )
+      }
+      <p class="back"><a href="/tools">← All tools & data</a></p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .narrow {
+    max-width: 760px;
+  }
+  .category {
+    color: var(--accent-text);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  h1 {
+    margin: 8px 0 10px;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+  }
+  .tagline {
+    color: var(--text-body);
+    font-size: 1.1rem;
+  }
+  .hero {
+    width: 100%;
+    margin: 24px 0;
+    border-radius: var(--radius);
+  }
+  .prose {
+    margin-top: 20px;
+    color: var(--text-body);
+    font-size: 1.02rem;
+  }
+  .prose :global(h2),
+  .prose :global(h3) {
+    margin: 1.5em 0 0.4em;
+    color: var(--text-strong);
+  }
+  .prose :global(p) {
+    margin-bottom: 1em;
+  }
+  .prose :global(ul) {
+    margin: 0 0 1em;
+    padding-left: 1.2em;
+  }
+  .launch {
+    margin: 28px 0;
+  }
+  .back a {
+    color: var(--accent-strong);
+    font-weight: 600;
+    text-decoration: none;
+  }
+</style>

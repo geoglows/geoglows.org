@@ -41,15 +41,18 @@ const { eyebrow, heading, items } = Astro.props as Extract<
   .icon {
     display: grid;
     place-items: center;
-    width: 64px;
-    height: 64px;
+    width: 44px;
+    height: 44px;
     margin: 0 auto 16px;
-    border-radius: 16px;
-    background: var(--surface-teal-wash);
-    color: var(--color-navy);
+    color: var(--color-teal-green);
+  }
+  .icon :global(svg) {
+    width: 40px;
+    height: 40px;
+    stroke-width: 1.5;
   }
   h3 {
-    font-size: 1.05rem;
+    font-size: 1.1rem;
   }
   p {
     margin-top: 7px;

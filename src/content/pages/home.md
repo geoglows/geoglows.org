@@ -1,5 +1,5 @@
 ---
-title: GEOGLOWS — Streamflow forecasts for every river on Earth
+title: Streamflow forecasts for every river on Earth | GEOGLOWS
 blocks:
   - type: hero
     eyebrow: A GEO initiative · Earth Intelligence for All
@@ -8,18 +8,18 @@ blocks:
     subtitle: >-
       GEOGLOWS delivers open, operational 15-day ensemble forecasts and an
       85-year retrospective simulation for more than seven million river reaches
-      worldwide — free for every water manager, researcher, and community on the
+      worldwide, free for every water manager, researcher, and community on the
       planet.
     image: /images/hero-delta.webp
     ctas:
       - { label: Open Hydroviewer, href: https://apps.geoglows.org, style: amber }
-      - { label: Access the Data & API, href: "/#tools", style: white }
-      - { label: How the model works, href: "/#about", style: outline }
+      - { label: Access the Data & API, href: /tools, style: white }
+      - { label: How the model works, href: /about, style: outline }
     featured:
       tag: Featured
       title: "New: 85-year retrospective now on AWS Open Data"
-      text: The full simulation, 1940–present, is free to download for every river reach worldwide.
-      href: "/#tools"
+      text: The full simulation, 1940 to present, is free to download for every river reach worldwide.
+      href: /tools
   - type: statBand
     stats:
       - { value: 7.2M, label: river reaches forecast daily }
@@ -31,7 +31,7 @@ blocks:
     heading: One connected view of the planet's water
     intro: >-
       GEOGLOWS combines global Earth observations, hydrologic modelling, and
-      local stream networks — the interconnected picture behind every forecast.
+      local stream networks, the interconnected picture behind every forecast.
     items:
       - { image: /images/aerial-satellite.webp, title: Global observations, text: Satellite and reanalysis data covering the entire globe. }
       - { image: /images/aerial-glacier.webp, title: Hydrologic model, text: Runoff simulated everywhere, every day. }
@@ -53,13 +53,13 @@ blocks:
     eyebrow: Open science & transparency
     heading: Built on methods anyone can verify
     items:
-      - { icon: layers, title: Transparent & validated, text: The hydrologic model and bias-correction methods are peer-reviewed, documented, and continuously evaluated against gauge data. }
-      - { icon: globe, title: Openly available, text: Every forecast and the full retrospective are free through a public REST API and AWS Open Data — no login, no cost. }
-      - { icon: partners, title: Partnerships that scale, text: GEOGLOWS unites space agencies, universities, and national services around solutions that reach every basin. }
+      - { title: Transparent & validated, text: The hydrologic model and bias-correction methods are peer-reviewed, documented, and continuously evaluated against gauge data. }
+      - { title: Openly available, text: Every forecast and the full retrospective are free through a public REST API and AWS Open Data, no login, no cost. }
+      - { title: Partnerships that scale, text: GEOGLOWS unites space agencies, universities, and national services around solutions that reach every basin. }
     cta: { label: Browse the publications, href: /publications }
   - type: testimonials
     quotes:
-      - { quote: "GEOGLOWS forecasts let our agency issue flood warnings days earlier than we ever could before — for rivers we had no models for at all.", name: "Dr. Aisha Mensah", role: National Hydrological Service, Ghana, initials: AM }
+      - { quote: "GEOGLOWS forecasts let our agency issue flood warnings days earlier than we ever could before, for rivers we had no models for at all.", name: "Dr. Aisha Mensah", role: National Hydrological Service, Ghana, initials: AM }
       - { quote: "Having an 85-year retrospective openly available changed how we do research. Students can validate a basin anywhere in the world in an afternoon.", name: "Prof. Carlos Ramírez", role: Universidad Nacional, Colombia, initials: CR }
   - type: useCases
     eyebrow: A collaborative solution
@@ -73,14 +73,14 @@ blocks:
     eyebrow: The GEOGLOWS community
     heading: Delivered in partnership
     logos: [GEO, ECMWF, NASA, NOAA, BYU, Esri, Aquaveo, Microsoft, World Bank, UNESCO, SERVIR, USAID]
-    cta: { label: Meet the partners, href: "/#about" }
+    cta: { label: Meet the partners, href: /about }
   - type: howItWorks
     eyebrow: How it works
     heading: From global weather to your river
     steps:
       - { title: Global forecasts, text: ECMWF ensemble runoff forecasts are produced daily for the entire globe. }
       - { title: Routed & corrected, text: Runoff is routed through 7M+ mapped river reaches and bias-corrected against observations. }
-      - { title: Delivered to you, text: Results reach you through Hydroviewer, the REST API, and AWS Open Data — within the hour. }
+      - { title: Delivered to you, text: Results reach you through Hydroviewer, the REST API, and AWS Open Data, within the hour. }
   - type: newsGrid
     eyebrow: News
     heading: Latest from the community
@@ -94,5 +94,5 @@ blocks:
     heading: Start using global streamflow forecasts today
     ctas:
       - { label: Open Hydroviewer, href: https://apps.geoglows.org, style: amber }
-      - { label: Access the Data & API, href: "/#tools", style: navy }
+      - { label: Access the Data & API, href: /tools, style: navy }
 ---

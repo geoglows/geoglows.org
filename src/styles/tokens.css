@@ -14,24 +14,33 @@
   --color-amber: #ffbf00;
   --color-orange: #f47920;
 
-  /* surfaces + neutrals */
-  --surface-page: #ffffff;
-  --surface-muted: #f5f5f7;
+  /* surfaces + neutrals (tinted a hair toward the brand teal) */
+  --surface-page: #fbfdfd;
+  --surface-muted: #f3f5f6;
   --surface-alt: #e6eaef;
   --surface-wash: #e7f0ed;
   --surface-teal-wash: #ccdbdc;
 
-  /* text */
+  /* text — small-text tokens meet WCAG AA (>=4.5:1) on page and muted surfaces */
   --text-strong: #1d1d24;
-  --text-body: #606065;
-  --text-faint: #808080;
+  --text-body: #55555a;
+  --text-faint: #5c5c61;
   --border: #d6dee1;
 
   /* semantic roles */
   --accent: var(--color-teal-green);
+  --accent-text: #0a6157; /* AA-safe teal for small text and filled chips */
   --accent-strong: var(--color-blue);
   --cta: var(--color-amber);
   --cta-ink: #3a2a06;
+
+  /* text on the always-dark navy sections (stat band, footer) */
+  --ink-on-dark: #eaf2f7;
+  --ink-on-dark-muted: #a6bccb;
+  --hairline-on-dark: rgba(233, 240, 246, 0.15);
+
+  /* section vertical rhythm */
+  --block-space: clamp(44px, 5vw, 76px);
 
   /* elevation */
   --shadow-sm: 0 1px 2px rgba(29, 29, 36, 0.06), 0 4px 14px rgba(29, 29, 36, 0.06);
@@ -60,6 +69,7 @@
     --text-faint: #708491;
     --border: #26343d;
     --accent: #4fb3a4;
+    --accent-text: #6fd0c0;
     --accent-strong: #4fb7d8;
     color-scheme: dark;
   }
@@ -76,6 +86,7 @@
   --text-faint: #708491;
   --border: #26343d;
   --accent: #4fb3a4;
+  --accent-text: #6fd0c0;
   --accent-strong: #4fb7d8;
   color-scheme: dark;
 }
