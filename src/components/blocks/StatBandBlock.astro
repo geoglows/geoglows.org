@@ -1,0 +1,48 @@
+---
+import type { Block } from "../../schemas/blocks";
+const { stats } = Astro.props as Extract<Block, { type: "statBand" }>;
+---
+
+<div class="stat-band">
+  <div class="shell stats">
+    {
+      stats.map((stat) => (
+        <div class="stat">
+          <span class="value">{stat.value}</span>
+          <span class="label">{stat.label}</span>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .stat-band {
+    background: var(--color-navy-deep);
+    color: #dfe7f0;
+  }
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding-block: 22px;
+  }
+  .value {
+    display: block;
+    color: #fff;
+    font-family: "Raleway", sans-serif;
+    font-weight: 800;
+    font-size: clamp(1.5rem, 2.6vw, 2.1rem);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.05;
+  }
+  .label {
+    color: #9fb0c6;
+    font-size: 0.82rem;
+  }
+  @media (max-width: 760px) {
+    .stats {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

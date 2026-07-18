@@ -1,0 +1,46 @@
+---
+import GeoGlyph from "../site/GeoGlyph.astro";
+
+interface Props {
+  eyebrow?: string;
+  heading: string;
+  intro?: string;
+  align?: "center" | "left";
+}
+const { eyebrow, heading, intro, align = "center" } = Astro.props;
+---
+
+<div class:list={["section-header", align]}>
+  {
+    eyebrow && (
+      <p class="eyebrow">
+        <GeoGlyph />
+        {eyebrow}
+      </p>
+    )
+  }
+  <h2>{heading}</h2>
+  {intro && <p class="intro">{intro}</p>}
+</div>
+
+<style>
+  .section-header {
+    max-width: 760px;
+    margin-bottom: 44px;
+  }
+  .section-header.center {
+    margin-inline: auto;
+    text-align: center;
+  }
+  .section-header.center .eyebrow {
+    justify-content: center;
+  }
+  h2 {
+    font-size: clamp(1.7rem, 3.4vw, 2.5rem);
+  }
+  .intro {
+    margin-top: 14px;
+    color: var(--text-body);
+    font-size: 1.05rem;
+  }
+</style>

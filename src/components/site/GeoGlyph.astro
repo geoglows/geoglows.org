@@ -1,0 +1,28 @@
+---
+interface Props {
+  width?: number;
+  left?: string;
+  right?: string;
+}
+const { width = 22, left = "#008b7b", right = "#0060a9" } = Astro.props;
+const height = Math.round(width * 0.64);
+---
+
+<svg
+  width={width}
+  height={height}
+  viewBox="0 0 22 14"
+  fill="none"
+  aria-hidden="true"
+  class="geo-glyph"
+>
+  <circle cx="7" cy="7" r="6" stroke={left} stroke-width="1.6" />
+  <circle cx="15" cy="7" r="6" stroke={right} stroke-width="1.6" />
+</svg>
+
+<style>
+  .geo-glyph {
+    flex: none;
+    display: block;
+  }
+</style>

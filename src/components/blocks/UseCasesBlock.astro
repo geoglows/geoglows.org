@@ -1,0 +1,69 @@
+---
+import type { Block } from "../../schemas/blocks";
+import SectionHeader from "../ui/SectionHeader.astro";
+import Icon from "../ui/Icon.astro";
+
+const { eyebrow, heading, items } = Astro.props as Extract<
+  Block,
+  { type: "useCases" }
+>;
+---
+
+<section class="block muted">
+  <div class="shell">
+    <SectionHeader eyebrow={eyebrow} heading={heading} />
+    <div class="grid">
+      {
+        items.map((item) => (
+          <div class="use">
+            <span class="icon">
+              <Icon name={item.icon} size={30} />
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .muted {
+    background: var(--surface-muted);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 22px;
+    text-align: center;
+  }
+  .icon {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    margin: 0 auto 16px;
+    border-radius: 16px;
+    background: var(--surface-teal-wash);
+    color: var(--color-navy);
+  }
+  h3 {
+    font-size: 1.05rem;
+  }
+  p {
+    margin-top: 7px;
+    color: var(--text-body);
+    font-size: 0.9rem;
+  }
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 520px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

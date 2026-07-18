@@ -1,0 +1,71 @@
+---
+import type { Block } from "../../schemas/blocks";
+import SectionHeader from "../ui/SectionHeader.astro";
+import CtaButton from "../ui/CtaButton.astro";
+import Icon from "../ui/Icon.astro";
+
+const { eyebrow, heading, items, cta } = Astro.props as Extract<
+  Block,
+  { type: "valueProps" }
+>;
+---
+
+<section class="block muted">
+  <div class="shell">
+    <SectionHeader eyebrow={eyebrow} heading={heading} />
+    <div class="grid">
+      {
+        items.map((item) => (
+          <div class="value">
+            <span class="icon">
+              <Icon name={item.icon} size={26} />
+            </span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </div>
+        ))
+      }
+    </div>
+    {cta && <div class="center"><CtaButton href={cta.href} label={cta.label} style="green" /></div>}
+  </div>
+</section>
+
+<style>
+  .muted {
+    background: var(--surface-muted);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 34px;
+    text-align: center;
+  }
+  .icon {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    margin: 0 auto 14px;
+    border-radius: var(--radius);
+    background: var(--surface-wash);
+    color: var(--color-green);
+  }
+  h3 {
+    font-size: 1.15rem;
+  }
+  p {
+    margin-top: 8px;
+    color: var(--text-body);
+    font-size: 0.95rem;
+  }
+  .center {
+    margin-top: 40px;
+    text-align: center;
+  }
+  @media (max-width: 820px) {
+    .grid {
+      grid-template-columns: 1fr;
+      gap: 26px;
+    }
+  }
+</style>
