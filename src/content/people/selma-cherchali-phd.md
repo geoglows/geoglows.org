@@ -4,6 +4,7 @@ title: "Head, Earth Observation Department"
 organization: "CNES"
 country: "France"
 groups: ["Collaborators"]
+photo: /images/people/selma-cherchali-phd.webp
 order: 1
 ---
 
