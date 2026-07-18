@@ -4,6 +4,7 @@ title: "Hydrologist"
 organization: "Brigham Young University"
 country: "USA"
 groups: ["Project leaders"]
+photo: /images/people/jorge-luis-sanchez-lozano.webp
 order: 9
 ---
 

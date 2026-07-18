@@ -4,6 +4,7 @@ title: "Professor"
 organization: "University of Houston"
 country: "USA"
 groups: ["Project leaders"]
+photo: /images/people/hyongki-lee-phd.webp
 order: 5
 ---
 
