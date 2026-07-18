@@ -1,0 +1,59 @@
+---
+import { getCollection } from "astro:content";
+import type { Block } from "../../schemas/blocks";
+import SectionHeader from "../ui/SectionHeader.astro";
+import PersonCard from "../cards/PersonCard.astro";
+
+const { eyebrow, heading, group } = Astro.props as Extract<
+  Block,
+  { type: "peopleGrid" }
+>;
+
+function initials(name: string): string {
+  return name
+    .replace(/^(Dr\.?|Prof\.?|PhD)\s+/i, "")
+    .split(/\s+/)
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+}
+
+const people = (await getCollection("people"))
+  .filter((person) => !group || person.data.group === group)
+  .sort((a, b) => a.data.order - b.data.order);
+---
+
+<section class="block muted">
+  <div class="shell">
+    <SectionHeader eyebrow={eyebrow} heading={heading} />
+    <div class="grid">
+      {
+        people.map((person) => (
+          <PersonCard {...person.data} initials={initials(person.data.name)} />
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .muted {
+    background: var(--surface-muted);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

@@ -98,6 +98,29 @@ const newsGridBlock = z.object({
   cta: linkSchema.optional(),
 });
 
+const richTextBlock = z.object({
+  type: z.literal("richText"),
+  eyebrow: z.string().optional(),
+  heading: z.string().optional(),
+  body: z.string(),
+  background: z.enum(["page", "muted"]).default("page"),
+});
+
+const toolsGridBlock = z.object({
+  type: z.literal("toolsGrid"),
+  eyebrow: z.string().optional(),
+  heading: z.string(),
+  intro: z.string().optional(),
+  category: z.string().optional(),
+});
+
+const peopleGridBlock = z.object({
+  type: z.literal("peopleGrid"),
+  eyebrow: z.string().optional(),
+  heading: z.string(),
+  group: z.string().optional(),
+});
+
 export const blockSchema = z.discriminatedUnion("type", [
   heroBlock,
   statBandBlock,
@@ -111,6 +134,9 @@ export const blockSchema = z.discriminatedUnion("type", [
   newsletterBlock,
   closingCtaBlock,
   newsGridBlock,
+  richTextBlock,
+  toolsGridBlock,
+  peopleGridBlock,
 ]);
 
 export type Block = z.infer<typeof blockSchema>;

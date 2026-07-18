@@ -1,0 +1,77 @@
+---
+import Icon from "../ui/Icon.astro";
+
+interface Props {
+  name: string;
+  tagline: string;
+  category: string;
+  icon: string;
+  href: string;
+}
+const { name, tagline, category, icon, href } = Astro.props;
+---
+
+<a class="tool" href={href}>
+  <span class="glyph"><Icon name={icon} size={20} /></span>
+  <span class="category">{category}</span>
+  <h3>{name}</h3>
+  <p>{tagline}</p>
+  <span class="go">Explore</span>
+</a>
+
+<style>
+  .tool {
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-page);
+    box-shadow: var(--shadow-sm);
+    color: var(--text-strong);
+    text-decoration: none;
+    transition: transform 0.16s ease, border-color 0.16s ease;
+  }
+  .tool:hover {
+    transform: translateY(-3px);
+    border-color: var(--accent);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tool:hover {
+      transform: none;
+    }
+  }
+  .glyph {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 9px;
+    background: var(--surface-wash);
+    color: var(--accent);
+  }
+  .category {
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+  h3 {
+    font-size: 1.06rem;
+  }
+  p {
+    flex: 1;
+    color: var(--text-body);
+    font-size: 0.85rem;
+  }
+  .go {
+    color: var(--accent);
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+  .go::after {
+    content: " →";
+  }
+</style>
