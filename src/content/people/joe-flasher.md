@@ -4,6 +4,7 @@ title: "Environmental Equity Lead"
 organization: "Amazon Web Services"
 country: "USA"
 groups: ["Steering committee"]
+photo: /images/people/joe-flasher.webp
 order: 3
 ---
 

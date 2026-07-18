@@ -4,6 +4,7 @@ title: "Project Engineer"
 organization: "Aquaveo"
 country: "USA"
 groups: ["Steering committee"]
+photo: /images/people/michael-souffront-phd.webp
 order: 4
 ---
 

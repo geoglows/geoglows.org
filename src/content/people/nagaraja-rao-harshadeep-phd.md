@@ -3,6 +3,7 @@ name: "Nagaraja Rao Harshadeep, PhD"
 title: "Lead Environmental Specialist"
 organization: "World Bank"
 groups: ["Steering committee"]
+photo: /images/people/nagaraja-rao-harshadeep-phd.webp
 order: 5
 ---
 

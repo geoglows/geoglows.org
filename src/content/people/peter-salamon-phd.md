@@ -3,6 +3,7 @@ name: "Peter Salamon, PhD"
 title: "Joint Research Centre, Disaster Risk Management"
 organization: "European Commission"
 groups: ["Steering committee"]
+photo: /images/people/peter-salamon-phd.webp
 order: 6
 ---
 
