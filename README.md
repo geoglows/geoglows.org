@@ -46,4 +46,3 @@ scripts/              fetch-doi.mjs — create publications from a DOI
   `public/admin/config.yml`.
 - **News** and **Publications** are folder collections editors add to directly.
 
-<!-- deploy pipeline test 04eeb66 -->
