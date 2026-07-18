@@ -4,6 +4,7 @@ title: "GEOGLOWS Co-chair"
 organization: "Esri"
 country: "USA"
 groups: ["Steering committee"]
+photo: /images/people/steve-kopp.webp
 order: 7
 ---
 
