@@ -1,4 +1,5 @@
-/** Reveals sections as they scroll into view (see .reveal-ready styles). */
+/** Reveals sections as they enter the viewport and re-animates them on the way
+    back (both scroll directions). See the .reveal-ready styles. */
 const targets = document.querySelectorAll<HTMLElement>(
   "main .block, .hero-inner, main .stat-band",
 );
@@ -15,14 +16,12 @@ if (prefersReducedMotion || !("IntersectionObserver" in window)) {
   revealAll();
 } else {
   const observer = new IntersectionObserver(
-    (entries, obs) => {
+    (entries) => {
       for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        entry.target.classList.add("is-visible");
-        obs.unobserve(entry.target);
+        entry.target.classList.toggle("is-visible", entry.isIntersecting);
       }
     },
-    { rootMargin: "0px 0px -12% 0px", threshold: 0.12 },
+    { rootMargin: "-8% 0px -8% 0px", threshold: 0.08 },
   );
   targets.forEach((el) => observer.observe(el));
 }
