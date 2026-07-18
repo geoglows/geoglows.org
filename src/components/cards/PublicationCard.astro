@@ -1,0 +1,116 @@
+---
+interface Props {
+  title: string;
+  authors: string[];
+  year: number;
+  journal?: string;
+  doi?: string;
+  url?: string;
+  topics: string[];
+}
+const { title, authors, year, journal, doi, url, topics } = Astro.props;
+const searchText = [title, authors.join(" "), journal, ...topics]
+  .filter(Boolean)
+  .join(" ")
+  .toLowerCase();
+const href = url ?? (doi ? `https://doi.org/${doi}` : undefined);
+---
+
+<article
+  class="pub"
+  data-search={searchText}
+  data-topics={topics.join("|")}
+  data-year={year}
+>
+  <div class="top">
+    <span class="year">{year}</span>
+    <div class="tags">
+      {topics.map((topic) => <span class="topic">{topic}</span>)}
+    </div>
+  </div>
+  <h3>{href ? <a href={href}>{title}</a> : title}</h3>
+  <p class="authors">{authors.join("; ")}</p>
+  {journal && <p class="journal">{journal}</p>}
+  {doi && <span class="doi">doi:{doi}</span>}
+</article>
+
+<style>
+  .pub {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    height: 100%;
+    padding: 22px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-page);
+    box-shadow: var(--shadow-sm);
+    transition: transform 0.16s ease, box-shadow 0.16s ease;
+  }
+  .pub:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pub:hover {
+      transform: none;
+    }
+  }
+  .top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .year {
+    color: var(--accent-text);
+    font-family: "Raleway", sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    font-variant-numeric: tabular-nums;
+  }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-left: auto;
+  }
+  .topic {
+    padding: 2px 9px;
+    border-radius: 4px;
+    background: var(--surface-wash);
+    color: var(--accent-text);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  h3 {
+    font-size: 1.05rem;
+    line-height: 1.3;
+  }
+  h3 a {
+    color: var(--text-strong);
+    text-decoration: none;
+  }
+  h3 a:hover {
+    color: var(--accent-text);
+  }
+  .authors {
+    color: var(--text-body);
+    font-size: 0.86rem;
+  }
+  .journal {
+    color: var(--text-body);
+    font-size: 0.86rem;
+    font-style: italic;
+  }
+  .doi {
+    margin-top: auto;
+    padding-top: 6px;
+    color: var(--text-faint);
+    font-size: 0.74rem;
+    font-family: ui-monospace, Menlo, Consolas, monospace;
+    overflow-wrap: anywhere;
+  }
+</style>
