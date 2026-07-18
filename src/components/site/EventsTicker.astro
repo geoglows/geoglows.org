@@ -1,0 +1,47 @@
+---
+interface Props {
+  items: { date: string; text: string }[];
+}
+const { items } = Astro.props;
+---
+
+{
+  items.length > 0 && (
+    <div class="ticker">
+      <div class="shell ticker-inner">
+        {items.map((item) => (
+          <span class="item">
+            <b>{item.date}</b>
+            <span>{item.text}</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+<style>
+  .ticker {
+    background: var(--color-green);
+    color: #eaf3e4;
+  }
+  .ticker-inner {
+    display: flex;
+    gap: 30px;
+    overflow-x: auto;
+    padding-block: 11px;
+    font-size: 0.82rem;
+  }
+  .item {
+    display: flex;
+    gap: 9px;
+    white-space: nowrap;
+  }
+  .item b {
+    color: #fff;
+    font-weight: 800;
+  }
+  .item span {
+    color: #d7e8cb;
+  }
+</style>

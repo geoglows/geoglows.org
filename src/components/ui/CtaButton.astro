@@ -1,0 +1,54 @@
+---
+interface Props {
+  href: string;
+  label: string;
+  style?: "amber" | "white" | "outline" | "navy" | "green";
+}
+const { href, label, style = "amber" } = Astro.props;
+---
+
+<a href={href} class:list={["btn", style]}>{label}</a>
+
+<style>
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 13px 26px;
+    border-radius: 9px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: filter 0.16s ease, transform 0.16s ease;
+  }
+  .btn:hover {
+    filter: brightness(1.05);
+    transform: translateY(-1px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn:hover {
+      transform: none;
+    }
+  }
+  .amber {
+    background: var(--cta);
+    color: var(--cta-ink);
+  }
+  .white {
+    background: #fff;
+    color: var(--color-navy);
+  }
+  .navy {
+    background: var(--color-navy);
+    color: #fff;
+  }
+  .green {
+    background: var(--color-green);
+    color: #fff;
+  }
+  .outline {
+    background: transparent;
+    color: #dce6f2;
+    border: 1.5px solid rgba(220, 230, 242, 0.4);
+  }
+</style>

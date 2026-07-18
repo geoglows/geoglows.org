@@ -1,0 +1,82 @@
+---
+interface Props {
+  title: string;
+  date: Date;
+  url: string;
+  excerpt: string;
+  image?: string;
+  tag: string;
+}
+const { title, date, url, excerpt, image, tag } = Astro.props;
+const formatted = date.toLocaleDateString("en-US", {
+  year: "numeric",
+  month: "long",
+  day: "numeric",
+});
+---
+
+<article class="news-card">
+  {image && <div class="cover" style={`background-image:url(${image})`} />}
+  <div class="body">
+    <div class="kicker">
+      <span class="tag">{tag}</span>
+      <time datetime={date.toISOString()}>{formatted}</time>
+    </div>
+    <h3>{title}</h3>
+    <p>{excerpt}</p>
+    <a href={url}>Read on LinkedIn →</a>
+  </div>
+</article>
+
+<style>
+  .news-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface-page);
+    box-shadow: var(--shadow-sm);
+  }
+  .cover {
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+  }
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    flex: 1;
+    padding: 16px 18px 15px;
+  }
+  .kicker {
+    display: flex;
+    gap: 10px;
+    font-size: 0.72rem;
+  }
+  .tag {
+    color: var(--accent);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  time {
+    color: var(--text-faint);
+    font-variant-numeric: tabular-nums;
+  }
+  h3 {
+    font-size: 1rem;
+  }
+  p {
+    flex: 1;
+    color: var(--text-body);
+    font-size: 0.84rem;
+  }
+  a {
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+</style>

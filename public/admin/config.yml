@@ -1,0 +1,290 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+backend:
+  name: github
+  repo: geoglows/geoglows.org
+  branch: main
+  base_url: https://geoglows-org.vercel.app # this deployment's own origin (update to final domain)
+  auth_endpoint: api/auth
+
+# Lets editors run the admin against local files during development:
+#   npx @sveltia/cms-proxy-server  (then open http://localhost:4321/admin/)
+local_backend: true
+
+media_folder: public/media
+public_folder: /media
+
+collections:
+  - name: settings
+    label: Site Settings
+    files:
+      - name: site
+        label: Site
+        file: src/content/settings/site.json
+        fields:
+          - { label: Brand name, name: brandName, widget: string }
+          - { label: Tagline, name: tagline, widget: string }
+          - label: Navigation
+            name: nav
+            widget: list
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: Link, name: href, widget: string }
+          - label: Header button
+            name: navCta
+            widget: object
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: Link, name: href, widget: string }
+          - label: Events ticker
+            name: ticker
+            widget: list
+            required: false
+            fields:
+              - { label: Date, name: date, widget: string }
+              - { label: Text, name: text, widget: string }
+          - { label: Footer blurb, name: footerBlurb, widget: text }
+          - label: Footer columns
+            name: footerColumns
+            widget: list
+            fields:
+              - { label: Title, name: title, widget: string }
+              - label: Links
+                name: links
+                widget: list
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
+          - label: Footer legal links
+            name: footerLegal
+            widget: list
+            required: false
+            fields:
+              - { label: Label, name: label, widget: string }
+              - { label: Link, name: href, widget: string }
+
+  - name: pages
+    label: Pages
+    label_singular: Page
+    folder: src/content/pages
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    identifier_field: title
+    fields:
+      - { label: Title, name: title, widget: string }
+      - label: Blocks
+        name: blocks
+        widget: list
+        types:
+          - label: Hero
+            name: hero
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading (lead), name: headingLead, widget: string }
+              - { label: Heading (emphasis), name: headingEmphasis, widget: string, required: false }
+              - { label: Subtitle, name: subtitle, widget: text, required: false }
+              - { label: Background image, name: image, widget: image, required: false }
+              - label: Buttons
+                name: ctas
+                widget: list
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
+                  - { label: Style, name: style, widget: select, options: [amber, white, outline, navy, green], default: amber }
+              - label: Featured card
+                name: featured
+                widget: object
+                required: false
+                fields:
+                  - { label: Tag, name: tag, widget: string }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: text }
+                  - { label: Link, name: href, widget: string }
+          - label: Stat band
+            name: statBand
+            widget: object
+            fields:
+              - label: Stats
+                name: stats
+                widget: list
+                fields:
+                  - { label: Value, name: value, widget: string }
+                  - { label: Label, name: label, widget: string }
+          - label: Coverage circles
+            name: coverage
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - label: Items
+                name: items
+                widget: list
+                fields:
+                  - { label: Image, name: image, widget: image }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: string }
+          - label: Impact stories
+            name: impactStories
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - label: Stories
+                name: stories
+                widget: list
+                fields:
+                  - { label: Image, name: image, widget: image }
+                  - { label: Location, name: location, widget: string }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Link, name: href, widget: string }
+              - label: Button
+                name: cta
+                widget: object
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
+          - label: Value props
+            name: valueProps
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - label: Items
+                name: items
+                widget: list
+                fields:
+                  - { label: Icon, name: icon, widget: select, options: [layers, globe, partners, waves, drop, bars, flood, capacity] }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: text }
+              - label: Button
+                name: cta
+                widget: object
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
+          - label: Use cases
+            name: useCases
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - label: Items
+                name: items
+                widget: list
+                fields:
+                  - { label: Icon, name: icon, widget: select, options: [layers, globe, partners, waves, drop, bars, flood, capacity] }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: text }
+          - label: Testimonials
+            name: testimonials
+            widget: object
+            fields:
+              - label: Quotes
+                name: quotes
+                widget: list
+                fields:
+                  - { label: Quote, name: quote, widget: text }
+                  - { label: Name, name: name, widget: string }
+                  - { label: Role, name: role, widget: string }
+                  - { label: Initials, name: initials, widget: string }
+          - label: Partners
+            name: partners
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Logos, name: logos, widget: list, field: { label: Name, name: name, widget: string } }
+              - label: Button
+                name: cta
+                widget: object
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
+          - label: How it works
+            name: howItWorks
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - label: Steps
+                name: steps
+                widget: list
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: text }
+          - label: Newsletter
+            name: newsletter
+            widget: object
+            fields:
+              - { label: Heading, name: heading, widget: string }
+              - { label: Text, name: text, widget: text, required: false }
+              - { label: Button label, name: buttonLabel, widget: string, default: Subscribe }
+          - label: Closing CTA
+            name: closingCta
+            widget: object
+            fields:
+              - { label: Heading, name: heading, widget: string }
+              - label: Buttons
+                name: ctas
+                widget: list
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
+                  - { label: Style, name: style, widget: select, options: [amber, white, outline, navy, green], default: amber }
+          - label: News grid
+            name: newsGrid
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Count, name: count, widget: number, default: 3 }
+              - label: Button
+                name: cta
+                widget: object
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
+
+  - name: news
+    label: News & Events
+    label_singular: News item
+    folder: src/content/news
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    identifier_field: title
+    sortable_fields: [date, title]
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: datetime, format: YYYY-MM-DD, time_format: false }
+      - { label: LinkedIn / source URL, name: url, widget: string }
+      - { label: Excerpt, name: excerpt, widget: text }
+      - { label: Image, name: image, widget: image, required: false }
+      - { label: Tag, name: tag, widget: select, options: [News, Release, Training, Research, Event], default: News }
+
+  - name: publications
+    label: Publications
+    label_singular: Publication
+    folder: src/content/publications
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    identifier_field: title
+    sortable_fields: [year, title]
+    fields:
+      - { label: DOI, name: doi, widget: string, required: false, hint: "Paste the DOI, then run scripts/fetch-doi.mjs to auto-fill the rest." }
+      - { label: Title, name: title, widget: string }
+      - { label: Authors, name: authors, widget: list, field: { label: Author, name: author, widget: string } }
+      - { label: Year, name: year, widget: number, value_type: int }
+      - { label: Journal, name: journal, widget: string, required: false }
+      - { label: URL, name: url, widget: string, required: false }
+      - { label: Topics, name: topics, widget: list, field: { label: Topic, name: topic, widget: string } }
+      - { label: Abstract, name: abstract, widget: text, required: false }

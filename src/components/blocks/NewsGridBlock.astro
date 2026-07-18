@@ -1,0 +1,55 @@
+---
+import { getCollection } from "astro:content";
+import type { Block } from "../../schemas/blocks";
+import SectionHeader from "../ui/SectionHeader.astro";
+import NewsCard from "../cards/NewsCard.astro";
+
+const { eyebrow, heading, count, cta } = Astro.props as Extract<
+  Block,
+  { type: "newsGrid" }
+>;
+
+const latest = (await getCollection("news"))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, count);
+---
+
+<section class="block">
+  <div class="shell">
+    <SectionHeader eyebrow={eyebrow} heading={heading} />
+    <div class="grid">
+      {latest.map((entry) => <NewsCard {...entry.data} />)}
+    </div>
+    {
+      cta && (
+        <div class="center">
+          <a class="all" href={cta.href}>
+            {cta.label} →
+          </a>
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  .center {
+    margin-top: 32px;
+    text-align: center;
+  }
+  .all {
+    color: var(--accent);
+    font-weight: 800;
+    text-decoration: none;
+  }
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
