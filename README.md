@@ -45,3 +45,5 @@ scripts/              fetch-doi.mjs — create publications from a DOI
   `src/components/blocks/`, register it in `BlockRenderer.astro`, and add its form to
   `public/admin/config.yml`.
 - **News** and **Publications** are folder collections editors add to directly.
+
+<!-- deploy pipeline test 04eeb66 -->
