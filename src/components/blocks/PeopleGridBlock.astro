@@ -20,7 +20,7 @@ function initials(name: string): string {
 }
 
 const people = (await getCollection("people"))
-  .filter((person) => !group || person.data.group === group)
+  .filter((person) => !group || person.data.groups.includes(group))
   .sort((a, b) => a.data.order - b.data.order);
 ---
 

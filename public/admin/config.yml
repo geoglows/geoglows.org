@@ -273,7 +273,13 @@ collections:
             fields:
               - { label: Eyebrow, name: eyebrow, widget: string, required: false }
               - { label: Heading, name: heading, widget: string }
-              - { label: Group filter, name: group, widget: string, required: false, hint: "e.g. Project leaders, Collaborators, Technical team" }
+              - { label: Group filter, name: group, widget: string, required: false, hint: "e.g. Project leaders, Steering committee, Collaborators" }
+          - label: Working groups
+            name: workingGroups
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
 
   - name: tools
     label: Tools
@@ -308,10 +314,25 @@ collections:
       - { label: Title, name: title, widget: string, required: false }
       - { label: Organization, name: organization, widget: string, required: false }
       - { label: Country, name: country, widget: string, required: false }
-      - { label: Group, name: group, widget: select, options: [Project leaders, Collaborators, Technical team, Steering committee], default: Project leaders }
+      - { label: Groups, name: groups, widget: select, multiple: true, options: [Project leaders, Steering committee, Collaborators, Technical team], default: [Project leaders] }
       - { label: Photo, name: photo, widget: image, required: false }
       - { label: Order, name: order, widget: number, default: 0, value_type: int }
       - { label: Bio, name: body, widget: markdown }
+
+  - name: working-groups
+    label: Working Groups
+    label_singular: Working Group
+    folder: src/content/working-groups
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    identifier_field: title
+    sortable_fields: [order, number]
+    fields:
+      - { label: Number, name: number, widget: number, value_type: int }
+      - { label: Title, name: title, widget: string }
+      - { label: Summary, name: summary, widget: text }
+      - { label: Order, name: order, widget: number, default: 0, value_type: int }
 
   - name: news
     label: News & Events

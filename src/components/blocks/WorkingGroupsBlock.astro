@@ -1,0 +1,68 @@
+---
+import { getCollection } from "astro:content";
+import type { Block } from "../../schemas/blocks";
+import SectionHeader from "../ui/SectionHeader.astro";
+
+const { eyebrow, heading } = Astro.props as Extract<
+  Block,
+  { type: "workingGroups" }
+>;
+
+const groups = (await getCollection("workingGroups")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<section class="block muted">
+  <div class="shell">
+    <SectionHeader eyebrow={eyebrow} heading={heading} />
+    <div class="grid">
+      {
+        groups.map((group) => (
+          <article class="wg">
+            <span class="num">{String(group.data.number).padStart(2, "0")}</span>
+            <h3>{group.data.title}</h3>
+            <p>{group.data.summary}</p>
+          </article>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .muted {
+    background: var(--surface-muted);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: clamp(20px, 3vw, 40px);
+  }
+  .wg {
+    padding-top: 18px;
+    border-top: 2px solid var(--color-teal-green);
+  }
+  .num {
+    color: var(--accent-text);
+    font-family: "Raleway", sans-serif;
+    font-weight: 800;
+    font-size: 1.4rem;
+    font-variant-numeric: tabular-nums;
+  }
+  h3 {
+    margin-top: 6px;
+    font-size: 1.2rem;
+    line-height: 1.2;
+  }
+  p {
+    margin-top: 8px;
+    color: var(--text-body);
+    font-size: 0.95rem;
+  }
+  @media (max-width: 700px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
