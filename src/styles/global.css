@@ -69,6 +69,27 @@ img {
   padding-block: var(--block-space);
 }
 
+/* Scroll-reveal: sections fade and rise as they enter the viewport.
+   Only active when JS adds .reveal-ready and the user allows motion, so
+   reduced-motion and no-JS visitors always see fully-rendered content. */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-ready .hero-inner,
+  .reveal-ready main .stat-band,
+  .reveal-ready main .block {
+    opacity: 0;
+    transform: translateY(26px);
+    transition:
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal-ready .hero-inner.is-visible,
+  .reveal-ready main .stat-band.is-visible,
+  .reveal-ready main .block.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
