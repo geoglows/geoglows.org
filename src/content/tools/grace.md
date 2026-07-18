@@ -12,4 +12,4 @@ The GRACE tool displays global changes in water storage using data from the NASA
 
 ## What GRACE provides
 
-Water-storage information is processed from raw satellite data using the CSR, JPL, and GFZ algorithms and displayed as changes in total water storage from 2002 to present, measured in centimetres of water depth relative to a mean value — including total, surface, soil-moisture, and groundwater storage.
+Water-storage information is processed from raw satellite data using the CSR, JPL, and GFZ algorithms and displayed as changes in total water storage from 2002 to present, measured in centimetres of water depth relative to a mean value, including total, surface, soil-moisture, and groundwater storage.

@@ -12,13 +12,17 @@ const { tool } = Astro.props;
 const { Content } = await render(tool);
 ---
 
-<BaseLayout title={`${tool.data.name} — GEOGLOWS`} description={tool.data.tagline}>
+<BaseLayout title={`${tool.data.name} | GEOGLOWS`} description={tool.data.tagline}>
   <section class="block">
     <div class="shell narrow">
       <p class="category">{tool.data.category}</p>
       <h1>{tool.data.name}</h1>
       <p class="tagline">{tool.data.tagline}</p>
-      {tool.data.image && <img class="hero" src={tool.data.image} alt="" />}
+      {
+        tool.data.image && (
+          <img class="hero" src={tool.data.image} alt="" width="1600" height="1000" loading="lazy" decoding="async" />
+        )
+      }
       <div class="prose"><Content /></div>
       {
         tool.data.appUrl && (
@@ -37,7 +41,7 @@ const { Content } = await render(tool);
     max-width: 760px;
   }
   .category {
-    color: var(--accent);
+    color: var(--accent-text);
     font-size: 0.74rem;
     font-weight: 700;
     letter-spacing: 0.1em;

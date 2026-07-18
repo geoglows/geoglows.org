@@ -1,5 +1,5 @@
 ---
-title: Tools & Data — GEOGLOWS
+title: Tools & Data | GEOGLOWS
 blocks:
   - type: richText
     eyebrow: Tools & data
@@ -9,7 +9,7 @@ blocks:
       high-resolution global meteorological data to provide accurate, real-time
       forecasts of river discharge for millions of stream segments worldwide.
       Improved data services, enhanced visualization tools, and robust analytical
-      capabilities let you access, analyze, and apply streamflow data — from flood
+      capabilities let you access, analyze, and apply streamflow data, from flood
       management and early warning to water-resource planning.
   - type: toolsGrid
     eyebrow: Applications
@@ -22,7 +22,7 @@ blocks:
       The **GEOGLOWS Data Guide** offers in-depth information on the GEOGLOWS
       Hydrologic Model, along with datasets and tutorials. The full 15-day
       ensemble forecasts and the 85-year retrospective simulation are available
-      through a public REST API and on AWS Open Data — no account required.
+      through a public REST API and on AWS Open Data, no account required.
 
 
       - [Open Hydroviewer](https://apps.geoglows.org)
