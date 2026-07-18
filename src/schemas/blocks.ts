@@ -67,7 +67,13 @@ const partnersBlock = z.object({
   type: z.literal("partners"),
   eyebrow: z.string().optional(),
   heading: z.string(),
-  logos: z.array(z.string()),
+  logos: z.array(
+    z.object({
+      name: z.string(),
+      image: z.string().optional(),
+      url: z.string().optional(),
+    }),
+  ),
   cta: linkSchema.optional(),
 });
 
