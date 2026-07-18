@@ -4,6 +4,7 @@ title: "Technical Director"
 organization: "Brigham Young University"
 country: "USA"
 groups: ["Project leaders", "Technical team"]
+photo: /images/people/riley-hales-phd.webp
 order: 3
 ---
 

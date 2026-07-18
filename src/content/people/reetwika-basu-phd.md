@@ -4,6 +4,7 @@ title: "Research Scientist"
 organization: "University of Alabama, Huntsville"
 country: "USA"
 groups: ["Project leaders"]
+photo: /images/people/reetwika-basu-phd.webp
 order: 4
 ---
 

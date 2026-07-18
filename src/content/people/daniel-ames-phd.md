@@ -4,6 +4,7 @@ title: "Professor, Civil & Environmental Engineering"
 organization: "Brigham Young University"
 country: "USA"
 groups: ["Project leaders"]
+photo: /images/people/daniel-ames-phd.webp
 order: 7
 ---
 

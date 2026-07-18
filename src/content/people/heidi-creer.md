@@ -3,6 +3,7 @@ name: "Heidi Creer"
 title: "Executive Secretary"
 organization: "GEOGLOWS"
 groups: ["Project leaders"]
+photo: /images/people/heidi-creer.webp
 order: 10
 ---
 
