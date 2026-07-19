@@ -3,7 +3,7 @@ name: "Hydroviewer"
 tagline: "Visualize real-time and forecasted streamflow for any river on Earth."
 category: Forecasting
 icon: waves
-image: /images/aerial-river.webp
+image: /images/showcase/hydroviewer.webp
 appUrl: https://apps.geoglows.org
 order: 1
 ---
