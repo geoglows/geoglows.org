@@ -25,6 +25,7 @@ const coverageBlock = z.object({
   heading: z.string(),
   intro: z.string().optional(),
   items: z.array(z.object({ image: z.string(), title: z.string(), text: z.string() })),
+  cta: linkSchema.optional(),
 });
 
 const impactStoriesBlock = z.object({
@@ -75,6 +76,7 @@ const partnersBlock = z.object({
     }),
   ),
   cta: linkSchema.optional(),
+  anchor: z.string().optional(),
 });
 
 const howItWorksBlock = z.object({
@@ -111,6 +113,7 @@ const richTextBlock = z.object({
   heading: z.string().optional(),
   body: z.string(),
   background: z.enum(["page", "muted"]).default("page"),
+  anchor: z.string().optional(),
 });
 
 const toolsGridBlock = z.object({
@@ -119,6 +122,8 @@ const toolsGridBlock = z.object({
   heading: z.string(),
   intro: z.string().optional(),
   category: z.string().optional(),
+  limit: z.number().optional(),
+  cta: linkSchema.optional(),
 });
 
 const peopleGridBlock = z.object({
@@ -126,12 +131,14 @@ const peopleGridBlock = z.object({
   eyebrow: z.string().optional(),
   heading: z.string(),
   group: z.string().optional(),
+  anchor: z.string().optional(),
 });
 
 const workingGroupsBlock = z.object({
   type: z.literal("workingGroups"),
   eyebrow: z.string().optional(),
   heading: z.string(),
+  anchor: z.string().optional(),
 });
 
 export const blockSchema = z.discriminatedUnion("type", [

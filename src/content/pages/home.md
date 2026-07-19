@@ -37,6 +37,7 @@ blocks:
       - { image: /images/aerial-glacier.webp, title: Hydrologic model, text: Runoff simulated everywhere, every day. }
       - { image: /images/showcase/river-network.webp, title: River networks, text: Routed through 7M+ mapped reaches. }
       - { image: /images/aerial-basin.webp, title: Your basin, text: Down to the reach that matters to you. }
+    cta: { label: Get started with GEOGLOWS, href: /getting-started }
   - type: impactStories
     eyebrow: Impact around the world
     heading: Open, trusted forecasts transform water decisions
@@ -69,6 +70,14 @@ blocks:
       - { icon: drop, title: Water management, text: Plan reservoir operations and allocations with confidence. }
       - { icon: bars, title: Research & validation, text: Benchmark models against a global 85-year record. }
       - { icon: capacity, title: Capacity building, text: Equip national services with tools and training. }
+  - type: toolsGrid
+    eyebrow: Tools & data
+    heading: Explore the GEOGLOWS toolset
+    intro: >-
+      Interactive apps and open data services that put global streamflow
+      forecasts and the retrospective simulation to work.
+    limit: 6
+    cta: { label: See all tools & data, href: /tools }
   - type: partners
     eyebrow: The GEOGLOWS community
     heading: Delivered in partnership
