@@ -1,20 +1,29 @@
 ---
 import { marked } from "marked";
+import GeoGlyph from "../site/GeoGlyph.astro";
 import type { Block } from "../../schemas/blocks";
-import SectionHeader from "../ui/SectionHeader.astro";
 
 const { eyebrow, heading, body, background } = Astro.props as Extract<
   Block,
   { type: "richText" }
 >;
 const html = marked.parse(body);
+const hasHead = Boolean(eyebrow || heading);
 ---
 
 <section class:list={["block", { muted: background === "muted" }]}>
-  <div class="shell">
+  <div class:list={["shell", { split: hasHead }]}>
     {
-      (eyebrow || heading) && (
-        <SectionHeader eyebrow={eyebrow} heading={heading ?? ""} align="left" />
+      hasHead && (
+        <div class="head">
+          {eyebrow && (
+            <p class="eyebrow">
+              <GeoGlyph />
+              {eyebrow}
+            </p>
+          )}
+          {heading && <h2>{heading}</h2>}
+        </div>
       )
     }
     <div class="prose" set:html={html} />
@@ -25,14 +34,30 @@ const html = marked.parse(body);
   .muted {
     background: var(--surface-muted);
   }
+  .split {
+    display: grid;
+    gap: 24px;
+  }
+  @media (min-width: 900px) {
+    .split {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+      gap: clamp(40px, 6vw, 96px);
+      align-items: start;
+    }
+  }
+  .head h2 {
+    font-size: clamp(1.9rem, 4vw, 3.1rem);
+    letter-spacing: -0.02em;
+  }
   .prose {
-    max-width: 72ch;
+    max-width: 68ch;
     color: var(--text-body);
-    font-size: 1.02rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
   }
   .prose :global(h2),
   .prose :global(h3) {
-    margin: 1.6em 0 0.4em;
+    margin: 1.4em 0 0.4em;
     color: var(--text-strong);
   }
   .prose :global(h3) {
@@ -46,7 +71,7 @@ const html = marked.parse(body);
     padding-left: 1.2em;
   }
   .prose :global(li) {
-    margin-bottom: 0.4em;
+    margin-bottom: 0.5em;
   }
   .prose :global(a) {
     color: var(--accent-strong);
