@@ -186,8 +186,10 @@ const ticker = (await getEntry("settings", "site"))!.data.ticker;
   .hero-card {
     display: none;
   }
+  /* The card is always a light overlay on the photo, so use fixed dark text
+     (theme tokens would flip to light in dark mode and wash out on white). */
   .hero-card .tag {
-    color: var(--accent-text);
+    color: #0a6157;
     font-size: 0.66rem;
     font-weight: 800;
     letter-spacing: 0.1em;
@@ -195,13 +197,14 @@ const ticker = (await getEntry("settings", "site"))!.data.ticker;
   }
   .hero-card h3 {
     margin: 6px 0 8px;
-    font-size: 1.05rem;
+    color: #16202e;
+    font-size: 1.1rem;
   }
   .hero-card p {
     margin-bottom: 14px;
-    color: var(--text-body);
-    font-size: 0.84rem;
-    line-height: 1.5;
+    color: #45525f;
+    font-size: 0.86rem;
+    line-height: 1.55;
   }
   .hero-card a {
     display: inline-block;
@@ -226,12 +229,9 @@ const ticker = (await getEntry("settings", "site"))!.data.ticker;
       width: 290px;
       padding: 20px;
       border-radius: 14px;
-      background: rgba(255, 255, 255, 0.97);
-      color: var(--text-strong);
+      background: #ffffff;
+      color: #45525f;
       box-shadow: 0 18px 50px rgba(0, 0, 0, 0.28);
-    }
-    .hero-card h3 {
-      color: var(--text-strong);
     }
   }
 </style>
