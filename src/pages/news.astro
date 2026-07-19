@@ -24,6 +24,7 @@ const entries = (await getCollection("news")).sort(
       <div class="grid">
         {entries.map((entry) => <NewsCard {...entry.data} />)}
       </div>
+      <p class="more-link"><a href="/videos">Watch our videos →</a></p>
     </div>
   </section>
 </BaseLayout>
@@ -39,4 +40,13 @@ const entries = (await getCollection("news")).sort(
       grid-template-columns: 1fr;
     }
   }
+  .more-link {
+    margin-top: 32px;
+  }
+  .more-link a {
+    color: var(--accent-text);
+    font-weight: 700;
+    text-decoration: none;
+  }
 </style>
+

@@ -1,0 +1,69 @@
+---
+interface Props {
+  title: string;
+  youtubeId: string;
+}
+const { title, youtubeId } = Astro.props;
+const href = `https://www.youtube.com/watch?v=${youtubeId}`;
+const thumb = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
+---
+
+<a class="video" href={href} target="_blank" rel="noopener">
+  <div class="thumb" style={`background-image:url(${thumb})`}>
+    <span class="play" aria-hidden="true">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+    </span>
+  </div>
+  <h3>{title}</h3>
+</a>
+
+<style>
+  .video {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface-page);
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+    color: var(--text-strong);
+    transition: transform 0.16s ease, box-shadow 0.16s ease;
+  }
+  .video:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .video:hover {
+      transform: none;
+    }
+  }
+  .thumb {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background-size: cover;
+    background-position: center;
+  }
+  .play {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 52px;
+    height: 52px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(8, 28, 42, 0.72);
+    color: #fff;
+    transition: background 0.16s ease;
+  }
+  .video:hover .play {
+    background: var(--color-teal-green);
+  }
+  h3 {
+    padding: 14px 16px 16px;
+    font-size: 0.95rem;
+    line-height: 1.35;
+  }
+</style>
