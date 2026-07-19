@@ -40,6 +40,7 @@
       "links": [
         { "label": "Partners", "href": "/about" },
         { "label": "News & events", "href": "/news" },
+        { "label": "Videos", "href": "/videos" },
         { "label": "LinkedIn", "href": "https://www.linkedin.com/company/geoglows" },
         { "label": "Contact", "href": "mailto:secretariat@geoglows.org" }
       ]
