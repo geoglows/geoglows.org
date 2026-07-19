@@ -1,0 +1,38 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionHeader from "../components/ui/SectionHeader.astro";
+import VideoCard from "../components/cards/VideoCard.astro";
+
+const videos = (await getCollection("videos")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+---
+
+<BaseLayout
+  title="Videos | GEOGLOWS"
+  description="Talks, demos, and success stories from the GEOGLOWS community."
+>
+  <section class="block">
+    <div class="shell">
+      <SectionHeader
+        eyebrow="Videos"
+        heading="Talks, demos, and success stories"
+        intro="How GEOGLOWS hydrological modeling and GIS tools make a difference in water management around the world."
+        align="left"
+        level={1}
+      />
+      <div class="grid">
+        {videos.map((video) => <VideoCard {...video.data} />)}
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+</style>

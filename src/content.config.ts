@@ -94,6 +94,15 @@ const workingGroups = defineCollection({
   }),
 });
 
+const videos = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/videos" }),
+  schema: z.object({
+    title: z.string(),
+    youtubeId: z.string(),
+    order: z.number().default(0),
+  }),
+});
+
 export const collections = {
   settings,
   pages,
@@ -102,4 +111,5 @@ export const collections = {
   tools,
   people,
   workingGroups,
+  videos,
 };

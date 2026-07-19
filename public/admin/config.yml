@@ -344,6 +344,20 @@ collections:
       - { label: Summary, name: summary, widget: text }
       - { label: Order, name: order, widget: number, default: 0, value_type: int }
 
+  - name: videos
+    label: Videos
+    label_singular: Video
+    folder: src/content/videos
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    identifier_field: title
+    sortable_fields: [order, title]
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: YouTube video ID, name: youtubeId, widget: string, hint: "The id after watch?v= in the YouTube URL." }
+      - { label: Order, name: order, widget: number, default: 0, value_type: int }
+
   - name: news
     label: News & Events
     label_singular: News item
