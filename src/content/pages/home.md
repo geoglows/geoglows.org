@@ -35,7 +35,7 @@ blocks:
     items:
       - { image: /images/aerial-satellite.webp, title: Global observations, text: Satellite and reanalysis data covering the entire globe. }
       - { image: /images/aerial-glacier.webp, title: Hydrologic model, text: Runoff simulated everywhere, every day. }
-      - { image: /images/aerial-river.webp, title: River networks, text: Routed through 7M+ mapped reaches. }
+      - { image: /images/showcase/river-network.webp, title: River networks, text: Routed through 7M+ mapped reaches. }
       - { image: /images/aerial-basin.webp, title: Your basin, text: Down to the reach that matters to you. }
   - type: impactStories
     eyebrow: Impact around the world
