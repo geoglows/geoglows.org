@@ -18,10 +18,12 @@ blocks:
   - type: workingGroups
     eyebrow: How we work
     heading: Four working groups
+    anchor: working-groups
   - type: peopleGrid
     eyebrow: Leadership
     heading: Project leaders
     group: Project leaders
+    anchor: team
   - type: peopleGrid
     heading: Steering committee
     group: Steering committee
@@ -31,6 +33,7 @@ blocks:
   - type: partners
     eyebrow: The GEOGLOWS community
     heading: Delivered in partnership
+    anchor: partners
     logos:
       - { name: GEO, image: /images/partners/geo.svg, url: https://earthobservations.org }
       - { name: NASA, image: /images/partners/nasa.webp, url: https://www.nasa.gov }

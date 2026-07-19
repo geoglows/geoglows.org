@@ -29,6 +29,13 @@ collections:
             fields:
               - { label: Label, name: label, widget: string }
               - { label: Link, name: href, widget: string }
+              - label: Dropdown items
+                name: children
+                widget: list
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
           - label: Header button
             name: navCta
             widget: object
@@ -126,6 +133,13 @@ collections:
                   - { label: Image, name: image, widget: image }
                   - { label: Title, name: title, widget: string }
                   - { label: Text, name: text, widget: string }
+              - label: Button
+                name: cta
+                widget: object
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
           - label: Impact stories
             name: impactStories
             widget: object
@@ -212,6 +226,7 @@ collections:
                 fields:
                   - { label: Label, name: label, widget: string }
                   - { label: Link, name: href, widget: string }
+              - { label: Anchor ID, name: anchor, widget: string, required: false, hint: "Optional id for deep-linking, e.g. partners." }
           - label: How it works
             name: howItWorks
             widget: object
@@ -265,6 +280,7 @@ collections:
               - { label: Heading, name: heading, widget: string, required: false }
               - { label: Body, name: body, widget: markdown }
               - { label: Background, name: background, widget: select, options: [page, muted], default: page }
+              - { label: Anchor ID, name: anchor, widget: string, required: false, hint: "Optional id for deep-linking, e.g. data." }
           - label: Tools grid
             name: toolsGrid
             widget: object
@@ -273,6 +289,14 @@ collections:
               - { label: Heading, name: heading, widget: string }
               - { label: Intro, name: intro, widget: text, required: false }
               - { label: Category filter, name: category, widget: string, required: false, hint: "Leave blank to show all tools." }
+              - { label: Limit, name: limit, widget: number, required: false, hint: "Max tools to show (e.g. 6 for a home preview). Blank shows all." }
+              - label: Button
+                name: cta
+                widget: object
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
           - label: People grid
             name: peopleGrid
             widget: object
@@ -280,12 +304,14 @@ collections:
               - { label: Eyebrow, name: eyebrow, widget: string, required: false }
               - { label: Heading, name: heading, widget: string }
               - { label: Group filter, name: group, widget: string, required: false, hint: "e.g. Project leaders, Steering committee, Collaborators" }
+              - { label: Anchor ID, name: anchor, widget: string, required: false, hint: "Optional id for deep-linking, e.g. team." }
           - label: Working groups
             name: workingGroups
             widget: object
             fields:
               - { label: Eyebrow, name: eyebrow, widget: string, required: false }
               - { label: Heading, name: heading, widget: string }
+              - { label: Anchor ID, name: anchor, widget: string, required: false, hint: "Optional id for deep-linking, e.g. working-groups." }
 
   - name: tools
     label: Tools

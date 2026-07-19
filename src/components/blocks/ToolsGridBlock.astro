@@ -4,14 +4,15 @@ import type { Block } from "../../schemas/blocks";
 import SectionHeader from "../ui/SectionHeader.astro";
 import ToolCard from "../cards/ToolCard.astro";
 
-const { eyebrow, heading, intro, category } = Astro.props as Extract<
+const { eyebrow, heading, intro, category, limit, cta } = Astro.props as Extract<
   Block,
   { type: "toolsGrid" }
 >;
 
-const tools = (await getCollection("tools"))
+const sorted = (await getCollection("tools"))
   .filter((tool) => !category || tool.data.category === category)
   .sort((a, b) => a.data.order - b.data.order);
+const tools = limit ? sorted.slice(0, limit) : sorted;
 ---
 
 <section class="block">
@@ -30,6 +31,15 @@ const tools = (await getCollection("tools"))
         ))
       }
     </div>
+    {
+      cta && (
+        <div class="center">
+          <a class="all" href={cta.href}>
+            {cta.label} →
+          </a>
+        </div>
+      )
+    }
   </div>
 </section>
 
@@ -38,6 +48,15 @@ const tools = (await getCollection("tools"))
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 18px;
+  }
+  .center {
+    margin-top: 32px;
+    text-align: center;
+  }
+  .all {
+    color: var(--accent-text);
+    font-weight: 800;
+    text-decoration: none;
   }
   @media (max-width: 900px) {
     .grid {

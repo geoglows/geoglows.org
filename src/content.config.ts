@@ -1,14 +1,14 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 import { blockSchema } from "./schemas/blocks";
-import { linkSchema } from "./schemas/shared";
+import { linkSchema, navItemSchema } from "./schemas/shared";
 
 const settings = defineCollection({
   loader: glob({ pattern: "**/*.json", base: "./src/content/settings" }),
   schema: z.object({
     brandName: z.string(),
     tagline: z.string(),
-    nav: z.array(linkSchema),
+    nav: z.array(navItemSchema),
     navCta: linkSchema,
     ticker: z.array(z.object({ date: z.string(), text: z.string() })).default([]),
     footerBlurb: z.string(),

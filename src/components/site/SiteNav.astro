@@ -1,11 +1,12 @@
 ---
 import type { z } from "astro:content";
-import type { linkSchema } from "../../schemas/shared";
+import type { navItemSchema, linkSchema } from "../../schemas/shared";
 
+type NavItem = z.infer<typeof navItemSchema>;
 type Link = z.infer<typeof linkSchema>;
 
 interface Props {
-  nav: Link[];
+  nav: NavItem[];
   cta: Link;
 }
 const { nav, cta } = Astro.props;
@@ -29,7 +30,30 @@ const { nav, cta } = Astro.props;
         </svg>
       </button>
       <div class="links" id="site-menu">
-        {nav.map((item) => <a href={item.href}>{item.label}</a>)}
+        {
+          nav.map((item) =>
+            item.children?.length ? (
+              <div class="group" data-open="false">
+                <a class="group-label" href={item.href}>
+                  {item.label}
+                  <svg class="caret" width="12" height="12" viewBox="0 0 12 12" aria-hidden="true">
+                    <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </a>
+                <button class="group-toggle" aria-expanded="false" aria-label={`Toggle ${item.label} menu`}>
+                  <svg width="14" height="14" viewBox="0 0 12 12" aria-hidden="true">
+                    <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+                  </svg>
+                </button>
+                <div class="submenu">
+                  {item.children.map((child) => <a href={child.href}>{child.label}</a>)}
+                </div>
+              </div>
+            ) : (
+              <a href={item.href}>{item.label}</a>
+            ),
+          )
+        }
       </div>
       <a class="cta" href={cta.href}>{cta.label}</a>
     </div>
@@ -44,6 +68,15 @@ const { nav, cta } = Astro.props;
     nav?.setAttribute("data-open", String(!open));
     toggle.setAttribute("aria-expanded", String(!open));
     toggle.setAttribute("aria-label", open ? "Open menu" : "Close menu");
+  });
+
+  nav?.querySelectorAll<HTMLButtonElement>(".group-toggle").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const group = btn.closest(".group");
+      const open = group?.getAttribute("data-open") === "true";
+      group?.setAttribute("data-open", String(!open));
+      btn.setAttribute("aria-expanded", String(!open));
+    });
   });
 </script>
 
@@ -82,15 +115,68 @@ const { nav, cta } = Astro.props;
     align-items: center;
     gap: 22px;
   }
-  .links a {
+  .links > a,
+  .group-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     color: var(--text-strong);
     font-weight: 700;
     font-size: 0.9rem;
     text-decoration: none;
   }
-  .links a:hover {
+  .links > a:hover,
+  .group-label:hover {
     color: var(--accent-text);
   }
+
+  .group {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+  }
+  .group-toggle {
+    display: none;
+  }
+  .caret {
+    transition: transform 0.18s ease;
+  }
+  .group:hover .caret,
+  .group:focus-within .caret {
+    transform: rotate(-180deg);
+    color: var(--accent-text);
+  }
+  .submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    display: none;
+    flex-direction: column;
+    padding: 7px;
+    background: var(--surface-page);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+  }
+  .group:hover .submenu,
+  .group:focus-within .submenu {
+    display: flex;
+  }
+  .submenu a {
+    padding: 9px 12px;
+    border-radius: 7px;
+    color: var(--text-body);
+    font-weight: 600;
+    font-size: 0.88rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .submenu a:hover {
+    background: var(--surface-wash);
+    color: var(--accent-text);
+  }
+
   .cta {
     display: inline-flex;
     align-items: center;
@@ -146,11 +232,66 @@ const { nav, cta } = Astro.props;
     .site-nav[data-open="true"] .links {
       display: flex;
     }
-    .links a {
-      display: flex;
-      align-items: center;
+    .links > a {
       min-height: 48px;
       border-bottom: 1px solid var(--border);
+    }
+    .group {
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+    .group-label {
+      flex: 1;
+      min-height: 48px;
+    }
+    .caret {
+      display: none;
+    }
+    .group-toggle {
+      display: inline-flex;
+      width: 48px;
+      height: 48px;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      background: none;
+      color: var(--text-strong);
+      cursor: pointer;
+    }
+    .group-toggle svg {
+      transition: transform 0.18s ease;
+    }
+    .group[data-open="true"] .group-toggle svg {
+      transform: rotate(-180deg);
+    }
+    .submenu {
+      position: static;
+      flex-basis: 100%;
+      width: 100%;
+      display: none;
+      padding: 0 0 10px 12px;
+      border: none;
+      border-radius: 0;
+      box-shadow: none;
+      background: none;
+    }
+    .group[data-open="true"] .submenu {
+      display: flex;
+    }
+    .group:hover .submenu,
+    .group:focus-within .submenu {
+      display: none;
+    }
+    .group[data-open="true"]:hover .submenu,
+    .group[data-open="true"]:focus-within .submenu {
+      display: flex;
+    }
+    .submenu a {
+      min-height: 44px;
+      display: flex;
+      align-items: center;
     }
   }
 

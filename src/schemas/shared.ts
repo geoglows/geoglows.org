@@ -7,6 +7,10 @@ export const linkSchema = z.object({
   href: z.string(),
 });
 
+export const navItemSchema = linkSchema.extend({
+  children: z.array(linkSchema).optional(),
+});
+
 export const ctaSchema = linkSchema.extend({
   style: z.enum(ctaStyles).default("amber"),
 });
