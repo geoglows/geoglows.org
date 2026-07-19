@@ -34,11 +34,11 @@ blocks:
     logos:
       - { name: GEO, image: /images/partners/geo.svg, url: https://earthobservations.org }
       - { name: NASA, image: /images/partners/nasa.webp, url: https://www.nasa.gov }
-      - { name: NOAA, url: https://www.noaa.gov }
+      - { name: NOAA, image: /images/partners/noaa.svg, url: https://www.noaa.gov }
       - { name: ECMWF, url: https://www.ecmwf.int }
       - { name: Brigham Young University, url: https://www.byu.edu }
       - { name: Esri, image: /images/partners/esri.webp, url: https://www.esri.com }
-      - { name: Aquaveo, url: https://aquaveo.com }
+      - { name: Aquaveo, image: /images/partners/aquaveo.svg, url: https://aquaveo.com }
       - { name: World Bank, url: https://www.worldbank.org }
   - type: closingCta
     heading: Join the GEOGLOWS community
