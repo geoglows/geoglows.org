@@ -20,7 +20,7 @@ const { Content } = await render(tool);
       <p class="tagline">{tool.data.tagline}</p>
       {
         tool.data.image && (
-          <img class="hero" src={tool.data.image} alt="" width="1600" height="1000" loading="lazy" decoding="async" />
+          <img class="hero" src={tool.data.image} alt="" loading="lazy" decoding="async" />
         )
       }
       <div class="prose"><Content /></div>
@@ -56,9 +56,10 @@ const { Content } = await render(tool);
     font-size: 1.1rem;
   }
   .hero {
+    display: block;
     width: 100%;
+    height: auto;
     margin: 24px 0;
-    border-radius: var(--radius);
   }
   .prose {
     margin-top: 20px;
