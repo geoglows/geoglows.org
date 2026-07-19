@@ -3,7 +3,7 @@ name: "GRACE Groundwater Subsetting Tool"
 tagline: "Track changes in global water storage from NASA JPL GRACE satellites."
 category: Groundwater
 icon: drop
-image: /images/aerial-glacier.webp
+image: /images/showcase/grace.webp
 appUrl: https://apps.geoglows.org
 order: 2
 ---
