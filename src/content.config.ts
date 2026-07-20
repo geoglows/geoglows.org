@@ -103,6 +103,17 @@ const videos = defineCollection({
   }),
 });
 
+const social = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/social" }),
+  schema: z.object({
+    text: z.string(),
+    url: z.string(),
+    date: z.coerce.date(),
+    author: z.string().default("GEOGLOWS"),
+    image: z.string().optional(),
+  }),
+});
+
 export const collections = {
   settings,
   pages,
@@ -112,4 +123,5 @@ export const collections = {
   people,
   workingGroups,
   videos,
+  social,
 };
