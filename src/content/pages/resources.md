@@ -6,13 +6,17 @@ blocks:
     heading: Learn to work with GEOGLOWS
     body: >-
       Everything you need to start using GEOGLOWS streamflow forecasts, from
-      first-time tutorials to the open data services and developer tools. New to
-      the initiative? Begin with the getting started guide, then explore the
-      resources below.
+      first-time tutorials to the open data services and developer tools. The
+      full **[GEOGLOWS Training Portal](https://training.geoglows.org)** hosts
+      in-depth, multilingual courses on the River Forecast System, data access,
+      and bias correction. New to the initiative? Begin with the getting started
+      guide, then explore the resources below.
   - type: richText
     heading: Guides & tutorials
     background: muted
     body: >-
+      - **[GEOGLOWS Training Portal](https://training.geoglows.org)** — in-depth courses on the model, data, tutorials, and bias correction (English, Spanish, French)
+
       - **[Getting started guide](/getting-started)** — the fastest path from zero to your first forecast
 
       - **[Video tutorials & demos](/videos)** — walkthroughs of the Hydroviewer, data services, and applications
@@ -36,8 +40,8 @@ blocks:
 
       - **[Meet the community](/about)** — the working groups, partners, and people behind GEOGLOWS
   - type: closingCta
-    heading: Need help getting started?
+    heading: Ready to go deeper?
     ctas:
-      - { label: Getting started guide, href: /getting-started, style: amber }
+      - { label: Open the Training Portal, href: https://training.geoglows.org, style: amber }
       - { label: Contact the team, href: "mailto:secretariat@geoglows.org", style: navy }
 ---
