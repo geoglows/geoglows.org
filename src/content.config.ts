@@ -106,11 +106,12 @@ const videos = defineCollection({
 const social = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/social" }),
   schema: z.object({
-    text: z.string(),
-    url: z.string(),
+    title: z.string(),
     date: z.coerce.date(),
-    author: z.string().default("GEOGLOWS"),
+    url: z.string(),
+    excerpt: z.string(),
     image: z.string().optional(),
+    tag: z.string().default("LinkedIn"),
   }),
 });
 
