@@ -1,6 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import SocialCard from "../cards/SocialCard.astro";
+import NewsCard from "../cards/NewsCard.astro";
 
 interface Props {
   posts: CollectionEntry<"social">[];
@@ -9,13 +9,18 @@ const { posts } = Astro.props;
 ---
 
 <div class="social-grid">
-  {posts.map((post) => <SocialCard url={post.data.url} text={post.data.text} />)}
+  {posts.map((post) => <NewsCard {...post.data} />)}
 </div>
 
 <style>
   .social-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  @media (max-width: 900px) {
+    .social-grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

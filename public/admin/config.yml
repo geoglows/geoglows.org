@@ -408,14 +408,15 @@ collections:
     extension: md
     format: yaml-frontmatter
     create: true
-    identifier_field: text
-    sortable_fields: [date]
+    identifier_field: title
+    sortable_fields: [date, title]
     fields:
-      - { label: Post text, name: text, widget: text, hint: "A short summary of the LinkedIn post to show on the card." }
-      - { label: Post URL, name: url, widget: string, hint: "The permalink to the LinkedIn post (open the post, click ... > Copy link to post)." }
+      - { label: Title, name: title, widget: string, hint: "A short headline for the post card." }
       - { label: Date, name: date, widget: datetime, format: YYYY-MM-DD, time_format: false }
-      - { label: Author, name: author, widget: string, default: GEOGLOWS, required: false }
-      - { label: Image, name: image, widget: image, required: false }
+      - { label: Post URL, name: url, widget: string, hint: "The permalink to the LinkedIn post (open the post, click ... > Copy link to post)." }
+      - { label: Excerpt, name: excerpt, widget: text, hint: "A one or two sentence summary shown on the card." }
+      - { label: Image, name: image, widget: image, required: false, hint: "A screenshot or image from the post." }
+      - { label: Tag, name: tag, widget: string, default: LinkedIn }
 
   - name: publications
     label: Publications
