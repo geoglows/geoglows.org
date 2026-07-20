@@ -2,6 +2,7 @@
 import type { Block } from "../../schemas/blocks";
 import SectionHeader from "../ui/SectionHeader.astro";
 import CtaButton from "../ui/CtaButton.astro";
+import { bgImage } from "../../lib/css";
 
 const { eyebrow, heading, intro, stories, cta } = Astro.props as Extract<
   Block,
@@ -15,7 +16,7 @@ const [feature, ...rest] = stories;
     <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />
     <div class="layout">
       <a class="feature" href={feature.href}>
-        <div class="cover" style={`background-image:url(${feature.image})`}>
+        <div class="cover" style={bgImage(feature.image)}>
           <span class="location">{feature.location}</span>
         </div>
         <h3>{feature.title}</h3>
@@ -26,7 +27,7 @@ const [feature, ...rest] = stories;
           rest.map((story) => (
             <li>
               <a href={story.href}>
-                <span class="thumb" style={`background-image:url(${story.image})`} />
+                <span class="thumb" style={bgImage(story.image)} />
                 <span class="body">
                   <span class="place">{story.location}</span>
                   <span class="title">{story.title}</span>

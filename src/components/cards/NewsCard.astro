@@ -1,4 +1,6 @@
 ---
+import { bgImage } from "../../lib/css";
+
 interface Props {
   title: string;
   date: Date;
@@ -16,7 +18,7 @@ const formatted = date.toLocaleDateString("en-US", {
 ---
 
 <article class="news-card">
-  {image && <div class="cover" style={`background-image:url(${image})`} />}
+  {image && <div class="cover" style={bgImage(image)} />}
   <div class="body">
     <div class="kicker">
       <span class="tag">{tag}</span>
