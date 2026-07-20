@@ -1,144 +1,51 @@
 ---
 interface Props {
-  text: string;
   url: string;
-  date: Date;
-  author?: string;
-  image?: string;
+  text?: string;
 }
-const { text, url, date, author = "GEOGLOWS", image } = Astro.props;
-const formatted = date.toLocaleDateString("en-US", {
-  year: "numeric",
-  month: "short",
-  day: "numeric",
-});
+const { url, text } = Astro.props;
 const activityId = url.match(/activity[-:](\d+)/)?.[1];
 const embed = activityId
   ? `https://www.linkedin.com/embed/feed/update/urn:li:activity:${activityId}`
   : null;
 ---
 
-<article class="post">
-  <header class="head">
-    <span class="mark" aria-hidden="true">
-      <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor">
-        <path
-          d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"
-        ></path>
-      </svg>
-    </span>
-    <span class="who">
-      <span class="name">{author}</span>
-      <time class="date" datetime={date.toISOString()}>{formatted} · on LinkedIn</time>
-    </span>
-  </header>
-  <p class="text">{text}</p>
-  {image && <img class="media" src={image} alt="" loading="lazy" />}
-  <div class="actions">
-    {
-      embed && (
-        <button class="preview" type="button" data-embed={embed} data-author={author}>
-          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7-10-7-10-7z" stroke-linecap="round" stroke-linejoin="round" />
-            <circle cx="12" cy="12" r="3" />
-          </svg>
-          Quick preview
-        </button>
-      )
-    }
-    <a class="view" href={url} target="_blank" rel="noopener">View post →</a>
-  </div>
-</article>
+{
+  embed ? (
+    <iframe
+      class="li-card"
+      src={embed}
+      title={text ?? "LinkedIn post"}
+      loading="lazy"
+      frameborder="0"
+      allowfullscreen
+    />
+  ) : (
+    <a class="fallback" href={url} target="_blank" rel="noopener">
+      View post on LinkedIn →
+    </a>
+  )
+}
 
 <style>
-  .post {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 28px;
+  .li-card {
+    width: 100%;
+    height: 560px;
     border: 1px solid var(--border);
-    border-radius: var(--radius);
+    border-radius: 12px;
     background: var(--surface-page);
     box-shadow: var(--shadow-sm);
-    transition: box-shadow 0.16s ease;
   }
-  .post:hover {
-    box-shadow: var(--shadow-md);
-  }
-  .head {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .mark {
+  .fallback {
     display: grid;
     place-items: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 10px;
-    background: #0a66c2;
-    color: #fff;
-    flex-shrink: 0;
-  }
-  .who {
-    display: flex;
-    flex-direction: column;
-    line-height: 1.25;
-  }
-  .name {
-    font-weight: 800;
-    color: var(--text-strong);
-    font-size: 1.02rem;
-  }
-  .date {
-    color: var(--text-faint);
-    font-size: 0.82rem;
-  }
-  .text {
-    color: var(--text-body);
-    font-size: 1.08rem;
-    line-height: 1.55;
-  }
-  .media {
-    width: 100%;
-    border-radius: 12px;
-    aspect-ratio: 16 / 9;
-    object-fit: cover;
-  }
-  .actions {
-    margin-top: auto;
-    display: flex;
-    align-items: center;
-    gap: 18px;
-    flex-wrap: wrap;
-  }
-  .preview {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-    min-height: 42px;
-    padding: 0 16px;
+    min-height: 120px;
+    padding: 20px;
     border: 1px solid var(--border);
-    border-radius: 9px;
+    border-radius: 12px;
     background: var(--surface-page);
-    color: var(--text-strong);
-    font: inherit;
-    font-weight: 700;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: border-color 0.16s ease, color 0.16s ease;
-  }
-  .preview:hover {
-    border-color: #0a66c2;
-    color: #0a66c2;
-  }
-  .view {
     color: var(--accent-text);
     font-weight: 700;
-    font-size: 0.9rem;
     text-decoration: none;
-  }
-  .view:hover {
-    text-decoration: underline;
   }
 </style>
