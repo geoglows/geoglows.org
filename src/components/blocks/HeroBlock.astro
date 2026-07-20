@@ -4,6 +4,7 @@ import type { Block } from "../../schemas/blocks";
 import CtaButton from "../ui/CtaButton.astro";
 import GeoGlyph from "../site/GeoGlyph.astro";
 import EventsTicker from "../site/EventsTicker.astro";
+import { bgImage } from "../../lib/css";
 
 type Hero = Extract<Block, { type: "hero" }>;
 const { eyebrow, headingLead, headingEmphasis, subtitle, image, ctas, featured } =
@@ -34,7 +35,7 @@ const ticker = (await getEntry("settings", "site"))!.data.ticker;
   <div class="hero-circles" aria-hidden="true">
     {
       discs.map((d) => (
-        <div class:list={["disc", d.cls]} style={`background-image:url(${d.src})`}>
+        <div class:list={["disc", d.cls]} style={bgImage(d.src)}>
           <span class="cap">{d.cap}</span>
         </div>
       ))

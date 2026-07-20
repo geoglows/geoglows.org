@@ -1,6 +1,7 @@
 ---
 import type { Block } from "../../schemas/blocks";
 import SectionHeader from "../ui/SectionHeader.astro";
+import { bgImage } from "../../lib/css";
 
 const { eyebrow, heading, intro, items, cta } = Astro.props as Extract<
   Block,
@@ -15,7 +16,7 @@ const { eyebrow, heading, intro, items, cta } = Astro.props as Extract<
       {
         items.map((item) => (
           <div class="cell">
-            <div class="ring" style={`background-image:url(${item.image})`} />
+            <div class="ring" style={bgImage(item.image)} />
             <h3>{item.title}</h3>
             <p>{item.text}</p>
           </div>
