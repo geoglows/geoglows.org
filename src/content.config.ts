@@ -115,6 +115,15 @@ const webinars = defineCollection({
   }),
 });
 
+const legal = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/legal" }),
+  schema: z.object({
+    title: z.string(),
+    updated: z.string(),
+    description: z.string().optional(),
+  }),
+});
+
 const social = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/social" }),
   schema: z.object({
@@ -138,4 +147,5 @@ export const collections = {
   videos,
   webinars,
   social,
+  legal,
 };
