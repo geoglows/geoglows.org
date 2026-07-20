@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeader from "../components/ui/SectionHeader.astro";
 import NewsCard from "../components/cards/NewsCard.astro";
-import SocialCard from "../components/cards/SocialCard.astro";
+import SocialFeed from "../components/blocks/SocialFeed.astro";
 
 const entries = (await getCollection("news")).sort(
   (a, b) => b.data.date.getTime() - a.data.date.getTime(),
@@ -42,11 +42,7 @@ const posts = (await getCollection("social")).sort(
             intro="Follow GEOGLOWS on LinkedIn for the latest announcements, community stories, and events."
             align="left"
           />
-          <div class="social-grid">
-            {posts.map((post) => (
-              <SocialCard {...post.data} />
-            ))}
-          </div>
+          <SocialFeed posts={posts} />
           <p class="more-link">
             <a href="https://www.linkedin.com/company/geoglows" target="_blank" rel="noopener">
               Follow GEOGLOWS on LinkedIn →
@@ -67,14 +63,8 @@ const posts = (await getCollection("social")).sort(
   .social {
     background: var(--surface-wash);
   }
-  .social-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-  }
   @media (max-width: 900px) {
-    .grid,
-    .social-grid {
+    .grid {
       grid-template-columns: 1fr;
     }
   }
