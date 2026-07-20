@@ -384,6 +384,23 @@ collections:
       - { label: YouTube video ID, name: youtubeId, widget: string, hint: "The id after watch?v= in the YouTube URL." }
       - { label: Order, name: order, widget: number, default: 0, value_type: int }
 
+  - name: webinars
+    label: Webinars
+    label_singular: Webinar
+    folder: src/content/webinars
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    identifier_field: title
+    sortable_fields: [order, title]
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Date, name: date, widget: string, hint: "e.g. 21 October 2025" }
+      - { label: YouTube video ID, name: youtubeId, widget: string, hint: "The id after watch?v= in the YouTube URL." }
+      - { label: Presenter, name: presenter, widget: string }
+      - { label: Description, name: description, widget: text }
+      - { label: Order, name: order, widget: number, default: 0, value_type: int }
+
   - name: news
     label: News & Events
     label_singular: News item
