@@ -1,4 +1,6 @@
 ---
+import { bgImage } from "../../lib/css";
+
 interface Props {
   title: string;
   youtubeId: string;
@@ -9,7 +11,7 @@ const thumb = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
 ---
 
 <a class="video" href={href} target="_blank" rel="noopener">
-  <div class="thumb" style={`background-image:url(${thumb})`}>
+  <div class="thumb" style={bgImage(thumb)}>
     <span class="play" aria-hidden="true">
       <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
     </span>

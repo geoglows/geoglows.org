@@ -1,4 +1,6 @@
 ---
+import { bgImage } from "../../lib/css";
+
 interface Props {
   title: string;
   authors: string[];
@@ -25,7 +27,7 @@ const href = url ?? (doi ? `https://doi.org/${doi}` : undefined);
 >
   {
     image && (
-      <div class="cover" style={`background-image:url(${image})`}>
+      <div class="cover" style={bgImage(image)}>
         <span class="year">{year}</span>
       </div>
     )
