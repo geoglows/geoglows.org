@@ -435,6 +435,20 @@ collections:
       - { label: Image, name: image, widget: image, required: false, hint: "A screenshot or image from the post." }
       - { label: Tag, name: tag, widget: string, default: LinkedIn }
 
+  - name: legal
+    label: Legal pages
+    label_singular: Legal page
+    folder: src/content/legal
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    identifier_field: title
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Last updated, name: updated, widget: string, hint: "e.g. 19 July 2026" }
+      - { label: Description, name: description, widget: string, required: false }
+      - { label: Body, name: body, widget: markdown }
+
   - name: publications
     label: Publications
     label_singular: Publication

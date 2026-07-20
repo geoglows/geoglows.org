@@ -78,7 +78,8 @@
     }
   ],
   "footerLegal": [
-    { "label": "Privacy", "href": "/#" },
-    { "label": "Terms", "href": "/#" }
+    { "label": "Privacy", "href": "/legal/privacy-policy" },
+    { "label": "Terms", "href": "/legal/terms-of-service" },
+    { "label": "Cookies", "href": "/legal/cookie-policy" }
   ]
 }
