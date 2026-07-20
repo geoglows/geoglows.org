@@ -3,24 +3,48 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeader from "../components/ui/SectionHeader.astro";
 import VideoCard from "../components/cards/VideoCard.astro";
+import WebinarCard from "../components/cards/WebinarCard.astro";
 
 const videos = (await getCollection("videos")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const webinars = (await getCollection("webinars")).sort(
   (a, b) => a.data.order - b.data.order,
 );
 ---
 
 <BaseLayout
-  title="Videos | GEOGLOWS"
-  description="Talks, demos, and success stories from the GEOGLOWS community."
+  title="Videos & Webinars | GEOGLOWS"
+  description="The RFS v2 webinar series plus talks, demos, and success stories from the GEOGLOWS community."
 >
-  <section class="block">
+  {
+    webinars.length > 0 && (
+      <section class="block">
+        <div class="shell">
+          <SectionHeader
+            eyebrow="Webinar series"
+            heading="GEOGLOWS RFS v2 Webinar Series"
+            intro="A four-part live series introducing the River Forecast System v2, from model formulation to accessing data and using the Hydroviewer."
+            align="left"
+            level={1}
+          />
+          <div class="webinar-grid">
+            {webinars.map((w) => (
+              <WebinarCard {...w.data} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="block videos">
     <div class="shell">
       <SectionHeader
         eyebrow="Videos"
         heading="Talks, demos, and success stories"
         intro="How GEOGLOWS hydrological modeling and GIS tools make a difference in water management around the world."
         align="left"
-        level={1}
       />
       <div class="grid">
         {videos.map((video) => <VideoCard {...video.data} />)}
@@ -30,6 +54,14 @@ const videos = (await getCollection("videos")).sort(
 </BaseLayout>
 
 <style>
+  .webinar-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 22px;
+  }
+  .videos {
+    background: var(--surface-wash);
+  }
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));

@@ -103,6 +103,18 @@ const videos = defineCollection({
   }),
 });
 
+const webinars = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/webinars" }),
+  schema: z.object({
+    title: z.string(),
+    date: z.string(),
+    youtubeId: z.string(),
+    presenter: z.string(),
+    description: z.string(),
+    order: z.number().default(0),
+  }),
+});
+
 const social = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/social" }),
   schema: z.object({
@@ -124,5 +136,6 @@ export const collections = {
   people,
   workingGroups,
   videos,
+  webinars,
   social,
 };
