@@ -1,8 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "rewrites": [
-    { "source": "/apps", "destination": "https://apps.geoglows.org" },
-    { "source": "/apps/", "destination": "https://apps.geoglows.org" },
-    { "source": "/apps/:path*", "destination": "https://apps.geoglows.org/:path*" }
+  "redirects": [
+    { "source": "/apps", "destination": "https://apps.geoglows.org", "permanent": false },
+    { "source": "/apps/:path*", "destination": "https://apps.geoglows.org/:path*", "permanent": false }
   ]
 }
