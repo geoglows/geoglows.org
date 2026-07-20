@@ -39,7 +39,7 @@ const posts = (await getCollection("social")).sort(
           <SectionHeader
             eyebrow="Social"
             heading="From our LinkedIn"
-            intro="Follow GEOGLOWS on LinkedIn for the latest announcements, community stories, and events."
+            intro="Announcements, community stories, and events, straight from the GEOGLOWS feed."
             align="left"
           />
           <SocialFeed posts={posts} />
@@ -61,7 +61,12 @@ const posts = (await getCollection("social")).sort(
     gap: 18px;
   }
   .social {
-    background: var(--surface-wash);
+    background: var(--color-navy-deep);
+    --text-strong: var(--ink-on-dark);
+    --text-body: var(--ink-on-dark-muted);
+    --text-faint: var(--ink-on-dark-muted);
+    --accent-text: #6fd0c0;
+    --border: var(--hairline-on-dark);
   }
   @media (max-width: 900px) {
     .grid {
