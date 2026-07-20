@@ -5,12 +5,11 @@ blocks:
     eyebrow: Tools & data
     heading: Everything you need to work with GEOGLOWS data
     body: >-
-      The GEOGLOWS Service leverages advanced hydrological models and
-      high-resolution global meteorological data to provide accurate, real-time
-      forecasts of river discharge for millions of stream segments worldwide.
-      Improved data services, enhanced visualization tools, and robust analytical
-      capabilities let you access, analyze, and apply streamflow data, from flood
-      management and early warning to water-resource planning.
+      A connected suite of open applications and data services for exploring,
+      analyzing, and downloading global streamflow forecasts and the 85-year
+      retrospective. Start in the Hydroviewer, dig into groundwater and mapping
+      tools, or pull data directly through the public API and AWS Open Data,
+      whatever your work with water requires.
   - type: toolsGrid
     eyebrow: Applications
     heading: One place for every tool
