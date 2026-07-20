@@ -25,7 +25,7 @@
       "href": "/news",
       "children": [
         { "label": "News & Events", "href": "/news" },
-        { "label": "Videos", "href": "/videos" },
+        { "label": "Videos & Webinars", "href": "/videos" },
         { "label": "Publications", "href": "/publications" }
       ]
     },
@@ -71,7 +71,7 @@
       "links": [
         { "label": "Partners", "href": "/about" },
         { "label": "News & events", "href": "/news" },
-        { "label": "Videos", "href": "/videos" },
+        { "label": "Videos & webinars", "href": "/videos" },
         { "label": "LinkedIn", "href": "https://www.linkedin.com/company/geoglows" },
         { "label": "Contact", "href": "mailto:secretariat@geoglows.org" }
       ]
