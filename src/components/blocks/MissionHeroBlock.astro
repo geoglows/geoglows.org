@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import type { Block } from "../../schemas/blocks";
 import GeoGlyph from "../site/GeoGlyph.astro";
+import { bgImage } from "../../lib/css";
 
 const { eyebrow, heading, lede, image, spotlight, spotlightLink, socialHeading, socialCount } =
   Astro.props as Extract<Block, { type: "missionHero" }>;
@@ -41,22 +42,32 @@ const fmt = (d: Date) =>
     <div class="rail">
       {image && <img class="hero-img" src={image} alt="" loading="eager" fetchpriority="high" />}
       <aside class="panel" aria-label={socialHeading}>
-      <div class="p-head">
-        <h2>{socialHeading}</h2>
-        <span>On LinkedIn</span>
-      </div>
-      {
-        posts.map((post) => (
-          <a class="post" href={post.data.url} target="_blank" rel="noopener">
-            <span class="date">{fmt(post.data.date)}</span>
-            <p>{post.data.excerpt}</p>
-          </a>
-        ))
-      }
-      <div class="follow">
-        <a href="https://www.linkedin.com/company/geoglows" target="_blank" rel="noopener">Follow on LinkedIn →</a>
-        <a href="/news">All updates →</a>
-      </div>
+        <div class="p-head">
+          <span class="li-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+              <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
+            </svg>
+          </span>
+          <span class="p-title">
+            <span class="p-name">{socialHeading}</span>
+            <span class="p-sub">GEOGLOWS on LinkedIn</span>
+          </span>
+        </div>
+        <div class="posts">
+          {posts.map((post) => (
+            <a class="post" href={post.data.url} target="_blank" rel="noopener">
+              {post.data.image && <span class="thumb" style={bgImage(post.data.image)} />}
+              <span class="post-body">
+                <span class="date">{fmt(post.data.date)}</span>
+                <span class="excerpt">{post.data.excerpt}</span>
+              </span>
+            </a>
+          ))}
+        </div>
+        <div class="follow">
+          <a href="https://www.linkedin.com/company/geoglows" target="_blank" rel="noopener">Follow on LinkedIn →</a>
+          <a href="/news">All updates →</a>
+        </div>
       </aside>
     </div>
   </div>
@@ -153,26 +164,67 @@ const fmt = (d: Date) =>
   }
   .p-head {
     display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: 6px;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 14px;
+    margin-bottom: 2px;
+    border-bottom: 1px solid var(--border);
   }
-  .p-head h2 {
-    font-size: 1rem;
+  .li-badge {
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 9px;
+    background: #0a66c2;
+    color: #fff;
+    flex-shrink: 0;
   }
-  .p-head span {
+  .p-title {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+  .p-name {
+    font-weight: 800;
+    font-size: 0.98rem;
+    color: var(--text-strong);
+  }
+  .p-sub {
     color: var(--text-faint);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
+    font-size: 0.74rem;
+    font-weight: 600;
   }
   .post {
-    display: block;
-    padding: 13px 0;
+    display: flex;
+    gap: 12px;
+    padding: 13px 8px;
+    margin: 0 -8px;
+    border-radius: 10px;
     border-top: 1px solid var(--border);
     text-decoration: none;
     color: inherit;
+    transition: background 0.16s ease;
+  }
+  .post:first-child {
+    border-top: none;
+  }
+  .post:hover {
+    background: var(--surface-wash);
+  }
+  .thumb {
+    flex-shrink: 0;
+    width: 52px;
+    height: 52px;
+    border-radius: 8px;
+    background-size: cover;
+    background-position: center;
+  }
+  .post-body {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
   }
   .post .date {
     color: var(--text-faint);
@@ -181,14 +233,18 @@ const fmt = (d: Date) =>
     letter-spacing: 0.04em;
     text-transform: uppercase;
   }
-  .post p {
-    margin-top: 4px;
-    font-size: 0.9rem;
-    line-height: 1.45;
-    color: var(--text-strong);
+  .excerpt {
+    font-size: 0.86rem;
+    line-height: 1.42;
+    color: var(--text-body);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
-  .post:hover p {
-    color: var(--accent-text);
+  .post:hover .excerpt {
+    color: var(--text-strong);
   }
   .follow {
     margin-top: 14px;

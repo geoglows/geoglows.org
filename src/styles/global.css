@@ -90,6 +90,60 @@ img {
     opacity: 1;
     transform: none;
   }
+
+  /* Stepper + timeline: connector lines draw in and nodes pop as the
+     section reveals, staggered left to right to reinforce the sequence. */
+  .reveal-ready .step::before,
+  .reveal-ready .tl::before {
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal-ready .is-visible .step::before,
+  .reveal-ready .is-visible .tl::before {
+    transform: scaleX(1);
+  }
+  .reveal-ready .step .node,
+  .reveal-ready .timeline .dot {
+    opacity: 0;
+    transform: scale(0.4);
+    transition:
+      opacity 0.4s ease,
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .reveal-ready .is-visible .step .node,
+  .reveal-ready .is-visible .timeline .dot {
+    opacity: 1;
+    transform: none;
+  }
+  .reveal-ready .step:nth-child(2) .node,
+  .reveal-ready .step:nth-child(2)::before {
+    transition-delay: 0.12s;
+  }
+  .reveal-ready .step:nth-child(3) .node,
+  .reveal-ready .step:nth-child(3)::before {
+    transition-delay: 0.24s;
+  }
+  .reveal-ready .step:nth-child(4) .node,
+  .reveal-ready .step:nth-child(4)::before {
+    transition-delay: 0.36s;
+  }
+  .reveal-ready .tl:nth-child(2) .dot,
+  .reveal-ready .tl:nth-child(2)::before {
+    transition-delay: 0.1s;
+  }
+  .reveal-ready .tl:nth-child(3) .dot,
+  .reveal-ready .tl:nth-child(3)::before {
+    transition-delay: 0.2s;
+  }
+  .reveal-ready .tl:nth-child(4) .dot,
+  .reveal-ready .tl:nth-child(4)::before {
+    transition-delay: 0.3s;
+  }
+  .reveal-ready .tl:nth-child(5) .dot,
+  .reveal-ready .tl:nth-child(5)::before {
+    transition-delay: 0.4s;
+  }
 }
 
 .visually-hidden {
