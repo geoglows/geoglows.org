@@ -8,8 +8,16 @@ interface Props {
   blurb: string;
   columns: { title: string; links: Link[] }[];
   legal: Link[];
+  logo?: string;
+  copyright?: string;
 }
-const { blurb, columns, legal } = Astro.props;
+const {
+  blurb,
+  columns,
+  legal,
+  logo = "/images/geoglows-logo-white.webp",
+  copyright = "GEOGLOWS · A Group on Earth Observations initiative.",
+} = Astro.props;
 const year = new Date().getFullYear();
 ---
 
@@ -17,7 +25,7 @@ const year = new Date().getFullYear();
   <div class="shell">
     <div class="footer-top">
       <div class="brand-col">
-        <img src="/images/geoglows-logo-white.webp" alt="GEOGLOWS" width="163" height="34" loading="lazy" decoding="async" />
+        <img src={logo} alt="GEOGLOWS" width="163" height="34" loading="lazy" decoding="async" />
         <p>{blurb}</p>
       </div>
       {
@@ -32,7 +40,7 @@ const year = new Date().getFullYear();
       }
     </div>
     <div class="footer-bottom">
-      <span>© {year} GEOGLOWS · A Group on Earth Observations initiative.</span>
+      <span>© {year} {copyright}</span>
       <span class="legal">
         {legal.map((link) => <a href={link.href}>{link.label}</a>)}
       </span>

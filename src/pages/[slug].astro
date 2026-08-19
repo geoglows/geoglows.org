@@ -13,7 +13,11 @@ export async function getStaticPaths() {
 const { page } = Astro.props;
 ---
 
-<BaseLayout title={page.data.title}>
+<BaseLayout
+  title={page.data.title}
+  description={page.data.description}
+  shareImage={page.data.shareImage}
+>
   <h1 class="visually-hidden">{page.data.title}</h1>
   <BlockRenderer blocks={page.data.blocks} />
 </BaseLayout>

@@ -7,9 +7,18 @@ import SiteFooter from "../components/site/SiteFooter.astro";
 interface Props {
   title: string;
   description?: string;
+  shareImage?: string;
 }
-const { title, description } = Astro.props;
+const { title, description, shareImage } = Astro.props;
 const site = (await getEntry("settings", "site"))!.data;
+
+const metaDescription = description ?? site.seoDescription ?? "";
+const canonical = Astro.site
+  ? new URL(Astro.url.pathname, Astro.site).href
+  : Astro.url.pathname;
+const rawShare = shareImage ?? site.shareImage;
+const shareUrl = rawShare && Astro.site ? new URL(rawShare, Astro.site).href : rawShare;
+const favicon = site.favicon ?? "/images/geo-logo-navy.svg";
 ---
 
 <!doctype html>
@@ -18,7 +27,21 @@ const site = (await getEntry("settings", "site"))!.data;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
-    {description && <meta name="description" content={description} />}
+    {metaDescription && <meta name="description" content={metaDescription} />}
+    <link rel="canonical" href={canonical} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.brandName} />
+    <meta property="og:title" content={title} />
+    {metaDescription && <meta property="og:description" content={metaDescription} />}
+    <meta property="og:url" content={canonical} />
+    {shareUrl && <meta property="og:image" content={shareUrl} />}
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    {metaDescription && <meta name="twitter:description" content={metaDescription} />}
+    {shareUrl && <meta name="twitter:image" content={shareUrl} />}
+
     <link
       rel="preload"
       href="/fonts/raleway.woff2"
@@ -26,7 +49,7 @@ const site = (await getEntry("settings", "site"))!.data;
       type="font/woff2"
       crossorigin
     />
-    <link rel="icon" href="/images/geo-logo-navy.svg" />
+    <link rel="icon" href={favicon} />
     <script is:inline>
       if (!window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
         document.documentElement.classList.add("reveal-ready");
@@ -34,7 +57,12 @@ const site = (await getEntry("settings", "site"))!.data;
     </script>
   </head>
   <body>
-    <SiteNav nav={site.nav} cta={site.navCta} />
+    <SiteNav
+      nav={site.nav}
+      cta={site.navCta}
+      logoLight={site.headerLogoLight}
+      logoDark={site.headerLogoDark}
+    />
     <main>
       <slot />
     </main>
@@ -42,6 +70,8 @@ const site = (await getEntry("settings", "site"))!.data;
       blurb={site.footerBlurb}
       columns={site.footerColumns}
       legal={site.footerLegal}
+      logo={site.footerLogo}
+      copyright={site.copyright}
     />
     <script>
       import "../scripts/reveal";

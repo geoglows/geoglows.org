@@ -1,0 +1,14 @@
+{
+  "seoTitle": "Videos & Webinars | GEOGLOWS",
+  "seoDescription": "The RFS v2 webinar series plus talks, demos, and success stories from the GEOGLOWS community.",
+  "webinars": {
+    "eyebrow": "Webinar series",
+    "heading": "GEOGLOWS RFS v2 Webinar Series",
+    "intro": "A four-part live series introducing the River Forecast System v2, from model formulation to accessing data and using the Hydroviewer."
+  },
+  "videos": {
+    "eyebrow": "Videos",
+    "heading": "Talks, demos, and success stories",
+    "intro": "How GEOGLOWS hydrological modeling and GIS tools make a difference in water management around the world."
+  }
+}

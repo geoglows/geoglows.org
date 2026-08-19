@@ -8,15 +8,22 @@ type Link = z.infer<typeof linkSchema>;
 interface Props {
   nav: NavItem[];
   cta: Link;
+  logoLight?: string;
+  logoDark?: string;
 }
-const { nav, cta } = Astro.props;
+const {
+  nav,
+  cta,
+  logoLight = "/images/geoglows-logo.webp",
+  logoDark = "/images/geoglows-logo-white.webp",
+} = Astro.props;
 ---
 
 <nav class="site-nav" aria-label="Main">
   <div class="shell nav-inner">
     <a href="/" class="brand" aria-label="GEOGLOWS home">
-      <img class="logo logo-light" src="/images/geoglows-logo.webp" alt="GEOGLOWS" width="199" height="38" />
-      <img class="logo logo-dark" src="/images/geoglows-logo-white.webp" alt="GEOGLOWS" width="184" height="38" />
+      <img class="logo logo-light" src={logoLight} alt="GEOGLOWS" width="199" height="38" />
+      <img class="logo logo-dark" src={logoDark} alt="GEOGLOWS" width="184" height="38" />
     </a>
     <div class="nav-right">
       <button

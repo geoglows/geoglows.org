@@ -16,6 +16,13 @@ const settings = defineCollection({
       z.object({ title: z.string(), links: z.array(linkSchema) }),
     ),
     footerLegal: z.array(linkSchema).default([]),
+    headerLogoLight: z.string().optional(),
+    headerLogoDark: z.string().optional(),
+    footerLogo: z.string().optional(),
+    favicon: z.string().optional(),
+    copyright: z.string().optional(),
+    seoDescription: z.string().optional(),
+    shareImage: z.string().optional(),
   }),
 });
 
@@ -23,7 +30,34 @@ const pages = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/pages" }),
   schema: z.object({
     title: z.string(),
+    description: z.string().optional(),
+    shareImage: z.string().optional(),
     blocks: z.array(blockSchema).default([]),
+  }),
+});
+
+const pageSections = defineCollection({
+  loader: glob({ pattern: "**/*.json", base: "./src/content/page-sections" }),
+  schema: z.object({
+    seoTitle: z.string().optional(),
+    seoDescription: z.string().optional(),
+    eyebrow: z.string().optional(),
+    heading: z.string().optional(),
+    intro: z.string().optional(),
+    followLabel: z.string().optional(),
+    followUrl: z.string().optional(),
+    videosLinkLabel: z.string().optional(),
+    social: z
+      .object({ eyebrow: z.string(), heading: z.string(), intro: z.string() })
+      .optional(),
+    webinars: z
+      .object({ eyebrow: z.string(), heading: z.string(), intro: z.string() })
+      .optional(),
+    videos: z
+      .object({ eyebrow: z.string(), heading: z.string(), intro: z.string() })
+      .optional(),
+    searchPlaceholder: z.string().optional(),
+    allTopicsLabel: z.string().optional(),
   }),
 });
 
@@ -138,6 +172,7 @@ const social = defineCollection({
 
 export const collections = {
   settings,
+  pageSections,
   pages,
   news,
   publications,
