@@ -21,9 +21,18 @@ blocks:
       - { value: 85 yrs, label: retrospective simulation }
       - { value: 100%, label: open data & open API }
   - type: trustStrip
+    logosLabel: Funded by
+    logos:
+      - { name: NASA, image: /images/partners/nasa.webp, url: https://www.nasa.gov }
+      - { name: NOAA, image: /images/partners/noaa.svg, url: https://www.noaa.gov }
+      - { name: ECMWF, image: /images/partners/ecmwf.svg, url: https://www.ecmwf.int }
+      - { name: USAID, image: /images/partners/usaid.svg, url: https://www.usaid.gov }
+      - { name: Amazon Web Services, image: /images/partners/aws.svg, url: https://aws.amazon.com }
+      - { name: Esri, image: /images/partners/esri.webp, url: https://www.esri.com }
+      - { name: Brigham Young University, image: /images/partners/byu.svg, url: https://www.byu.edu }
+      - { name: World Bank, image: /images/partners/worldbank.svg, url: https://www.worldbank.org }
+    logosTail: "with NGA, PREPARE and WMO"
     rows:
-      - label: Funded by
-        names: "AWS · BYU · Esri · NASA · NGA · NOAA · PREPARE · USAID · ECMWF · World Bank · WMO"
       - label: In active use by
         names: "National hydromet services in the Nile Basin · SERVIR hubs from Nepal to West Africa · INAMHI (Ecuador) · Malawi's flood early-warning program · WMO"
   - type: partnerCards
