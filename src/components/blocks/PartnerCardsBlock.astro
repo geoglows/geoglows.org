@@ -1,0 +1,73 @@
+---
+import type { Block } from "../../schemas/blocks";
+import SectionHeader from "../ui/SectionHeader.astro";
+
+const { eyebrow, stageTag, heading, intro, cards } = Astro.props as Extract<
+  Block,
+  { type: "partnerCards" }
+>;
+const kicker = stageTag ? `${eyebrow} · ${stageTag}` : eyebrow;
+---
+
+<section class="block">
+  <div class="shell">
+    <SectionHeader eyebrow={kicker} heading={heading} intro={intro} align="left" />
+    <div class="grid">
+      {
+        cards.map((card) => (
+          <div class="card">
+            <span class="mark">{card.mark}</span>
+            <div>
+              <h3>{card.title}</h3>
+              <p>{card.text}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+  }
+  @media (max-width: 720px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .card {
+    display: flex;
+    gap: 16px;
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-page);
+    box-shadow: var(--shadow-sm);
+  }
+  .mark {
+    flex: none;
+    width: 42px;
+    height: 42px;
+    display: grid;
+    place-items: center;
+    border-radius: 10px;
+    background: var(--surface-teal-wash);
+    color: var(--accent-text);
+    font-weight: 800;
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+  }
+  h3 {
+    font-size: 1.08rem;
+  }
+  p {
+    margin-top: 6px;
+    color: var(--text-body);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+</style>

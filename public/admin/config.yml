@@ -312,6 +312,170 @@ collections:
               - { label: Eyebrow, name: eyebrow, widget: string, required: false }
               - { label: Heading, name: heading, widget: string }
               - { label: Anchor ID, name: anchor, widget: string, required: false, hint: "Optional id for deep-linking, e.g. working-groups." }
+          - label: Mission hero
+            name: missionHero
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, default: Mission }
+              - { label: Heading, name: heading, widget: text }
+              - { label: Lede, name: lede, widget: text, required: false }
+              - label: Spotlight items
+                name: spotlight
+                widget: list
+                required: false
+                fields:
+                  - { label: Tag, name: tag, widget: string }
+                  - { label: Text, name: text, widget: text }
+              - label: Spotlight link
+                name: spotlightLink
+                widget: object
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
+              - { label: Social heading, name: socialHeading, widget: string, default: "Latest from GEOGLOWS" }
+              - { label: Social count, name: socialCount, widget: number, default: 3, value_type: int }
+          - label: Trust strip
+            name: trustStrip
+            widget: object
+            fields:
+              - label: Rows
+                name: rows
+                widget: list
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Names, name: names, widget: text }
+          - label: Partner cards
+            name: partnerCards
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Stage tag, name: stageTag, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
+              - label: Cards
+                name: cards
+                widget: list
+                fields:
+                  - { label: Mark (initials), name: mark, widget: string }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: text }
+          - label: Pillars
+            name: pillars
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - label: Intro link
+                name: introLink
+                widget: object
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
+              - label: Items
+                name: items
+                widget: list
+                fields:
+                  - { label: Icon, name: icon, widget: select, options: [layers, globe, partners, waves, drop, bars, flood, capacity] }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: text }
+                  - { label: Tag, name: tag, widget: string, required: false }
+          - label: Impact cycle
+            name: impactCycle
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Stage tag, name: stageTag, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
+              - label: Steps
+                name: steps
+                widget: list
+                fields:
+                  - { label: Index label, name: idx, widget: string }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: text }
+              - label: Stats
+                name: stats
+                widget: list
+                required: false
+                fields:
+                  - { label: Number, name: num, widget: string }
+                  - { label: Label, name: lbl, widget: string }
+              - label: Quote
+                name: quote
+                widget: object
+                required: false
+                fields:
+                  - { label: Quote, name: text, widget: text }
+                  - { label: Attribution, name: who, widget: string }
+                  - { label: Note, name: note, widget: string, required: false }
+          - label: Investment
+            name: investment
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
+              - label: Stats
+                name: stats
+                widget: list
+                fields:
+                  - { label: Value, name: value, widget: string }
+                  - { label: Label, name: label, widget: string }
+              - { label: Note, name: note, widget: text, required: false }
+              - label: Button
+                name: cta
+                widget: object
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
+                  - { label: Style, name: style, widget: select, options: [amber, white, outline, navy, green], default: amber }
+          - label: Audience cards
+            name: audienceCards
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
+              - label: Items
+                name: items
+                widget: list
+                fields:
+                  - { label: Kicker, name: kicker, widget: string }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: text }
+              - { label: Contact email, name: contactEmail, widget: string, required: false }
+          - label: Timeline
+            name: timeline
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
+              - label: Timeline items
+                name: items
+                widget: list
+                fields:
+                  - { label: Year, name: year, widget: string }
+                  - { label: Text, name: text, widget: text }
+              - { label: Note, name: note, widget: text, required: false }
+              - label: Info cards
+                name: cards
+                widget: list
+                required: false
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Items, name: items, widget: list, field: { label: Item, name: item, widget: string } }
 
   - name: tools
     label: Tools

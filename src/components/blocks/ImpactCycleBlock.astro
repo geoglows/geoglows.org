@@ -1,0 +1,171 @@
+---
+import type { Block } from "../../schemas/blocks";
+import GeoGlyph from "../site/GeoGlyph.astro";
+
+const { eyebrow, stageTag, heading, intro, steps, stats, quote } =
+  Astro.props as Extract<Block, { type: "impactCycle" }>;
+const kicker = stageTag ? `${eyebrow} · ${stageTag}` : eyebrow;
+---
+
+<section class="block impact">
+  <div class="shell">
+    <div class="head">
+      {kicker && <p class="eyebrow"><GeoGlyph />{kicker}</p>}
+      <h2>{heading}</h2>
+      {intro && <p class="intro">{intro}</p>}
+    </div>
+    <div class="grid">
+      <div>
+        <div class="cycle">
+          {
+            steps.map((s) => (
+              <div class="step">
+                <span class="idx">{s.idx}</span>
+                <h3>{s.title}</h3>
+                <p>{s.text}</p>
+              </div>
+            ))
+          }
+        </div>
+        {
+          stats.length > 0 && (
+            <div class="stats">
+              {stats.map((s) => (
+                <div>
+                  <div class="num">{s.num}</div>
+                  <div class="lbl">{s.lbl}</div>
+                </div>
+              ))}
+            </div>
+          )
+        }
+      </div>
+      {
+        quote && (
+          <figure class="quote">
+            <blockquote>{quote.text}</blockquote>
+            <figcaption>{quote.who}</figcaption>
+            {quote.note && <p class="note">{quote.note}</p>}
+          </figure>
+        )
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .impact {
+    background: var(--color-navy-deep);
+    color: var(--ink-on-dark-muted);
+  }
+  .head {
+    max-width: 640px;
+    margin-bottom: 40px;
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--color-teal);
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  h2 {
+    color: var(--ink-on-dark);
+    font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+    letter-spacing: -0.02em;
+  }
+  .intro {
+    margin-top: 14px;
+    color: var(--ink-on-dark-muted);
+    font-size: 1.05rem;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 44px;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .cycle {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+  }
+  @media (max-width: 620px) {
+    .cycle {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .step {
+    padding: 18px;
+    border: 1px solid var(--hairline-on-dark);
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.03);
+  }
+  .idx {
+    color: var(--color-teal);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .step h3 {
+    margin-top: 8px;
+    color: var(--ink-on-dark);
+    font-size: 1rem;
+  }
+  .step p {
+    margin-top: 6px;
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+  .stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    margin-top: 26px;
+  }
+  .num {
+    color: var(--color-teal);
+    font-size: 1.9rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+  .lbl {
+    margin-top: 4px;
+    font-size: 0.82rem;
+  }
+  .quote {
+    margin: 0;
+    padding: 28px;
+    border: 1px solid var(--hairline-on-dark);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.03);
+  }
+  blockquote {
+    margin: 0;
+    color: var(--ink-on-dark);
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1.45;
+  }
+  figcaption {
+    margin-top: 14px;
+    font-size: 0.86rem;
+  }
+  .note {
+    margin-top: 18px;
+    padding-top: 14px;
+    border-top: 1px solid var(--hairline-on-dark);
+    font-size: 0.8rem;
+    color: var(--ink-on-dark-muted);
+  }
+</style>

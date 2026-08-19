@@ -1,0 +1,96 @@
+---
+import type { Block } from "../../schemas/blocks";
+import SectionHeader from "../ui/SectionHeader.astro";
+import Icon from "../ui/Icon.astro";
+
+const { eyebrow, heading, intro, introLink, items } = Astro.props as Extract<
+  Block,
+  { type: "pillars" }
+>;
+---
+
+<section class="block">
+  <div class="shell">
+    <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />
+    {introLink && <a class="intro-link" href={introLink.href}>{introLink.label} →</a>}
+    <div class="grid">
+      {
+        items.map((item) => (
+          <div class="card">
+            <span class="icon"><Icon name={item.icon} size={34} /></span>
+            <h3>
+              {item.title}
+              {item.tag && <span class="tag">{item.tag}</span>}
+            </h3>
+            <p>{item.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .intro-link {
+    display: inline-block;
+    margin: -28px 0 28px;
+    color: var(--accent-text);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  @media (max-width: 860px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-page);
+    box-shadow: var(--shadow-sm);
+  }
+  .icon {
+    display: grid;
+    place-items: center;
+    width: 46px;
+    height: 46px;
+    color: var(--color-teal-green);
+  }
+  .icon :global(svg) {
+    width: 34px;
+    height: 34px;
+    stroke-width: 1.5;
+  }
+  h3 {
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-amber) 20%, transparent);
+    color: var(--cta-ink);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+  p {
+    color: var(--text-body);
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+</style>

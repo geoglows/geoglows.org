@@ -1,0 +1,130 @@
+---
+import type { Block } from "../../schemas/blocks";
+import SectionHeader from "../ui/SectionHeader.astro";
+
+const { eyebrow, heading, intro, items, note, cards } = Astro.props as Extract<
+  Block,
+  { type: "timeline" }
+>;
+---
+
+<section class="block">
+  <div class="shell">
+    <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />
+    <ol class="timeline">
+      {
+        items.map((item) => (
+          <li class="tl">
+            <span class="dot" aria-hidden="true" />
+            <span class="yr">{item.year}</span>
+            <p>{item.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+    {note && <p class="note">{note}</p>}
+    {
+      cards.length > 0 && (
+        <div class="cards">
+          {cards.map((card) => (
+            <div class="card">
+              <h3>{card.title}</h3>
+              <ul>
+                {card.items.map((li) => (
+                  <li>{li}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+  .tl {
+    flex: 0 0 210px;
+    padding-right: 24px;
+    position: relative;
+  }
+  .tl::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 0;
+    right: 24px;
+    height: 1.5px;
+    background: var(--border);
+  }
+  .tl:last-child::before {
+    display: none;
+  }
+  .dot {
+    display: block;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: var(--color-teal-green);
+    margin-bottom: 12px;
+  }
+  .yr {
+    color: var(--accent-text);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+  .tl p {
+    margin-top: 6px;
+    color: var(--text-body);
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+  .note {
+    margin-top: 32px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    color: var(--text-body);
+    font-size: 0.9rem;
+  }
+  .cards {
+    margin-top: 32px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+  }
+  @media (max-width: 780px) {
+    .cards {
+      grid-template-columns: 1fr;
+    }
+  }
+  .card {
+    padding: 22px 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-page);
+    box-shadow: var(--shadow-sm);
+  }
+  .card h3 {
+    font-size: 1.02rem;
+  }
+  .card ul {
+    margin: 12px 0 0;
+    padding-left: 18px;
+    color: var(--text-body);
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+  .card li {
+    margin-bottom: 6px;
+  }
+</style>
