@@ -1,0 +1,192 @@
+---
+import { getCollection } from "astro:content";
+import type { Block } from "../../schemas/blocks";
+import GeoGlyph from "../site/GeoGlyph.astro";
+
+const { eyebrow, heading, lede, spotlight, spotlightLink, socialHeading, socialCount } =
+  Astro.props as Extract<Block, { type: "missionHero" }>;
+
+const posts = (await getCollection("social"))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, socialCount);
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+---
+
+<section class="block hero-mission">
+  <div class="shell grid">
+    <div class="lead">
+      <p class="eyebrow"><GeoGlyph />{eyebrow}</p>
+      <h1>{heading}</h1>
+      {lede && <p class="lede">{lede}</p>}
+      {
+        spotlight.length > 0 && (
+          <div class="spotlight">
+            {spotlight.map((item) => (
+              <div class="spot">
+                <span class="tag">{item.tag}</span>
+                <p>{item.text}</p>
+              </div>
+            ))}
+            {spotlightLink && (
+              <a class="more" href={spotlightLink.href}>
+                {spotlightLink.label} →
+              </a>
+            )}
+          </div>
+        )
+      }
+    </div>
+
+    <aside class="panel" aria-label={socialHeading}>
+      <div class="p-head">
+        <h2>{socialHeading}</h2>
+        <span>On LinkedIn</span>
+      </div>
+      {
+        posts.map((post) => (
+          <a class="post" href={post.data.url} target="_blank" rel="noopener">
+            <span class="date">{fmt(post.data.date)}</span>
+            <p>{post.data.excerpt}</p>
+          </a>
+        ))
+      }
+      <div class="follow">
+        <a href="https://www.linkedin.com/company/geoglows" target="_blank" rel="noopener">Follow on LinkedIn →</a>
+        <a href="/news">All updates →</a>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<style>
+  .hero-mission {
+    padding-top: clamp(48px, 6vw, 88px);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: clamp(32px, 5vw, 60px);
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--accent-text);
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  h1 {
+    font-size: clamp(2.1rem, 4.4vw, 3.2rem);
+    letter-spacing: -0.02em;
+    line-height: 1.08;
+    max-width: 15ch;
+  }
+  .lede {
+    margin-top: 20px;
+    max-width: 52ch;
+    font-size: 1.12rem;
+    color: var(--text-body);
+  }
+  .spotlight {
+    margin-top: 30px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .spot .tag {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-amber) 20%, transparent);
+    color: var(--cta-ink);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+  }
+  .spot p {
+    margin-top: 8px;
+    max-width: 54ch;
+    color: var(--text-body);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+  .more {
+    color: var(--accent-text);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+
+  .panel {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-page);
+    box-shadow: var(--shadow-sm);
+    padding: 22px 24px;
+  }
+  .p-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  .p-head h2 {
+    font-size: 1rem;
+  }
+  .p-head span {
+    color: var(--text-faint);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .post {
+    display: block;
+    padding: 13px 0;
+    border-top: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+  }
+  .post .date {
+    color: var(--text-faint);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .post p {
+    margin-top: 4px;
+    font-size: 0.9rem;
+    line-height: 1.45;
+    color: var(--text-strong);
+  }
+  .post:hover p {
+    color: var(--accent-text);
+  }
+  .follow {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .follow a {
+    color: var(--accent-text);
+    font-weight: 700;
+    font-size: 0.82rem;
+    text-decoration: none;
+  }
+</style>

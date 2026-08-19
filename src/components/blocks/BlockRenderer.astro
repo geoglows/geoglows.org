@@ -16,6 +16,14 @@ import RichTextBlock from "./RichTextBlock.astro";
 import ToolsGridBlock from "./ToolsGridBlock.astro";
 import PeopleGridBlock from "./PeopleGridBlock.astro";
 import WorkingGroupsBlock from "./WorkingGroupsBlock.astro";
+import MissionHeroBlock from "./MissionHeroBlock.astro";
+import TrustStripBlock from "./TrustStripBlock.astro";
+import PartnerCardsBlock from "./PartnerCardsBlock.astro";
+import PillarsBlock from "./PillarsBlock.astro";
+import ImpactCycleBlock from "./ImpactCycleBlock.astro";
+import InvestmentBlock from "./InvestmentBlock.astro";
+import AudienceCardsBlock from "./AudienceCardsBlock.astro";
+import TimelineBlock from "./TimelineBlock.astro";
 
 const registry = {
   hero: HeroBlock,
@@ -34,6 +42,14 @@ const registry = {
   toolsGrid: ToolsGridBlock,
   peopleGrid: PeopleGridBlock,
   workingGroups: WorkingGroupsBlock,
+  missionHero: MissionHeroBlock,
+  trustStrip: TrustStripBlock,
+  partnerCards: PartnerCardsBlock,
+  pillars: PillarsBlock,
+  impactCycle: ImpactCycleBlock,
+  investment: InvestmentBlock,
+  audienceCards: AudienceCardsBlock,
+  timeline: TimelineBlock,
 } as const;
 
 interface Props {

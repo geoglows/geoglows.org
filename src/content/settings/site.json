@@ -2,41 +2,23 @@
   "brandName": "GEOGLOWS",
   "tagline": "Earth Intelligence for All",
   "nav": [
-    {
-      "label": "Get Started",
-      "href": "/getting-started",
-      "children": [
-        { "label": "Overview", "href": "/getting-started" },
-        { "label": "The GEOGLOWS Service", "href": "/service" },
-        { "label": "Resources & Training", "href": "/resources" }
-      ]
-    },
+    { "label": "Partnerships", "href": "/#partnerships" },
+    { "label": "What we do", "href": "/#work" },
+    { "label": "Impact", "href": "/#impact" },
+    { "label": "Investment", "href": "/#investment" },
+    { "label": "Get involved", "href": "/#involved" },
+    { "label": "About", "href": "/about" },
     {
       "label": "Tools & Data",
       "href": "/tools",
       "children": [
         { "label": "All Tools", "href": "/tools" },
-        { "label": "Open Hydroviewer", "href": "https://apps.geoglows.org" },
-        { "label": "Data & API", "href": "/service#data" }
-      ]
-    },
-    {
-      "label": "News & Media",
-      "href": "/news",
-      "children": [
+        { "label": "GEOGLOWS Service", "href": "/service" },
+        { "label": "Getting Started", "href": "/getting-started" },
+        { "label": "Publications", "href": "/publications" },
         { "label": "News & Events", "href": "/news" },
         { "label": "Videos & Webinars", "href": "/videos" },
-        { "label": "Publications", "href": "/publications" }
-      ]
-    },
-    {
-      "label": "About",
-      "href": "/about",
-      "children": [
-        { "label": "Our Mission", "href": "/about" },
-        { "label": "Working Groups", "href": "/about#working-groups" },
-        { "label": "Team", "href": "/about#team" },
-        { "label": "Partners", "href": "/about#partners" }
+        { "label": "Resources & Training", "href": "/resources" }
       ]
     }
   ],

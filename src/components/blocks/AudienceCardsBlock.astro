@@ -1,0 +1,88 @@
+---
+import type { Block } from "../../schemas/blocks";
+import SectionHeader from "../ui/SectionHeader.astro";
+
+const { eyebrow, heading, intro, items, contactEmail } = Astro.props as Extract<
+  Block,
+  { type: "audienceCards" }
+>;
+---
+
+<section class="block muted">
+  <div class="shell">
+    <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />
+    <div class="grid">
+      {
+        items.map((item) => (
+          <div class="card">
+            <span class="kicker">{item.kicker}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </div>
+        ))
+      }
+    </div>
+    {
+      contactEmail && (
+        <p class="contact">
+          Start a conversation: <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
+        </p>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .muted {
+    background: var(--surface-wash);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+  }
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  @media (max-width: 560px) {
+    .grid {
+      grid-template-columns: 1fr;
+    }
+  }
+  .card {
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-page);
+    box-shadow: var(--shadow-sm);
+  }
+  .kicker {
+    color: var(--accent-text);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  h3 {
+    margin-top: 8px;
+    font-size: 1.05rem;
+  }
+  p {
+    margin-top: 8px;
+    color: var(--text-body);
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+  .contact {
+    margin-top: 24px;
+    color: var(--text-body);
+    font-size: 0.95rem;
+  }
+  .contact a {
+    color: var(--accent-text);
+    font-weight: 700;
+    text-decoration: none;
+  }
+</style>

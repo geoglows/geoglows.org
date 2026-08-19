@@ -141,6 +141,109 @@ const workingGroupsBlock = z.object({
   anchor: z.string().optional(),
 });
 
+const missionHeroBlock = z.object({
+  type: z.literal("missionHero"),
+  eyebrow: z.string().default("Mission"),
+  heading: z.string(),
+  lede: z.string().optional(),
+  spotlight: z
+    .array(z.object({ tag: z.string(), text: z.string() }))
+    .default([]),
+  spotlightLink: linkSchema.optional(),
+  socialHeading: z.string().default("Latest from GEOGLOWS"),
+  socialCount: z.number().default(3),
+});
+
+const trustStripBlock = z.object({
+  type: z.literal("trustStrip"),
+  rows: z.array(z.object({ label: z.string(), names: z.string() })),
+});
+
+const partnerCardsBlock = z.object({
+  type: z.literal("partnerCards"),
+  eyebrow: z.string().optional(),
+  stageTag: z.string().optional(),
+  heading: z.string(),
+  intro: z.string().optional(),
+  anchor: z.string().optional(),
+  cards: z.array(
+    z.object({ mark: z.string(), title: z.string(), text: z.string() }),
+  ),
+});
+
+const pillarsBlock = z.object({
+  type: z.literal("pillars"),
+  eyebrow: z.string().optional(),
+  heading: z.string(),
+  intro: z.string().optional(),
+  introLink: linkSchema.optional(),
+  anchor: z.string().optional(),
+  items: z.array(
+    z.object({
+      icon: z.string(),
+      title: z.string(),
+      text: z.string(),
+      tag: z.string().optional(),
+    }),
+  ),
+});
+
+const impactCycleBlock = z.object({
+  type: z.literal("impactCycle"),
+  eyebrow: z.string().optional(),
+  stageTag: z.string().optional(),
+  heading: z.string(),
+  intro: z.string().optional(),
+  anchor: z.string().optional(),
+  steps: z.array(
+    z.object({ idx: z.string(), title: z.string(), text: z.string() }),
+  ),
+  stats: z.array(z.object({ num: z.string(), lbl: z.string() })).default([]),
+  quote: z
+    .object({
+      text: z.string(),
+      who: z.string(),
+      note: z.string().optional(),
+    })
+    .optional(),
+});
+
+const investmentBlock = z.object({
+  type: z.literal("investment"),
+  eyebrow: z.string().optional(),
+  heading: z.string(),
+  intro: z.string().optional(),
+  anchor: z.string().optional(),
+  stats: z.array(z.object({ value: z.string(), label: z.string() })),
+  note: z.string().optional(),
+  cta: ctaSchema.optional(),
+});
+
+const audienceCardsBlock = z.object({
+  type: z.literal("audienceCards"),
+  eyebrow: z.string().optional(),
+  heading: z.string(),
+  intro: z.string().optional(),
+  anchor: z.string().optional(),
+  items: z.array(
+    z.object({ kicker: z.string(), title: z.string(), text: z.string() }),
+  ),
+  contactEmail: z.string().optional(),
+});
+
+const timelineBlock = z.object({
+  type: z.literal("timeline"),
+  eyebrow: z.string().optional(),
+  heading: z.string(),
+  intro: z.string().optional(),
+  anchor: z.string().optional(),
+  items: z.array(z.object({ year: z.string(), text: z.string() })),
+  note: z.string().optional(),
+  cards: z
+    .array(z.object({ title: z.string(), items: z.array(z.string()) }))
+    .default([]),
+});
+
 export const blockSchema = z.discriminatedUnion("type", [
   heroBlock,
   statBandBlock,
@@ -158,6 +261,14 @@ export const blockSchema = z.discriminatedUnion("type", [
   toolsGridBlock,
   peopleGridBlock,
   workingGroupsBlock,
+  missionHeroBlock,
+  trustStripBlock,
+  partnerCardsBlock,
+  pillarsBlock,
+  impactCycleBlock,
+  investmentBlock,
+  audienceCardsBlock,
+  timelineBlock,
 ]);
 
 export type Block = z.infer<typeof blockSchema>;
