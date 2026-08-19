@@ -319,6 +319,7 @@ collections:
               - { label: Eyebrow, name: eyebrow, widget: string, default: Mission }
               - { label: Heading, name: heading, widget: text }
               - { label: Lede, name: lede, widget: text, required: false }
+              - { label: Image, name: image, widget: image, required: false }
               - label: Spotlight items
                 name: spotlight
                 widget: list
@@ -384,6 +385,7 @@ collections:
                   - { label: Title, name: title, widget: string }
                   - { label: Text, name: text, widget: text }
                   - { label: Tag, name: tag, widget: string, required: false }
+                  - { label: Image, name: image, widget: image, required: false, hint: "Optional cover photo; replaces the icon when set." }
           - label: Impact cycle
             name: impactCycle
             widget: object

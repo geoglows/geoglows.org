@@ -5,6 +5,7 @@ blocks:
     eyebrow: Mission
     heading: "Enabling organizations and individuals to solve local water challenges with global water intelligence."
     lede: "A GEO flagship since 2016. GEOGLOWS turns satellite and model data into decision-ready hydrologic information: open, free, and built with the people who use it."
+    image: /images/hero-delta.webp
     spotlight:
       - tag: "SERVIR HKH · Nepal"
         text: "Piloting GEOGLOWS-based flood mapping inside a $361M GCF glacial-flood program, with ICIMOD as the Adaptation Fund implementing entity."
@@ -47,6 +48,19 @@ blocks:
       - mark: SA
         title: Student & training programs
         text: "BYU's Kennedy Center pairs a winter-semester course with SERVIR regional hubs, from Nairobi to Kathmandu, where student teams build RFS-based bulletins and deliver them alongside SERVIR scientists."
+  - type: partners
+    eyebrow: The GEOGLOWS community
+    heading: Delivered in partnership
+    logos:
+      - { name: GEO, image: /images/partners/geo.svg, url: https://earthobservations.org }
+      - { name: NASA, image: /images/partners/nasa.webp, url: https://www.nasa.gov }
+      - { name: NOAA, image: /images/partners/noaa.svg, url: https://www.noaa.gov }
+      - { name: ECMWF, image: /images/partners/ecmwf.svg, url: https://www.ecmwf.int }
+      - { name: Brigham Young University, image: /images/partners/byu.svg, url: https://www.byu.edu }
+      - { name: Esri, image: /images/partners/esri.webp, url: https://www.esri.com }
+      - { name: Aquaveo, image: /images/partners/aquaveo.svg, url: https://aquaveo.com }
+      - { name: World Bank, image: /images/partners/worldbank.svg, url: https://www.worldbank.org }
+    cta: { label: Meet the partners, href: /about }
   - type: pillars
     eyebrow: What we work on
     anchor: work
@@ -55,12 +69,15 @@ blocks:
     introLink: { label: "Explore the tools & data hub", href: "/tools" }
     items:
       - icon: waves
+        image: /images/aerial-river.webp
         title: Streamflow forecasting
         text: "15-day forecasts and an 85-year retrospective for every river on Earth, gauged or not, so remote communities get the same warning window as major cities."
       - icon: drop
+        image: /images/showcase/grace.webp
         title: Groundwater monitoring
         text: "Satellite gravity data and local well records combined, so storage trends are visible before a well runs dry, not after."
       - icon: flood
+        image: /images/aerial-thermal.webp
         title: Flood mapping
         tag: coming soon
         text: "Turning streamflow forecasts into block-by-block flood extent maps, so a warning shows what's at risk, not just that a river will rise."
@@ -82,6 +99,16 @@ blocks:
       text: "No lives were lost this flood season. People reached higher ground in time, after alerts from the early warning system."
       who: "Community chairman, Malawi flood early warning program"
       note: "Impact and adoption work supported by Google.org."
+  - type: impactStories
+    eyebrow: Impact around the world
+    heading: Open forecasts transform water decisions on the ground
+    intro: "From flood early warning to reservoir operations, national services and communities put GEOGLOWS to work every day."
+    stories:
+      - { image: /images/story-brahmaputra.webp, location: Bangladesh, title: "Anticipating monsoon floods days ahead on the Brahmaputra", href: "/news" }
+      - { image: /images/story-magdalena.webp, location: Colombia, title: "Bias-corrected forecasts guide the Magdalena basin", href: "/news" }
+      - { image: /images/story-training.webp, location: East Africa, title: "Training national hydrological services on ensemble forecasts", href: "/news" }
+      - { image: /images/story-andes.webp, location: Peru, title: "Drought monitoring for Andean water supply planning", href: "/news" }
+    cta: { label: See all impact stories, href: /news }
   - type: investment
     eyebrow: Investment
     anchor: investment

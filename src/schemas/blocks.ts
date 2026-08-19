@@ -146,6 +146,7 @@ const missionHeroBlock = z.object({
   eyebrow: z.string().default("Mission"),
   heading: z.string(),
   lede: z.string().optional(),
+  image: z.string().optional(),
   spotlight: z
     .array(z.object({ tag: z.string(), text: z.string() }))
     .default([]),
@@ -184,6 +185,7 @@ const pillarsBlock = z.object({
       title: z.string(),
       text: z.string(),
       tag: z.string().optional(),
+      image: z.string().optional(),
     }),
   ),
 });

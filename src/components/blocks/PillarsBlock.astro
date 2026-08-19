@@ -2,6 +2,7 @@
 import type { Block } from "../../schemas/blocks";
 import SectionHeader from "../ui/SectionHeader.astro";
 import Icon from "../ui/Icon.astro";
+import { bgImage } from "../../lib/css";
 
 const { eyebrow, heading, intro, introLink, items } = Astro.props as Extract<
   Block,
@@ -17,7 +18,11 @@ const { eyebrow, heading, intro, introLink, items } = Astro.props as Extract<
       {
         items.map((item) => (
           <div class="card">
-            <span class="icon"><Icon name={item.icon} size={34} /></span>
+            {item.image ? (
+              <div class="cover" style={bgImage(item.image)} />
+            ) : (
+              <span class="icon"><Icon name={item.icon} size={34} /></span>
+            )}
             <h3>
               {item.title}
               {item.tag && <span class="tag">{item.tag}</span>}
@@ -58,6 +63,13 @@ const { eyebrow, heading, intro, introLink, items } = Astro.props as Extract<
     border-radius: var(--radius);
     background: var(--surface-page);
     box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  .cover {
+    margin: -28px -28px 6px;
+    aspect-ratio: 16 / 9;
+    background-size: cover;
+    background-position: center;
   }
   .icon {
     display: grid;

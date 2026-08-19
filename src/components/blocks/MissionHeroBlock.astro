@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import type { Block } from "../../schemas/blocks";
 import GeoGlyph from "../site/GeoGlyph.astro";
 
-const { eyebrow, heading, lede, spotlight, spotlightLink, socialHeading, socialCount } =
+const { eyebrow, heading, lede, image, spotlight, spotlightLink, socialHeading, socialCount } =
   Astro.props as Extract<Block, { type: "missionHero" }>;
 
 const posts = (await getCollection("social"))
@@ -38,7 +38,9 @@ const fmt = (d: Date) =>
       }
     </div>
 
-    <aside class="panel" aria-label={socialHeading}>
+    <div class="rail">
+      {image && <img class="hero-img" src={image} alt="" loading="eager" fetchpriority="high" />}
+      <aside class="panel" aria-label={socialHeading}>
       <div class="p-head">
         <h2>{socialHeading}</h2>
         <span>On LinkedIn</span>
@@ -55,7 +57,8 @@ const fmt = (d: Date) =>
         <a href="https://www.linkedin.com/company/geoglows" target="_blank" rel="noopener">Follow on LinkedIn →</a>
         <a href="/news">All updates →</a>
       </div>
-    </aside>
+      </aside>
+    </div>
   </div>
 </section>
 
@@ -129,6 +132,18 @@ const fmt = (d: Date) =>
     text-decoration: none;
   }
 
+  .rail {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  .hero-img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+  }
   .panel {
     border: 1px solid var(--border);
     border-radius: var(--radius);
