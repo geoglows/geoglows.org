@@ -95,9 +95,11 @@ blocks:
     stats:
       - { num: 30+, lbl: countries with active deployments }
       - { num: "~100K", lbl: forecast requests daily }
-    quote:
-      text: "No lives were lost this flood season. People reached higher ground in time, after alerts from the early warning system."
-      who: "Community chairman, Malawi flood early warning program"
+    story:
+      image: /images/aerial-basin.webp
+      location: "Malawi · Flood early warning"
+      title: "No lives lost this flood season after early-warning alerts reached communities in time."
+      href: /news
       note: "Impact and adoption work supported by Google.org."
   - type: impactStories
     eyebrow: Impact around the world
