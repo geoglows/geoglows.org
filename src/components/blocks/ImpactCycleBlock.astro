@@ -56,7 +56,7 @@ const StoryTag = story?.href ? "a" : "div";
           <div class="stats">
             {stats.map((s) => (
               <div class="stat">
-                <div class="num">{s.num}</div>
+                <div class="num" data-count>{s.num}</div>
                 <div class="lbl">{s.lbl}</div>
               </div>
             ))}
@@ -283,6 +283,7 @@ const StoryTag = story?.href ? "a" : "div";
     font-size: 1.9rem;
     font-weight: 800;
     letter-spacing: -0.01em;
+    font-variant-numeric: tabular-nums;
   }
   .lbl {
     font-size: 0.82rem;

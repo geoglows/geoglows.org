@@ -57,6 +57,19 @@ const { eyebrow, heading, intro, items, contactEmail } = Astro.props as Extract<
     border-radius: var(--radius);
     background: var(--surface-page);
     box-shadow: var(--shadow-sm);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .card {
+      transition: none;
+    }
+    .card:hover {
+      transform: none;
+    }
   }
   .kicker {
     color: var(--accent-text);
