@@ -68,6 +68,69 @@ collections:
             fields:
               - { label: Label, name: label, widget: string }
               - { label: Link, name: href, widget: string }
+          - { label: Header logo (light bg), name: headerLogoLight, widget: image, required: false }
+          - { label: Header logo (dark bg), name: headerLogoDark, widget: image, required: false }
+          - { label: Footer logo, name: footerLogo, widget: image, required: false }
+          - { label: Favicon, name: favicon, widget: image, required: false }
+          - { label: Copyright line, name: copyright, widget: string, required: false, hint: "Shown after the year, e.g. GEOGLOWS · A Group on Earth Observations initiative." }
+          - { label: Default SEO description, name: seoDescription, widget: text, required: false, hint: "Used for pages that don't set their own description." }
+          - { label: Default social-share image, name: shareImage, widget: image, required: false, hint: "Shown when a page is shared on LinkedIn, X, Slack, etc." }
+
+  - name: pageSections
+    label: Page Sections
+    files:
+      - name: news
+        label: News page
+        file: src/content/page-sections/news.json
+        fields:
+          - { label: SEO title, name: seoTitle, widget: string, required: false }
+          - { label: SEO description, name: seoDescription, widget: text, required: false }
+          - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+          - { label: Heading, name: heading, widget: string, required: false }
+          - { label: Videos link label, name: videosLinkLabel, widget: string, required: false }
+          - label: LinkedIn section
+            name: social
+            widget: object
+            required: false
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text }
+          - { label: Follow label, name: followLabel, widget: string, required: false }
+          - { label: Follow URL, name: followUrl, widget: string, required: false }
+      - name: videos
+        label: Videos page
+        file: src/content/page-sections/videos.json
+        fields:
+          - { label: SEO title, name: seoTitle, widget: string, required: false }
+          - { label: SEO description, name: seoDescription, widget: text, required: false }
+          - label: Webinars section
+            name: webinars
+            widget: object
+            required: false
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text }
+          - label: Videos section
+            name: videos
+            widget: object
+            required: false
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text }
+      - name: publications
+        label: Publications page
+        file: src/content/page-sections/publications.json
+        fields:
+          - { label: SEO title, name: seoTitle, widget: string, required: false }
+          - { label: SEO description, name: seoDescription, widget: text, required: false }
+          - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+          - { label: Heading, name: heading, widget: string, required: false }
+          - { label: Intro, name: intro, widget: text, required: false }
+          - { label: Search placeholder, name: searchPlaceholder, widget: string, required: false }
+          - { label: All-topics label, name: allTopicsLabel, widget: string, required: false }
 
   - name: pages
     label: Pages
@@ -78,7 +141,9 @@ collections:
     create: true
     identifier_field: title
     fields:
-      - { label: Title, name: title, widget: string }
+      - { label: Title, name: title, widget: string, hint: "Browser tab + SEO title." }
+      - { label: SEO description, name: description, widget: text, required: false, hint: "Meta description and social-share text for this page." }
+      - { label: Social-share image, name: shareImage, widget: image, required: false }
       - label: Blocks
         name: blocks
         widget: list

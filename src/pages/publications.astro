@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeader from "../components/ui/SectionHeader.astro";
 import PublicationCard from "../components/cards/PublicationCard.astro";
@@ -8,18 +8,16 @@ const entries = (await getCollection("publications")).sort(
   (a, b) => b.data.year - a.data.year,
 );
 const topics = [...new Set(entries.flatMap((entry) => entry.data.topics))].sort();
+const t = (await getEntry("pageSections", "publications"))?.data ?? {};
 ---
 
-<BaseLayout
-  title="Publications | GEOGLOWS"
-  description="The peer-reviewed science behind GEOGLOWS streamflow forecasts."
->
+<BaseLayout title={t.seoTitle ?? "Publications | GEOGLOWS"} description={t.seoDescription}>
   <section class="block">
     <div class="shell">
       <SectionHeader
-        eyebrow="Publications"
-        heading="The science behind the service"
-        intro="Search and filter the peer-reviewed research behind GEOGLOWS."
+        eyebrow={t.eyebrow ?? "Publications"}
+        heading={t.heading ?? "The science behind the service"}
+        intro={t.intro ?? "Search and filter the peer-reviewed research behind GEOGLOWS."}
         align="left"
         level={1}
       />
@@ -27,11 +25,11 @@ const topics = [...new Set(entries.flatMap((entry) => entry.data.topics))].sort(
         <input
           id="pub-search"
           type="search"
-          placeholder="Search title, author, or journal…"
+          placeholder={t.searchPlaceholder ?? "Search title, author, or journal…"}
           aria-label="Search publications"
         />
         <div class="chips" role="group" aria-label="Filter by topic">
-          <button class="topic-chip" data-topic="all" aria-pressed="true">All topics</button>
+          <button class="topic-chip" data-topic="all" aria-pressed="true">{t.allTopicsLabel ?? "All topics"}</button>
           {
             topics.map((topic) => (
               <button class="topic-chip" data-topic={topic} aria-pressed="false">

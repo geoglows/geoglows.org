@@ -63,5 +63,12 @@
     { "label": "Privacy", "href": "/legal/privacy-policy" },
     { "label": "Terms", "href": "/legal/terms-of-service" },
     { "label": "Cookies", "href": "/legal/cookie-policy" }
-  ]
+  ],
+  "headerLogoLight": "/images/geoglows-logo.webp",
+  "headerLogoDark": "/images/geoglows-logo-white.webp",
+  "footerLogo": "/images/geoglows-logo-white.webp",
+  "favicon": "/images/geo-logo-navy.svg",
+  "copyright": "GEOGLOWS · A Group on Earth Observations initiative.",
+  "seoDescription": "Open, operational global streamflow forecasts and an 85-year retrospective for every river on Earth, free for every water manager, researcher, and community.",
+  "shareImage": "/images/hero-delta.webp"
 }

@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionHeader from "../components/ui/SectionHeader.astro";
 import VideoCard from "../components/cards/VideoCard.astro";
@@ -11,20 +11,21 @@ const videos = (await getCollection("videos")).sort(
 const webinars = (await getCollection("webinars")).sort(
   (a, b) => a.data.order - b.data.order,
 );
+const t = (await getEntry("pageSections", "videos"))?.data ?? {};
 ---
 
 <BaseLayout
-  title="Videos & Webinars | GEOGLOWS"
-  description="The RFS v2 webinar series plus talks, demos, and success stories from the GEOGLOWS community."
+  title={t.seoTitle ?? "Videos & Webinars | GEOGLOWS"}
+  description={t.seoDescription}
 >
   {
     webinars.length > 0 && (
       <section class="block">
         <div class="shell">
           <SectionHeader
-            eyebrow="Webinar series"
-            heading="GEOGLOWS RFS v2 Webinar Series"
-            intro="A four-part live series introducing the River Forecast System v2, from model formulation to accessing data and using the Hydroviewer."
+            eyebrow={t.webinars?.eyebrow ?? "Webinar series"}
+            heading={t.webinars?.heading ?? "GEOGLOWS RFS v2 Webinar Series"}
+            intro={t.webinars?.intro ?? "A four-part live series introducing the River Forecast System v2, from model formulation to accessing data and using the Hydroviewer."}
             align="left"
             level={1}
           />
@@ -41,9 +42,9 @@ const webinars = (await getCollection("webinars")).sort(
   <section class="block videos">
     <div class="shell">
       <SectionHeader
-        eyebrow="Videos"
-        heading="Talks, demos, and success stories"
-        intro="How GEOGLOWS hydrological modeling and GIS tools make a difference in water management around the world."
+        eyebrow={t.videos?.eyebrow ?? "Videos"}
+        heading={t.videos?.heading ?? "Talks, demos, and success stories"}
+        intro={t.videos?.intro ?? "How GEOGLOWS hydrological modeling and GIS tools make a difference in water management around the world."}
         align="left"
       />
       <div class="grid">
