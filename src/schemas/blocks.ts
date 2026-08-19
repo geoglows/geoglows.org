@@ -157,18 +157,24 @@ const missionHeroBlock = z.object({
 
 const trustStripBlock = z.object({
   type: z.literal("trustStrip"),
-  logosLabel: z.string().optional(),
-  logos: z
+  groups: z
     .array(
       z.object({
-        name: z.string(),
-        image: z.string().optional(),
-        url: z.string().optional(),
+        label: z.string(),
+        logos: z
+          .array(
+            z.object({
+              name: z.string(),
+              image: z.string().optional(),
+              url: z.string().optional(),
+              invert: z.boolean().optional(),
+            }),
+          )
+          .default([]),
+        tail: z.string().optional(),
       }),
     )
     .default([]),
-  logosTail: z.string().optional(),
-  rows: z.array(z.object({ label: z.string(), names: z.string() })).default([]),
 });
 
 const partnerCardsBlock = z.object({

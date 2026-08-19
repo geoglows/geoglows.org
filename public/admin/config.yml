@@ -340,23 +340,21 @@ collections:
             name: trustStrip
             widget: object
             fields:
-              - { label: Logos label, name: logosLabel, widget: string, required: false, hint: "e.g. Funded by" }
-              - label: Funder logos
-                name: logos
+              - label: Groups
+                name: groups
                 widget: list
-                required: false
                 fields:
-                  - { label: Name, name: name, widget: string }
-                  - { label: Logo image, name: image, widget: image, required: false }
-                  - { label: Link, name: url, widget: string, required: false }
-              - { label: Logos tail, name: logosTail, widget: string, required: false, hint: "Text for funders without a logo, e.g. with NGA, PREPARE and WMO" }
-              - label: Text rows
-                name: rows
-                widget: list
-                required: false
-                fields:
-                  - { label: Label, name: label, widget: string }
-                  - { label: Names, name: names, widget: text }
+                  - { label: Label, name: label, widget: string, hint: "e.g. Funded by" }
+                  - label: Logos
+                    name: logos
+                    widget: list
+                    required: false
+                    fields:
+                      - { label: Name, name: name, widget: string }
+                      - { label: Logo image, name: image, widget: image, required: false }
+                      - { label: Link, name: url, widget: string, required: false }
+                      - { label: White logo (darken on the strip), name: invert, widget: boolean, required: false, default: false }
+                  - { label: Tail text, name: tail, widget: string, required: false, hint: "For members without a logo, e.g. with PREPARE" }
           - label: Partner cards
             name: partnerCards
             widget: object
