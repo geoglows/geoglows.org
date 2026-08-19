@@ -208,6 +208,15 @@ const impactCycleBlock = z.object({
       note: z.string().optional(),
     })
     .optional(),
+  story: z
+    .object({
+      image: z.string(),
+      location: z.string(),
+      title: z.string(),
+      href: z.string().optional(),
+      note: z.string().optional(),
+    })
+    .optional(),
 });
 
 const investmentBlock = z.object({

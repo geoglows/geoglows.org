@@ -409,13 +409,23 @@ collections:
                 fields:
                   - { label: Number, name: num, widget: string }
                   - { label: Label, name: lbl, widget: string }
-              - label: Quote
+              - label: Quote (used only if no Story is set)
                 name: quote
                 widget: object
                 required: false
                 fields:
                   - { label: Quote, name: text, widget: text }
                   - { label: Attribution, name: who, widget: string }
+                  - { label: Note, name: note, widget: string, required: false }
+              - label: Featured story
+                name: story
+                widget: object
+                required: false
+                fields:
+                  - { label: Image, name: image, widget: image }
+                  - { label: Location, name: location, widget: string }
+                  - { label: Title, name: title, widget: text }
+                  - { label: Link, name: href, widget: string, required: false }
                   - { label: Note, name: note, widget: string, required: false }
           - label: Investment
             name: investment
