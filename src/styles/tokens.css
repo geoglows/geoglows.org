@@ -77,8 +77,8 @@
     --accent: #4fb3a4;
     --accent-text: #6fd0c0;
     --accent-strong: #4fb7d8;
-    --logo-tint: grayscale(1) brightness(1.85);
-    --logo-invert-tint: grayscale(1) brightness(1.85);
+    --logo-tint: grayscale(1) brightness(2.1);
+    --logo-invert-tint: grayscale(1) brightness(2.1);
     color-scheme: dark;
   }
 }
