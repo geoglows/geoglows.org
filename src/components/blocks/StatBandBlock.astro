@@ -7,14 +7,14 @@ const [lead, ...rest] = stats;
 <div class="stat-band">
   <div class="shell inner">
     <div class="lead">
-      <span class="lead-value">{lead.value}</span>
+      <span class="lead-value" data-count>{lead.value}</span>
       <span class="lead-label">{lead.label}</span>
     </div>
     <div class="rest">
       {
         rest.map((stat) => (
           <div class="stat">
-            <span class="value">{stat.value}</span>
+            <span class="value" data-count>{stat.value}</span>
             <span class="label">{stat.label}</span>
           </div>
         ))
