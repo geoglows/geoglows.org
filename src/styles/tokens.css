@@ -39,6 +39,12 @@
   --ink-on-dark-muted: #a6bccb;
   --hairline-on-dark: rgba(233, 240, 246, 0.15);
 
+  /* logo tint for funder/partner strips, per theme.
+     Light: keep logos dark (grayscale); white artwork darkens via -invert-.
+     Dark: lighten logos so they read on the dark page while keeping detail. */
+  --logo-tint: grayscale(1);
+  --logo-invert-tint: brightness(0);
+
   /* section vertical rhythm */
   --block-space: clamp(44px, 5vw, 76px);
 
@@ -71,6 +77,8 @@
     --accent: #4fb3a4;
     --accent-text: #6fd0c0;
     --accent-strong: #4fb7d8;
+    --logo-tint: grayscale(1) brightness(1.85);
+    --logo-invert-tint: grayscale(1) brightness(1.85);
     color-scheme: dark;
   }
 }

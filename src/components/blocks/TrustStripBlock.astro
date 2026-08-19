@@ -6,73 +6,65 @@ const { groups } = Astro.props as Extract<Block, { type: "trustStrip" }>;
 
 <section class="block trust">
   <div class="shell">
-    <div class="board">
-      {
-        groups.map((group) => (
-          <div class="group">
-            <span class="label">{group.label}</span>
-            <ul class="logo-strip">
-              {group.logos.map((logo) => {
-                const img = (
-                  <img
-                    class:list={["logo", logo.invert && "invert"]}
-                    src={logo.image}
-                    alt={logo.name}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                );
-                return (
-                  <li>
-                    {logo.url ? (
-                      <a href={logo.url} target="_blank" rel="noopener" aria-label={logo.name}>
-                        {img}
-                      </a>
-                    ) : (
-                      img
-                    )}
-                  </li>
-                );
-              })}
-              {group.tail && <li class="tail">{group.tail}</li>}
-            </ul>
-          </div>
-        ))
-      }
-    </div>
+    {
+      groups.map((group) => (
+        <div class="group">
+          <span class="label">{group.label}</span>
+          <ul class="logo-strip">
+            {group.logos.map((logo) => {
+              const img = (
+                <img
+                  class:list={["logo", logo.invert && "invert"]}
+                  src={logo.image}
+                  alt={logo.name}
+                  loading="lazy"
+                  decoding="async"
+                />
+              );
+              return (
+                <li>
+                  {logo.url ? (
+                    <a href={logo.url} target="_blank" rel="noopener" aria-label={logo.name}>
+                      {img}
+                    </a>
+                  ) : (
+                    img
+                  )}
+                </li>
+              );
+            })}
+            {group.tail && <li class="tail">{group.tail}</li>}
+          </ul>
+        </div>
+      ))
+    }
   </div>
 </section>
 
 <style>
   .trust {
-    padding-block: clamp(28px, 4vw, 44px);
-  }
-  .board {
-    background: #ffffff;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-sm);
-    padding: 6px 26px;
+    padding-block: clamp(30px, 4vw, 48px);
   }
   .group {
     display: flex;
     align-items: center;
-    gap: 26px;
+    gap: clamp(18px, 3vw, 40px);
     flex-wrap: wrap;
-    padding: 20px 0;
-    border-top: 1px solid #eceff1;
+    padding: 18px 0;
+    border-top: 1px solid var(--border);
   }
   .group:first-child {
     border-top: none;
   }
   .label {
     flex: 0 0 auto;
-    width: 92px;
-    color: #55555a;
+    width: 96px;
+    color: var(--text-faint);
     font-size: 0.72rem;
     font-weight: 700;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
+    line-height: 1.3;
   }
   .logo-strip {
     list-style: none;
@@ -81,41 +73,32 @@ const { groups } = Astro.props as Extract<Block, { type: "trustStrip" }>;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: clamp(18px, 3vw, 32px);
-    flex: 1;
+    gap: clamp(20px, 3.2vw, 42px);
   }
   .logo-strip li {
     display: flex;
     align-items: center;
   }
   .logo {
-    height: 32px;
+    height: 30px;
     width: auto;
-    max-width: 130px;
+    max-width: 120px;
     object-fit: contain;
-    filter: grayscale(1);
-    opacity: 0.6;
-    transition: filter 0.18s ease, opacity 0.18s ease;
+    filter: var(--logo-tint);
+    opacity: 0.72;
+    transition: filter 0.2s ease, opacity 0.2s ease;
   }
-  /* logos supplied as white/light artwork: render as a dark silhouette so they
-     read on the white board */
   .logo.invert {
-    filter: brightness(0);
-    opacity: 0.55;
+    filter: var(--logo-invert-tint);
   }
   li:hover .logo {
-    filter: grayscale(0);
-    opacity: 1;
-  }
-  li:hover .logo.invert {
-    filter: brightness(0);
     opacity: 1;
   }
   .tail {
-    color: #6a6a70;
-    font-size: 0.82rem;
+    color: var(--text-faint);
+    font-size: 0.85rem;
     font-weight: 500;
-    max-width: 46ch;
+    max-width: 44ch;
   }
   @media (max-width: 640px) {
     .group {
