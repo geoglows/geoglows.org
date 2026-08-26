@@ -1,5 +1,6 @@
 ---
 import { bgImage } from "../../lib/css";
+import { youtubeThumb, youtubeWatchUrl } from "../../lib/youtube";
 
 interface Props {
   title: string;
@@ -9,8 +10,8 @@ interface Props {
   description: string;
 }
 const { title, date, youtubeId, presenter, description } = Astro.props;
-const href = `https://www.youtube.com/watch?v=${youtubeId}`;
-const thumb = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
+const href = youtubeWatchUrl(youtubeId);
+const thumb = youtubeThumb(youtubeId);
 ---
 
 <article class="webinar">

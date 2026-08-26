@@ -2,6 +2,7 @@
 import type { Block } from "../../schemas/blocks";
 import SectionHeader from "../ui/SectionHeader.astro";
 import { bgImage } from "../../lib/css";
+import { youtubeThumb, youtubeWatchUrl } from "../../lib/youtube";
 
 const { eyebrow, heading, intro, items, cta } = Astro.props as Extract<
   Block,
@@ -9,12 +10,8 @@ const { eyebrow, heading, intro, items, cta } = Astro.props as Extract<
 >;
 
 const cardFor = (item: (typeof items)[number]) => {
-  const thumb = item.youtubeId
-    ? `https://img.youtube.com/vi/${item.youtubeId}/hqdefault.jpg`
-    : item.image;
-  const href = item.youtubeId
-    ? `https://www.youtube.com/watch?v=${item.youtubeId}`
-    : item.href;
+  const thumb = item.youtubeId ? youtubeThumb(item.youtubeId) : item.image;
+  const href = item.youtubeId ? youtubeWatchUrl(item.youtubeId) : item.href;
   return { thumb, href, isVideo: Boolean(item.youtubeId) };
 };
 ---
