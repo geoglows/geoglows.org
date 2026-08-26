@@ -15,7 +15,7 @@ blocks:
     socialHeading: "Latest from GEOGLOWS"
     socialCount: 3
   - type: featuredMedia
-    eyebrow: Social proof
+    eyebrow: In the field
     heading: Project highlights
     intro: "A closer look at how partners put GEOGLOWS to work in the field."
     items:
