@@ -24,6 +24,8 @@ import ImpactCycleBlock from "./ImpactCycleBlock.astro";
 import InvestmentBlock from "./InvestmentBlock.astro";
 import AudienceCardsBlock from "./AudienceCardsBlock.astro";
 import TimelineBlock from "./TimelineBlock.astro";
+import FeaturedMediaBlock from "./FeaturedMediaBlock.astro";
+import ResourceTabsBlock from "./ResourceTabsBlock.astro";
 
 const registry = {
   hero: HeroBlock,
@@ -50,6 +52,8 @@ const registry = {
   investment: InvestmentBlock,
   audienceCards: AudienceCardsBlock,
   timeline: TimelineBlock,
+  featuredMedia: FeaturedMediaBlock,
+  resourceTabs: ResourceTabsBlock,
 } as const;
 
 interface Props {

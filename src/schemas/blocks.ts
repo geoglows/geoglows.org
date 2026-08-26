@@ -272,6 +272,39 @@ const timelineBlock = z.object({
     .default([]),
 });
 
+const featuredMediaBlock = z.object({
+  type: z.literal("featuredMedia"),
+  eyebrow: z.string().optional(),
+  heading: z.string(),
+  intro: z.string().optional(),
+  anchor: z.string().optional(),
+  items: z.array(
+    z.object({
+      title: z.string(),
+      location: z.string().optional(),
+      image: z.string().optional(),
+      youtubeId: z.string().optional(),
+      href: z.string().optional(),
+    }),
+  ),
+  cta: linkSchema.optional(),
+});
+
+const resourceTabsBlock = z.object({
+  type: z.literal("resourceTabs"),
+  eyebrow: z.string().optional(),
+  heading: z.string(),
+  intro: z.string().optional(),
+  anchor: z.string().optional(),
+  tabs: z.array(
+    z.object({
+      label: z.string(),
+      href: z.string(),
+      description: z.string().optional(),
+    }),
+  ),
+});
+
 export const blockSchema = z.discriminatedUnion("type", [
   heroBlock,
   statBandBlock,
@@ -297,6 +330,8 @@ export const blockSchema = z.discriminatedUnion("type", [
   investmentBlock,
   audienceCardsBlock,
   timelineBlock,
+  featuredMediaBlock,
+  resourceTabsBlock,
 ]);
 
 export type Block = z.infer<typeof blockSchema>;

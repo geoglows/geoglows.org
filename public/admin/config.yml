@@ -79,25 +79,6 @@ collections:
   - name: pageSections
     label: Page Sections
     files:
-      - name: news
-        label: News page
-        file: src/content/page-sections/news.json
-        fields:
-          - { label: SEO title, name: seoTitle, widget: string, required: false }
-          - { label: SEO description, name: seoDescription, widget: text, required: false }
-          - { label: Eyebrow, name: eyebrow, widget: string, required: false }
-          - { label: Heading, name: heading, widget: string, required: false }
-          - { label: Videos link label, name: videosLinkLabel, widget: string, required: false }
-          - label: LinkedIn section
-            name: social
-            widget: object
-            required: false
-            fields:
-              - { label: Eyebrow, name: eyebrow, widget: string }
-              - { label: Heading, name: heading, widget: string }
-              - { label: Intro, name: intro, widget: text }
-          - { label: Follow label, name: followLabel, widget: string, required: false }
-          - { label: Follow URL, name: followUrl, widget: string, required: false }
       - name: videos
         label: Videos page
         file: src/content/page-sections/videos.json
@@ -562,6 +543,45 @@ collections:
                 fields:
                   - { label: Title, name: title, widget: string }
                   - { label: Items, name: items, widget: list, field: { label: Item, name: item, widget: string } }
+          - label: Featured media
+            name: featuredMedia
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
+              - label: Items
+                name: items
+                widget: list
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Location, name: location, widget: string, required: false }
+                  - { label: Image, name: image, widget: image, required: false }
+                  - { label: YouTube video ID, name: youtubeId, widget: string, required: false, hint: "Set this to make the card a video (overrides Image/Link)." }
+                  - { label: Link, name: href, widget: string, required: false }
+              - label: Button
+                name: cta
+                widget: object
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
+          - label: Resource tabs
+            name: resourceTabs
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
+              - label: Tabs
+                name: tabs
+                widget: list
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
+                  - { label: Description, name: description, widget: text, required: false }
 
   - name: tools
     label: Tools

@@ -2,23 +2,54 @@
   "brandName": "GEOGLOWS",
   "tagline": "Earth Intelligence for All",
   "nav": [
-    { "label": "Partnerships", "href": "/#partnerships" },
-    { "label": "What we do", "href": "/#work" },
-    { "label": "Impact", "href": "/#impact" },
-    { "label": "Investment", "href": "/#investment" },
-    { "label": "Get involved", "href": "/#involved" },
-    { "label": "About", "href": "/about" },
+    {
+      "label": "What We Do",
+      "href": "/what-we-do",
+      "children": [
+        { "label": "What we work on", "href": "/what-we-do#work" },
+        { "label": "Getting started", "href": "/what-we-do#getting-started" },
+        { "label": "What's new in V2", "href": "/what-we-do#whats-new" }
+      ]
+    },
+    {
+      "label": "Impact",
+      "href": "/impact",
+      "children": [
+        { "label": "Beyond forecasts", "href": "/impact#beyond" },
+        { "label": "Around the world", "href": "/impact#around-the-world" },
+        { "label": "Case studies", "href": "/impact#case-studies" }
+      ]
+    },
+    {
+      "label": "Community",
+      "href": "/community",
+      "children": [
+        { "label": "Partners", "href": "/community#partners" },
+        { "label": "Researchers & students", "href": "/community#researchers" },
+        { "label": "News, events & webinars", "href": "/community#news" },
+        { "label": "Investment", "href": "/community#investment" },
+        { "label": "Get involved", "href": "/community#involved" }
+      ]
+    },
     {
       "label": "Tools & Data",
       "href": "/tools",
       "children": [
-        { "label": "All Tools", "href": "/tools" },
-        { "label": "GEOGLOWS Service", "href": "/service" },
-        { "label": "Getting Started", "href": "/getting-started" },
-        { "label": "Publications", "href": "/publications" },
-        { "label": "News & Events", "href": "/news" },
-        { "label": "Videos & Webinars", "href": "/videos" },
-        { "label": "Resources & Training", "href": "/resources" }
+        { "label": "Getting started", "href": "/tools#getting-started" },
+        { "label": "Tools", "href": "https://apps.geoglows.org" },
+        { "label": "Access the data", "href": "/tools#data" },
+        { "label": "Resources", "href": "/tools#resources" }
+      ]
+    },
+    {
+      "label": "About",
+      "href": "/about",
+      "children": [
+        { "label": "Mission", "href": "/about#mission" },
+        { "label": "Who we are", "href": "/about#who-we-are" },
+        { "label": "Leadership", "href": "/about#leadership" },
+        { "label": "Steering committee", "href": "/about#steering" },
+        { "label": "Collaborators", "href": "/about#collaborators" }
       ]
     }
   ],
@@ -33,27 +64,28 @@
     {
       "title": "Tools & Data",
       "links": [
-        { "label": "GEOGLOWS Service", "href": "/service" },
+        { "label": "Getting started", "href": "/tools#getting-started" },
         { "label": "Hydroviewer", "href": "https://apps.geoglows.org" },
-        { "label": "All tools", "href": "/tools" },
+        { "label": "Access the data", "href": "/tools#data" },
         { "label": "Publications", "href": "/publications" }
       ]
     },
     {
-      "title": "Learn",
+      "title": "Explore",
       "links": [
-        { "label": "Getting started", "href": "/getting-started" },
-        { "label": "About GEOGLOWS", "href": "/about" },
-        { "label": "Publications", "href": "/publications" },
-        { "label": "News & events", "href": "/news" }
+        { "label": "What we do", "href": "/what-we-do" },
+        { "label": "Impact", "href": "/impact" },
+        { "label": "Resources", "href": "/tools#resources" },
+        { "label": "Videos & webinars", "href": "/videos" }
       ]
     },
     {
       "title": "Community",
       "links": [
-        { "label": "Partners", "href": "/about" },
-        { "label": "News & events", "href": "/news" },
-        { "label": "Videos & webinars", "href": "/videos" },
+        { "label": "Partners", "href": "/community#partners" },
+        { "label": "News & events", "href": "/community#news" },
+        { "label": "Get involved", "href": "/community#involved" },
+        { "label": "About GEOGLOWS", "href": "/about" },
         { "label": "LinkedIn", "href": "https://www.linkedin.com/company/geoglows" },
         { "label": "Contact", "href": "mailto:secretariat@geoglows.org" }
       ]
