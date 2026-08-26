@@ -50,9 +50,10 @@ blocks:
       Researchers and students help extend GEOGLOWS into new basins and use cases.
   - type: newsGrid
     eyebrow: News, events & webinars
+    anchor: news
     heading: Latest from the community
     count: 3
-    cta: { label: See all news & events, href: /community#news }
+    cta: { label: See all news & events, href: /videos }
   - type: investment
     eyebrow: Investment
     anchor: investment

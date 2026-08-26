@@ -7,7 +7,7 @@
       "href": "/what-we-do",
       "children": [
         { "label": "What we work on", "href": "/what-we-do#work" },
-        { "label": "Getting started", "href": "/what-we-do#getting-started" },
+        { "label": "How it works", "href": "/what-we-do#getting-started" },
         { "label": "What's new in V2", "href": "/what-we-do#whats-new" }
       ]
     },
