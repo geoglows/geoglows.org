@@ -20,7 +20,7 @@ const t = (await getEntry("pageSections", "videos"))?.data ?? {};
 >
   {
     webinars.length > 0 && (
-      <section class="block">
+      <section class="block" id="webinars">
         <div class="shell">
           <SectionHeader
             eyebrow={t.webinars?.eyebrow ?? "Webinar series"}
