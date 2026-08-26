@@ -105,6 +105,7 @@ const newsGridBlock = z.object({
   heading: z.string(),
   count: z.number().default(3),
   cta: linkSchema.optional(),
+  anchor: z.string().optional(),
 });
 
 const richTextBlock = z.object({

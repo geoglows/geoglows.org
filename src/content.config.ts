@@ -44,12 +44,6 @@ const pageSections = defineCollection({
     eyebrow: z.string().optional(),
     heading: z.string().optional(),
     intro: z.string().optional(),
-    followLabel: z.string().optional(),
-    followUrl: z.string().optional(),
-    videosLinkLabel: z.string().optional(),
-    social: z
-      .object({ eyebrow: z.string(), heading: z.string(), intro: z.string() })
-      .optional(),
     webinars: z
       .object({ eyebrow: z.string(), heading: z.string(), intro: z.string() })
       .optional(),
