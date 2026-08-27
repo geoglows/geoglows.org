@@ -10,16 +10,16 @@ const { eyebrow, heading, intro, note, points, cta } = Astro.props as Extract<
   { type: "countriesMap" }
 >;
 
-// Build-time only: read the simplified land outline and project it (and the
-// pins) with the same equirectangular projection so markers line up exactly.
+// Build-time only: read country polygons and project them (and the pins) with
+// the same equirectangular projection so markers line up exactly.
 const require = createRequire(import.meta.url);
-const topo = require("world-atlas/land-110m.json");
-const land = feature(topo, topo.objects.land);
+const topo = require("world-atlas/countries-110m.json");
+const countries = feature(topo, topo.objects.countries);
 
 const W = 1000;
 const H = 500;
 const projection = geoEquirectangular().fitSize([W, H], { type: "Sphere" });
-const landPath = geoPath(projection)(land) ?? "";
+const worldPath = geoPath(projection)(countries) ?? "";
 const pins = points
   .map((pt) => {
     const xy = projection([pt.lng, pt.lat]);
@@ -41,16 +41,12 @@ const pins = points
           role="img"
           aria-label="World map showing countries with documented GEOGLOWS deployments"
         >
-          <path d={landPath} class="land" />
+          <path d={worldPath} class="world" />
         </svg>
         <div class="pins">
           {
             pins.map((p) => (
-              <span
-                class="pin"
-                style={`left:${p.xPct}%;top:${p.yPct}%`}
-                title={p.country}
-              >
+              <span class="pin" style={`left:${p.xPct}%;top:${p.yPct}%`}>
                 <span class="lbl">{p.country}</span>
               </span>
             ))
@@ -70,29 +66,28 @@ const pins = points
 </section>
 
 <style>
-  /* Theme-tuned map palette: land reads clearly against the ocean in both
-     modes without going garish. */
+  /* Theme-tuned map palette: filled countries with visible borders. */
   .countries {
     --map-ocean: #e7ecf0;
-    --map-land: #cfd8df;
-    --map-stroke: #bcc7cf;
+    --map-land: #d3dbe1;
+    --map-border: #ffffff;
   }
   @media (prefers-color-scheme: dark) {
     :global(:root:not([data-theme="light"])) .countries {
       --map-ocean: #101b28;
-      --map-land: #27394c;
-      --map-stroke: #33475b;
+      --map-land: #263749;
+      --map-border: #101b28;
     }
   }
   :global(:root[data-theme="dark"]) .countries {
     --map-ocean: #101b28;
-    --map-land: #27394c;
-    --map-stroke: #33475b;
+    --map-land: #263749;
+    --map-border: #101b28;
   }
   :global(:root[data-theme="light"]) .countries {
     --map-ocean: #e7ecf0;
-    --map-land: #cfd8df;
-    --map-stroke: #bcc7cf;
+    --map-land: #d3dbe1;
+    --map-border: #ffffff;
   }
 
   .map-wrap {
@@ -109,55 +104,43 @@ const pins = points
     height: auto;
     display: block;
   }
-  .land {
+  .world {
     fill: var(--map-land);
-    stroke: var(--map-stroke);
-    stroke-width: 0.5;
+    stroke: var(--map-border);
+    stroke-width: 0.6;
+    stroke-linejoin: round;
   }
 
-  /* HTML pin overlay: real stacking, so a hovered label sits above every
-     other pin instead of being painted behind later ones. */
   .pins {
     position: absolute;
     inset: 0;
   }
+  /* Crisp bordered dot (no washed-out halo), legible on light and dark. */
   .pin {
     position: absolute;
-    width: 12px;
-    height: 12px;
+    width: 13px;
+    height: 13px;
     transform: translate(-50%, -50%);
     border-radius: 50%;
     background: var(--color-amber);
-    box-shadow: 0 0 0 5px rgba(255, 191, 0, 0.2);
-    transition: box-shadow 0.15s ease;
-  }
-  .pin:hover,
-  .pin:focus-visible {
-    z-index: 5;
-    box-shadow: 0 0 0 6px rgba(255, 191, 0, 0.32);
-    outline: none;
+    border: 2px solid var(--surface-page);
+    box-shadow: 0 1px 4px rgba(15, 23, 32, 0.45);
   }
   .lbl {
     position: absolute;
-    bottom: calc(100% + 8px);
+    bottom: calc(100% + 5px);
     left: 50%;
     transform: translateX(-50%);
-    padding: 4px 9px;
-    border-radius: 7px;
+    padding: 2px 7px;
+    border-radius: 6px;
     background: var(--surface-page);
     border: 1px solid var(--border);
-    box-shadow: var(--shadow-md);
+    box-shadow: var(--shadow-sm);
     color: var(--text-strong);
-    font-size: 0.78rem;
+    font-size: 0.7rem;
     font-weight: 700;
+    letter-spacing: 0.01em;
     white-space: nowrap;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.12s ease;
-  }
-  .pin:hover .lbl,
-  .pin:focus-visible .lbl {
-    opacity: 1;
   }
   .note {
     margin-top: 14px;
@@ -171,5 +154,11 @@ const pins = points
     color: var(--accent-text);
     font-weight: 800;
     text-decoration: none;
+  }
+  @media (max-width: 640px) {
+    .lbl {
+      font-size: 0.58rem;
+      padding: 1px 5px;
+    }
   }
 </style>
