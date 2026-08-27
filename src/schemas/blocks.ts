@@ -46,6 +46,8 @@ const valuePropsBlock = z.object({
   type: z.literal("valueProps"),
   eyebrow: z.string().optional(),
   heading: z.string(),
+  anchor: z.string().optional(),
+  intro: z.string().optional(),
   items: z.array(titleTextItem),
   cta: linkSchema.optional(),
 });
