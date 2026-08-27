@@ -17,19 +17,16 @@ blocks:
     eyebrow: Science & architecture
     anchor: getting-started
     heading: From global weather to your river
+    background: muted
     body: >-
       The GEOGLOWS Streamflow Forecasting initiative combines advanced hydrologic
       models with high-resolution global meteorology to deliver accurate,
       real-time forecasts of river discharge for millions of stream reaches
       worldwide. Improved data services, visualization tools, and analytical
       capabilities let users access, analyze, and apply streamflow data for
-      everything from flood early warning to water-resource planning. With
-      continuous updates and community engagement, the service stays at the
-      forefront of hydrological science and technology. The methodology behind
-      the service is documented in the peer-reviewed literature ([Hales et al.,
-      2025, *Journal of Flood Risk Management*](https://doi.org/10.1111/jfr3.12859)).
-      Here is the path a forecast takes, from a global weather model to the river
-      outside your door.
+      everything from flood early warning to water-resource planning. Here is the
+      path a forecast takes, from a global weather model to the river outside
+      your door.
   - type: howItWorks
     heading: How the system fits together
     steps:
