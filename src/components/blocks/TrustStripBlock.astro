@@ -84,9 +84,11 @@ const { groups } = Astro.props as Extract<Block, { type: "trustStrip" }>;
     width: 128px;
   }
   .logo {
-    max-height: 48px;
-    max-width: 116px;
+    /* Explicit height (not max-height) so viewBox-only SVGs, which have no
+       intrinsic size, still resolve a height and render. */
+    height: 44px;
     width: auto;
+    max-width: 116px;
     object-fit: contain;
     filter: var(--logo-tint);
     opacity: 0.95;
