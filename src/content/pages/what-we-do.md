@@ -6,11 +6,13 @@ blocks:
     eyebrow: What we do
     heading: The science and system behind the forecast
     body: >-
-      This page is the how. GEOGLOWS turns global weather into a river-discharge
-      forecast for every stream on Earth. Here we walk through both sides of
-      that: the hydrologic science that makes a global forecast possible, and the
-      open architecture of models, data services, and tools that fit together to
-      produce it and get it to the people who act on it.
+      GEOGLOWS makes global water intelligence as open and available as the
+      weather forecast. Using the same meteorology that powers global weather
+      prediction, it forecasts river discharge for every stream on Earth, gauged
+      or not, and publishes the results openly for anyone to use. What follows is
+      how that works: the hydrologic science that makes a global forecast
+      possible, and the open architecture that produces it and delivers it to the
+      people who act on it.
   - type: pillars
     eyebrow: What we work on
     anchor: work
@@ -35,7 +37,7 @@ blocks:
         title: Capacity building
         text: "Training national hydrological services and student teams to run, interpret, and act on the forecasts in their own basins."
   - type: richText
-    eyebrow: How it works
+    eyebrow: Science & architecture
     anchor: getting-started
     heading: From global weather to your river
     body: >-
@@ -46,13 +48,17 @@ blocks:
       capabilities let users access, analyze, and apply streamflow data for
       everything from flood early warning to water-resource planning. With
       continuous updates and community engagement, the service stays at the
-      forefront of hydrological science and technology.
+      forefront of hydrological science and technology. Here is the path a
+      forecast takes, from a global weather model to the river outside your door.
   - type: howItWorks
     heading: How the system fits together
     steps:
-      - { title: Global forecasts, text: "ECMWF ensemble runoff forecasts are produced daily for the entire globe, powered by Esri's Living Atlas and programmatic APIs." }
-      - { title: Routed & corrected, text: "Runoff is routed through more than 7 million mapped river reaches and bias-corrected against observations." }
-      - { title: Explore & apply, text: "Open the Hydroviewer to read the forecast for any river, or access the data directly through the REST API and AWS Open Data." }
+      - { title: "Global weather becomes runoff", text: "ECMWF's Integrated Forecast System drives a global land-surface model, turning the meteorology behind the world's weather forecasts into gridded runoff over every landmass. Forecasts run as a 51-member ensemble out to 15 days; the historical record uses ERA5 reanalysis." }
+      - { title: "A river network for the whole planet", text: "That runoff is mapped onto TDX-Hydro, a high-resolution stream network built from 12 m TanDEM-X elevation data: about 7 million river reaches and their catchments, organized into 125 processing units." }
+      - { title: "Routing runoff into streamflow", text: "RAPID, the Routing Application for Parallel computation of Discharge, routes runoff downstream through the network with a matrix Muskingum method, turning land runoff into actual discharge at every reach, gauged or not." }
+      - { title: "History sets the thresholds", text: "An 85-year retrospective from 1940 establishes each river's normal range and return-period levels, so a forecast carries context: reaches are flagged when flow is expected to exceed local flood thresholds." }
+      - { title: "Read any river in the Hydroviewer", text: "The Hydroviewer web app puts the forecast, the retrospective, and return-period flags on an interactive map, so anyone can look up the outlook for a specific reach in seconds." }
+      - { title: "Build on the open data", text: "Every forecast and the full retrospective are published openly through a REST API, AWS Open Data, Esri Living Atlas, and the GEOGLOWS Python package, free to integrate into local warning systems and research." }
   - type: valueProps
     eyebrow: GEOGLOWS V2
     anchor: whats-new
