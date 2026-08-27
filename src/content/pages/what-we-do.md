@@ -2,33 +2,11 @@
 title: What We Do | GEOGLOWS
 description: The science behind GEOGLOWS streamflow forecasting and how the open architecture, models, data services, and tools fit together.
 blocks:
-  - type: richText
+  - type: howItWorks
     eyebrow: What we do
-    heading: The science and system behind the forecast
-    body: >-
-      GEOGLOWS makes global water intelligence as open and available as the
-      weather forecast. Using the same meteorology that powers global weather
-      prediction, it forecasts river discharge for every stream on Earth, gauged
-      or not, and publishes the results openly for anyone to use. What follows is
-      how that works: the hydrologic science that makes a global forecast
-      possible, and the open architecture that produces it and delivers it to the
-      people who act on it.
-  - type: richText
-    eyebrow: Science & architecture
     anchor: getting-started
     heading: From global weather to your river
-    background: muted
-    body: >-
-      The GEOGLOWS Streamflow Forecasting initiative combines advanced hydrologic
-      models with high-resolution global meteorology to deliver accurate,
-      real-time forecasts of river discharge for millions of stream reaches
-      worldwide. Improved data services, visualization tools, and analytical
-      capabilities let users access, analyze, and apply streamflow data for
-      everything from flood early warning to water-resource planning. Here is the
-      path a forecast takes, from a global weather model to the river outside
-      your door.
-  - type: howItWorks
-    heading: How the system fits together
+    intro: "GEOGLOWS turns the same meteorology behind the global weather forecast into open, real-time river discharge for every stream on Earth, gauged or not. Here is how the system fits together, step by step."
     steps:
       - { title: "Global weather becomes runoff", text: "ECMWF's Integrated Forecast System drives a global land-surface model, turning the meteorology behind the world's weather forecasts into gridded runoff over every landmass. Forecasts run as a 51-member ensemble out to 15 days; the historical record uses ERA5 reanalysis." }
       - { title: "A river network for the whole planet", text: "That runoff is mapped onto TDX-Hydro, a high-resolution stream network built from 12 m TanDEM-X elevation data: about 7 million river reaches and their catchments, organized into 125 processing units." }
