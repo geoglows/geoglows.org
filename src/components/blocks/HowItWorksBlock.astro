@@ -43,49 +43,72 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
     position: relative;
   }
   .node {
+    position: relative;
+    z-index: 1;
     display: inline-grid;
     place-items: center;
-    width: 52px;
-    height: 52px;
+    width: 54px;
+    height: 54px;
     border-radius: 50%;
     border: 2px solid var(--color-amber);
-    background: rgba(255, 191, 0, 0.08);
+    background: var(--surface-page);
     color: var(--color-amber);
     font-family: "Raleway", sans-serif;
     font-weight: 800;
-    font-size: 1.35rem;
+    font-size: 1.4rem;
     font-variant-numeric: tabular-nums;
     line-height: 1;
   }
-  /* Connector from each node to the next within a row: a line that draws in
-     (via the global reveal system) plus a static arrowhead, so the sequence
-     reads as a flowing pipeline. */
+  /* Rail: a track that spans from each node to the next within a row, with a
+     bright pulse that flows along it (water moving through the pipeline) and an
+     arrowhead into the next node, so the 01 -> 06 sequence reads as a chain.
+     The track itself draws in on reveal via the global .step::before rule. */
   .step::before {
     content: "";
     position: absolute;
-    top: 25px;
-    left: calc(100% + 6px);
-    width: 44px;
+    top: 26px;
+    left: 60px;
+    right: -56px;
     height: 2px;
-    background: var(--color-amber);
-    opacity: 0.5;
+    background-image:
+      linear-gradient(90deg, rgba(255, 191, 0, 0.3), rgba(255, 191, 0, 0.3)),
+      linear-gradient(90deg, transparent, rgba(255, 218, 110, 0.95), transparent);
+    background-repeat: no-repeat;
+    background-size:
+      100% 100%,
+      42% 100%;
+    background-position:
+      0 0,
+      -42% 0;
   }
   .step::after {
     content: "";
     position: absolute;
-    top: 20px;
-    left: calc(100% + 48px);
+    top: 21px;
+    right: -56px;
     width: 0;
     height: 0;
-    border: 5px solid transparent;
+    border: 6px solid transparent;
     border-left-color: var(--color-amber);
-    opacity: 0.5;
+    opacity: 0.65;
   }
   .step:nth-child(3n)::before,
   .step:nth-child(3n)::after,
   .step:last-child::before,
   .step:last-child::after {
     display: none;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .step::before {
+      animation: flow 2.4s linear infinite;
+    }
+  }
+  @keyframes flow {
+    to {
+      background-position:
+        0 0,
+        142% 0;
+    }
   }
   h3 {
     margin-top: 16px;
@@ -102,7 +125,23 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
       grid-template-columns: 1fr;
       column-gap: 0;
     }
-    .step::before,
+    /* Stacked: a vertical rail links each node down to the next. */
+    .step::before {
+      top: 62px;
+      bottom: -38px;
+      left: 26px;
+      right: auto;
+      width: 2px;
+      height: auto;
+      background: rgba(255, 191, 0, 0.35);
+      animation: none;
+    }
+    .step:nth-child(3n)::before {
+      display: block;
+    }
+    .step:last-child::before {
+      display: none;
+    }
     .step::after {
       display: none;
     }
