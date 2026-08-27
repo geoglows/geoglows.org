@@ -3,8 +3,7 @@ title: Impact | GEOGLOWS
 description: What changes for people when forecasts reach them, with stories and results from around the world.
 blocks:
   - type: impactCycle
-    eyebrow: Impact
-    stageTag: Outcomes + impact
+    eyebrow: Outcomes
     anchor: beyond
     heading: "Beyond forecasts, what changes for people"
     intro: "We start with the user's problem before the solution, then measure whether the forecast actually changed a decision."
@@ -44,17 +43,50 @@ blocks:
     heading: Where GEOGLOWS is at work
     body: >-
       GEOGLOWS is deployed with national hydrological services and regional
-      partners across more than 30 countries, from the Nile Basin and East Africa
-      to the Andes, South Asia, and Central America, often through SERVIR hubs and
-      in partnership with local institutions.
-  - type: richText
-    heading: Case studies
+      partners in more than 30 countries. Documented deployments and applications
+      span Central America (Costa Rica, Guatemala, Honduras, El Salvador, and the
+      Dominican Republic, through CRRH-SICA), South America (Colombia, Peru,
+      Ecuador, and the Amazon basin), South Asia (Nepal, Bhutan, Bangladesh, and
+      India, through SERVIR-HKH), and Africa (Kenya, Tanzania, Malawi, and the
+      Nile Basin), usually through SERVIR hubs and in partnership with local
+      institutions.
+  - type: caseStudies
+    eyebrow: Case studies
     anchor: case-studies
-    background: muted
-    body: >-
-      In-depth case studies and impact reports documenting outcomes on the ground
-      are published here as they are completed. For the latest results and
-      stories, follow the [community updates](/community#news).
+    heading: GEOGLOWS in the field
+    intro: "Documented deployments where national services and regional partners put GEOGLOWS forecasts to work. Each links to the partner's own account."
+    items:
+      - location: Malawi
+        title: "Community flood early warning on the Shire River"
+        text: "GEOGLOWS-ECMWF forecasts were integrated into a Community-Based Flood Early Warning System (CBFEWS) so downstream communities receive actionable warnings before the water arrives."
+        source: "SERVIR · GEO"
+        href: "https://www.youtube.com/watch?v=Okyf_YIgVWc"
+      - location: Nepal · Hindu Kush Himalaya
+        title: "Combining ground and satellite data to forecast floods"
+        text: "SERVIR-HKH and ICIMOD paired GEOGLOWS forecasts with ground and satellite observations to deliver flood forecasts up to ten days ahead across the region."
+        source: "SERVIR-HKH · ICIMOD"
+        href: "https://servir.icimod.org/news/combining-ground-and-satellite-data-to-forecast-flood-in-nepal/"
+      - location: Central America
+        title: "A shared platform for seven national services"
+        text: "National hydrological and meteorological services across Central America use daily GEOGLOWS forecasts and the historical simulation through the regional CRRH-SICA platform."
+        source: "CRRH-SICA"
+        href: "https://www.youtube.com/watch?v=5wasYThy54g"
+      - location: Peru
+        title: "A national streamflow platform at SENAMHI"
+        text: "Peru's national service SENAMHI runs a GEOGLOWS-based streamflow platform to support water-resource and drought monitoring in Andean basins."
+        source: "SENAMHI"
+        href: "https://www.youtube.com/watch?v=A9s7rWH2u5I"
+      - location: Amazon Basin
+        title: "Bringing streamflow forecasting to the Amazon"
+        text: "SERVIR-Amazonia customized the GEOGLOWS service with regional partners to extend streamflow forecasting across the Amazon basin."
+        source: "SERVIR-Amazonia"
+        href: "https://www.youtube.com/watch?v=Q3RPtxfSj1k"
+      - location: Honduras
+        title: "Forecasts for reservoir and hydropower operations"
+        text: "Honduras's national electricity utility ENEE applied GEOGLOWS forecasts to inform reservoir and hydropower decisions."
+        source: "ENEE"
+        href: "https://www.youtube.com/watch?v=l3Gjy2ZAV8E"
+    cta: { label: See more from the community, href: /community#news }
   - type: closingCta
     heading: Put GEOGLOWS to work in your region
     ctas:

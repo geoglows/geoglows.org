@@ -33,8 +33,27 @@ const impactStoriesBlock = z.object({
   eyebrow: z.string().optional(),
   heading: z.string(),
   intro: z.string().optional(),
+  anchor: z.string().optional(),
   stories: z.array(
     z.object({ image: z.string(), location: z.string(), title: z.string(), href: z.string() }),
+  ),
+  cta: linkSchema.optional(),
+});
+
+const caseStudiesBlock = z.object({
+  type: z.literal("caseStudies"),
+  eyebrow: z.string().optional(),
+  heading: z.string(),
+  intro: z.string().optional(),
+  anchor: z.string().optional(),
+  items: z.array(
+    z.object({
+      location: z.string(),
+      title: z.string(),
+      text: z.string(),
+      source: z.string().optional(),
+      href: z.string().optional(),
+    }),
   ),
   cta: linkSchema.optional(),
 });
@@ -319,6 +338,7 @@ export const blockSchema = z.discriminatedUnion("type", [
   statBandBlock,
   coverageBlock,
   impactStoriesBlock,
+  caseStudiesBlock,
   valuePropsBlock,
   useCasesBlock,
   testimonialsBlock,
