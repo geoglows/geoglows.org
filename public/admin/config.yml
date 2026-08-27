@@ -281,6 +281,8 @@ collections:
             fields:
               - { label: Eyebrow, name: eyebrow, widget: string, required: false }
               - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
               - label: Steps
                 name: steps
                 widget: list

@@ -85,6 +85,8 @@ const howItWorksBlock = z.object({
   type: z.literal("howItWorks"),
   eyebrow: z.string().optional(),
   heading: z.string(),
+  intro: z.string().optional(),
+  anchor: z.string().optional(),
   steps: z.array(z.object({ title: z.string(), text: z.string() })),
 });
 
