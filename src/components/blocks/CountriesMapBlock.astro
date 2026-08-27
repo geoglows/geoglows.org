@@ -1,0 +1,128 @@
+---
+import { createRequire } from "module";
+import { geoEquirectangular, geoPath } from "d3-geo";
+import { feature } from "topojson-client";
+import type { Block } from "../../schemas/blocks";
+import SectionHeader from "../ui/SectionHeader.astro";
+
+const { eyebrow, heading, intro, note, points, cta } = Astro.props as Extract<
+  Block,
+  { type: "countriesMap" }
+>;
+
+// Build-time only: read the simplified land outline and project it (and the
+// pins) with the same equirectangular projection so markers line up exactly.
+const require = createRequire(import.meta.url);
+const topo = require("world-atlas/land-110m.json");
+const land = feature(topo, topo.objects.land);
+
+const W = 1000;
+const H = 500;
+const projection = geoEquirectangular().fitSize([W, H], { type: "Sphere" });
+const landPath = geoPath(projection)(land) ?? "";
+const pins = points
+  .map((pt) => {
+    const xy = projection([pt.lng, pt.lat]);
+    return xy ? { country: pt.country, x: xy[0], y: xy[1] } : null;
+  })
+  .filter(Boolean) as { country: string; x: number; y: number }[];
+---
+
+<section class="block countries">
+  <div class="shell">
+    <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />
+    <div class="map-wrap">
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        class="map"
+        role="img"
+        aria-label="World map showing countries with documented GEOGLOWS deployments"
+      >
+        <path d={landPath} class="land" />
+        {
+          pins.map((p) => (
+            <g class="pin" transform={`translate(${p.x} ${p.y})`}>
+              <circle class="halo" r="10" />
+              <circle class="dot" r="4" />
+              <text class="lbl" y="-15">
+                {p.country}
+              </text>
+              <title>{p.country}</title>
+            </g>
+          ))
+        }
+      </svg>
+    </div>
+    {note && <p class="note">{note}</p>}
+    {
+      cta && (
+        <p class="all">
+          <a href={cta.href}>{cta.label} →</a>
+        </p>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .map-wrap {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-muted);
+    padding: clamp(10px, 2vw, 20px);
+    overflow: hidden;
+  }
+  .map {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .land {
+    fill: var(--surface-alt);
+    stroke: var(--border);
+    stroke-width: 0.5;
+  }
+  .halo {
+    fill: var(--color-amber);
+    opacity: 0.22;
+  }
+  .dot {
+    fill: var(--color-amber);
+    stroke: var(--surface-muted);
+    stroke-width: 1;
+  }
+  .pin {
+    cursor: default;
+  }
+  .lbl {
+    fill: var(--text-strong);
+    font-size: 13px;
+    font-weight: 700;
+    text-anchor: middle;
+    paint-order: stroke;
+    stroke: var(--surface-muted);
+    stroke-width: 3px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s ease;
+  }
+  .pin:hover .lbl {
+    opacity: 1;
+  }
+  .pin:hover .halo {
+    opacity: 0.4;
+  }
+  .note {
+    margin-top: 14px;
+    color: var(--text-faint);
+    font-size: 0.9rem;
+  }
+  .all {
+    margin-top: 20px;
+  }
+  .all a {
+    color: var(--accent-text);
+    font-weight: 800;
+    text-decoration: none;
+  }
+</style>
