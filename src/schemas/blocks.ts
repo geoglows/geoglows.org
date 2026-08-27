@@ -58,6 +58,19 @@ const caseStudiesBlock = z.object({
   cta: linkSchema.optional(),
 });
 
+const countriesMapBlock = z.object({
+  type: z.literal("countriesMap"),
+  eyebrow: z.string().optional(),
+  heading: z.string(),
+  intro: z.string().optional(),
+  anchor: z.string().optional(),
+  note: z.string().optional(),
+  points: z.array(
+    z.object({ country: z.string(), lat: z.number(), lng: z.number() }),
+  ),
+  cta: linkSchema.optional(),
+});
+
 const iconItem = z.object({ icon: z.string(), title: z.string(), text: z.string() });
 const titleTextItem = z.object({ title: z.string(), text: z.string() });
 
@@ -339,6 +352,7 @@ export const blockSchema = z.discriminatedUnion("type", [
   coverageBlock,
   impactStoriesBlock,
   caseStudiesBlock,
+  countriesMapBlock,
   valuePropsBlock,
   useCasesBlock,
   testimonialsBlock,
