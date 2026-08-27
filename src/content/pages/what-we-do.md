@@ -13,29 +13,6 @@ blocks:
       how that works: the hydrologic science that makes a global forecast
       possible, and the open architecture that produces it and delivers it to the
       people who act on it.
-  - type: pillars
-    eyebrow: What we work on
-    anchor: work
-    heading: "Helping communities see their water before it's a crisis"
-    intro: "Four connected areas of work, from the forecast on every river to the people trained to act on it."
-    items:
-      - icon: waves
-        image: /images/aerial-river.webp
-        title: Streamflow forecasting
-        text: "15-day forecasts and an 85-year retrospective for every river on Earth, gauged or not, so remote communities get the same warning window as major cities."
-      - icon: flood
-        image: /images/aerial-thermal.webp
-        title: Flood mapping
-        tag: coming soon
-        text: "Turning streamflow forecasts into block-by-block flood extent maps, so a warning shows what's at risk, not just that a river will rise."
-      - icon: drop
-        image: /images/showcase/grace.webp
-        title: Groundwater monitoring
-        text: "Satellite gravity data and local well records combined, so storage trends are visible before a well runs dry, not after."
-      - icon: capacity
-        image: /images/story-training.webp
-        title: Capacity building
-        text: "Training national hydrological services and student teams to run, interpret, and act on the forecasts in their own basins."
   - type: richText
     eyebrow: Science & architecture
     anchor: getting-started
@@ -48,8 +25,11 @@ blocks:
       capabilities let users access, analyze, and apply streamflow data for
       everything from flood early warning to water-resource planning. With
       continuous updates and community engagement, the service stays at the
-      forefront of hydrological science and technology. Here is the path a
-      forecast takes, from a global weather model to the river outside your door.
+      forefront of hydrological science and technology. The methodology behind
+      the service is documented in the peer-reviewed literature ([Hales et al.,
+      2025, *Journal of Flood Risk Management*](https://doi.org/10.1111/jfr3.12859)).
+      Here is the path a forecast takes, from a global weather model to the river
+      outside your door.
   - type: howItWorks
     heading: How the system fits together
     steps:
@@ -77,6 +57,29 @@ blocks:
         text: "Faster Living Atlas web maps cover all 7 million reaches, and the Hydroviewer integrates the new data sources and the GEOGLOWS Python package."
       - title: Faster, more reliable services
         text: "The data service and Python package were overhauled, the model code optimized, and routing calibration improved with a machine-learning regression model for better flow estimates."
+  - type: pillars
+    eyebrow: What we work on
+    anchor: work
+    heading: "Helping communities see their water before it's a crisis"
+    intro: "Four connected areas of work, from the forecast on every river to the people trained to act on it."
+    items:
+      - icon: waves
+        image: /images/aerial-river.webp
+        title: Streamflow forecasting
+        text: "15-day forecasts and an 85-year retrospective for every river on Earth, gauged or not, so remote communities get the same warning window as major cities."
+      - icon: flood
+        image: /images/aerial-thermal.webp
+        title: Flood mapping
+        tag: coming soon
+        text: "Turning streamflow forecasts into block-by-block flood extent maps, so a warning shows what's at risk, not just that a river will rise."
+      - icon: drop
+        image: /images/showcase/grace.webp
+        title: Groundwater monitoring
+        text: "Satellite gravity data and local well records combined, so storage trends are visible before a well runs dry, not after."
+      - icon: capacity
+        image: /images/story-training.webp
+        title: Capacity building
+        text: "Training national hydrological services and student teams to run, interpret, and act on the forecasts in their own basins."
   - type: closingCta
     heading: See it working
     ctas:
