@@ -41,9 +41,12 @@
 
   /* logo tint for funder/partner strips, per theme.
      Light: keep logos dark (grayscale); white artwork darkens via -invert-.
-     Dark: lighten logos so they read on the dark page while keeping detail. */
+     Dark: -tint- normalizes line/wordmark logos to crisp white; -emblem-tint-
+     lifts filled multi-tone emblems (NASA, NOAA, NGA) to light while keeping
+     their internal detail instead of flattening them to a solid disc. */
   --logo-tint: grayscale(1);
   --logo-invert-tint: brightness(0);
+  --logo-emblem-tint: grayscale(1);
 
   /* section vertical rhythm */
   --block-space: clamp(44px, 5vw, 76px);
@@ -77,9 +80,10 @@
     --accent: #4fb3a4;
     --accent-text: #6fd0c0;
     --accent-strong: #4fb7d8;
-    /* Funder logos render as bold light marks on the dark page. */
+    /* Line/wordmark logos to crisp white; filled emblems keep their detail. */
     --logo-tint: brightness(0) invert(1);
     --logo-invert-tint: brightness(0) invert(1);
+    --logo-emblem-tint: grayscale(1) brightness(1.9) contrast(1.15);
     color-scheme: dark;
   }
 }
@@ -99,5 +103,6 @@
   --accent-strong: #4fb7d8;
   --logo-tint: brightness(0) invert(1);
   --logo-invert-tint: brightness(0) invert(1);
+  --logo-emblem-tint: grayscale(1) brightness(1.9) contrast(1.15);
   color-scheme: dark;
 }
