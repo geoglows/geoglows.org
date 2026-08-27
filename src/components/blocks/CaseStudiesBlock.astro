@@ -1,0 +1,115 @@
+---
+import type { Block } from "../../schemas/blocks";
+import SectionHeader from "../ui/SectionHeader.astro";
+
+const { eyebrow, heading, intro, items, cta } = Astro.props as Extract<
+  Block,
+  { type: "caseStudies" }
+>;
+const external = (href: string) => /^https?:\/\//.test(href);
+---
+
+<section class="block muted">
+  <div class="shell">
+    <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />
+    <div class="grid">
+      {
+        items.map((item) => (
+          <article class="case">
+            <span class="loc">{item.location}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+            <div class="foot">
+              {item.source && <span class="source">{item.source}</span>}
+              {item.href && (
+                <a
+                  class="more"
+                  href={item.href}
+                  {...(external(item.href)
+                    ? { target: "_blank", rel: "noopener" }
+                    : {})}
+                >
+                  {external(item.href) ? "Watch" : "Read"} →
+                </a>
+              )}
+            </div>
+          </article>
+        ))
+      }
+    </div>
+    {
+      cta && (
+        <p class="all">
+          <a href={cta.href}>{cta.label} →</a>
+        </p>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .muted {
+    background: var(--surface-muted);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  .case {
+    display: flex;
+    flex-direction: column;
+    padding: 24px 24px 20px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-page);
+    box-shadow: var(--shadow-sm);
+  }
+  .loc {
+    color: var(--accent-text);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  h3 {
+    margin-top: 8px;
+    font-size: 1.12rem;
+    line-height: 1.3;
+    color: var(--text-strong);
+  }
+  p {
+    margin-top: 10px;
+    color: var(--text-body);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 16px;
+  }
+  .source {
+    color: var(--text-faint);
+    font-size: 0.78rem;
+    font-weight: 600;
+  }
+  .more {
+    color: var(--accent-text);
+    font-weight: 800;
+    font-size: 0.85rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .all {
+    margin-top: 28px;
+  }
+  .all a {
+    color: var(--accent-text);
+    font-weight: 800;
+    text-decoration: none;
+  }
+</style>
