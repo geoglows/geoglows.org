@@ -17,8 +17,11 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
         steps.map((step, index) => (
           <li class="step">
             <span class="node">{pad(index)}</span>
-            <h3>{step.title}</h3>
-            <p>{step.text}</p>
+            <span class="rail" aria-hidden="true" />
+            <div class="body">
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </div>
           </li>
         ))
       }
@@ -59,62 +62,36 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
     font-variant-numeric: tabular-nums;
     line-height: 1;
   }
-  /* Rail: a track that spans from each node to the next within a row, with a
-     bright pulse that flows along it (water moving through the pipeline) and an
-     arrowhead into the next node, so the 01 -> 06 sequence reads as a chain.
-     The track itself draws in on reveal via the global .step::before rule. */
-  .step::before {
-    content: "";
+  /* Static connector: a track from each node to the next with an arrowhead
+     pointing into it, so 01 -> 06 reads as one chain. No line motion. */
+  .rail {
     position: absolute;
     top: 26px;
-    left: 60px;
+    left: 62px;
     right: -56px;
     height: 2px;
-    background-image:
-      linear-gradient(90deg, rgba(255, 191, 0, 0.3), rgba(255, 191, 0, 0.3)),
-      linear-gradient(90deg, transparent, rgba(255, 218, 110, 0.95), transparent);
-    background-repeat: no-repeat;
-    background-size:
-      100% 100%,
-      42% 100%;
-    background-position:
-      0 0,
-      -42% 0;
+    background: rgba(255, 191, 0, 0.4);
   }
-  .step::after {
+  .rail::after {
     content: "";
     position: absolute;
-    top: 21px;
-    right: -56px;
+    right: -1px;
+    top: -5px;
     width: 0;
     height: 0;
     border: 6px solid transparent;
     border-left-color: var(--color-amber);
-    opacity: 0.65;
+    opacity: 0.7;
   }
-  .step:nth-child(3n)::before,
-  .step:nth-child(3n)::after,
-  .step:last-child::before,
-  .step:last-child::after {
+  .step:nth-child(3n) .rail,
+  .step:last-child .rail {
     display: none;
   }
-  @media (prefers-reduced-motion: no-preference) {
-    .step::before {
-      animation: flow 2.4s linear infinite;
-    }
-  }
-  @keyframes flow {
-    to {
-      background-position:
-        0 0,
-        142% 0;
-    }
-  }
-  h3 {
+  .body h3 {
     margin-top: 16px;
     font-size: 1.12rem;
   }
-  p {
+  .body p {
     margin-top: 8px;
     color: var(--text-body);
     font-size: 0.95rem;
@@ -124,25 +101,41 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
     .grid {
       grid-template-columns: 1fr;
       column-gap: 0;
+      row-gap: 4px;
     }
-    /* Stacked: a vertical rail links each node down to the next. */
-    .step::before {
-      top: 62px;
-      bottom: -38px;
+    /* Timeline: node in a left gutter, text indented beside it, and a vertical
+       rail down the gutter connecting the nodes (never crossing the text). */
+    .step {
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      column-gap: 20px;
+      align-items: start;
+      padding-bottom: 28px;
+    }
+    .node {
+      grid-column: 1;
+      grid-row: 1;
+    }
+    .body {
+      grid-column: 2;
+      grid-row: 1;
+      padding-top: 10px;
+    }
+    .rail {
+      top: 54px;
+      bottom: 0;
       left: 26px;
       right: auto;
       width: 2px;
       height: auto;
-      background: rgba(255, 191, 0, 0.35);
-      animation: none;
     }
-    .step:nth-child(3n)::before {
-      display: block;
-    }
-    .step:last-child::before {
+    .rail::after {
       display: none;
     }
-    .step::after {
+    .step:nth-child(3n) .rail {
+      display: block;
+    }
+    .step:last-child .rail {
       display: none;
     }
   }
