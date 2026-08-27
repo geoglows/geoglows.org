@@ -41,30 +41,21 @@ blocks:
   - type: countriesMap
     eyebrow: Countries & projects
     heading: Where GEOGLOWS is at work
-    intro: "GEOGLOWS is deployed with national hydrological services and regional partners in more than 30 countries, usually through SERVIR hubs and local institutions. Hover a pin to see the country."
-    note: "Pins mark documented deployments and applications; the forecast itself covers every river on Earth."
+    intro: "GEOGLOWS is deployed with national hydrological services and regional partners in more than 30 countries, usually through SERVIR hubs and local institutions. A sample of documented deployments:"
     points:
-      - { country: Malawi, lat: -13.25, lng: 34.3 }
-      - { country: Kenya, lat: 0.02, lng: 37.9 }
-      - { country: Tanzania, lat: -6.37, lng: 34.89 }
-      - { country: Ethiopia, lat: 9.15, lng: 40.49 }
-      - { country: Nepal, lat: 28.39, lng: 84.12 }
-      - { country: Bhutan, lat: 27.51, lng: 90.43 }
-      - { country: Bangladesh, lat: 23.68, lng: 90.36 }
-      - { country: India, lat: 22.35, lng: 78.67 }
-      - { country: Afghanistan, lat: 33.94, lng: 67.71 }
-      - { country: Israel, lat: 31.4, lng: 35.0 }
-      - { country: Costa Rica, lat: 9.75, lng: -83.75 }
-      - { country: Guatemala, lat: 15.78, lng: -90.23 }
       - { country: Honduras, lat: 14.97, lng: -86.24 }
-      - { country: El Salvador, lat: 13.79, lng: -88.9 }
       - { country: Dominican Republic, lat: 18.74, lng: -70.16 }
       - { country: Colombia, lat: 4.1, lng: -73.0 }
-      - { country: Ecuador, lat: -1.5, lng: -78.5 }
       - { country: Peru, lat: -9.19, lng: -75.02 }
-      - { country: "Amazon Basin", lat: -4.5, lng: -62.0 }
+      - { country: "Amazon Basin", lat: -4.5, lng: -60.0 }
       - { country: Senegal, lat: 14.5, lng: -14.45 }
       - { country: Ghana, lat: 7.95, lng: -1.03 }
+      - { country: Ethiopia, lat: 9.15, lng: 40.49 }
+      - { country: Kenya, lat: 0.02, lng: 37.9 }
+      - { country: Malawi, lat: -13.25, lng: 34.3 }
+      - { country: Israel, lat: 31.4, lng: 35.0 }
+      - { country: Afghanistan, lat: 33.94, lng: 67.71 }
+      - { country: Nepal, lat: 28.39, lng: 84.12 }
       - { country: Thailand, lat: 15.87, lng: 100.99 }
   - type: caseStudies
     eyebrow: Case studies
