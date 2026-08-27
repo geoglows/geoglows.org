@@ -9,81 +9,102 @@ const { eyebrow, heading, steps } = Astro.props as Extract<
 const pad = (index: number) => String(index + 1).padStart(2, "0");
 ---
 
-<section class="block muted">
+<section class="block steps-flow">
   <div class="shell">
     <SectionHeader eyebrow={eyebrow} heading={heading} />
-    <div class="grid">
+    <ol class="grid">
       {
         steps.map((step, index) => (
-          <div class="step">
-            <span class="num">{pad(index)}</span>
+          <li class="step">
+            <span class="node">{pad(index)}</span>
             <h3>{step.title}</h3>
             <p>{step.text}</p>
-          </div>
+          </li>
         ))
       }
-    </div>
+    </ol>
   </div>
 </section>
 
 <style>
-  .muted {
-    background: var(--surface-muted);
+  .steps-flow {
+    padding-block: clamp(52px, 7vw, 96px);
   }
   .grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     column-gap: 56px;
-    row-gap: clamp(32px, 4vw, 48px);
+    row-gap: clamp(36px, 4vw, 52px);
   }
   .step {
     position: relative;
   }
-  /* Flow connector: an arrow from each step to the next within a row, so the
-     01 -> 06 sequence reads as a pipeline rather than a plain grid. */
-  .step:not(:nth-child(3n)):not(:last-child)::after {
-    content: "→";
-    position: absolute;
-    top: 4px;
-    right: -37px;
-    font-size: 1.7rem;
-    line-height: 1;
-    color: var(--color-amber);
-    opacity: 0.55;
-  }
-  .num {
-    display: block;
+  .node {
+    display: inline-grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 2px solid var(--color-amber);
+    background: rgba(255, 191, 0, 0.08);
     color: var(--color-amber);
     font-family: "Raleway", sans-serif;
     font-weight: 800;
-    font-size: 2.4rem;
+    font-size: 1.35rem;
     font-variant-numeric: tabular-nums;
     line-height: 1;
   }
+  /* Connector from each node to the next within a row: a line that draws in
+     (via the global reveal system) plus a static arrowhead, so the sequence
+     reads as a flowing pipeline. */
+  .step::before {
+    content: "";
+    position: absolute;
+    top: 25px;
+    left: calc(100% + 6px);
+    width: 44px;
+    height: 2px;
+    background: var(--color-amber);
+    opacity: 0.5;
+  }
+  .step::after {
+    content: "";
+    position: absolute;
+    top: 20px;
+    left: calc(100% + 48px);
+    width: 0;
+    height: 0;
+    border: 5px solid transparent;
+    border-left-color: var(--color-amber);
+    opacity: 0.5;
+  }
+  .step:nth-child(3n)::before,
+  .step:nth-child(3n)::after,
+  .step:last-child::before,
+  .step:last-child::after {
+    display: none;
+  }
   h3 {
-    margin-top: 10px;
-    font-size: 1.2rem;
+    margin-top: 16px;
+    font-size: 1.12rem;
   }
   p {
     margin-top: 8px;
     color: var(--text-body);
     font-size: 0.95rem;
+    line-height: 1.6;
   }
   @media (max-width: 820px) {
     .grid {
       grid-template-columns: 1fr;
       column-gap: 0;
-      row-gap: 40px;
     }
-    /* Stacked: point the flow downward between every consecutive step. */
-    .step:not(:nth-child(3n)):not(:last-child)::after,
-    .step:nth-child(3n):not(:last-child)::after {
-      content: "↓";
-      top: auto;
-      right: auto;
-      left: 6px;
-      bottom: -28px;
-      font-size: 1.4rem;
+    .step::before,
+    .step::after {
+      display: none;
     }
   }
 </style>
