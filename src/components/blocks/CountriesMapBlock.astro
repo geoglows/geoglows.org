@@ -23,35 +23,40 @@ const landPath = geoPath(projection)(land) ?? "";
 const pins = points
   .map((pt) => {
     const xy = projection([pt.lng, pt.lat]);
-    return xy ? { country: pt.country, x: xy[0], y: xy[1] } : null;
+    return xy
+      ? { country: pt.country, xPct: (xy[0] / W) * 100, yPct: (xy[1] / H) * 100 }
+      : null;
   })
-  .filter(Boolean) as { country: string; x: number; y: number }[];
+  .filter(Boolean) as { country: string; xPct: number; yPct: number }[];
 ---
 
 <section class="block countries">
   <div class="shell">
     <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />
     <div class="map-wrap">
-      <svg
-        viewBox={`0 0 ${W} ${H}`}
-        class="map"
-        role="img"
-        aria-label="World map showing countries with documented GEOGLOWS deployments"
-      >
-        <path d={landPath} class="land" />
-        {
-          pins.map((p) => (
-            <g class="pin" transform={`translate(${p.x} ${p.y})`}>
-              <circle class="halo" r="10" />
-              <circle class="dot" r="4" />
-              <text class="lbl" y="-15">
-                {p.country}
-              </text>
-              <title>{p.country}</title>
-            </g>
-          ))
-        }
-      </svg>
+      <div class="map-frame">
+        <svg
+          viewBox={`0 0 ${W} ${H}`}
+          class="map"
+          role="img"
+          aria-label="World map showing countries with documented GEOGLOWS deployments"
+        >
+          <path d={landPath} class="land" />
+        </svg>
+        <div class="pins">
+          {
+            pins.map((p) => (
+              <span
+                class="pin"
+                style={`left:${p.xPct}%;top:${p.yPct}%`}
+                title={p.country}
+              >
+                <span class="lbl">{p.country}</span>
+              </span>
+            ))
+          }
+        </div>
+      </div>
     </div>
     {note && <p class="note">{note}</p>}
     {
@@ -65,12 +70,39 @@ const pins = points
 </section>
 
 <style>
+  /* Theme-tuned map palette: land reads clearly against the ocean in both
+     modes without going garish. */
+  .countries {
+    --map-ocean: #e7ecf0;
+    --map-land: #cfd8df;
+    --map-stroke: #bcc7cf;
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) .countries {
+      --map-ocean: #101b28;
+      --map-land: #27394c;
+      --map-stroke: #33475b;
+    }
+  }
+  :global(:root[data-theme="dark"]) .countries {
+    --map-ocean: #101b28;
+    --map-land: #27394c;
+    --map-stroke: #33475b;
+  }
+  :global(:root[data-theme="light"]) .countries {
+    --map-ocean: #e7ecf0;
+    --map-land: #cfd8df;
+    --map-stroke: #bcc7cf;
+  }
+
   .map-wrap {
     border: 1px solid var(--border);
     border-radius: var(--radius);
-    background: var(--surface-muted);
+    background: var(--map-ocean);
     padding: clamp(10px, 2vw, 20px);
-    overflow: hidden;
+  }
+  .map-frame {
+    position: relative;
   }
   .map {
     width: 100%;
@@ -78,39 +110,54 @@ const pins = points
     display: block;
   }
   .land {
-    fill: var(--surface-alt);
-    stroke: var(--border);
+    fill: var(--map-land);
+    stroke: var(--map-stroke);
     stroke-width: 0.5;
   }
-  .halo {
-    fill: var(--color-amber);
-    opacity: 0.22;
-  }
-  .dot {
-    fill: var(--color-amber);
-    stroke: var(--surface-muted);
-    stroke-width: 1;
+
+  /* HTML pin overlay: real stacking, so a hovered label sits above every
+     other pin instead of being painted behind later ones. */
+  .pins {
+    position: absolute;
+    inset: 0;
   }
   .pin {
-    cursor: default;
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: var(--color-amber);
+    box-shadow: 0 0 0 5px rgba(255, 191, 0, 0.2);
+    transition: box-shadow 0.15s ease;
+  }
+  .pin:hover,
+  .pin:focus-visible {
+    z-index: 5;
+    box-shadow: 0 0 0 6px rgba(255, 191, 0, 0.32);
+    outline: none;
   }
   .lbl {
-    fill: var(--text-strong);
-    font-size: 13px;
+    position: absolute;
+    bottom: calc(100% + 8px);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 4px 9px;
+    border-radius: 7px;
+    background: var(--surface-page);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-md);
+    color: var(--text-strong);
+    font-size: 0.78rem;
     font-weight: 700;
-    text-anchor: middle;
-    paint-order: stroke;
-    stroke: var(--surface-muted);
-    stroke-width: 3px;
+    white-space: nowrap;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.15s ease;
+    transition: opacity 0.12s ease;
   }
-  .pin:hover .lbl {
+  .pin:hover .lbl,
+  .pin:focus-visible .lbl {
     opacity: 1;
-  }
-  .pin:hover .halo {
-    opacity: 0.4;
   }
   .note {
     margin-top: 14px;
