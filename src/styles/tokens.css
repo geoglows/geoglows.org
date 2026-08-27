@@ -77,8 +77,9 @@
     --accent: #4fb3a4;
     --accent-text: #6fd0c0;
     --accent-strong: #4fb7d8;
-    --logo-tint: grayscale(1) brightness(2.1);
-    --logo-invert-tint: grayscale(1) brightness(2.1);
+    /* Render logos as uniform light silhouettes so they read on the dark page. */
+    --logo-tint: brightness(0) invert(1);
+    --logo-invert-tint: brightness(0) invert(1);
     color-scheme: dark;
   }
 }
@@ -96,5 +97,7 @@
   --accent: #4fb3a4;
   --accent-text: #6fd0c0;
   --accent-strong: #4fb7d8;
+  --logo-tint: brightness(0) invert(1);
+  --logo-invert-tint: brightness(0) invert(1);
   color-scheme: dark;
 }

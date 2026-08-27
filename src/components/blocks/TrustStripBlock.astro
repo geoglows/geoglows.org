@@ -78,11 +78,15 @@ const { groups } = Astro.props as Extract<Block, { type: "trustStrip" }>;
   .logo-strip li {
     display: flex;
     align-items: center;
+    justify-content: center;
+    /* uniform bounding box so mixed emblem/wordmark logos read at similar size */
+    height: 48px;
+    width: 128px;
   }
   .logo {
-    height: 46px;
+    max-height: 48px;
+    max-width: 116px;
     width: auto;
-    max-width: 150px;
     object-fit: contain;
     filter: var(--logo-tint);
     opacity: 0.95;

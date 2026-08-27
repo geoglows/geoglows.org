@@ -4,7 +4,7 @@ import SectionHeader from "../ui/SectionHeader.astro";
 import { bgImage } from "../../lib/css";
 import { youtubeThumb, youtubeWatchUrl } from "../../lib/youtube";
 
-const { eyebrow, heading, intro, items, cta } = Astro.props as Extract<
+const { eyebrow, heading, intro, video, items, cta } = Astro.props as Extract<
   Block,
   { type: "featuredMedia" }
 >;
@@ -19,6 +19,19 @@ const cardFor = (item: (typeof items)[number]) => {
 <section class="block">
   <div class="shell">
     <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />
+    {
+      video && (
+        <div class="feature-video">
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}`}
+            title={video.title ?? heading}
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          />
+        </div>
+      )
+    }
     <div class="grid">
       {
         items.map((item) => {
@@ -59,6 +72,22 @@ const cardFor = (item: (typeof items)[number]) => {
 </section>
 
 <style>
+  .feature-video {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    margin-bottom: 22px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface-alt);
+    box-shadow: var(--shadow-md);
+  }
+  .feature-video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
