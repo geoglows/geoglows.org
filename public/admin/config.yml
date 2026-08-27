@@ -552,6 +552,14 @@ collections:
               - { label: Heading, name: heading, widget: string }
               - { label: Intro, name: intro, widget: text, required: false }
               - { label: Anchor ID, name: anchor, widget: string, required: false }
+              - label: Featured video
+                name: video
+                widget: object
+                required: false
+                hint: "Optional video shown full-width above the cards."
+                fields:
+                  - { label: YouTube video ID, name: youtubeId, widget: string }
+                  - { label: Title, name: title, widget: string, required: false }
               - label: Items
                 name: items
                 widget: list

@@ -279,6 +279,9 @@ const featuredMediaBlock = z.object({
   heading: z.string(),
   intro: z.string().optional(),
   anchor: z.string().optional(),
+  video: z
+    .object({ youtubeId: z.string(), title: z.string().optional() })
+    .optional(),
   items: z.array(
     z.object({
       title: z.string(),

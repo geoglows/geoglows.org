@@ -18,6 +18,9 @@ blocks:
     eyebrow: In the field
     heading: Project highlights
     intro: "A closer look at how partners put GEOGLOWS to work in the field."
+    video:
+      youtubeId: 3ALFNtl-TlE
+      title: "GEOGLOWS Streamflow 2.0: global hydrological modeling and local capacity building"
     items:
       - title: "SERVIR HKH: GEOGLOWS flood mapping in Nepal"
         location: "SERVIR · Nepal"
@@ -47,5 +50,4 @@ blocks:
           - { name: Brigham Young University, image: /images/partners/byu.svg, url: https://www.byu.edu }
           - { name: NGA, image: /images/partners/nga.webp, url: https://www.nga.mil }
           - { name: World Bank, image: /images/partners/worldbank.svg, url: https://www.worldbank.org }
-        tail: "with PREPARE"
 ---
