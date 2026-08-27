@@ -22,7 +22,7 @@ const { groups } = Astro.props as Extract<Block, { type: "trustStrip" }>;
                 />
               );
               return (
-                <li class="cell">
+                <li class="slot">
                   {logo.url ? (
                     <a href={logo.url} target="_blank" rel="noopener" aria-label={logo.name}>
                       {img}
@@ -49,7 +49,7 @@ const { groups } = Astro.props as Extract<Block, { type: "trustStrip" }>;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: clamp(18px, 2.4vw, 26px);
+    gap: clamp(20px, 2.6vw, 30px);
   }
   .label {
     color: var(--text-faint);
@@ -66,50 +66,40 @@ const { groups } = Astro.props as Extract<Block, { type: "trustStrip" }>;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: clamp(28px, 3.4vw, 52px);
   }
-  /* White cards keep the original full-color logos legible on any background
-     and give every logo an equal footprint regardless of its shape. */
-  .cell {
+  /* Each logo gets an equal invisible slot so mixed emblems and wordmarks
+     read at a consistent size without any card behind them. */
+  .slot {
     display: grid;
     place-items: center;
-    width: 152px;
-    height: 82px;
-    padding: 16px 22px;
-    border: 1px solid rgba(29, 29, 36, 0.08);
-    border-radius: var(--radius);
-    background: #ffffff;
-    box-shadow: var(--shadow-sm);
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    width: 132px;
+    height: 46px;
   }
-  .cell:hover {
-    transform: translateY(-3px);
-    box-shadow: var(--shadow-md);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .cell {
-      transition: none;
-    }
-    .cell:hover {
-      transform: none;
-    }
-  }
-  .cell a {
+  .slot a {
     display: grid;
     place-items: center;
     width: 100%;
     height: 100%;
     border-radius: 6px;
   }
-  .cell a:focus-visible {
+  .slot a:focus-visible {
     outline: 2px solid var(--accent);
-    outline-offset: 4px;
+    outline-offset: 6px;
   }
   .logo {
-    max-height: 46px;
+    max-height: 42px;
     max-width: 100%;
     width: auto;
     object-fit: contain;
+    /* Monochrome: tasteful grayscale on the light page, bold light marks on
+       the dark page (see --logo-tint per theme in tokens.css). */
+    filter: var(--logo-tint);
+    opacity: 0.78;
+    transition: opacity 0.2s ease;
+  }
+  .slot:hover .logo {
+    opacity: 1;
   }
   .tail {
     color: var(--text-faint);
@@ -119,11 +109,14 @@ const { groups } = Astro.props as Extract<Block, { type: "trustStrip" }>;
   }
   @media (max-width: 640px) {
     .logo-strip {
-      gap: 12px;
+      gap: 28px;
     }
-    .cell {
-      width: 132px;
-      height: 72px;
+    .slot {
+      width: 108px;
+      height: 40px;
+    }
+    .logo {
+      max-height: 36px;
     }
   }
 </style>
