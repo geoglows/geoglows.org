@@ -41,13 +41,13 @@ blocks:
     groups:
       - label: Funded by
         logos:
-          - { name: NASA, image: /images/partners/nasa.webp, url: https://www.nasa.gov }
-          - { name: NOAA, image: /images/partners/noaa.svg, url: https://www.noaa.gov }
+          - { name: NASA, image: /images/partners/nasa.webp, url: https://www.nasa.gov, emblem: true }
+          - { name: NOAA, image: /images/partners/noaa.svg, url: https://www.noaa.gov, emblem: true }
           - { name: ECMWF, image: /images/partners/ecmwf.svg, url: https://www.ecmwf.int }
           - { name: WMO, image: /images/partners/wmo.svg, url: https://wmo.int }
           - { name: Amazon Web Services, image: /images/partners/aws.svg, url: https://aws.amazon.com }
           - { name: Esri, image: /images/partners/esri.webp, url: https://www.esri.com }
           - { name: Brigham Young University, image: /images/partners/byu.svg, url: https://www.byu.edu }
-          - { name: NGA, image: /images/partners/nga.webp, url: https://www.nga.mil }
+          - { name: NGA, image: /images/partners/nga.webp, url: https://www.nga.mil, emblem: true }
           - { name: World Bank, image: /images/partners/worldbank.svg, url: https://www.worldbank.org }
 ---

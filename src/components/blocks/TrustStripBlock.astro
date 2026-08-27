@@ -14,7 +14,7 @@ const { groups } = Astro.props as Extract<Block, { type: "trustStrip" }>;
             {group.logos.map((logo) => {
               const img = (
                 <img
-                  class="logo"
+                  class:list={["logo", logo.emblem && "emblem"]}
                   src={logo.image}
                   alt={logo.name}
                   loading="lazy"
@@ -97,6 +97,10 @@ const { groups } = Astro.props as Extract<Block, { type: "trustStrip" }>;
     filter: var(--logo-tint);
     opacity: 0.78;
     transition: opacity 0.2s ease;
+  }
+  /* Filled multi-tone seals keep their detail instead of flattening to a disc. */
+  .logo.emblem {
+    filter: var(--logo-emblem-tint);
   }
   .slot:hover .logo {
     opacity: 1;

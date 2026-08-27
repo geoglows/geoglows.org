@@ -169,6 +169,7 @@ const trustStripBlock = z.object({
               image: z.string().optional(),
               url: z.string().optional(),
               invert: z.boolean().optional(),
+              emblem: z.boolean().optional(),
             }),
           )
           .default([]),
