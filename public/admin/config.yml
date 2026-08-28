@@ -381,6 +381,25 @@ collections:
               - { label: Body, name: body, widget: markdown }
               - { label: Background, name: background, widget: select, options: [page, muted], default: page }
               - { label: Anchor ID, name: anchor, widget: string, required: false, hint: "Optional id for deep-linking, e.g. data." }
+          - label: Feature section
+            name: featureSection
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Tag, name: tag, widget: string, required: false, hint: "Small pill, e.g. In development" }
+              - { label: Body, name: body, widget: markdown }
+              - { label: Image, name: image, widget: image, required: false }
+              - { label: Image side, name: imageSide, widget: select, options: [right, left], default: right }
+              - { label: Background, name: background, widget: select, options: [page, muted], default: page }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
+              - label: Points
+                name: points
+                widget: list
+                required: false
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: text }
           - label: Tools grid
             name: toolsGrid
             widget: object
