@@ -712,7 +712,7 @@ collections:
                 name: items
                 widget: list
                 fields:
-                  - { label: Icon, name: icon, widget: select, options: [layers, globe, code, bars, drop, waves, partners, capacity], default: layers }
+                  - { label: Icon, name: icon, widget: select, options: [layers, globe, code, database, bars, drop, waves, partners, capacity], default: layers }
                   - { label: Title, name: title, widget: string }
                   - { label: Text, name: text, widget: text }
                   - label: Links
