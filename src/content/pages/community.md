@@ -4,6 +4,10 @@ description: The partners, researchers, funders, and people who build GEOGLOWS t
 blocks:
   - type: trustStrip
     anchor: partners
+    eyebrow: Partners
+    heading: Built through collaboration
+    intro: "GEOGLOWS is delivered by a global network of space agencies, weather centres, universities, and technology partners, each contributing data, science, or infrastructure to the service."
+    cta: { label: Meet our partners, href: /about#collaborators }
     groups:
       - label: Partners
         logos:

@@ -474,6 +474,16 @@ collections:
             widget: object
             fields:
               - { label: Anchor ID, name: anchor, widget: string, required: false }
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string, required: false }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - label: Button
+                name: cta
+                widget: object
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
               - label: Groups
                 name: groups
                 widget: list

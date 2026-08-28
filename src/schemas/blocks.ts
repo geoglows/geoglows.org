@@ -229,6 +229,10 @@ const missionHeroBlock = z.object({
 const trustStripBlock = z.object({
   type: z.literal("trustStrip"),
   anchor: z.string().optional(),
+  eyebrow: z.string().optional(),
+  heading: z.string().optional(),
+  intro: z.string().optional(),
+  cta: linkSchema.optional(),
   groups: z
     .array(
       z.object({
