@@ -491,6 +491,7 @@ collections:
                 name: items
                 widget: list
                 fields:
+                  - { label: Anchor ID, name: id, widget: string, required: false, hint: "For deep-linking from the nav, e.g. forecasting" }
                   - { label: Icon, name: icon, widget: select, options: [layers, globe, partners, waves, drop, bars, flood, capacity] }
                   - { label: Title, name: title, widget: string }
                   - { label: Text, name: text, widget: text }

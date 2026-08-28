@@ -6,7 +6,10 @@
       "label": "What We Do",
       "href": "/what-we-do",
       "children": [
-        { "label": "What we work on", "href": "/what-we-do#work" },
+        { "label": "Forecasting", "href": "/what-we-do#forecasting" },
+        { "label": "Flood mapping", "href": "/what-we-do#flood-mapping" },
+        { "label": "Groundwater", "href": "/what-we-do#groundwater" },
+        { "label": "Capacity building", "href": "/what-we-do#capacity-building" },
         { "label": "How it works", "href": "/what-we-do#getting-started" },
         { "label": "GEOGLOWS V2", "href": "/what-we-do#whats-new" }
       ]
