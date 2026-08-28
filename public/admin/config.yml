@@ -713,8 +713,10 @@ collections:
                 widget: list
                 fields:
                   - { label: Icon, name: icon, widget: select, options: [layers, globe, code, database, bars, drop, waves, partners, capacity], default: layers }
+                  - { label: Tag, name: tag, widget: string, required: false, hint: "Small skill-level pill, e.g. No code, REST, AWS CLI" }
                   - { label: Title, name: title, widget: string }
                   - { label: Text, name: text, widget: text }
+                  - { label: Code snippet, name: code, widget: string, required: false, hint: "Monospace handle/command, e.g. pip install geoglows" }
                   - label: Links
                     name: links
                     widget: list

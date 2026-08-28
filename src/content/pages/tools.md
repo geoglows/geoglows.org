@@ -29,24 +29,31 @@ blocks:
     intro: "The full 15-day ensemble forecasts and the 85-year retrospective are open to everyone, no account required. Pick the access path that fits your work."
     items:
       - icon: layers
+        tag: No code
         title: Web layers
-        text: "Add GEOGLOWS streamflow forecasts as ready-to-use web map layers through Esri's ArcGIS Living Atlas, no code required."
+        text: "Drop GEOGLOWS streamflow forecasts straight into any ArcGIS map as ready-to-use layers from the Living Atlas, nothing to install."
         links:
-          - { label: Esri Living Atlas, href: "https://livingatlas.arcgis.com" }
+          - { label: Browse the layers, href: "https://livingatlas.arcgis.com" }
       - icon: globe
+        tag: REST
         title: REST API
-        text: "Query the forecasts and the full retrospective on demand through the public REST API and data query service, no download required."
+        text: "Query forecasts and the full retrospective on demand from the public data service, no download required."
+        code: "curl data.geoglows.org"
         links:
           - { label: Data Guide & API, href: "https://data.geoglows.org" }
       - icon: code
+        tag: Python · JS
         title: Packages
-        text: "Work with GEOGLOWS data directly in your own code using the official open-source packages for Python and JavaScript."
+        text: "Pull data straight into your own analysis with the official open-source packages."
+        code: "pip install geoglows"
         links:
           - { label: Python (PyPI), href: "https://pypi.org/project/geoglows/" }
           - { label: JavaScript (npm), href: "https://www.npmjs.com/package/geoglows" }
       - icon: database
+        tag: AWS CLI
         title: Cloud storage (S3)
-        text: "Pull the complete forecast and retrospective archives straight from the open AWS S3 buckets (geoglows-v2 and geoglows-v2-forecast) in Zarr format, no credentials required. Best for large-scale or offline analysis."
+        text: "Pull the complete forecast and retrospective archives from the open AWS buckets in Zarr format, no credentials needed. Best for large-scale or offline work."
+        code: "aws s3 cp s3://geoglows-v2"
         links:
           - { label: Bulk download guide, href: "https://training.geoglows.org/rfs/accessing-data/bulk-download/" }
           - { label: AWS Open Data, href: "https://registry.opendata.aws/geoglows-v2/" }
