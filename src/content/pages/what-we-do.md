@@ -14,24 +14,6 @@ blocks:
       - { title: "History sets the thresholds", text: "An 85-year retrospective from 1940 establishes each river's normal range and return-period levels, so a forecast carries context: reaches are flagged when flow is expected to exceed local flood thresholds." }
       - { title: "Read any river in the Hydroviewer", text: "The Hydroviewer web app puts the forecast, the retrospective, and return-period flags on an interactive map, so anyone can look up the outlook for a specific reach in seconds." }
       - { title: "Build on the open data", text: "Every forecast and the full retrospective are published openly through a REST API, AWS Open Data, Esri Living Atlas, and the GEOGLOWS Python package, free to integrate into local warning systems and research." }
-  - type: valueProps
-    eyebrow: GEOGLOWS V2
-    anchor: whats-new
-    heading: What powers the forecast today
-    intro: "The current system is built on GEOGLOWS V2, a ground-up upgrade to the hydrography, meteorology, data services, and tools behind every forecast."
-    items:
-      - title: Higher-resolution hydrography
-        text: "The TDX-Hydro hydro fabric, derived from the 12 m TanDEM-X DEM, replaces V1's 90 m SRTM data, mapping about 7 million river reaches (up from 1 million) across 125 Vector Processing Units, with expanded coverage in northern North America, Europe, and Asia."
-      - title: 3-hourly forecasts on ECMWF IFS 48r1
-        text: "Forecasts use the latest ECMWF meteorology and land-surface data and report discharge at a consistent 3-hour interval for easier analysis."
-      - title: An 85-year retrospective from 1940
-        text: "The historical simulation now begins in 1940 using ERA5 reanalysis, extending V1's coverage that started in 1979."
-      - title: Open data on AWS
-        text: "The complete forecast and retrospective datasets are available on demand through the AWS Open Data Program, broken down by location and time for fast, reliable access."
-      - title: Upgraded maps and Hydroviewer
-        text: "Faster Living Atlas web maps cover all 7 million reaches, and the Hydroviewer integrates the new data sources and the GEOGLOWS Python package."
-      - title: Faster, more reliable services
-        text: "The data service and Python package were overhauled, the model code optimized, and routing calibration improved with a machine-learning regression model for better flow estimates."
   - type: featureSection
     anchor: forecasting
     eyebrow: Forecasting
@@ -96,6 +78,24 @@ blocks:
       - { title: "National services", text: "Working through existing hydromet institutions and their data policies, not around them, so forecasts fit into daily operations." }
       - { title: "Research and students", text: "BYU's Capstone program pairs student teams with SERVIR regional hubs to build basin-specific applications and extend the science into new use cases." }
       - { title: "Regional hubs", text: "SERVIR hubs and GEO regional structures carry training and support into each region, building durable local expertise." }
+  - type: valueProps
+    eyebrow: GEOGLOWS V2
+    anchor: whats-new
+    heading: What powers the forecast today
+    intro: "The current system is built on GEOGLOWS V2, a ground-up upgrade to the hydrography, meteorology, data services, and tools behind every forecast."
+    items:
+      - title: Higher-resolution hydrography
+        text: "The TDX-Hydro hydro fabric, derived from the 12 m TanDEM-X DEM, replaces V1's 90 m SRTM data, mapping about 7 million river reaches (up from 1 million) across 125 Vector Processing Units, with expanded coverage in northern North America, Europe, and Asia."
+      - title: 3-hourly forecasts on ECMWF IFS 48r1
+        text: "Forecasts use the latest ECMWF meteorology and land-surface data and report discharge at a consistent 3-hour interval for easier analysis."
+      - title: An 85-year retrospective from 1940
+        text: "The historical simulation now begins in 1940 using ERA5 reanalysis, extending V1's coverage that started in 1979."
+      - title: Open data on AWS
+        text: "The complete forecast and retrospective datasets are available on demand through the AWS Open Data Program, broken down by location and time for fast, reliable access."
+      - title: Upgraded maps and Hydroviewer
+        text: "Faster Living Atlas web maps cover all 7 million reaches, and the Hydroviewer integrates the new data sources and the GEOGLOWS Python package."
+      - title: Faster, more reliable services
+        text: "The data service and Python package were overhauled, the model code optimized, and routing calibration improved with a machine-learning regression model for better flow estimates."
   - type: closingCta
     heading: See it working
     ctas:
