@@ -34,7 +34,6 @@
   --hairline-on-dark: rgba(233, 240, 246, 0.15);
 
   --logo-tint: grayscale(1);
-  --logo-invert-tint: brightness(0);
   --logo-emblem-tint: grayscale(1);
 
   --block-space: clamp(44px, 5vw, 76px);
@@ -68,7 +67,6 @@
     --accent-strong: #4fb7d8;
 
     --logo-tint: brightness(0) invert(1);
-    --logo-invert-tint: brightness(0) invert(1);
     --logo-emblem-tint: grayscale(1) brightness(1.9) contrast(1.15);
     color-scheme: dark;
   }
@@ -88,7 +86,6 @@
   --accent-text: #6fd0c0;
   --accent-strong: #4fb7d8;
   --logo-tint: brightness(0) invert(1);
-  --logo-invert-tint: brightness(0) invert(1);
   --logo-emblem-tint: grayscale(1) brightness(1.9) contrast(1.15);
   color-scheme: dark;
 }

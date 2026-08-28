@@ -1,6 +1,8 @@
 import { z } from "astro:content";
 import { ctaSchema, linkSchema } from "./shared";
 
+const backgroundSchema = z.enum(["page", "muted"]);
+
 const heroBlock = z.object({
   type: z.literal("hero"),
   eyebrow: z.string().optional(),
@@ -96,7 +98,7 @@ const dataAccessBlock = z.object({
   heading: z.string(),
   intro: z.string().optional(),
   anchor: z.string().optional(),
-  background: z.enum(["page", "muted"]).optional(),
+  background: backgroundSchema.optional(),
   items: z.array(
     z.object({
       icon: z.string().default("layers"),
@@ -118,7 +120,7 @@ const featureSectionBlock = z.object({
   body: z.string(),
   image: z.string().optional(),
   imageSide: z.enum(["left", "right"]).optional(),
-  background: z.enum(["page", "muted"]).optional(),
+  background: backgroundSchema.optional(),
   points: z
     .array(z.object({ title: z.string(), text: z.string() }))
     .default([]),
@@ -203,7 +205,7 @@ const richTextBlock = z.object({
   eyebrow: z.string().optional(),
   heading: z.string().optional(),
   body: z.string(),
-  background: z.enum(["page", "muted"]).default("page"),
+  background: backgroundSchema.default("page"),
   anchor: z.string().optional(),
 });
 
@@ -263,7 +265,6 @@ const trustStripBlock = z.object({
               name: z.string(),
               image: z.string().optional(),
               url: z.string().optional(),
-              invert: z.boolean().optional(),
               emblem: z.boolean().optional(),
             }),
           )

@@ -1,29 +1,33 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, getEntry } from "astro:content";
 import type { Block } from "../../schemas/blocks";
 import SectionHeader from "../ui/SectionHeader.astro";
 import { bgImage } from "../../lib/css";
 import { youtubeWatchUrl } from "../../lib/youtube";
+import { formatPostDate } from "../../lib/date";
 
 const { eyebrow, heading, intro, webinarsCount, newsCount } = Astro.props as Extract<
   Block,
   { type: "communityFeed" }
 >;
 
-const webinars = (await getCollection("webinars"))
+const [webinarEntries, socialEntries, settingsEntry] = await Promise.all([
+  getCollection("webinars"),
+  getCollection("social"),
+  getEntry("settings", "site"),
+]);
+
+const webinars = webinarEntries
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, webinarsCount)
   .map((w) => w.data);
 
-const posts = (await getCollection("social"))
+const posts = socialEntries
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, newsCount)
   .map((p) => p.data);
 
-const settings = (await getCollection("settings"))[0]?.data;
-const events = (settings?.ticker ?? []).slice(0, 4);
-const fmt = (d: Date) =>
-  d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+const events = (settingsEntry?.data.ticker ?? []).slice(0, 4);
 ---
 
 <section class="block cfeed">
@@ -94,7 +98,7 @@ const fmt = (d: Date) =>
               <a class="post" href={post.url} target="_blank" rel="noopener">
                 {post.image && <span class="thumb" style={bgImage(post.image)} />}
                 <span class="post-body">
-                  <span class="date">{fmt(post.date)}</span>
+                  <span class="date">{formatPostDate(post.date)}</span>
                   <span class="excerpt">{post.excerpt}</span>
                 </span>
               </a>

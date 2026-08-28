@@ -1,5 +1,6 @@
 ---
 import Icon from "../ui/Icon.astro";
+import { isExternal } from "../../lib/links";
 
 interface Props {
   name: string;
@@ -10,7 +11,7 @@ interface Props {
   comingSoon?: boolean;
 }
 const { name, tagline, category, icon, href, comingSoon = false } = Astro.props;
-const external = /^https?:\/\//.test(href);
+const external = isExternal(href);
 const Tag = comingSoon ? "div" : "a";
 const linkAttrs = comingSoon
   ? {}

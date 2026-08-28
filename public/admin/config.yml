@@ -504,7 +504,6 @@ collections:
                       - { label: Name, name: name, widget: string }
                       - { label: Logo image, name: image, widget: image, required: false }
                       - { label: Link, name: url, widget: string, required: false }
-                      - { label: White logo (darken on the strip), name: invert, widget: boolean, required: false, default: false }
                       - { label: Filled emblem/seal (keeps detail on dark background), name: emblem, widget: boolean, required: false, default: false, hint: "Enable for round multi-color seals like NASA, NOAA, NGA so they don't flatten to a solid disc in dark mode." }
                   - { label: Tail text, name: tail, widget: string, required: false, hint: "For members without a logo, e.g. with PREPARE" }
           - label: Partner cards

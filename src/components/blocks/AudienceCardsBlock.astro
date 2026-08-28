@@ -1,12 +1,12 @@
 ---
 import type { Block } from "../../schemas/blocks";
+import { isExternal } from "../../lib/links";
 import SectionHeader from "../ui/SectionHeader.astro";
 
 const { eyebrow, heading, intro, items, contactEmail } = Astro.props as Extract<
   Block,
   { type: "audienceCards" }
 >;
-const external = (href: string) => /^https?:\/\//.test(href);
 ---
 
 <section class="block muted">
@@ -17,7 +17,7 @@ const external = (href: string) => /^https?:\/\//.test(href);
         items.map((item) => {
           const Tag = item.href ? "a" : "div";
           const attrs = item.href
-            ? external(item.href)
+            ? isExternal(item.href)
               ? { href: item.href, target: "_blank", rel: "noopener" }
               : { href: item.href }
             : {};

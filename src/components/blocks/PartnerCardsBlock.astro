@@ -1,5 +1,6 @@
 ---
 import type { Block } from "../../schemas/blocks";
+import { isExternal } from "../../lib/links";
 import SectionHeader from "../ui/SectionHeader.astro";
 
 const { eyebrow, stageTag, heading, intro, cards } = Astro.props as Extract<
@@ -7,7 +8,6 @@ const { eyebrow, stageTag, heading, intro, cards } = Astro.props as Extract<
   { type: "partnerCards" }
 >;
 const kicker = stageTag ? `${eyebrow} · ${stageTag}` : eyebrow;
-const external = (href: string) => /^https?:\/\//.test(href);
 ---
 
 <section class="block">
@@ -18,7 +18,7 @@ const external = (href: string) => /^https?:\/\//.test(href);
         cards.map((card) => {
           const Tag = card.href ? "a" : "div";
           const attrs = card.href
-            ? external(card.href)
+            ? isExternal(card.href)
               ? { href: card.href, target: "_blank", rel: "noopener" }
               : { href: card.href }
             : {};
