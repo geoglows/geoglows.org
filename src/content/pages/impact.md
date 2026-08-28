@@ -43,25 +43,25 @@ blocks:
     heading: Where GEOGLOWS is at work
     intro: "GEOGLOWS is deployed with national hydrological services and regional partners in more than 30 countries, usually through SERVIR hubs and local institutions. A sample of documented deployments:"
     points:
-      - { country: Honduras, lat: 14.97, lng: -86.24 }
-      - { country: Dominican Republic, lat: 18.74, lng: -70.16 }
-      - { country: Colombia, lat: 4.1, lng: -73.0 }
-      - { country: Peru, lat: -9.19, lng: -75.02 }
-      - { country: "Amazon Basin", lat: -4.5, lng: -60.0 }
-      - { country: Senegal, lat: 14.5, lng: -14.45 }
-      - { country: Ghana, lat: 7.95, lng: -1.03 }
-      - { country: Ethiopia, lat: 9.15, lng: 40.49 }
-      - { country: Kenya, lat: 0.02, lng: 37.9 }
-      - { country: Malawi, lat: -13.25, lng: 34.3 }
-      - { country: Israel, lat: 31.4, lng: 35.0 }
-      - { country: Afghanistan, lat: 33.94, lng: 67.71 }
-      - { country: Nepal, lat: 28.39, lng: 84.12 }
-      - { country: Thailand, lat: 15.87, lng: 100.99 }
+      - { country: Honduras, lat: 14.97, lng: -86.24, pos: left }
+      - { country: Dominican Republic, lat: 18.74, lng: -70.16, pos: top }
+      - { country: Colombia, lat: 4.1, lng: -73.0, pos: top }
+      - { country: Peru, lat: -9.19, lng: -75.02, pos: left }
+      - { country: "Amazon Basin", lat: -4.5, lng: -60.0, pos: right }
+      - { country: Senegal, lat: 14.5, lng: -14.45, pos: top }
+      - { country: Ghana, lat: 7.95, lng: -1.03, pos: bottom }
+      - { country: Ethiopia, lat: 9.15, lng: 40.49, pos: top }
+      - { country: Kenya, lat: 0.02, lng: 37.9, pos: right }
+      - { country: Malawi, lat: -13.25, lng: 34.3, pos: bottom }
+      - { country: Israel, lat: 31.4, lng: 35.0, pos: left }
+      - { country: Afghanistan, lat: 33.94, lng: 67.71, pos: top }
+      - { country: Nepal, lat: 28.39, lng: 84.12, pos: right }
+      - { country: Thailand, lat: 15.87, lng: 100.99, pos: top }
   - type: caseStudies
     eyebrow: Case studies
     anchor: case-studies
     heading: GEOGLOWS in the field
-    intro: "Documented deployments where national services and regional partners put GEOGLOWS forecasts to work. Each links to the partner's own account."
+    intro: "Documented deployments where national services and regional partners put GEOGLOWS forecasts to work."
     items:
       - location: Malawi
         title: "Community flood early warning on the Shire River"

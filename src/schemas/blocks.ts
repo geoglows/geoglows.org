@@ -66,7 +66,12 @@ const countriesMapBlock = z.object({
   anchor: z.string().optional(),
   note: z.string().optional(),
   points: z.array(
-    z.object({ country: z.string(), lat: z.number(), lng: z.number() }),
+    z.object({
+      country: z.string(),
+      lat: z.number(),
+      lng: z.number(),
+      pos: z.enum(["top", "bottom", "left", "right"]).optional(),
+    }),
   ),
   cta: linkSchema.optional(),
 });
