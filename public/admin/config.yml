@@ -376,6 +376,16 @@ collections:
                 fields:
                   - { label: Label, name: label, widget: string }
                   - { label: Link, name: href, widget: string }
+          - label: Community feed
+            name: communityFeed
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string, required: false }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
+              - { label: Webinars count, name: webinarsCount, widget: number, default: 3, value_type: int }
+              - { label: News count, name: newsCount, widget: number, default: 5, value_type: int }
           - label: Rich text
             name: richText
             widget: object
@@ -463,6 +473,7 @@ collections:
             name: trustStrip
             widget: object
             fields:
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
               - label: Groups
                 name: groups
                 widget: list

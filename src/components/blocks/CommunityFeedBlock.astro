@@ -1,0 +1,335 @@
+---
+import { getCollection } from "astro:content";
+import type { Block } from "../../schemas/blocks";
+import SectionHeader from "../ui/SectionHeader.astro";
+import { bgImage } from "../../lib/css";
+import { youtubeWatchUrl } from "../../lib/youtube";
+
+const { eyebrow, heading, intro, webinarsCount, newsCount } = Astro.props as Extract<
+  Block,
+  { type: "communityFeed" }
+>;
+
+const webinars = (await getCollection("webinars"))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, webinarsCount)
+  .map((w) => w.data);
+
+const posts = (await getCollection("social"))
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, newsCount)
+  .map((p) => p.data);
+
+const settings = (await getCollection("settings"))[0]?.data;
+const events = (settings?.ticker ?? []).slice(0, 4);
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
+---
+
+<section class="block cfeed">
+  <div class="shell">
+    <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />
+    <div class="grid">
+      <div class="main">
+        <div class="panel">
+          <div class="p-head">
+            <h3>Webinars</h3>
+            <a href="/videos#webinars">All webinars →</a>
+          </div>
+          <ul class="wlist">
+            {
+              webinars.map((w) => (
+                <li>
+                  <a href={youtubeWatchUrl(w.youtubeId)} target="_blank" rel="noopener">
+                    <span class="play" aria-hidden="true">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M8 5v14l11-7z" />
+                      </svg>
+                    </span>
+                    <span class="w-body">
+                      <span class="w-title">{w.title}</span>
+                      <span class="w-meta">
+                        {w.date} · {w.presenter}
+                      </span>
+                    </span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+
+        <div class="panel">
+          <div class="p-head">
+            <h3>Events</h3>
+          </div>
+          <ul class="elist">
+            {
+              events.map((e) => (
+                <li>
+                  <span class="e-date">{e.date}</span>
+                  <span class="e-text">{e.text}</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+
+      <aside class="news" aria-label="Latest from GEOGLOWS on LinkedIn">
+        <div class="n-head">
+          <span class="li-badge" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+              <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.55V9h3.57v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.22.79 24 1.77 24h20.45c.98 0 1.78-.78 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z" />
+            </svg>
+          </span>
+          <span class="n-title">
+            <span class="n-name">News</span>
+            <span class="n-sub">GEOGLOWS on LinkedIn</span>
+          </span>
+        </div>
+        <div class="posts">
+          {
+            posts.map((post) => (
+              <a class="post" href={post.url} target="_blank" rel="noopener">
+                {post.image && <span class="thumb" style={bgImage(post.image)} />}
+                <span class="post-body">
+                  <span class="date">{fmt(post.date)}</span>
+                  <span class="excerpt">{post.excerpt}</span>
+                </span>
+              </a>
+            ))
+          }
+        </div>
+        <div class="follow">
+          <a href="https://www.linkedin.com/company/geoglows" target="_blank" rel="noopener">
+            Follow on LinkedIn →
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<style>
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  @media (min-width: 900px) {
+    .grid {
+      grid-template-columns: 1.5fr 1fr;
+      align-items: start;
+    }
+  }
+  .main {
+    display: grid;
+    gap: 20px;
+  }
+  .panel,
+  .news {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-page);
+    box-shadow: var(--shadow-sm);
+  }
+  .panel {
+    padding: 22px 24px;
+  }
+  .p-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 12px;
+    margin-bottom: 6px;
+    border-bottom: 1px solid var(--border);
+  }
+  .p-head h3 {
+    font-size: 1.05rem;
+    color: var(--text-strong);
+  }
+  .p-head a {
+    color: var(--accent-text);
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  .wlist,
+  .elist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .wlist li {
+    border-top: 1px solid var(--border);
+  }
+  .wlist li:first-child {
+    border-top: none;
+  }
+  .wlist a {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding: 12px 0;
+    text-decoration: none;
+    color: inherit;
+  }
+  .play {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--surface-teal-wash);
+    color: var(--accent-text);
+    transition: background 0.16s ease, color 0.16s ease;
+  }
+  .wlist a:hover .play {
+    background: var(--color-teal-green);
+    color: #fff;
+  }
+  .w-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  .w-title {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text-strong);
+    line-height: 1.3;
+  }
+  .wlist a:hover .w-title {
+    color: var(--accent-text);
+  }
+  .w-meta {
+    font-size: 0.76rem;
+    color: var(--text-faint);
+  }
+  .elist li {
+    display: flex;
+    gap: 14px;
+    padding: 11px 0;
+    border-top: 1px solid var(--border);
+  }
+  .elist li:first-child {
+    border-top: none;
+  }
+  .e-date {
+    flex-shrink: 0;
+    width: 88px;
+    color: var(--accent-text);
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+  .e-text {
+    font-size: 0.9rem;
+    color: var(--text-body);
+    line-height: 1.4;
+  }
+
+  /* News (LinkedIn) column, mirrors the landing hero panel */
+  .news {
+    padding: 22px 24px;
+  }
+  .n-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border);
+  }
+  .li-badge {
+    display: grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: #0a66c2;
+    color: #fff;
+    flex-shrink: 0;
+  }
+  .n-title {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+  }
+  .n-name {
+    font-weight: 800;
+    font-size: 0.98rem;
+    color: var(--text-strong);
+  }
+  .n-sub {
+    color: var(--text-faint);
+    font-size: 0.74rem;
+    font-weight: 600;
+  }
+  .posts {
+    display: flex;
+    flex-direction: column;
+  }
+  .post {
+    display: flex;
+    gap: 12px;
+    padding: 13px 8px;
+    margin: 0 -8px;
+    border-radius: 10px;
+    border-top: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+    transition: background 0.16s ease;
+  }
+  .post:first-child {
+    border-top: none;
+  }
+  .post:hover {
+    background: var(--surface-wash);
+  }
+  .thumb {
+    flex-shrink: 0;
+    width: 46px;
+    height: 46px;
+    border-radius: 7px;
+    background-size: cover;
+    background-position: center;
+  }
+  .post-body {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+  }
+  .post .date {
+    color: var(--text-faint);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .excerpt {
+    font-size: 0.85rem;
+    line-height: 1.42;
+    color: var(--text-body);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .follow {
+    margin-top: 12px;
+    padding-top: 14px;
+    border-top: 1px solid var(--border);
+  }
+  .follow a {
+    color: var(--accent-text);
+    font-weight: 700;
+    font-size: 0.82rem;
+    text-decoration: none;
+  }
+</style>
