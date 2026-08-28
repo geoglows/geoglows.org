@@ -17,7 +17,6 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
         steps.map((step, index) => (
           <li class="step">
             <span class="node">{pad(index)}</span>
-            <span class="rail" aria-hidden="true" />
             <div class="body">
               <h3>{step.title}</h3>
               <p>{step.text}</p>
@@ -62,31 +61,6 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
     font-variant-numeric: tabular-nums;
     line-height: 1;
   }
-  /* Static connector: a track from each node to the next with an arrowhead
-     pointing into it, so 01 -> 06 reads as one chain. No line motion. */
-  .rail {
-    position: absolute;
-    top: 26px;
-    left: 62px;
-    right: -56px;
-    height: 2px;
-    background: rgba(255, 191, 0, 0.4);
-  }
-  .rail::after {
-    content: "";
-    position: absolute;
-    right: -1px;
-    top: -5px;
-    width: 0;
-    height: 0;
-    border: 6px solid transparent;
-    border-left-color: var(--color-amber);
-    opacity: 0.7;
-  }
-  .step:nth-child(3n) .rail,
-  .step:last-child .rail {
-    display: none;
-  }
   .body h3 {
     margin-top: 16px;
     font-size: 1.12rem;
@@ -103,8 +77,7 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
       column-gap: 0;
       row-gap: 4px;
     }
-    /* Timeline: node in a left gutter, text indented beside it, and a vertical
-       rail down the gutter connecting the nodes (never crossing the text). */
+    /* Stacked: node in a left gutter, text indented beside it. */
     .step {
       display: grid;
       grid-template-columns: 54px 1fr;
@@ -120,23 +93,6 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
       grid-column: 2;
       grid-row: 1;
       padding-top: 10px;
-    }
-    .rail {
-      top: 54px;
-      bottom: 0;
-      left: 26px;
-      right: auto;
-      width: 2px;
-      height: auto;
-    }
-    .rail::after {
-      display: none;
-    }
-    .step:nth-child(3n) .rail {
-      display: block;
-    }
-    .step:last-child .rail {
-      display: none;
     }
   }
 </style>
