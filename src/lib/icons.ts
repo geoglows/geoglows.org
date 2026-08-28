@@ -11,6 +11,8 @@ export const icons: Record<string, string> = {
   drop: '<path d="M12 3c3.6 4.4 5.5 7.4 5.5 10a5.5 5.5 0 1 1-11 0c0-2.6 1.9-5.6 5.5-10Z"/>',
   bars: '<path d="M4 20V10m5 10V4m5 16v-7m5 7V7"/>',
   code: '<path d="m8 6-6 6 6 6M16 6l6 6-6 6M13.5 4l-3 16"/>',
+  database:
+    '<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v6c0 1.66 3.58 3 8 3s8-1.34 8-3V5M4 11v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/>',
   flood:
     '<path d="M3 18c2.4-2.2 4.6-2.2 7 0s4.6 2.2 7 0M3 13c2.4-2.2 4.6-2.2 7 0s4.6 2.2 7 0"/><path d="M18 4v5M20.5 6.5h-5"/>',
   capacity:

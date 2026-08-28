@@ -21,7 +21,7 @@ blocks:
     eyebrow: Access the data
     anchor: data
     background: muted
-    heading: Three ways to build on the data
+    heading: Ways to build on the data
     intro: "The full 15-day ensemble forecasts and the 85-year retrospective are open to everyone, no account required. Pick the access path that fits your work."
     items:
       - icon: layers
@@ -31,7 +31,7 @@ blocks:
           - { label: Esri Living Atlas, href: "https://livingatlas.arcgis.com" }
       - icon: globe
         title: REST API
-        text: "Query the forecasts and the full retrospective programmatically through the public REST API, with bulk datasets available on demand via AWS Open Data."
+        text: "Query the forecasts and the full retrospective on demand through the public REST API and data query service, no download required."
         links:
           - { label: Data Guide & API, href: "https://data.geoglows.org" }
       - icon: code
@@ -40,6 +40,12 @@ blocks:
         links:
           - { label: Python (PyPI), href: "https://pypi.org/project/geoglows/" }
           - { label: JavaScript (npm), href: "https://www.npmjs.com/package/geoglows" }
+      - icon: database
+        title: Cloud storage (S3)
+        text: "Pull the complete forecast and retrospective archives straight from the open AWS S3 buckets (geoglows-v2 and geoglows-v2-forecast) in Zarr format, no credentials required. Best for large-scale or offline analysis."
+        links:
+          - { label: Bulk download guide, href: "https://training.geoglows.org/rfs/accessing-data/bulk-download/" }
+          - { label: AWS Open Data, href: "https://registry.opendata.aws/geoglows-v2/" }
   - type: resourceTabs
     eyebrow: Resources
     anchor: resources
