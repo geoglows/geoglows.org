@@ -35,6 +35,15 @@ blocks:
     anchor: collaborators
     heading: Collaborators
     group: Collaborators
+  - type: richText
+    eyebrow: Reports
+    anchor: reports
+    heading: Annual & organizational reports
+    background: muted
+    body: >-
+      GEOGLOWS annual reports and organizational documents are published here as
+      they are released, tracking the initiative's progress, governance, and the
+      state of the service. Check back as new reports are added.
   - type: closingCta
     heading: Join the GEOGLOWS community
     ctas:

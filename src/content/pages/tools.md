@@ -61,9 +61,11 @@ blocks:
     eyebrow: Resources
     anchor: resources
     heading: Learn, cite, and go deeper
-    intro: "Documentation, research, and training for every level. Scientific and technical papers are filed under Publications, impact reports and case studies live on the Impact page, and annual and organizational reports on the About page."
+    intro: "Documentation, research, reports, and training for every level, organized by what you are looking for."
     tabs:
-      - { label: Publications, href: /publications, description: "Peer-reviewed research and technical papers using GEOGLOWS." }
+      - { label: Publications, href: /publications, description: "Scientific and technical papers using GEOGLOWS." }
+      - { label: Impact reports & case studies, href: "/impact#case-studies", description: "Real-world deployment stories and on-the-ground outcomes, on the Impact page." }
+      - { label: Annual & organizational reports, href: "/about#reports", description: "Program reports and governance documents, on the About page." }
       - { label: Videos, href: /videos, description: "Walkthroughs and demos of the GEOGLOWS RFS, data services, and apps." }
       - { label: Webinars, href: "/videos#webinars", description: "The RFS v2 webinar series, from model formulation to the RFS." }
       - { label: Tutorials, href: "https://training.geoglows.org", description: "In-depth, multilingual courses on the Training Portal." }
