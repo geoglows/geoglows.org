@@ -103,6 +103,7 @@ const featureSectionBlock = z.object({
   points: z
     .array(z.object({ title: z.string(), text: z.string() }))
     .default([]),
+  cta: linkSchema.optional(),
 });
 
 const iconItem = z.object({ icon: z.string(), title: z.string(), text: z.string() });
@@ -262,7 +263,12 @@ const partnerCardsBlock = z.object({
   intro: z.string().optional(),
   anchor: z.string().optional(),
   cards: z.array(
-    z.object({ mark: z.string(), title: z.string(), text: z.string() }),
+    z.object({
+      mark: z.string(),
+      title: z.string(),
+      text: z.string(),
+      href: z.string().optional(),
+    }),
   ),
 });
 
@@ -332,7 +338,12 @@ const audienceCardsBlock = z.object({
   intro: z.string().optional(),
   anchor: z.string().optional(),
   items: z.array(
-    z.object({ kicker: z.string(), title: z.string(), text: z.string() }),
+    z.object({
+      kicker: z.string(),
+      title: z.string(),
+      text: z.string(),
+      href: z.string().optional(),
+    }),
   ),
   contactEmail: z.string().optional(),
 });
