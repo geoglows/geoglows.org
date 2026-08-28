@@ -414,6 +414,13 @@ collections:
                 fields:
                   - { label: Title, name: title, widget: string }
                   - { label: Text, name: text, widget: text }
+              - label: Button
+                name: cta
+                widget: object
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
           - label: Tools grid
             name: toolsGrid
             widget: object
@@ -516,6 +523,7 @@ collections:
                   - { label: Mark (initials), name: mark, widget: string }
                   - { label: Title, name: title, widget: string }
                   - { label: Text, name: text, widget: text }
+                  - { label: Link, name: href, widget: string, required: false, hint: "Makes the card clickable" }
           - label: Pillars
             name: pillars
             widget: object
@@ -620,6 +628,7 @@ collections:
                   - { label: Kicker, name: kicker, widget: string }
                   - { label: Title, name: title, widget: string }
                   - { label: Text, name: text, widget: text }
+                  - { label: Link, name: href, widget: string, required: false, hint: "Makes the card clickable" }
               - { label: Contact email, name: contactEmail, widget: string, required: false }
           - label: Timeline
             name: timeline

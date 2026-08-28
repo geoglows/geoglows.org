@@ -31,15 +31,19 @@ blocks:
       - mark: DF
         title: Regional data-flow assessments
         text: "Structured assessments of how water data actually moves from national institutions down to local communities, piloted with AfriGEO in West Africa and extensible to other GEO Regional Organizations and flagships."
+        href: /impact#countries
       - mark: SH
         title: SERVIR Hubs
         text: "Regional collaboration across SERVIR's hub network: HKH, Mekong, West Africa, and beyond."
+        href: https://servirglobal.net
       - mark: DP
         title: Data policy alignment
         text: "Built to work within existing data policy, not around it: WMO's global standards (WIGOS, WHOS, HydroSOS) at one level, and each country's own hydromet data-sharing policies at the other."
+        href: https://wmo.int
       - mark: BP
         title: Become a partner
         text: "National services, regional hubs, and technical organizations can join the network. Reach out to scope a collaboration in your region."
+        href: /community#involved
   - type: featureSection
     anchor: researchers
     eyebrow: Researchers & students
@@ -56,6 +60,7 @@ blocks:
       - { title: "Capstone in the field", text: "Since 2011, BYU civil-engineering students have completed Kennedy Center capstone projects abroad, building and deploying hydro-informatics systems with local communities, more than 150 students to date." }
       - { title: "Working with SERVIR hubs", text: "Student teams travel to SERVIR regional hubs, from Nairobi and Accra to Kathmandu and Quito, to build RFS-based forecast bulletins and stakeholder assessments, then hand them to local partners." }
       - { title: "Open, published research", text: "Methods and results are documented in the peer-reviewed literature and shared openly, so each cohort builds on the work of the last." }
+    cta: { label: "Explore the BYU Hydroinformatics Lab", href: "https://hydroinformatics.byu.edu" }
   - type: communityFeed
     eyebrow: News, events & webinars
     anchor: news
@@ -81,10 +86,10 @@ blocks:
     heading: Ways to work with us
     intro: "Whether you run a hydromet service, fund resilience work, or want hands-on field experience, there's a concrete way in."
     items:
-      - { kicker: "Agencies & hubs", title: "Bring GEOGLOWS to your region", text: "Become an implementation partner, the way SERVIR's regional hubs already have." }
-      - { kicker: Funders, title: "Fund a deployment", text: "See the investment case above, or reach out directly to scope a project." }
-      - { kicker: Students, title: "Join a field program", text: "BYU's study-abroad course places student teams at SERVIR hubs every year." }
-      - { kicker: Everyone, title: "Follow our work", text: "LinkedIn and the GEO page carry the latest deployments and research." }
+      - { kicker: "Agencies & hubs", title: "Bring GEOGLOWS to your region", text: "Become an implementation partner, the way SERVIR's regional hubs already have.", href: "mailto:secretariat@geoglows.org" }
+      - { kicker: Funders, title: "Fund a deployment", text: "See the investment case above, or reach out directly to scope a project.", href: "/community#investment" }
+      - { kicker: Students, title: "Join a field program", text: "BYU's study-abroad course places student teams at SERVIR hubs every year.", href: "/community#researchers" }
+      - { kicker: Everyone, title: "Follow our work", text: "LinkedIn and the GEO page carry the latest deployments and research.", href: "https://www.linkedin.com/company/geoglows" }
     contactEmail: secretariat@geoglows.org
   - type: closingCta
     heading: Join the GEOGLOWS community
