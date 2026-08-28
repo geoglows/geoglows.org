@@ -82,11 +82,10 @@ const hasHeader = Boolean(eyebrow || heading);
     justify-content: center;
     flex-wrap: wrap;
     gap: clamp(36px, 4vw, 68px);
-    /* Cap the row so it settles to ~4 logos per row, then centers. */
+
     max-width: 940px;
   }
-  /* When the strip has its own header (e.g. a Partners section), left-align it
-     like a normal section and let the logos fill a tidy grid. */
+
   .with-head .group {
     align-items: stretch;
   }
@@ -106,8 +105,7 @@ const hasHeader = Boolean(eyebrow || heading);
     font-weight: 800;
     text-decoration: none;
   }
-  /* Each logo gets an equal invisible slot so mixed emblems and wordmarks
-     read at a consistent size without any card behind them. */
+
   .slot {
     display: grid;
     place-items: center;
@@ -130,13 +128,12 @@ const hasHeader = Boolean(eyebrow || heading);
     max-width: 100%;
     width: auto;
     object-fit: contain;
-    /* Monochrome: tasteful grayscale on the light page, bold light marks on
-       the dark page (see --logo-tint per theme in tokens.css). */
+
     filter: var(--logo-tint);
     opacity: 0.78;
     transition: opacity 0.2s ease;
   }
-  /* Filled multi-tone seals keep their detail instead of flattening to a disc. */
+
   .logo.emblem {
     filter: var(--logo-emblem-tint);
   }

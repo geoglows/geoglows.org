@@ -1,5 +1,4 @@
-/** Counts numeric stats up from zero when they scroll into view.
-    Preserves any prefix/suffix (e.g. "$", "M+", "~", "%", "-day"). */
+
 const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const els = document.querySelectorAll<HTMLElement>("[data-count]");
 

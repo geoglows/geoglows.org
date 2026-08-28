@@ -1,4 +1,4 @@
-/** Named line icons (24x24 viewBox inner markup) selectable by content editors. */
+
 export const icons: Record<string, string> = {
   layers:
     '<path d="M12 3 3 8l9 5 9-5-9-5Z"/><path d="M3 12l9 5 9-5M3 16l9 5 9-5"/>',
