@@ -1,6 +1,6 @@
 ---
 import type { Block } from "../../schemas/blocks";
-import SectionHeader from "../ui/SectionHeader.astro";
+import GeoGlyph from "../site/GeoGlyph.astro";
 const { eyebrow, heading, intro, stats } = Astro.props as Extract<
   Block,
   { type: "statBand" }
@@ -9,41 +9,51 @@ const [lead, ...rest] = stats;
 const hasHeader = Boolean(eyebrow || heading);
 ---
 
-{
-  hasHeader && (
-    <div class="statband-head shell">
-      <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />
-    </div>
-  )
-}
 <div class="stat-band">
-  <div class="shell inner">
-    <div class="lead">
-      <span class="lead-value" data-count>{lead.value}</span>
-      <span class="lead-label">{lead.label}</span>
-    </div>
-    <div class="rest">
-      {
-        rest.map((stat) => (
-          <div class="stat">
-            <span class="value" data-count>{stat.value}</span>
-            <span class="label">{stat.label}</span>
-          </div>
-        ))
-      }
+  <div class="shell">
+    {
+      hasHeader && (
+        <div class="band-head">
+          {eyebrow && (
+            <p class="s-eyebrow">
+              <GeoGlyph />
+              {eyebrow}
+            </p>
+          )}
+          {heading && <h2 class="s-heading">{heading}</h2>}
+          {intro && <p class="s-intro">{intro}</p>}
+        </div>
+      )
+    }
+    <div class="inner">
+      <div class="lead">
+        <span class="lead-value" data-count>{lead.value}</span>
+        <span class="lead-label">{lead.label}</span>
+      </div>
+      <div class="rest">
+        {
+          rest.map((stat) => (
+            <div class="stat">
+              <span class="value" data-count>{stat.value}</span>
+              <span class="label">{stat.label}</span>
+            </div>
+          ))
+        }
+      </div>
     </div>
   </div>
 </div>
 
 <style>
-  .statband-head {
-    padding-top: var(--block-space);
-  }
   .stat-band {
     position: relative;
     overflow: hidden;
     background: var(--color-navy-deep);
     color: #dfe7f0;
+  }
+  .stat-band > .shell {
+    position: relative;
+    padding-block: clamp(40px, 6vw, 72px);
   }
   /* overlapping-circles brand motif, oversized and bled off the edge */
   .stat-band::after {
@@ -58,13 +68,41 @@ const hasHeader = Boolean(eyebrow || heading);
     box-shadow: 90px 0 0 -1px rgba(0, 96, 169, 0.18);
     pointer-events: none;
   }
+  .band-head {
+    position: relative;
+    max-width: 720px;
+    margin-bottom: clamp(30px, 4vw, 48px);
+  }
+  .s-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--color-teal);
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .s-heading {
+    color: #fff;
+    font-size: clamp(1.7rem, 2.6vw, 2.3rem);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .s-intro {
+    margin-top: 12px;
+    color: var(--ink-on-dark-muted);
+    font-size: 1rem;
+    line-height: 1.6;
+    max-width: 56ch;
+  }
   .inner {
     position: relative;
     display: grid;
     grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.3fr);
     align-items: center;
     gap: clamp(28px, 6vw, 80px);
-    padding-block: clamp(40px, 6vw, 72px);
   }
   .lead-value {
     display: block;
