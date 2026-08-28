@@ -2,14 +2,19 @@
 title: About | GEOGLOWS
 description: The mission, people, and governance behind the GEOGLOWS initiative.
 blocks:
-  - type: richText
+  - type: featureSection
     eyebrow: Mission
     anchor: mission
     heading: "Enabling organizations and individuals to solve local water challenges with global water intelligence."
+    image: /images/hero-delta.webp
+    imageSide: right
     body: >-
-      To pioneer scientific and global collaboration that provides relevant,
-      actionable water information and promotes the use of Earth observations in
-      decision-making, while strengthening observational networks.
+      A GEO flagship since 2016, GEOGLOWS turns satellite and model data into
+      decision-ready hydrologic information: open, free, and built with the
+      people who use it. Its mission is to pioneer scientific and global
+      collaboration that provides relevant, actionable water information and
+      promotes the use of Earth observations in decision-making, while
+      strengthening observational networks.
   - type: richText
     eyebrow: About GEOGLOWS
     anchor: who-we-are
