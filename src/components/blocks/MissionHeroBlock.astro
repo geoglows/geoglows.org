@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import type { Block } from "../../schemas/blocks";
 import GeoGlyph from "../site/GeoGlyph.astro";
 import { bgImage } from "../../lib/css";
+import { formatPostDate } from "../../lib/date";
 
 const { eyebrow, heading, lede, image, spotlight, spotlightLink, socialHeading, socialCount } =
   Astro.props as Extract<Block, { type: "missionHero" }>;
@@ -10,8 +11,6 @@ const { eyebrow, heading, lede, image, spotlight, spotlightLink, socialHeading, 
 const posts = (await getCollection("social"))
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
   .slice(0, socialCount);
-const fmt = (d: Date) =>
-  d.toLocaleDateString("en-US", { month: "short", year: "numeric" });
 ---
 
 <section class="block hero-mission">
@@ -58,7 +57,7 @@ const fmt = (d: Date) =>
             <a class="post" href={post.data.url} target="_blank" rel="noopener">
               {post.data.image && <span class="thumb" style={bgImage(post.data.image)} />}
               <span class="post-body">
-                <span class="date">{fmt(post.data.date)}</span>
+                <span class="date">{formatPostDate(post.data.date)}</span>
                 <span class="excerpt">{post.data.excerpt}</span>
               </span>
             </a>
