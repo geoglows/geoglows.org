@@ -100,8 +100,10 @@ const dataAccessBlock = z.object({
   items: z.array(
     z.object({
       icon: z.string().default("layers"),
+      tag: z.string().optional(),
       title: z.string(),
       text: z.string(),
+      code: z.string().optional(),
       links: z.array(linkSchema).default([]),
     }),
   ),
