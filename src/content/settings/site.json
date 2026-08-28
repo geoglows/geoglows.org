@@ -17,8 +17,9 @@
       "label": "Impact",
       "href": "/impact",
       "children": [
-        { "label": "Beyond forecasts", "href": "/impact#beyond" },
-        { "label": "Around the world", "href": "/impact#around-the-world" },
+        { "label": "Impact stories", "href": "/impact#stories" },
+        { "label": "Countries & projects", "href": "/impact#countries" },
+        { "label": "Results", "href": "/impact#results" },
         { "label": "Case studies", "href": "/impact#case-studies" }
       ]
     },

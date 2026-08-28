@@ -23,7 +23,7 @@ blocks:
       note: "Impact and adoption work supported by Google.org."
   - type: impactStories
     eyebrow: Impact stories
-    anchor: around-the-world
+    anchor: stories
     heading: Impact around the world
     intro: "From flood early warning to reservoir operations, national services and communities put GEOGLOWS to work every day."
     stories:
@@ -32,14 +32,9 @@ blocks:
       - { image: /images/story-training.webp, location: East Africa, title: "Training national hydrological services on ensemble forecasts", href: "/community#news" }
       - { image: /images/story-andes.webp, location: Peru, title: "Drought monitoring for Andean water supply planning", href: "/community#news" }
     cta: { label: See more from the community, href: /community#news }
-  - type: statBand
-    stats:
-      - { value: "30+", label: countries with active deployments }
-      - { value: "7.2M", label: river reaches covered }
-      - { value: "~100K", label: forecast requests daily }
-      - { value: "193", label: WMO member states the chain can reach }
   - type: countriesMap
     eyebrow: Countries & projects
+    anchor: countries
     heading: Where GEOGLOWS is at work
     intro: "GEOGLOWS is deployed with national hydrological services and regional partners in more than 30 countries, usually through SERVIR hubs and local institutions. A sample of documented deployments:"
     points:
@@ -57,6 +52,16 @@ blocks:
       - { country: Afghanistan, lat: 33.94, lng: 67.71, pos: top }
       - { country: Nepal, lat: 28.39, lng: 84.12, pos: right }
       - { country: Thailand, lat: 15.87, lng: 100.99, pos: top }
+  - type: statBand
+    eyebrow: Results
+    anchor: results
+    heading: Impact by the numbers
+    intro: "Adoption and reach across the service, from the rivers it covers to the institutions that depend on it every day."
+    stats:
+      - { value: "30+", label: countries with active deployments }
+      - { value: "7.2M", label: river reaches covered }
+      - { value: "~100K", label: forecast requests daily }
+      - { value: "193", label: WMO member states the chain can reach }
   - type: caseStudies
     eyebrow: Case studies
     anchor: case-studies
