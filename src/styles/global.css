@@ -64,17 +64,12 @@ img {
   padding-inline: var(--gutter);
 }
 
-/* Consistent vertical rhythm for every content section */
 .block {
   padding-block: var(--block-space);
 }
 
-/* Scroll-reveal: sections fade and rise as they enter the viewport.
-   Only active when JS adds .reveal-ready and the user allows motion, so
-   reduced-motion and no-JS visitors always see fully-rendered content. */
 @media (prefers-reduced-motion: no-preference) {
-  /* Whole section fades and rises as a unit, so dark section backgrounds never
-     show as empty boxes. Revealed once and kept, so nothing disappears on scroll. */
+
   .reveal-ready .hero-inner,
   .reveal-ready main .stat-band,
   .reveal-ready main .block {
@@ -91,8 +86,6 @@ img {
     transform: none;
   }
 
-  /* Stepper + timeline: connector lines draw in and nodes pop as the
-     section reveals, staggered left to right to reinforce the sequence. */
   .reveal-ready .step::before,
   .reveal-ready .tl::before {
     transform: scaleX(0);
@@ -127,6 +120,14 @@ img {
   .reveal-ready .step:nth-child(4) .node,
   .reveal-ready .step:nth-child(4)::before {
     transition-delay: 0.36s;
+  }
+  .reveal-ready .step:nth-child(5) .node,
+  .reveal-ready .step:nth-child(5)::before {
+    transition-delay: 0.48s;
+  }
+  .reveal-ready .step:nth-child(6) .node,
+  .reveal-ready .step:nth-child(6)::before {
+    transition-delay: 0.6s;
   }
   .reveal-ready .tl:nth-child(2) .dot,
   .reveal-ready .tl:nth-child(2)::before {

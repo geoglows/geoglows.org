@@ -17,7 +17,7 @@ const { eyebrow, heading, intro, introLink, items } = Astro.props as Extract<
     <div class="grid">
       {
         items.map((item) => (
-          <div class="card">
+          <div class="card" id={item.id}>
             {item.image ? (
               <div class="cover" style={bgImage(item.image)} />
             ) : (
@@ -64,6 +64,7 @@ const { eyebrow, heading, intro, introLink, items } = Astro.props as Extract<
     background: var(--surface-page);
     box-shadow: var(--shadow-sm);
     overflow: hidden;
+    scroll-margin-top: 80px;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
   }
   .card:hover {

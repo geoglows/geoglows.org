@@ -79,25 +79,6 @@ collections:
   - name: pageSections
     label: Page Sections
     files:
-      - name: news
-        label: News page
-        file: src/content/page-sections/news.json
-        fields:
-          - { label: SEO title, name: seoTitle, widget: string, required: false }
-          - { label: SEO description, name: seoDescription, widget: text, required: false }
-          - { label: Eyebrow, name: eyebrow, widget: string, required: false }
-          - { label: Heading, name: heading, widget: string, required: false }
-          - { label: Videos link label, name: videosLinkLabel, widget: string, required: false }
-          - label: LinkedIn section
-            name: social
-            widget: object
-            required: false
-            fields:
-              - { label: Eyebrow, name: eyebrow, widget: string }
-              - { label: Heading, name: heading, widget: string }
-              - { label: Intro, name: intro, widget: text }
-          - { label: Follow label, name: followLabel, widget: string, required: false }
-          - { label: Follow URL, name: followUrl, widget: string, required: false }
       - name: videos
         label: Videos page
         file: src/content/page-sections/videos.json
@@ -164,7 +145,7 @@ collections:
                 fields:
                   - { label: Label, name: label, widget: string }
                   - { label: Link, name: href, widget: string }
-                  - { label: Style, name: style, widget: select, options: [amber, white, outline, navy, green], default: amber }
+                  - { label: Style, name: style, widget: select, options: [blue, amber, white, outline, navy, green], default: blue }
               - label: Featured card
                 name: featured
                 widget: object
@@ -178,6 +159,10 @@ collections:
             name: statBand
             widget: object
             fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string, required: false }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
               - label: Stats
                 name: stats
                 widget: list
@@ -212,6 +197,7 @@ collections:
               - { label: Eyebrow, name: eyebrow, widget: string, required: false }
               - { label: Heading, name: heading, widget: string }
               - { label: Intro, name: intro, widget: text, required: false }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
               - label: Stories
                 name: stories
                 widget: list
@@ -227,12 +213,62 @@ collections:
                 fields:
                   - { label: Label, name: label, widget: string }
                   - { label: Link, name: href, widget: string }
+          - label: Case studies
+            name: caseStudies
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
+              - label: Items
+                name: items
+                widget: list
+                fields:
+                  - { label: Location, name: location, widget: string }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: text }
+                  - { label: Source, name: source, widget: string, required: false }
+                  - { label: Link, name: href, widget: string, required: false }
+              - label: Button
+                name: cta
+                widget: object
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
+          - label: Countries map
+            name: countriesMap
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
+              - { label: Note, name: note, widget: text, required: false }
+              - label: Pins
+                name: points
+                widget: list
+                fields:
+                  - { label: Country, name: country, widget: string }
+                  - { label: Latitude, name: lat, widget: number, value_type: float, hint: "-90 to 90" }
+                  - { label: Longitude, name: lng, widget: number, value_type: float, hint: "-180 to 180" }
+                  - { label: Label position, name: pos, widget: select, options: [top, bottom, left, right], default: top, required: false }
+              - label: Button
+                name: cta
+                widget: object
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
           - label: Value props
             name: valueProps
             widget: object
             fields:
               - { label: Eyebrow, name: eyebrow, widget: string, required: false }
               - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
               - label: Items
                 name: items
                 widget: list
@@ -298,6 +334,8 @@ collections:
             fields:
               - { label: Eyebrow, name: eyebrow, widget: string, required: false }
               - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
               - label: Steps
                 name: steps
                 widget: list
@@ -322,7 +360,7 @@ collections:
                 fields:
                   - { label: Label, name: label, widget: string }
                   - { label: Link, name: href, widget: string }
-                  - { label: Style, name: style, widget: select, options: [amber, white, outline, navy, green], default: amber }
+                  - { label: Style, name: style, widget: select, options: [blue, amber, white, outline, navy, green], default: blue }
           - label: News grid
             name: newsGrid
             widget: object
@@ -330,6 +368,7 @@ collections:
               - { label: Eyebrow, name: eyebrow, widget: string, required: false }
               - { label: Heading, name: heading, widget: string }
               - { label: Count, name: count, widget: number, default: 3 }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
               - label: Button
                 name: cta
                 widget: object
@@ -337,6 +376,16 @@ collections:
                 fields:
                   - { label: Label, name: label, widget: string }
                   - { label: Link, name: href, widget: string }
+          - label: Community feed
+            name: communityFeed
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string, required: false }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
+              - { label: Webinars count, name: webinarsCount, widget: number, default: 3, value_type: int }
+              - { label: News count, name: newsCount, widget: number, default: 5, value_type: int }
           - label: Rich text
             name: richText
             widget: object
@@ -346,6 +395,32 @@ collections:
               - { label: Body, name: body, widget: markdown }
               - { label: Background, name: background, widget: select, options: [page, muted], default: page }
               - { label: Anchor ID, name: anchor, widget: string, required: false, hint: "Optional id for deep-linking, e.g. data." }
+          - label: Feature section
+            name: featureSection
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Tag, name: tag, widget: string, required: false, hint: "Small pill, e.g. In development" }
+              - { label: Body, name: body, widget: markdown }
+              - { label: Image, name: image, widget: image, required: false }
+              - { label: Image side, name: imageSide, widget: select, options: [right, left], default: right }
+              - { label: Background, name: background, widget: select, options: [page, muted], default: page }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
+              - label: Points
+                name: points
+                widget: list
+                required: false
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: text }
+              - label: Button
+                name: cta
+                widget: object
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
           - label: Tools grid
             name: toolsGrid
             widget: object
@@ -405,6 +480,17 @@ collections:
             name: trustStrip
             widget: object
             fields:
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string, required: false }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - label: Button
+                name: cta
+                widget: object
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
               - label: Groups
                 name: groups
                 widget: list
@@ -418,7 +504,7 @@ collections:
                       - { label: Name, name: name, widget: string }
                       - { label: Logo image, name: image, widget: image, required: false }
                       - { label: Link, name: url, widget: string, required: false }
-                      - { label: White logo (darken on the strip), name: invert, widget: boolean, required: false, default: false }
+                      - { label: Filled emblem/seal (keeps detail on dark background), name: emblem, widget: boolean, required: false, default: false, hint: "Enable for round multi-color seals like NASA, NOAA, NGA so they don't flatten to a solid disc in dark mode." }
                   - { label: Tail text, name: tail, widget: string, required: false, hint: "For members without a logo, e.g. with PREPARE" }
           - label: Partner cards
             name: partnerCards
@@ -436,6 +522,7 @@ collections:
                   - { label: Mark (initials), name: mark, widget: string }
                   - { label: Title, name: title, widget: string }
                   - { label: Text, name: text, widget: text }
+                  - { label: Link, name: href, widget: string, required: false, hint: "Makes the card clickable" }
           - label: Pillars
             name: pillars
             widget: object
@@ -455,6 +542,7 @@ collections:
                 name: items
                 widget: list
                 fields:
+                  - { label: Anchor ID, name: id, widget: string, required: false, hint: "For deep-linking from the nav, e.g. forecasting" }
                   - { label: Icon, name: icon, widget: select, options: [layers, globe, partners, waves, drop, bars, flood, capacity] }
                   - { label: Title, name: title, widget: string }
                   - { label: Text, name: text, widget: text }
@@ -523,7 +611,7 @@ collections:
                 fields:
                   - { label: Label, name: label, widget: string }
                   - { label: Link, name: href, widget: string }
-                  - { label: Style, name: style, widget: select, options: [amber, white, outline, navy, green], default: amber }
+                  - { label: Style, name: style, widget: select, options: [blue, amber, white, outline, navy, green], default: blue }
           - label: Audience cards
             name: audienceCards
             widget: object
@@ -539,6 +627,7 @@ collections:
                   - { label: Kicker, name: kicker, widget: string }
                   - { label: Title, name: title, widget: string }
                   - { label: Text, name: text, widget: text }
+                  - { label: Link, name: href, widget: string, required: false, hint: "Makes the card clickable" }
               - { label: Contact email, name: contactEmail, widget: string, required: false }
           - label: Timeline
             name: timeline
@@ -562,6 +651,80 @@ collections:
                 fields:
                   - { label: Title, name: title, widget: string }
                   - { label: Items, name: items, widget: list, field: { label: Item, name: item, widget: string } }
+          - label: Featured media
+            name: featuredMedia
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
+              - label: Featured video
+                name: video
+                widget: object
+                required: false
+                hint: "Optional video shown full-width above the cards."
+                fields:
+                  - { label: YouTube video ID, name: youtubeId, widget: string }
+                  - { label: Title, name: title, widget: string, required: false }
+              - label: Items
+                name: items
+                widget: list
+                fields:
+                  - { label: Title, name: title, widget: string }
+                  - { label: Location, name: location, widget: string, required: false }
+                  - { label: Image, name: image, widget: image, required: false }
+                  - { label: YouTube video ID, name: youtubeId, widget: string, required: false, hint: "Set this to make the card a video (overrides Image/Link)." }
+                  - { label: Link, name: href, widget: string, required: false }
+              - label: Button
+                name: cta
+                widget: object
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
+          - label: Resource tabs
+            name: resourceTabs
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
+              - label: Tabs
+                name: tabs
+                widget: list
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
+                  - { label: Description, name: description, widget: text, required: false }
+                  - { label: Icon, name: icon, widget: select, options: [document, globe, bars, play, capacity, book, layers, database, code, drop, waves], required: false }
+                  - { label: Group, name: group, widget: string, required: false, hint: "Items with the same group render together in one panel, e.g. Documents" }
+          - label: Data access
+            name: dataAccess
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
+              - { label: Background, name: background, widget: select, options: [page, muted], default: page }
+              - label: Items
+                name: items
+                widget: list
+                fields:
+                  - { label: Icon, name: icon, widget: select, options: [layers, globe, code, database, bars, drop, waves, partners, capacity], default: layers }
+                  - { label: Tag, name: tag, widget: string, required: false, hint: "Small skill-level pill, e.g. No code, REST, AWS CLI" }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: text }
+                  - { label: Code snippet, name: code, widget: string, required: false, hint: "Monospace handle/command, e.g. pip install geoglows" }
+                  - label: Links
+                    name: links
+                    widget: list
+                    required: false
+                    fields:
+                      - { label: Label, name: label, widget: string }
+                      - { label: Link, name: href, widget: string }
 
   - name: tools
     label: Tools
@@ -579,6 +742,7 @@ collections:
       - { label: Icon, name: icon, widget: select, options: [layers, globe, partners, waves, drop, bars, flood, capacity], default: globe }
       - { label: Image, name: image, widget: image, required: false }
       - { label: App URL, name: appUrl, widget: string, required: false }
+      - { label: Coming soon, name: comingSoon, widget: boolean, default: false, required: false }
       - { label: Order, name: order, widget: number, default: 0, value_type: int }
       - { label: Description, name: body, widget: markdown }
 

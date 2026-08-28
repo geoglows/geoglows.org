@@ -1,0 +1,168 @@
+---
+import type { Block } from "../../schemas/blocks";
+import SectionHeader from "../ui/SectionHeader.astro";
+import { bgImage } from "../../lib/css";
+import { youtubeThumb, youtubeWatchUrl } from "../../lib/youtube";
+
+const { eyebrow, heading, intro, video, items, cta } = Astro.props as Extract<
+  Block,
+  { type: "featuredMedia" }
+>;
+
+const cardFor = (item: (typeof items)[number]) => {
+  const thumb = item.youtubeId ? youtubeThumb(item.youtubeId) : item.image;
+  const href = item.youtubeId ? youtubeWatchUrl(item.youtubeId) : item.href;
+  return { thumb, href, isVideo: Boolean(item.youtubeId) };
+};
+---
+
+<section class="block">
+  <div class="shell">
+    <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />
+    {
+      video && (
+        <div class="feature-video">
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${video.youtubeId}`}
+            title={video.title ?? heading}
+            loading="lazy"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          />
+        </div>
+      )
+    }
+    <div class="grid">
+      {
+        items.map((item) => {
+          const { thumb, href, isVideo } = cardFor(item);
+          const inner = (
+            <>
+              <span class="media" style={thumb ? bgImage(thumb) : undefined}>
+                {isVideo && (
+                  <span class="play" aria-hidden="true">
+                    <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+                  </span>
+                )}
+              </span>
+              <span class="body">
+                {item.location && <span class="loc">{item.location}</span>}
+                <span class="title">{item.title}</span>
+              </span>
+            </>
+          );
+          return href ? (
+            <a class="card" href={href} target={isVideo ? "_blank" : undefined} rel={isVideo ? "noopener" : undefined}>
+              {inner}
+            </a>
+          ) : (
+            <div class="card">{inner}</div>
+          );
+        })
+      }
+    </div>
+    {
+      cta && (
+        <p class="more">
+          <a href={cta.href}>{cta.label} →</a>
+        </p>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .feature-video {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    margin-bottom: 22px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface-alt);
+    box-shadow: var(--shadow-md);
+  }
+  .feature-video iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
+    gap: 22px;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--surface-page);
+    box-shadow: var(--shadow-sm);
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  a.card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    a.card:hover {
+      transform: none;
+    }
+  }
+  .media {
+    position: relative;
+    aspect-ratio: 16 / 9;
+    background-size: cover;
+    background-position: center;
+    background-color: var(--surface-alt);
+    display: block;
+  }
+  .play {
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: 60px;
+    height: 60px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    background: rgba(8, 28, 42, 0.72);
+    color: #fff;
+    transition: background 0.16s ease;
+  }
+  a.card:hover .play {
+    background: var(--color-teal-green);
+  }
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 20px 22px 22px;
+  }
+  .loc {
+    color: var(--accent-text);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .title {
+    color: var(--text-strong);
+    font-size: 1.12rem;
+    font-weight: 700;
+    line-height: 1.35;
+  }
+  .more {
+    margin-top: 28px;
+  }
+  .more a {
+    color: var(--accent-text);
+    font-weight: 800;
+    text-decoration: none;
+  }
+</style>

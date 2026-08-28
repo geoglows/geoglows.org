@@ -1,0 +1,150 @@
+---
+import type { Block } from "../../schemas/blocks";
+import { isExternal } from "../../lib/links";
+import SectionHeader from "../ui/SectionHeader.astro";
+import Icon from "../ui/Icon.astro";
+
+const { eyebrow, heading, intro, tabs } = Astro.props as Extract<
+  Block,
+  { type: "resourceTabs" }
+>;
+
+const grouped: { name: string; items: typeof tabs }[] = [];
+for (const tab of tabs) {
+  const name = tab.group ?? "";
+  let g = grouped.find((x) => x.name === name);
+  if (!g) {
+    g = { name, items: [] };
+    grouped.push(g);
+  }
+  g.items.push(tab);
+}
+const labelled = grouped.some((g) => g.name);
+---
+
+<section class="block">
+  <div class="shell">
+    <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />
+    <div class="panels">
+      {
+        grouped.map((group) => (
+          <div class="panel">
+            {labelled && group.name && <p class="group-label">{group.name}</p>}
+            <ul class="list">
+              {group.items.map((tab) => (
+                <li>
+                  <a
+                    class="row"
+                    href={tab.href}
+                    target={isExternal(tab.href) ? "_blank" : undefined}
+                    rel={isExternal(tab.href) ? "noopener" : undefined}
+                  >
+                    {tab.icon && (
+                      <span class="glyph">
+                        <Icon name={tab.icon} size={20} />
+                      </span>
+                    )}
+                    <span class="body">
+                      <span class="label">{tab.label}</span>
+                      {tab.description && <span class="desc">{tab.description}</span>}
+                    </span>
+                    <span class="arrow" aria-hidden="true">→</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .panels {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
+    gap: clamp(18px, 3vw, 28px);
+    align-items: start;
+  }
+  .panel {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-page);
+    box-shadow: var(--shadow-sm);
+    padding: 8px 22px;
+  }
+  .group-label {
+    color: var(--accent-text);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 16px 0 4px;
+  }
+  .list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 16px 0;
+    border-top: 1px solid var(--border);
+    text-decoration: none;
+    color: inherit;
+  }
+  .list li:first-child .row {
+    border-top: none;
+  }
+
+  .group-label + .list li:first-child .row {
+    border-top: 1px solid var(--border);
+  }
+  .glyph {
+    flex-shrink: 0;
+    display: grid;
+    place-items: center;
+    width: 42px;
+    height: 42px;
+    border-radius: 10px;
+    background: var(--surface-teal-wash);
+    color: var(--accent-text);
+    transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .row:hover .glyph {
+    transform: scale(1.08);
+  }
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+  .label {
+    color: var(--text-strong);
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+  .row:hover .label {
+    color: var(--accent-text);
+  }
+  .desc {
+    color: var(--text-body);
+    font-size: 0.86rem;
+    line-height: 1.45;
+  }
+  .arrow {
+    flex-shrink: 0;
+    margin-left: auto;
+    color: var(--accent-text);
+    font-weight: 800;
+    transition: transform 0.16s ease;
+  }
+  .row:hover .arrow {
+    transform: translateX(4px);
+  }
+</style>

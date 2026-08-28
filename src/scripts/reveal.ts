@@ -1,4 +1,4 @@
-/** Reveals each section once as it enters the viewport (see .reveal-ready styles). */
+
 const targets = document.querySelectorAll<HTMLElement>(
   "main .block, .hero-inner, main .stat-band",
 );

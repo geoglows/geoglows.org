@@ -1,0 +1,190 @@
+---
+import { createRequire } from "module";
+import { geoEquirectangular, geoPath } from "d3-geo";
+import { feature } from "topojson-client";
+import type { Block } from "../../schemas/blocks";
+import SectionHeader from "../ui/SectionHeader.astro";
+
+const { eyebrow, heading, intro, note, points, cta } = Astro.props as Extract<
+  Block,
+  { type: "countriesMap" }
+>;
+
+const require = createRequire(import.meta.url);
+const topo = require("world-atlas/countries-110m.json");
+const countries = feature(topo, topo.objects.countries);
+
+const W = 1000;
+const H = 500;
+const projection = geoEquirectangular().fitSize([W, H], { type: "Sphere" });
+const worldPath = geoPath(projection)(countries) ?? "";
+const pins = points
+  .map((pt) => {
+    const xy = projection([pt.lng, pt.lat]);
+    return xy
+      ? {
+          country: pt.country,
+          pos: pt.pos ?? "top",
+          xPct: (xy[0] / W) * 100,
+          yPct: (xy[1] / H) * 100,
+        }
+      : null;
+  })
+  .filter(Boolean) as {
+  country: string;
+  pos: string;
+  xPct: number;
+  yPct: number;
+}[];
+---
+
+<section class="block countries">
+  <div class="shell">
+    <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />
+    <div class="map-wrap">
+      <div class="map-frame">
+        <svg
+          viewBox={`0 0 ${W} ${H}`}
+          class="map"
+          role="img"
+          aria-label="World map showing countries with documented GEOGLOWS deployments"
+        >
+          <path d={worldPath} class="world" />
+        </svg>
+        <div class="pins">
+          {
+            pins.map((p) => (
+              <span class="pin" style={`left:${p.xPct}%;top:${p.yPct}%`}>
+                <span class:list={["lbl", `lbl-${p.pos}`]}>{p.country}</span>
+              </span>
+            ))
+          }
+        </div>
+      </div>
+    </div>
+    {note && <p class="note">{note}</p>}
+    {
+      cta && (
+        <p class="all">
+          <a href={cta.href}>{cta.label} →</a>
+        </p>
+      )
+    }
+  </div>
+</section>
+
+<style>
+
+  .countries {
+    --map-ocean: #e7ecf0;
+    --map-land: #d3dbe1;
+    --map-border: #ffffff;
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) .countries {
+      --map-ocean: #101b28;
+      --map-land: #263749;
+      --map-border: #101b28;
+    }
+  }
+  :global(:root[data-theme="dark"]) .countries {
+    --map-ocean: #101b28;
+    --map-land: #263749;
+    --map-border: #101b28;
+  }
+  :global(:root[data-theme="light"]) .countries {
+    --map-ocean: #e7ecf0;
+    --map-land: #d3dbe1;
+    --map-border: #ffffff;
+  }
+
+  .map-wrap {
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--map-ocean);
+    padding: clamp(10px, 2vw, 20px);
+  }
+  .map-frame {
+    position: relative;
+  }
+  .map {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .world {
+    fill: var(--map-land);
+    stroke: var(--map-border);
+    stroke-width: 0.6;
+    stroke-linejoin: round;
+  }
+
+  .pins {
+    position: absolute;
+    inset: 0;
+  }
+
+  .pin {
+    position: absolute;
+    width: 13px;
+    height: 13px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: var(--color-amber);
+    border: 2px solid var(--surface-page);
+    box-shadow: 0 1px 4px rgba(15, 23, 32, 0.45);
+  }
+  .lbl {
+    position: absolute;
+    padding: 2px 7px;
+    border-radius: 6px;
+    background: var(--surface-page);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    color: var(--text-strong);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    white-space: nowrap;
+  }
+
+  .lbl-top {
+    bottom: calc(100% + 5px);
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .lbl-bottom {
+    top: calc(100% + 5px);
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .lbl-left {
+    right: calc(100% + 7px);
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .lbl-right {
+    left: calc(100% + 7px);
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .note {
+    margin-top: 14px;
+    color: var(--text-faint);
+    font-size: 0.9rem;
+  }
+  .all {
+    margin-top: 20px;
+  }
+  .all a {
+    color: var(--accent-text);
+    font-weight: 800;
+    text-decoration: none;
+  }
+  @media (max-width: 640px) {
+    .lbl {
+      font-size: 0.58rem;
+      padding: 1px 5px;
+    }
+  }
+</style>

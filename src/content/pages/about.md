@@ -1,51 +1,57 @@
 ---
 title: About | GEOGLOWS
+description: The mission, people, and governance behind the GEOGLOWS initiative.
 blocks:
+  - type: featureSection
+    eyebrow: Mission
+    anchor: mission
+    heading: "Enabling organizations and individuals to solve local water challenges with global water intelligence."
+    image: /images/hero-delta.webp
+    imageSide: right
+    body: >-
+      A GEO flagship since 2016, GEOGLOWS turns satellite and model data into
+      decision-ready hydrologic information: open, free, and built with the
+      people who use it. Its mission is to pioneer scientific and global
+      collaboration that provides relevant, actionable water information and
+      promotes the use of Earth observations in decision-making, while
+      strengthening observational networks.
   - type: richText
     eyebrow: About GEOGLOWS
-    heading: Our mission
+    anchor: who-we-are
+    heading: Who we are
+    background: muted
     body: >-
-      To pioneer scientific and global collaboration that provides relevant,
-      actionable water information and promotes the use of Earth observations in
-      decision-making, while strengthening observational networks.
-
-
       GEOGLOWS promotes the GEO Data Sharing Principles and broad, open data
       policies, supporting the right to access information in the public domain and
       apply it to decisions. The initiative was established in 2017 by the GEO
       Water Community to provide greater coordination across the global water
-      sector.
-  - type: workingGroups
-    eyebrow: How we work
-    heading: Four working groups
-    anchor: working-groups
+      sector, and is a GEO flagship built on a decade of collaboration between
+      space agencies, universities, and national services.
   - type: peopleGrid
     eyebrow: Leadership
+    anchor: leadership
     heading: Project leaders
     group: Project leaders
-    anchor: team
   - type: peopleGrid
+    anchor: steering
     heading: Steering committee
     group: Steering committee
   - type: peopleGrid
+    anchor: collaborators
     heading: Collaborators
     group: Collaborators
-  - type: partners
-    eyebrow: The GEOGLOWS community
-    heading: Delivered in partnership
-    anchor: partners
-    logos:
-      - { name: GEO, image: /images/partners/geo.svg, url: https://earthobservations.org }
-      - { name: NASA, image: /images/partners/nasa.webp, url: https://www.nasa.gov }
-      - { name: NOAA, image: /images/partners/noaa.svg, url: https://www.noaa.gov }
-      - { name: ECMWF, image: /images/partners/ecmwf.svg, url: https://www.ecmwf.int }
-      - { name: Brigham Young University, image: /images/partners/byu.svg, url: https://www.byu.edu }
-      - { name: Esri, image: /images/partners/esri.webp, url: https://www.esri.com }
-      - { name: Aquaveo, image: /images/partners/aquaveo.svg, url: https://aquaveo.com }
-      - { name: World Bank, image: /images/partners/worldbank.svg, url: https://www.worldbank.org }
+  - type: richText
+    eyebrow: Reports
+    anchor: reports
+    heading: Annual & organizational reports
+    background: muted
+    body: >-
+      GEOGLOWS annual reports and organizational documents are published here as
+      they are released, tracking the initiative's progress, governance, and the
+      state of the service. Check back as new reports are added.
   - type: closingCta
     heading: Join the GEOGLOWS community
     ctas:
-      - { label: News & events, href: /news, style: amber }
+      - { label: Meet the community, href: /community, style: blue }
       - { label: Contact us, href: "mailto:secretariat@geoglows.org", style: navy }
 ---

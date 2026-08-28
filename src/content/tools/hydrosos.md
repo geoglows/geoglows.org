@@ -4,7 +4,7 @@ tagline: "Hydrological status and outlook for basins worldwide."
 category: Forecasting
 icon: waves
 image: /images/showcase/hydrosos.webp
-appUrl: https://apps.geoglows.org
+appUrl: https://apps.geoglows.org/hydrosos
 order: 9
 ---
 

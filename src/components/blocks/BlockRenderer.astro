@@ -4,6 +4,11 @@ import HeroBlock from "./HeroBlock.astro";
 import StatBandBlock from "./StatBandBlock.astro";
 import CoverageBlock from "./CoverageBlock.astro";
 import ImpactStoriesBlock from "./ImpactStoriesBlock.astro";
+import CaseStudiesBlock from "./CaseStudiesBlock.astro";
+import CountriesMapBlock from "./CountriesMapBlock.astro";
+import FeatureSectionBlock from "./FeatureSectionBlock.astro";
+import CommunityFeedBlock from "./CommunityFeedBlock.astro";
+import DataAccessBlock from "./DataAccessBlock.astro";
 import ValuePropsBlock from "./ValuePropsBlock.astro";
 import UseCasesBlock from "./UseCasesBlock.astro";
 import TestimonialsBlock from "./TestimonialsBlock.astro";
@@ -24,12 +29,19 @@ import ImpactCycleBlock from "./ImpactCycleBlock.astro";
 import InvestmentBlock from "./InvestmentBlock.astro";
 import AudienceCardsBlock from "./AudienceCardsBlock.astro";
 import TimelineBlock from "./TimelineBlock.astro";
+import FeaturedMediaBlock from "./FeaturedMediaBlock.astro";
+import ResourceTabsBlock from "./ResourceTabsBlock.astro";
 
 const registry = {
   hero: HeroBlock,
   statBand: StatBandBlock,
   coverage: CoverageBlock,
   impactStories: ImpactStoriesBlock,
+  caseStudies: CaseStudiesBlock,
+  countriesMap: CountriesMapBlock,
+  featureSection: FeatureSectionBlock,
+  communityFeed: CommunityFeedBlock,
+  dataAccess: DataAccessBlock,
   valueProps: ValuePropsBlock,
   useCases: UseCasesBlock,
   testimonials: TestimonialsBlock,
@@ -50,6 +62,8 @@ const registry = {
   investment: InvestmentBlock,
   audienceCards: AudienceCardsBlock,
   timeline: TimelineBlock,
+  featuredMedia: FeaturedMediaBlock,
+  resourceTabs: ResourceTabsBlock,
 } as const;
 
 interface Props {

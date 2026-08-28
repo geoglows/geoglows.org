@@ -1,13 +1,14 @@
 ---
 import { bgImage } from "../../lib/css";
+import { youtubeThumb, youtubeWatchUrl } from "../../lib/youtube";
 
 interface Props {
   title: string;
   youtubeId: string;
 }
 const { title, youtubeId } = Astro.props;
-const href = `https://www.youtube.com/watch?v=${youtubeId}`;
-const thumb = `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`;
+const href = youtubeWatchUrl(youtubeId);
+const thumb = youtubeThumb(youtubeId);
 ---
 
 <a class="video" href={href} target="_blank" rel="noopener">

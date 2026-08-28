@@ -1,0 +1,174 @@
+---
+import { marked } from "marked";
+import type { Block } from "../../schemas/blocks";
+import { isExternal } from "../../lib/links";
+import GeoGlyph from "../site/GeoGlyph.astro";
+
+const { eyebrow, heading, tag, body, image, imageSide, background, points, cta } =
+  Astro.props as Extract<Block, { type: "featureSection" }>;
+const bodyHtml = marked.parse(body);
+const flip = imageSide === "left";
+const external = cta ? isExternal(cta.href) : false;
+---
+
+<section class:list={["block feature", { muted: background === "muted", flip }]}>
+  <div class="shell grid">
+    <div class="content">
+      {
+        eyebrow && (
+          <p class="eyebrow">
+            <GeoGlyph />
+            {eyebrow}
+            {tag && <span class="tag">{tag}</span>}
+          </p>
+        )
+      }
+      <h2>{heading}</h2>
+      <div class="prose" set:html={bodyHtml} />
+      {
+        points.length > 0 && (
+          <ul class="points">
+            {points.map((p) => (
+              <li>
+                <span class="p-title">{p.title}</span>
+                <span class="p-text">{p.text}</span>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+      {
+        cta && (
+          <p class="cta">
+            <a
+              href={cta.href}
+              {...(external ? { target: "_blank", rel: "noopener" } : {})}
+            >
+              {cta.label} →
+            </a>
+          </p>
+        )
+      }
+    </div>
+    {image && <div class="media" style={`background-image:url("${image}")`} />}
+  </div>
+</section>
+
+<style>
+  .muted {
+    background: var(--surface-muted);
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(28px, 4vw, 56px);
+    align-items: center;
+  }
+  .content,
+  .media {
+    min-width: 0;
+  }
+  .prose,
+  .points {
+    overflow-wrap: break-word;
+  }
+  @media (min-width: 860px) {
+    .grid {
+      grid-template-columns: 1.05fr 0.95fr;
+    }
+
+    .media {
+      order: 2;
+    }
+    .flip .media {
+      order: -1;
+    }
+  }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    color: var(--accent-text);
+    font-weight: 700;
+    font-size: 0.78rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .tag {
+    text-transform: none;
+    letter-spacing: 0.02em;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--accent-text);
+    background: var(--surface-teal-wash);
+    padding: 2px 9px;
+    border-radius: 999px;
+  }
+  h2 {
+    font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+  }
+  .prose {
+    margin-top: 14px;
+    max-width: 56ch;
+    color: var(--text-body);
+    font-size: 1rem;
+    line-height: 1.62;
+  }
+  .points {
+    list-style: none;
+    margin: 22px 0 0;
+    padding: 0;
+    display: grid;
+    gap: 16px;
+  }
+  .points li {
+    display: grid;
+    gap: 3px;
+    position: relative;
+    padding-left: 20px;
+  }
+  .points li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 7px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+  .p-title {
+    color: var(--text-strong);
+    font-weight: 700;
+    font-size: 0.95rem;
+  }
+  .p-text {
+    color: var(--text-body);
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+  .cta {
+    margin-top: 22px;
+  }
+  .cta a {
+    color: var(--accent-text);
+    font-weight: 800;
+    text-decoration: none;
+  }
+  .media {
+    background-size: cover;
+    background-position: center;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+    aspect-ratio: 4 / 3;
+    width: 100%;
+  }
+  @media (min-width: 860px) {
+    .media {
+      min-height: 240px;
+    }
+  }
+</style>

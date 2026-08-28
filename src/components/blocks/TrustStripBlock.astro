@@ -1,20 +1,26 @@
 ---
 import type { Block } from "../../schemas/blocks";
+import SectionHeader from "../ui/SectionHeader.astro";
 
-const { groups } = Astro.props as Extract<Block, { type: "trustStrip" }>;
+const { eyebrow, heading, intro, cta, groups } = Astro.props as Extract<
+  Block,
+  { type: "trustStrip" }
+>;
+const hasHeader = Boolean(eyebrow || heading);
 ---
 
 <section class="block trust">
-  <div class="shell">
+  <div class:list={["shell", { "with-head": hasHeader }]}>
+    {hasHeader && <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />}
     {
       groups.map((group) => (
         <div class="group">
-          <span class="label">{group.label}</span>
+          {!hasHeader && group.label && <span class="label">{group.label}</span>}
           <ul class="logo-strip">
             {group.logos.map((logo) => {
               const img = (
                 <img
-                  class:list={["logo", logo.invert && "invert"]}
+                  class:list={["logo", logo.emblem && "emblem"]}
                   src={logo.image}
                   alt={logo.name}
                   loading="lazy"
@@ -22,7 +28,7 @@ const { groups } = Astro.props as Extract<Block, { type: "trustStrip" }>;
                 />
               );
               return (
-                <li>
+                <li class="slot">
                   {logo.url ? (
                     <a href={logo.url} target="_blank" rel="noopener" aria-label={logo.name}>
                       {img}
@@ -38,33 +44,34 @@ const { groups } = Astro.props as Extract<Block, { type: "trustStrip" }>;
         </div>
       ))
     }
+    {
+      cta && (
+        <p class="more">
+          <a href={cta.href}>{cta.label} →</a>
+        </p>
+      )
+    }
   </div>
 </section>
 
 <style>
   .trust {
-    padding-block: clamp(30px, 4vw, 48px);
+    padding-block: clamp(40px, 5vw, 64px);
   }
   .group {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    gap: clamp(18px, 3vw, 40px);
-    flex-wrap: wrap;
-    padding: 18px 0;
-    border-top: 1px solid var(--border);
-  }
-  .group:first-child {
-    border-top: none;
+    gap: clamp(28px, 3.4vw, 42px);
   }
   .label {
-    flex: 0 0 auto;
-    width: 96px;
     color: var(--text-faint);
     font-size: 0.72rem;
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     line-height: 1.3;
+    text-align: center;
   }
   .logo-strip {
     list-style: none;
@@ -72,26 +79,65 @@ const { groups } = Astro.props as Extract<Block, { type: "trustStrip" }>;
     padding: 0;
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-wrap: wrap;
-    gap: clamp(20px, 3.2vw, 42px);
+    gap: clamp(36px, 4vw, 68px);
+
+    max-width: 940px;
   }
-  .logo-strip li {
-    display: flex;
-    align-items: center;
+
+  .with-head .group {
+    align-items: stretch;
+  }
+  .with-head .logo-strip {
+    justify-content: flex-start;
+    max-width: none;
+    gap: clamp(28px, 3vw, 48px) clamp(16px, 3vw, 40px);
+  }
+  .with-head .slot {
+    width: 150px;
+  }
+  .more {
+    margin-top: 36px;
+  }
+  .more a {
+    color: var(--accent-text);
+    font-weight: 800;
+    text-decoration: none;
+  }
+
+  .slot {
+    display: grid;
+    place-items: center;
+    width: 168px;
+    height: 62px;
+  }
+  .slot a {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+  }
+  .slot a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 6px;
   }
   .logo {
-    height: 46px;
+    max-height: 54px;
+    max-width: 100%;
     width: auto;
-    max-width: 150px;
     object-fit: contain;
+
     filter: var(--logo-tint);
-    opacity: 0.95;
-    transition: filter 0.2s ease, opacity 0.2s ease;
+    opacity: 0.78;
+    transition: opacity 0.2s ease;
   }
-  .logo.invert {
-    filter: var(--logo-invert-tint);
+
+  .logo.emblem {
+    filter: var(--logo-emblem-tint);
   }
-  li:hover .logo {
+  .slot:hover .logo {
     opacity: 1;
   }
   .tail {
@@ -101,13 +147,15 @@ const { groups } = Astro.props as Extract<Block, { type: "trustStrip" }>;
     max-width: 44ch;
   }
   @media (max-width: 640px) {
-    .group {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 12px;
+    .logo-strip {
+      gap: 32px 40px;
     }
-    .label {
-      width: auto;
+    .slot {
+      width: 128px;
+      height: 48px;
+    }
+    .logo {
+      max-height: 42px;
     }
   }
 </style>

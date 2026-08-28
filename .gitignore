@@ -24,3 +24,7 @@ pnpm-debug.log*
 .idea/
 .vercel
 .env*
+docs/plans/
+.compound-engineering/
+CLAUDE.md
+AGENTS.md
