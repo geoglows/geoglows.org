@@ -156,8 +156,6 @@ const external = (href: string) => /^https?:\/\//.test(href);
     text-decoration: underline;
   }
 
-  /* Staggered reveal: cards rise in one after another when the section enters
-     the viewport. Reduced-motion and no-JS visitors see them fully rendered. */
   @media (prefers-reduced-motion: no-preference) {
     :global(.reveal-ready) .data-access .card {
       opacity: 0;

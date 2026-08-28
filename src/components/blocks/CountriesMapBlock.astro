@@ -10,8 +10,6 @@ const { eyebrow, heading, intro, note, points, cta } = Astro.props as Extract<
   { type: "countriesMap" }
 >;
 
-// Build-time only: read country polygons and project them (and the pins) with
-// the same equirectangular projection so markers line up exactly.
 const require = createRequire(import.meta.url);
 const topo = require("world-atlas/countries-110m.json");
 const countries = feature(topo, topo.objects.countries);
@@ -76,7 +74,7 @@ const pins = points
 </section>
 
 <style>
-  /* Theme-tuned map palette: filled countries with visible borders. */
+
   .countries {
     --map-ocean: #e7ecf0;
     --map-land: #d3dbe1;
@@ -125,7 +123,7 @@ const pins = points
     position: absolute;
     inset: 0;
   }
-  /* Crisp bordered dot (no washed-out halo), legible on light and dark. */
+
   .pin {
     position: absolute;
     width: 13px;
@@ -149,7 +147,7 @@ const pins = points
     letter-spacing: 0.01em;
     white-space: nowrap;
   }
-  /* Placement is per-pin so labels in dense clusters don't overlap. */
+
   .lbl-top {
     bottom: calc(100% + 5px);
     left: 50%;

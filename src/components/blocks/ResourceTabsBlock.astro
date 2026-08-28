@@ -9,8 +9,6 @@ const { eyebrow, heading, intro, tabs } = Astro.props as Extract<
 >;
 const external = (href: string) => /^https?:\/\//.test(href);
 
-// Group tabs by their `group` (order preserved). When no groups are set, all
-// items fall under a single unlabelled group and render as one panel.
 const grouped: { name: string; items: typeof tabs }[] = [];
 for (const tab of tabs) {
   const name = tab.group ?? "";
@@ -101,7 +99,7 @@ const labelled = grouped.some((g) => g.name);
   .list li:first-child .row {
     border-top: none;
   }
-  /* When the panel has a group label the first row still needs its divider. */
+
   .group-label + .list li:first-child .row {
     border-top: 1px solid var(--border);
   }

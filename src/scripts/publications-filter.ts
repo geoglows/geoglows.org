@@ -1,4 +1,4 @@
-/** Client-side search + topic filtering for the publications list. */
+
 const search = document.querySelector<HTMLInputElement>("#pub-search");
 const chips = Array.from(document.querySelectorAll<HTMLButtonElement>(".topic-chip"));
 const rows = Array.from(document.querySelectorAll<HTMLElement>(".pub"));
