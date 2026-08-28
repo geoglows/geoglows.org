@@ -26,3 +26,5 @@ pnpm-debug.log*
 .env*
 docs/plans/
 .compound-engineering/
+CLAUDE.md
+AGENTS.md
