@@ -79,7 +79,7 @@ blocks:
       - { value: "$2M", label: "specific AI flood-mapping opportunity identified now" }
       - { value: "193", label: "WMO Member states the chain is built to reach" }
     note: "Funding pathways already exist for this work: GCF, CREWS, the Adaptation Fund, SOFF, and GEF each finance a different piece of the same chain, from observing networks to institutional capacity to the climate information systems built on top."
-    cta: { label: "Partner with us on funding", href: "/community#involved", style: amber }
+    cta: { label: "Partner with us on funding", href: "/community#involved", style: blue }
   - type: audienceCards
     eyebrow: Get involved
     anchor: involved
@@ -94,6 +94,6 @@ blocks:
   - type: closingCta
     heading: Join the GEOGLOWS community
     ctas:
-      - { label: Partner with us on funding, href: /community#involved, style: amber }
+      - { label: Partner with us on funding, href: /community#involved, style: blue }
       - { label: Contact us, href: "mailto:secretariat@geoglows.org", style: navy }
 ---

@@ -145,7 +145,7 @@ collections:
                 fields:
                   - { label: Label, name: label, widget: string }
                   - { label: Link, name: href, widget: string }
-                  - { label: Style, name: style, widget: select, options: [amber, white, outline, navy, green], default: amber }
+                  - { label: Style, name: style, widget: select, options: [blue, amber, white, outline, navy, green], default: blue }
               - label: Featured card
                 name: featured
                 widget: object
@@ -360,7 +360,7 @@ collections:
                 fields:
                   - { label: Label, name: label, widget: string }
                   - { label: Link, name: href, widget: string }
-                  - { label: Style, name: style, widget: select, options: [amber, white, outline, navy, green], default: amber }
+                  - { label: Style, name: style, widget: select, options: [blue, amber, white, outline, navy, green], default: blue }
           - label: News grid
             name: newsGrid
             widget: object
@@ -612,7 +612,7 @@ collections:
                 fields:
                   - { label: Label, name: label, widget: string }
                   - { label: Link, name: href, widget: string }
-                  - { label: Style, name: style, widget: select, options: [amber, white, outline, navy, green], default: amber }
+                  - { label: Style, name: style, widget: select, options: [blue, amber, white, outline, navy, green], default: blue }
           - label: Audience cards
             name: audienceCards
             widget: object

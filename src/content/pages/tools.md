@@ -72,6 +72,6 @@ blocks:
   - type: closingCta
     heading: Start building with open water data
     ctas:
-      - { label: Open GEOGLOWS RFS, href: https://apps.geoglows.org, style: amber }
+      - { label: Open GEOGLOWS RFS, href: https://apps.geoglows.org, style: blue }
       - { label: Read the publications, href: /publications, style: navy }
 ---

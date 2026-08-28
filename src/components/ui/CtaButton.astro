@@ -2,9 +2,9 @@
 interface Props {
   href: string;
   label: string;
-  style?: "amber" | "white" | "outline" | "navy" | "green";
+  style?: "blue" | "amber" | "white" | "outline" | "navy" | "green";
 }
-const { href, label, style = "amber" } = Astro.props;
+const { href, label, style = "blue" } = Astro.props;
 ---
 
 <a href={href} class:list={["btn", style]}>{label}</a>
@@ -29,6 +29,10 @@ const { href, label, style = "amber" } = Astro.props;
     .btn:hover {
       transform: none;
     }
+  }
+  .blue {
+    background: var(--color-blue);
+    color: #fff;
   }
   .amber {
     background: var(--cta);

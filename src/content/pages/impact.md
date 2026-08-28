@@ -102,6 +102,6 @@ blocks:
   - type: closingCta
     heading: Put GEOGLOWS to work in your region
     ctas:
-      - { label: Get involved, href: /community#involved, style: amber }
+      - { label: Get involved, href: /community#involved, style: blue }
       - { label: Explore the tools, href: /tools, style: navy }
 ---

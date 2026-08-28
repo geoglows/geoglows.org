@@ -99,6 +99,6 @@ blocks:
   - type: closingCta
     heading: See it working
     ctas:
-      - { label: Explore the tools & data, href: /tools, style: amber }
+      - { label: Explore the tools & data, href: /tools, style: blue }
       - { label: See the impact, href: /impact, style: navy }
 ---
