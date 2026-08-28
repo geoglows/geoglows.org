@@ -16,6 +16,10 @@ const heroBlock = z.object({
 
 const statBandBlock = z.object({
   type: z.literal("statBand"),
+  eyebrow: z.string().optional(),
+  heading: z.string().optional(),
+  intro: z.string().optional(),
+  anchor: z.string().optional(),
   stats: z.array(z.object({ value: z.string(), label: z.string() })),
 });
 

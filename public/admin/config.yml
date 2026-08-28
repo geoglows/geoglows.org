@@ -159,6 +159,10 @@ collections:
             name: statBand
             widget: object
             fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string, required: false }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
               - label: Stats
                 name: stats
                 widget: list

@@ -1,9 +1,21 @@
 ---
 import type { Block } from "../../schemas/blocks";
-const { stats } = Astro.props as Extract<Block, { type: "statBand" }>;
+import SectionHeader from "../ui/SectionHeader.astro";
+const { eyebrow, heading, intro, stats } = Astro.props as Extract<
+  Block,
+  { type: "statBand" }
+>;
 const [lead, ...rest] = stats;
+const hasHeader = Boolean(eyebrow || heading);
 ---
 
+{
+  hasHeader && (
+    <div class="statband-head shell">
+      <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />
+    </div>
+  )
+}
 <div class="stat-band">
   <div class="shell inner">
     <div class="lead">
@@ -24,6 +36,9 @@ const [lead, ...rest] = stats;
 </div>
 
 <style>
+  .statband-head {
+    padding-top: var(--block-space);
+  }
   .stat-band {
     position: relative;
     overflow: hidden;
