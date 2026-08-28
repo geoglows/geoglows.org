@@ -7,17 +7,25 @@ interface Props {
   category: string;
   icon: string;
   href: string;
+  comingSoon?: boolean;
 }
-const { name, tagline, category, icon, href } = Astro.props;
+const { name, tagline, category, icon, href, comingSoon = false } = Astro.props;
+const external = /^https?:\/\//.test(href);
+const Tag = comingSoon ? "div" : "a";
+const linkAttrs = comingSoon
+  ? {}
+  : external
+    ? { href, target: "_blank", rel: "noopener" }
+    : { href };
 ---
 
-<a class="tool" href={href}>
+<Tag class:list={["tool", { soon: comingSoon }]} {...linkAttrs}>
   <span class="glyph"><Icon name={icon} size={20} /></span>
   <span class="category">{category}</span>
   <h3>{name}</h3>
   <p>{tagline}</p>
-  <span class="go">Explore</span>
-</a>
+  {comingSoon ? <span class="badge">Coming soon</span> : <span class="go">Explore</span>}
+</Tag>
 
 <style>
   .tool {
@@ -33,14 +41,17 @@ const { name, tagline, category, icon, href } = Astro.props;
     text-decoration: none;
     transition: transform 0.16s ease, border-color 0.16s ease;
   }
-  .tool:hover {
+  a.tool:hover {
     transform: translateY(-3px);
     border-color: var(--accent-text);
   }
   @media (prefers-reduced-motion: reduce) {
-    .tool:hover {
+    a.tool:hover {
       transform: none;
     }
+  }
+  .soon {
+    opacity: 0.82;
   }
   .glyph {
     display: grid;
@@ -73,5 +84,15 @@ const { name, tagline, category, icon, href } = Astro.props;
   }
   .go::after {
     content: " →";
+  }
+  .badge {
+    align-self: flex-start;
+    padding: 2px 9px;
+    border-radius: 999px;
+    background: var(--surface-teal-wash);
+    color: var(--accent-text);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
   }
 </style>

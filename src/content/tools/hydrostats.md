@@ -3,7 +3,7 @@ name: "HydroStats"
 tagline: "Visualize and validate hydrological time series and forecast skill."
 category: Analysis
 icon: bars
-appUrl: https://apps.geoglows.org
+appUrl: https://legacy-apps.geoglows.org/apps/statistics-calc/
 order: 3
 ---
 

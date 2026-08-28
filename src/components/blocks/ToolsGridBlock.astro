@@ -26,7 +26,8 @@ const tools = limit ? sorted.slice(0, limit) : sorted;
             tagline={tool.data.tagline}
             category={tool.data.category}
             icon={tool.data.icon}
-            href={`/tools/${tool.id}`}
+            href={tool.data.appUrl ?? `/tools/${tool.id}`}
+            comingSoon={tool.data.comingSoon}
           />
         ))
       }

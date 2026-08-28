@@ -91,6 +91,7 @@ const tools = defineCollection({
     icon: z.string().default("globe"),
     image: z.string().optional(),
     appUrl: z.string().optional(),
+    comingSoon: z.boolean().default(false),
     order: z.number().default(0),
   }),
 });

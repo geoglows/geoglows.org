@@ -90,6 +90,23 @@ const communityFeedBlock = z.object({
   newsCount: z.number().default(5),
 });
 
+const dataAccessBlock = z.object({
+  type: z.literal("dataAccess"),
+  eyebrow: z.string().optional(),
+  heading: z.string(),
+  intro: z.string().optional(),
+  anchor: z.string().optional(),
+  background: z.enum(["page", "muted"]).optional(),
+  items: z.array(
+    z.object({
+      icon: z.string().default("layers"),
+      title: z.string(),
+      text: z.string(),
+      links: z.array(linkSchema).default([]),
+    }),
+  ),
+});
+
 const featureSectionBlock = z.object({
   type: z.literal("featureSection"),
   anchor: z.string().optional(),
@@ -406,6 +423,7 @@ export const blockSchema = z.discriminatedUnion("type", [
   countriesMapBlock,
   featureSectionBlock,
   communityFeedBlock,
+  dataAccessBlock,
   valuePropsBlock,
   useCasesBlock,
   testimonialsBlock,

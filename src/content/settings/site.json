@@ -68,7 +68,7 @@
       "title": "Tools & Data",
       "links": [
         { "label": "Getting started", "href": "/tools#getting-started" },
-        { "label": "Hydroviewer", "href": "https://apps.geoglows.org" },
+        { "label": "GEOGLOWS RFS", "href": "https://apps.geoglows.org" },
         { "label": "Access the data", "href": "/tools#data" },
         { "label": "Publications", "href": "/publications" }
       ]
