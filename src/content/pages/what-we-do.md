@@ -38,20 +38,24 @@ blocks:
     heading: "Helping communities see their water before it's a crisis"
     intro: "Four connected areas of work, from the forecast on every river to the people trained to act on it."
     items:
-      - icon: waves
+      - id: forecasting
+        icon: waves
         image: /images/aerial-river.webp
         title: Streamflow forecasting
         text: "15-day forecasts and an 85-year retrospective for every river on Earth, gauged or not, so remote communities get the same warning window as major cities."
-      - icon: flood
+      - id: flood-mapping
+        icon: flood
         image: /images/aerial-thermal.webp
         title: Flood mapping
         tag: coming soon
         text: "Turning streamflow forecasts into block-by-block flood extent maps, so a warning shows what's at risk, not just that a river will rise."
-      - icon: drop
+      - id: groundwater
+        icon: drop
         image: /images/showcase/grace.webp
         title: Groundwater monitoring
         text: "Satellite gravity data and local well records combined, so storage trends are visible before a well runs dry, not after."
-      - icon: capacity
+      - id: capacity-building
+        icon: capacity
         image: /images/story-training.webp
         title: Capacity building
         text: "Training national hydrological services and student teams to run, interpret, and act on the forecasts in their own basins."

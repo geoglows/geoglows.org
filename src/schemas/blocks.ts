@@ -241,6 +241,7 @@ const pillarsBlock = z.object({
   anchor: z.string().optional(),
   items: z.array(
     z.object({
+      id: z.string().optional(),
       icon: z.string(),
       title: z.string(),
       text: z.string(),
