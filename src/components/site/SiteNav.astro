@@ -61,8 +61,9 @@ const {
             ),
           )
         }
+        <a class="cta menu-cta" href={cta.href}>{cta.label}</a>
       </div>
-      <a class="cta" href={cta.href}>{cta.label}</a>
+      <a class="cta header-cta" href={cta.href}>{cta.label}</a>
     </div>
   </div>
 </nav>
@@ -99,14 +100,16 @@ const {
   .nav-inner {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 16px;
     padding-block: 12px;
   }
   .brand {
     display: inline-flex;
+    flex-shrink: 0;
   }
   .logo {
     height: 38px;
+    width: auto;
   }
   .logo-dark {
     display: none;
@@ -114,13 +117,13 @@ const {
   .nav-right {
     display: flex;
     align-items: center;
-    gap: 22px;
+    gap: 18px;
     margin-left: auto;
   }
   .links {
     display: flex;
     align-items: center;
-    gap: 22px;
+    gap: 18px;
   }
   .links > a,
   .group-label {
@@ -197,6 +200,9 @@ const {
     text-decoration: none;
     white-space: nowrap;
   }
+  .menu-cta {
+    display: none;
+  }
   .nav-toggle {
     display: none;
     width: 44px;
@@ -215,13 +221,17 @@ const {
     color: var(--accent-text);
   }
 
-  @media (max-width: 880px) {
+  @media (max-width: 1080px) {
     .nav-toggle {
       display: inline-flex;
-      order: 2;
     }
-    .cta {
-      order: 1;
+    .header-cta {
+      display: none;
+    }
+    .menu-cta {
+      display: inline-flex;
+      justify-content: center;
+      margin-top: 12px;
     }
     .links {
       order: 3;
@@ -239,7 +249,7 @@ const {
     .site-nav[data-open="true"] .links {
       display: flex;
     }
-    .links > a {
+    .links > a:not(.menu-cta) {
       min-height: 48px;
       border-bottom: 1px solid var(--border);
     }

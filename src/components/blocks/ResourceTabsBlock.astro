@@ -63,7 +63,7 @@ const labelled = grouped.some((g) => g.name);
 <style>
   .panels {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(320px, 100%), 1fr));
     gap: clamp(18px, 3vw, 28px);
     align-items: start;
   }
