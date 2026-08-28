@@ -699,6 +699,29 @@ collections:
                   - { label: Label, name: label, widget: string }
                   - { label: Link, name: href, widget: string }
                   - { label: Description, name: description, widget: text, required: false }
+          - label: Data access
+            name: dataAccess
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Intro, name: intro, widget: text, required: false }
+              - { label: Anchor ID, name: anchor, widget: string, required: false }
+              - { label: Background, name: background, widget: select, options: [page, muted], default: page }
+              - label: Items
+                name: items
+                widget: list
+                fields:
+                  - { label: Icon, name: icon, widget: select, options: [layers, globe, code, bars, drop, waves, partners, capacity], default: layers }
+                  - { label: Title, name: title, widget: string }
+                  - { label: Text, name: text, widget: text }
+                  - label: Links
+                    name: links
+                    widget: list
+                    required: false
+                    fields:
+                      - { label: Label, name: label, widget: string }
+                      - { label: Link, name: href, widget: string }
 
   - name: tools
     label: Tools
@@ -716,6 +739,7 @@ collections:
       - { label: Icon, name: icon, widget: select, options: [layers, globe, partners, waves, drop, bars, flood, capacity], default: globe }
       - { label: Image, name: image, widget: image, required: false }
       - { label: App URL, name: appUrl, widget: string, required: false }
+      - { label: Coming soon, name: comingSoon, widget: boolean, default: false, required: false }
       - { label: Order, name: order, widget: number, default: 0, value_type: int }
       - { label: Description, name: body, widget: markdown }
 

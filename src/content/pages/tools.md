@@ -9,41 +9,46 @@ blocks:
     body: >-
       A connected suite of open applications and data services for exploring,
       analyzing, and downloading global streamflow forecasts and the 85-year
-      retrospective. Start in the Hydroviewer, dig into groundwater and mapping
-      tools, or pull data directly through the public API and AWS Open Data,
-      whatever your work with water requires.
+      retrospective. Start in the GEOGLOWS RFS, dig into the groundwater and
+      analysis tools, or pull data directly through the web layers, the public
+      API, and the open-source packages, whatever your work with water requires.
   - type: toolsGrid
     eyebrow: Applications
     anchor: tools
     heading: One place for every tool
-    intro: Explore the GEOGLOWS applications for forecasting, groundwater, mapping, and analysis.
-  - type: richText
-    heading: Access the data
+    intro: Explore the GEOGLOWS applications for forecasting, groundwater, and analysis.
+  - type: dataAccess
+    eyebrow: Access the data
     anchor: data
     background: muted
-    body: >-
-      The **GEOGLOWS Data Guide** offers in-depth information on the GEOGLOWS
-      Hydrologic Model, along with datasets and tutorials. The full 15-day
-      ensemble forecasts and the 85-year retrospective simulation are available
-      through a public REST API and on AWS Open Data, no account required.
-
-
-      - **[Hydroviewer](https://apps.geoglows.org)** — explore forecasts for any river reach
-
-      - **AWS Open Data Program** — bulk forecast and retrospective datasets on demand
-
-      - **Esri Living Atlas** — global streamflow forecast web maps
-
-      - **[GEOGLOWS on GitHub](https://github.com/geoglows)** — the Python package, model code, and repositories
+    heading: Three ways to build on the data
+    intro: "The full 15-day ensemble forecasts and the 85-year retrospective are open to everyone, no account required. Pick the access path that fits your work."
+    items:
+      - icon: layers
+        title: Web layers
+        text: "Add GEOGLOWS streamflow forecasts as ready-to-use web map layers through Esri's ArcGIS Living Atlas, no code required."
+        links:
+          - { label: Esri Living Atlas, href: "https://livingatlas.arcgis.com" }
+      - icon: globe
+        title: REST API
+        text: "Query the forecasts and the full retrospective programmatically through the public REST API, with bulk datasets available on demand via AWS Open Data."
+        links:
+          - { label: Data Guide & API, href: "https://data.geoglows.org" }
+      - icon: code
+        title: Packages
+        text: "Work with GEOGLOWS data directly in your own code using the official open-source packages for Python and JavaScript."
+        links:
+          - { label: Python (PyPI), href: "https://pypi.org/project/geoglows/" }
+          - { label: JavaScript (npm), href: "https://www.npmjs.com/package/geoglows" }
   - type: resourceTabs
     eyebrow: Resources
     anchor: resources
     heading: Learn, cite, and go deeper
-    intro: "Documentation, research, and training for every level, from first forecast to bias correction."
+    intro: "Documentation, research, and training for every level. Scientific and technical papers are filed under Publications, impact reports and case studies live on the Impact page, and annual and organizational reports on the About page."
     tabs:
       - { label: Publications, href: /publications, description: "Peer-reviewed research and technical papers using GEOGLOWS." }
-      - { label: Videos, href: /videos, description: "Walkthroughs and demos of the Hydroviewer, data services, and apps." }
-      - { label: Webinars, href: "/videos#webinars", description: "The RFS v2 webinar series, from model formulation to the Hydroviewer." }
+      - { label: Videos, href: /videos, description: "Walkthroughs and demos of the GEOGLOWS RFS, data services, and apps." }
+      - { label: Webinars, href: "/videos#webinars", description: "The RFS v2 webinar series, from model formulation to the RFS." }
       - { label: Tutorials, href: "https://training.geoglows.org", description: "In-depth, multilingual courses on the Training Portal." }
   - type: closingCta
     heading: Start building with open water data

@@ -4,7 +4,7 @@ tagline: "Track changes in global water storage from NASA JPL GRACE satellites."
 category: Groundwater
 icon: drop
 image: /images/showcase/grace.webp
-appUrl: https://apps.geoglows.org
+appUrl: https://apps.geoglows.org/grace-anomalies
 order: 2
 ---
 

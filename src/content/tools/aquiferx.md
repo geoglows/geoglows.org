@@ -5,6 +5,7 @@ category: Groundwater
 icon: drop
 image: /images/showcase/aquiferx.webp
 appUrl: https://apps.geoglows.org
+comingSoon: true
 order: 10
 ---
 
