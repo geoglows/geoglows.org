@@ -64,6 +64,14 @@ const external = cta ? isExternal(cta.href) : false;
     gap: clamp(28px, 4vw, 56px);
     align-items: center;
   }
+  .content,
+  .media {
+    min-width: 0;
+  }
+  .prose,
+  .points {
+    overflow-wrap: break-word;
+  }
   @media (min-width: 860px) {
     .grid {
       grid-template-columns: 1.05fr 0.95fr;
@@ -156,6 +164,11 @@ const external = cta ? isExternal(cta.href) : false;
     border-radius: var(--radius);
     box-shadow: var(--shadow-md);
     aspect-ratio: 4 / 3;
-    min-height: 240px;
+    width: 100%;
+  }
+  @media (min-width: 860px) {
+    .media {
+      min-height: 240px;
+    }
   }
 </style>
