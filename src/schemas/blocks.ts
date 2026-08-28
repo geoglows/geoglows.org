@@ -80,6 +80,16 @@ const countriesMapBlock = z.object({
   cta: linkSchema.optional(),
 });
 
+const communityFeedBlock = z.object({
+  type: z.literal("communityFeed"),
+  eyebrow: z.string().optional(),
+  heading: z.string().optional(),
+  intro: z.string().optional(),
+  anchor: z.string().optional(),
+  webinarsCount: z.number().default(3),
+  newsCount: z.number().default(5),
+});
+
 const featureSectionBlock = z.object({
   type: z.literal("featureSection"),
   anchor: z.string().optional(),
@@ -218,6 +228,7 @@ const missionHeroBlock = z.object({
 
 const trustStripBlock = z.object({
   type: z.literal("trustStrip"),
+  anchor: z.string().optional(),
   groups: z
     .array(
       z.object({
@@ -379,6 +390,7 @@ export const blockSchema = z.discriminatedUnion("type", [
   caseStudiesBlock,
   countriesMapBlock,
   featureSectionBlock,
+  communityFeedBlock,
   valuePropsBlock,
   useCasesBlock,
   testimonialsBlock,

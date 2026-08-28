@@ -2,24 +2,23 @@
 title: Community | GEOGLOWS
 description: The partners, researchers, funders, and people who build GEOGLOWS together.
 blocks:
-  - type: partners
-    eyebrow: Our partners
+  - type: trustStrip
     anchor: partners
-    heading: Built through collaboration
-    logos:
-      - { name: GEO, image: /images/partners/geo.svg, url: https://earthobservations.org }
-      - { name: WMO, image: /images/partners/wmo.svg, url: https://wmo.int }
-      - { name: NASA, image: /images/partners/nasa.webp, url: https://www.nasa.gov }
-      - { name: NOAA, image: /images/partners/noaa.svg, url: https://www.noaa.gov }
-      - { name: ECMWF, image: /images/partners/ecmwf.svg, url: https://www.ecmwf.int }
-      - { name: SERVIR, image: /images/partners/servir.webp, url: https://servirglobal.net }
-      - { name: Brigham Young University, image: /images/partners/byu.svg, url: https://www.byu.edu }
-      - { name: Esri, image: /images/partners/esri.webp, url: https://www.esri.com }
-      - { name: Aquaveo, image: /images/partners/aquaveo.svg, url: https://aquaveo.com }
-      - { name: Amazon Web Services, image: /images/partners/aws.svg, url: https://aws.amazon.com }
-      - { name: "Google.org", url: https://www.google.org }
-      - { name: World Bank, image: /images/partners/worldbank.svg, url: https://www.worldbank.org }
-    cta: { label: Meet our partners, href: /about#collaborators }
+    groups:
+      - label: Partners
+        logos:
+          - { name: GEO, image: /images/partners/geo.svg, url: https://earthobservations.org }
+          - { name: NASA, image: /images/partners/nasa.webp, url: https://www.nasa.gov, emblem: true }
+          - { name: NOAA, image: /images/partners/noaa.svg, url: https://www.noaa.gov, emblem: true }
+          - { name: ECMWF, image: /images/partners/ecmwf.svg, url: https://www.ecmwf.int }
+          - { name: WMO, image: /images/partners/wmo.svg, url: https://wmo.int }
+          - { name: SERVIR, image: /images/partners/servir.webp, url: https://servirglobal.net }
+          - { name: Amazon Web Services, image: /images/partners/aws.svg, url: https://aws.amazon.com }
+          - { name: Esri, image: /images/partners/esri.webp, url: https://www.esri.com }
+          - { name: Brigham Young University, image: /images/partners/byu.svg, url: https://www.byu.edu }
+          - { name: Aquaveo, image: /images/partners/aquaveo.svg, url: https://aquaveo.com }
+          - { name: "Google.org", image: /images/partners/google.svg, url: https://www.google.org }
+          - { name: World Bank, image: /images/partners/worldbank.svg, url: https://www.worldbank.org }
   - type: partnerCards
     eyebrow: Partner network
     heading: "Working through, not around, local institutions"
@@ -37,23 +36,29 @@ blocks:
       - mark: BP
         title: Become a partner
         text: "National services, regional hubs, and technical organizations can join the network. Reach out to scope a collaboration in your region."
-  - type: richText
-    eyebrow: Researchers & students
+  - type: featureSection
     anchor: researchers
-    heading: The BYU Capstone Program
+    eyebrow: Researchers & students
+    heading: The next generation of water scientists
+    image: /images/story-training.webp
+    imageSide: right
     background: muted
     body: >-
-      BYU's Kennedy Center pairs a winter-semester course with SERVIR regional
-      hubs, from Nairobi to Accra, Dakar, Kathmandu, Bangkok, Quito, and San
-      José, where student teams build RFS-based bulletins and stakeholder
-      assessments, then travel to deliver them alongside SERVIR scientists.
-      Researchers and students help extend GEOGLOWS into new basins and use cases.
-  - type: newsGrid
+      GEOGLOWS grows through the students and researchers who carry it into new
+      basins and use cases. BYU's Hydroinformatics Lab and the David M. Kennedy
+      Center pair coursework with real deployments, sending student teams to work
+      alongside SERVIR regional hubs and national services.
+    points:
+      - { title: "Capstone in the field", text: "Since 2011, BYU civil-engineering students have completed Kennedy Center capstone projects abroad, building and deploying hydro-informatics systems with local communities, more than 150 students to date." }
+      - { title: "Working with SERVIR hubs", text: "Student teams travel to SERVIR regional hubs, from Nairobi and Accra to Kathmandu and Quito, to build RFS-based forecast bulletins and stakeholder assessments, then hand them to local partners." }
+      - { title: "Open, published research", text: "Methods and results are documented in the peer-reviewed literature and shared openly, so each cohort builds on the work of the last." }
+  - type: communityFeed
     eyebrow: News, events & webinars
     anchor: news
     heading: Latest from the community
-    count: 3
-    cta: { label: See all news & events, href: /videos }
+    intro: "Webinar recordings and upcoming events, with the latest updates straight from GEOGLOWS on LinkedIn."
+    webinarsCount: 4
+    newsCount: 5
   - type: investment
     eyebrow: Investment
     anchor: investment
