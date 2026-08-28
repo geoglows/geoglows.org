@@ -1,6 +1,6 @@
 import { z } from "astro:content";
 
-export const ctaStyles = ["amber", "white", "outline", "navy", "green"] as const;
+export const ctaStyles = ["blue", "amber", "white", "outline", "navy", "green"] as const;
 
 export const linkSchema = z.object({
   label: z.string(),
@@ -12,7 +12,7 @@ export const navItemSchema = linkSchema.extend({
 });
 
 export const ctaSchema = linkSchema.extend({
-  style: z.enum(ctaStyles).default("amber"),
+  style: z.enum(ctaStyles).default("blue"),
 });
 
 export const sectionHeadingSchema = z.object({

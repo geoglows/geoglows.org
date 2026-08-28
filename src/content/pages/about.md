@@ -47,6 +47,6 @@ blocks:
   - type: closingCta
     heading: Join the GEOGLOWS community
     ctas:
-      - { label: Meet the community, href: /community, style: amber }
+      - { label: Meet the community, href: /community, style: blue }
       - { label: Contact us, href: "mailto:secretariat@geoglows.org", style: navy }
 ---
