@@ -32,33 +32,70 @@ blocks:
         text: "Faster Living Atlas web maps cover all 7 million reaches, and the Hydroviewer integrates the new data sources and the GEOGLOWS Python package."
       - title: Faster, more reliable services
         text: "The data service and Python package were overhauled, the model code optimized, and routing calibration improved with a machine-learning regression model for better flow estimates."
-  - type: pillars
-    eyebrow: What we work on
-    anchor: work
-    heading: "Helping communities see their water before it's a crisis"
-    intro: "Four connected areas of work, from the forecast on every river to the people trained to act on it."
-    items:
-      - id: forecasting
-        icon: waves
-        image: /images/aerial-river.webp
-        title: Streamflow forecasting
-        text: "15-day forecasts and an 85-year retrospective for every river on Earth, gauged or not, so remote communities get the same warning window as major cities."
-      - id: flood-mapping
-        icon: flood
-        image: /images/aerial-thermal.webp
-        title: Flood mapping
-        tag: coming soon
-        text: "Turning streamflow forecasts into block-by-block flood extent maps, so a warning shows what's at risk, not just that a river will rise."
-      - id: groundwater
-        icon: drop
-        image: /images/showcase/grace.webp
-        title: Groundwater monitoring
-        text: "Satellite gravity data and local well records combined, so storage trends are visible before a well runs dry, not after."
-      - id: capacity-building
-        icon: capacity
-        image: /images/story-training.webp
-        title: Capacity building
-        text: "Training national hydrological services and student teams to run, interpret, and act on the forecasts in their own basins."
+  - type: featureSection
+    anchor: forecasting
+    eyebrow: Forecasting
+    heading: Turning global weather into river discharge
+    image: /images/showcase/river-network.webp
+    imageSide: right
+    body: >-
+      GEOGLOWS forecasting rests on a chain of physically based models. ECMWF's
+      Integrated Forecast System drives a global land-surface model that converts
+      rainfall and snowmelt into gridded runoff, and that runoff is routed
+      through the river network to produce discharge at every reach on Earth,
+      gauged or not.
+    points:
+      - { title: "Ensemble meteorology", text: "A 51-member ECMWF ensemble carries forecast uncertainty out to 15 days, so a forecast is a range of possible outcomes rather than a single line." }
+      - { title: "Vector routing", text: "The RAPID model routes runoff downstream with a matrix Muskingum method across roughly 7 million TDX-Hydro reaches, resolving flow on rivers that have never been gauged." }
+      - { title: "An 85-year baseline", text: "An ERA5-forced retrospective from 1940 establishes each river's normal range and return periods, giving every forecast physical context." }
+      - { title: "Calibration", text: "Routing parameters are tuned with a machine-learning regression against observations to sharpen flow estimates worldwide." }
+  - type: featureSection
+    anchor: flood-mapping
+    eyebrow: Flood mapping
+    tag: In development
+    heading: From a discharge forecast to where the water goes
+    image: /images/aerial-thermal.webp
+    imageSide: left
+    background: muted
+    body: >-
+      A rising hydrograph tells you a river will flood; it does not tell you
+      which streets. Flood mapping is the science of translating forecast
+      discharge into inundation extent, pairing the forecast with high-resolution
+      terrain and satellite observations of surface water.
+    points:
+      - { title: "High-resolution terrain", text: "The 12 m TanDEM-X elevation model that defines the river network also constrains where forecast water spreads across the floodplain." }
+      - { title: "Satellite observation", text: "Optical and radar (SAR) imagery map actual surface-water extent, providing the ground truth to calibrate and validate inundation estimates." }
+      - { title: "Forecast-driven extent", text: "Linking forecast discharge to modeled inundation turns 'the river will rise' into a map of what is at risk, block by block." }
+  - type: featureSection
+    anchor: groundwater
+    eyebrow: Groundwater
+    heading: Making invisible water visible in time to act
+    image: /images/showcase/grace.webp
+    imageSide: right
+    body: >-
+      Groundwater is out of sight until a well runs dry. GEOGLOWS combines
+      measurements from space with records on the ground to make storage trends
+      visible while there is still time to respond.
+    points:
+      - { title: "Satellite gravimetry", text: "The NASA/DLR GRACE and GRACE-FO satellites detect tiny changes in Earth's gravity field, revealing month-to-month changes in total water storage." }
+      - { title: "Ground observations", text: "In-situ well levels and aquifer characterization anchor the coarse satellite signal to real, local conditions." }
+      - { title: "Bridging scales", text: "The engineering problem is downscaling: translating basin-wide gravity anomalies into aquifer-level insight a community can act on." }
+  - type: featureSection
+    anchor: capacity-building
+    eyebrow: Capacity building
+    heading: Engineering forecasts into local decisions
+    image: /images/story-training.webp
+    imageSide: left
+    background: muted
+    body: >-
+      The hardest part of a global model is the last mile: making it usable inside
+      a national service or a local community. Capacity building is the
+      deliberate engineering of that adoption, co-developing methods and skills
+      with the people who run and act on the forecasts.
+    points:
+      - { title: "National services", text: "Working through existing hydromet institutions and their data policies, not around them, so forecasts fit into daily operations." }
+      - { title: "Research and students", text: "BYU's Capstone program pairs student teams with SERVIR regional hubs to build basin-specific applications and extend the science into new use cases." }
+      - { title: "Regional hubs", text: "SERVIR hubs and GEO regional structures carry training and support into each region, building durable local expertise." }
   - type: closingCta
     heading: See it working
     ctas:
