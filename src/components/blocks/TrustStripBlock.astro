@@ -1,15 +1,21 @@
 ---
 import type { Block } from "../../schemas/blocks";
+import SectionHeader from "../ui/SectionHeader.astro";
 
-const { groups } = Astro.props as Extract<Block, { type: "trustStrip" }>;
+const { eyebrow, heading, intro, cta, groups } = Astro.props as Extract<
+  Block,
+  { type: "trustStrip" }
+>;
+const hasHeader = Boolean(eyebrow || heading);
 ---
 
 <section class="block trust">
-  <div class="shell">
+  <div class:list={["shell", { "with-head": hasHeader }]}>
+    {hasHeader && <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />}
     {
       groups.map((group) => (
         <div class="group">
-          <span class="label">{group.label}</span>
+          {!hasHeader && group.label && <span class="label">{group.label}</span>}
           <ul class="logo-strip">
             {group.logos.map((logo) => {
               const img = (
@@ -37,6 +43,13 @@ const { groups } = Astro.props as Extract<Block, { type: "trustStrip" }>;
           </ul>
         </div>
       ))
+    }
+    {
+      cta && (
+        <p class="more">
+          <a href={cta.href}>{cta.label} →</a>
+        </p>
+      )
     }
   </div>
 </section>
@@ -71,6 +84,27 @@ const { groups } = Astro.props as Extract<Block, { type: "trustStrip" }>;
     gap: clamp(36px, 4vw, 68px);
     /* Cap the row so it settles to ~4 logos per row, then centers. */
     max-width: 940px;
+  }
+  /* When the strip has its own header (e.g. a Partners section), left-align it
+     like a normal section and let the logos fill a tidy grid. */
+  .with-head .group {
+    align-items: stretch;
+  }
+  .with-head .logo-strip {
+    justify-content: flex-start;
+    max-width: none;
+    gap: clamp(28px, 3vw, 48px) clamp(16px, 3vw, 40px);
+  }
+  .with-head .slot {
+    width: 150px;
+  }
+  .more {
+    margin-top: 36px;
+  }
+  .more a {
+    color: var(--accent-text);
+    font-weight: 800;
+    text-decoration: none;
   }
   /* Each logo gets an equal invisible slot so mixed emblems and wordmarks
      read at a consistent size without any card behind them. */
