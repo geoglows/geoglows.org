@@ -63,12 +63,12 @@ blocks:
     heading: Learn, cite, and go deeper
     intro: "Documentation, research, reports, and training for every level, organized by what you are looking for."
     tabs:
-      - { label: Publications, href: /publications, description: "Scientific and technical papers using GEOGLOWS." }
-      - { label: Impact reports & case studies, href: "/impact#case-studies", description: "Real-world deployment stories and on-the-ground outcomes, on the Impact page." }
-      - { label: Annual & organizational reports, href: "/about#reports", description: "Program reports and governance documents, on the About page." }
-      - { label: Videos, href: /videos, description: "Walkthroughs and demos of the GEOGLOWS RFS, data services, and apps." }
-      - { label: Webinars, href: "/videos#webinars", description: "The RFS v2 webinar series, from model formulation to the RFS." }
-      - { label: Tutorials, href: "https://training.geoglows.org", description: "In-depth, multilingual courses on the Training Portal." }
+      - { label: Publications, href: /publications, icon: document, group: Documents, description: "Scientific and technical papers using GEOGLOWS." }
+      - { label: Impact reports & case studies, href: "/impact#case-studies", icon: globe, group: Documents, description: "Real-world deployment stories and on-the-ground outcomes, on the Impact page." }
+      - { label: Annual & organizational reports, href: "/about#reports", icon: bars, group: Documents, description: "Program reports and governance documents, on the About page." }
+      - { label: Videos, href: /videos, icon: play, group: Watch & learn, description: "Walkthroughs and demos of the GEOGLOWS RFS, data services, and apps." }
+      - { label: Webinars, href: "/videos#webinars", icon: capacity, group: Watch & learn, description: "The RFS v2 webinar series, from model formulation to the RFS." }
+      - { label: Tutorials, href: "https://training.geoglows.org", icon: book, group: Watch & learn, description: "In-depth, multilingual courses on the Training Portal." }
   - type: closingCta
     heading: Start building with open water data
     ctas:
