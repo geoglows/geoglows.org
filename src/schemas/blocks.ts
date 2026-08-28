@@ -412,6 +412,8 @@ const resourceTabsBlock = z.object({
       label: z.string(),
       href: z.string(),
       description: z.string().optional(),
+      icon: z.string().optional(),
+      group: z.string().optional(),
     }),
   ),
 });

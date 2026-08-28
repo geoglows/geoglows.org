@@ -699,6 +699,8 @@ collections:
                   - { label: Label, name: label, widget: string }
                   - { label: Link, name: href, widget: string }
                   - { label: Description, name: description, widget: text, required: false }
+                  - { label: Icon, name: icon, widget: select, options: [document, globe, bars, play, capacity, book, layers, database, code, drop, waves], required: false }
+                  - { label: Group, name: group, widget: string, required: false, hint: "Items with the same group render together in one panel, e.g. Documents" }
           - label: Data access
             name: dataAccess
             widget: object
