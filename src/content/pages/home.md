@@ -19,8 +19,8 @@ blocks:
     heading: Project highlights
     intro: "A closer look at how partners put GEOGLOWS to work in the field."
     video:
-      youtubeId: 3ALFNtl-TlE
-      title: "GEOGLOWS Streamflow 2.0: global hydrological modeling and local capacity building"
+      youtubeId: dNpYlpXyfOY
+      title: "GEOGLOWS at the front of the action"
     items:
       - title: "SERVIR HKH: GEOGLOWS flood mapping in Nepal"
         location: "SERVIR · Nepal"
