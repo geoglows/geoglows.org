@@ -28,12 +28,6 @@ jobs:
       - run: npm ci
       - run: npm run build
 
-      - name: Debug OIDC claims
-        run: |
-          RESP=$(curl -sS -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=sts.amazonaws.com")
-          TOK=$(echo "$RESP" | python3 -c "import sys,json;print(json.load(sys.stdin)['value'])")
-          echo "$TOK" | python3 -c "import sys,base64,json;p=sys.stdin.read().strip().split('.')[1];p+='='*(-len(p)%4);d=json.loads(base64.urlsafe_b64decode(p));print('CLAIM sub=',repr(d.get('sub')));print('CLAIM aud=',repr(d.get('aud')));print('CLAIM repo=',repr(d.get('repository')))"
-
       - uses: aws-actions/configure-aws-credentials@v4
         with:
           role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
