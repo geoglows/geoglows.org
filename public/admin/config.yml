@@ -2,8 +2,8 @@
 backend:
   name: github
   repo: geoglows/geoglows.org
-  branch: main
-  base_url: https://geoglowsorg.vercel.app # this deployment's own origin (update if a custom domain is added)
+  branch: staging
+  base_url: https://staging.geoglows.org # staging deployment origin (OAuth relay served at /api/* via CloudFront + Lambda)
   auth_endpoint: api/auth
 
 # Lets editors run the admin against local files during development:
