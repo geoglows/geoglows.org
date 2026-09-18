@@ -101,29 +101,31 @@ const hasHeader = Boolean(eyebrow || heading);
     align-items: center;
     justify-content: flex-start;
     flex-wrap: wrap;
-    gap: 16px clamp(24px, 3vw, 44px);
+    gap: 14px 10px;
   }
 
-  /* A partner with no logo asset is still a partner. Rendering the name as a
-     wordmark chip keeps the row deliberate instead of leaving a gap. */
+  /* The SERVIR hubs have no marks of their own. Rather than dress the names as
+     buttons, they read as a set of tags attached to the SERVIR logo beside them:
+     filled, borderless, and quieter than a logo so they support it rather than
+     compete with it. */
   .wordmark {
     display: inline-flex;
     align-items: center;
-    padding: 0 16px;
-    height: 44px;
-    border: 1px solid var(--border);
+    height: 38px;
+    padding: 0 15px;
     border-radius: 999px;
-    color: var(--text-body);
-    font-size: 0.88rem;
+    background: var(--surface-wash);
+    color: var(--accent-text);
+    font-size: 0.85rem;
     font-weight: 700;
+    letter-spacing: 0.01em;
     white-space: nowrap;
-    transition: border-color 0.2s ease, color 0.2s ease;
+    transition: background 0.2s ease, color 0.2s ease;
   }
 
   .slot-word a:hover .wordmark,
   .slot-word a:focus-visible .wordmark {
-    border-color: var(--accent);
-    color: var(--accent-text);
+    background: var(--surface-teal-wash);
   }
 
   .tail {

@@ -23,7 +23,6 @@ blocks:
           - { name: AfriGEO, image: /images/partners/afrigeo.png, url: "https://afrigeo.africageoportal.com", emblem: true }
           - { name: CRRH-SICA, image: /images/partners/crrh-sica.webp, url: "https://www.recursoshidricos.org", emblem: true }
           - { name: ICIMOD, image: /images/partners/icimod.png, url: "https://www.icimod.org" }
-        tail: "Structured regional data-flow assessments, piloted with AfriGEO in West Africa and extensible to other GEO regional organizations."
       - label: SERVIR hubs
         logos:
           - { name: SERVIR, image: /images/partners/servir.webp, url: https://servirglobal.net }
@@ -31,7 +30,6 @@ blocks:
           - { name: Amazonia }
           - { name: West Africa }
           - { name: Mekong }
-        tail: "Regional hubs carry GEOGLOWS into each region, training national services and building basin-specific applications."
       - label: Universities
         logos:
           - { name: Brigham Young University, image: /images/partners/byu.svg, url: https://www.byu.edu }
