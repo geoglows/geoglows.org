@@ -3,101 +3,207 @@
   "tagline": "Earth Intelligence for All",
   "nav": [
     {
-      "label": "What We Do",
-      "href": "/what-we-do",
+      "label": "Tools & Data",
+      "href": "/tools",
       "children": [
-        { "label": "Forecasting", "href": "/what-we-do#forecasting" },
-        { "label": "Flood mapping", "href": "/what-we-do#flood-mapping" },
-        { "label": "Groundwater", "href": "/what-we-do#groundwater" },
-        { "label": "Capacity building", "href": "/what-we-do#capacity-building" },
-        { "label": "GEOGLOWS V2", "href": "/what-we-do#whats-new" }
+        {
+          "label": "Getting started",
+          "href": "/tools#getting-started"
+        },
+        {
+          "label": "How GEOGLOWS works",
+          "href": "/tools#how-it-works"
+        },
+        {
+          "label": "Applications",
+          "href": "/tools#tools"
+        },
+        {
+          "label": "Access the data",
+          "href": "/tools#data"
+        },
+        {
+          "label": "Documentation & Resources",
+          "href": "/tools#resources"
+        }
       ]
     },
     {
       "label": "Impact",
       "href": "/impact",
       "children": [
-        { "label": "Impact stories", "href": "/impact#stories" },
-        { "label": "Countries & projects", "href": "/impact#countries" },
-        { "label": "Results", "href": "/impact#results" },
-        { "label": "Case studies", "href": "/impact#case-studies" }
+        {
+          "label": "Countries & projects",
+          "href": "/impact#countries"
+        },
+        {
+          "label": "Results",
+          "href": "/impact#results"
+        },
+        {
+          "label": "Case studies",
+          "href": "/impact#case-studies"
+        }
       ]
     },
     {
       "label": "Community",
       "href": "/community",
       "children": [
-        { "label": "Partners", "href": "/community#partners" },
-        { "label": "Researchers & students", "href": "/community#researchers" },
-        { "label": "News, events & webinars", "href": "/community#news" },
-        { "label": "Investment", "href": "/community#investment" },
-        { "label": "Get involved", "href": "/community#involved" }
-      ]
-    },
-    {
-      "label": "Tools & Data",
-      "href": "/tools",
-      "children": [
-        { "label": "Getting started", "href": "/tools#getting-started" },
-        { "label": "Tools", "href": "https://apps.geoglows.org" },
-        { "label": "Access the data", "href": "/tools#data" },
-        { "label": "Resources", "href": "/tools#resources" }
+        {
+          "label": "Partners",
+          "href": "/community#partners"
+        },
+        {
+          "label": "Research & Capacity Building",
+          "href": "/community#researchers"
+        },
+        {
+          "label": "News & Events",
+          "href": "/community#news"
+        },
+        {
+          "label": "Get involved",
+          "href": "/community#involved"
+        }
       ]
     },
     {
       "label": "About",
       "href": "/about",
       "children": [
-        { "label": "Mission", "href": "/about#mission" },
-        { "label": "Who we are", "href": "/about#who-we-are" },
-        { "label": "Leadership", "href": "/about#leadership" },
-        { "label": "Steering committee", "href": "/about#steering" },
-        { "label": "Collaborators", "href": "/about#collaborators" }
+        {
+          "label": "About GEOGLOWS",
+          "href": "/about#mission"
+        },
+        {
+          "label": "Leadership",
+          "href": "/about#leadership"
+        },
+        {
+          "label": "Steering committee",
+          "href": "/about#steering"
+        },
+        {
+          "label": "Reports",
+          "href": "/about#reports"
+        }
       ]
     }
   ],
-  "navCta": { "label": "Open GEOGLOWS RFS", "href": "https://apps.geoglows.org" },
+  "navCta": {
+    "label": "Open GEOGLOWS RFS",
+    "href": "https://apps.geoglows.org"
+  },
   "ticker": [
-    { "date": "18 Nov 2026", "text": "GEOGLOWS community webinar · forecast v2" },
-    { "date": "2-6 Dec 2026", "text": "Regional training · East Africa" },
-    { "date": "Jan 2027", "text": "Hydroviewer 3.0 release" }
+    {
+      "date": "18 Nov 2026",
+      "text": "GEOGLOWS community webinar · forecast v2"
+    },
+    {
+      "date": "2-6 Dec 2026",
+      "text": "Regional training · East Africa"
+    },
+    {
+      "date": "Jan 2027",
+      "text": "Hydroviewer 3.0 release"
+    }
   ],
   "footerBlurb": "GEOGLOWS is an initiative of the Group on Earth Observations, making global water intelligence as open and available as the weather forecast.",
   "footerColumns": [
     {
       "title": "Tools & Data",
       "links": [
-        { "label": "Getting started", "href": "/tools#getting-started" },
-        { "label": "GEOGLOWS RFS", "href": "https://apps.geoglows.org" },
-        { "label": "Access the data", "href": "/tools#data" },
-        { "label": "Publications", "href": "/publications" }
+        {
+          "label": "Getting started",
+          "href": "/tools#getting-started"
+        },
+        {
+          "label": "How GEOGLOWS works",
+          "href": "/tools#how-it-works"
+        },
+        {
+          "label": "Applications",
+          "href": "/tools#tools"
+        },
+        {
+          "label": "Access the data",
+          "href": "/tools#data"
+        },
+        {
+          "label": "Documentation & Resources",
+          "href": "/tools#resources"
+        },
+        {
+          "label": "Publications",
+          "href": "/publications"
+        }
       ]
     },
     {
-      "title": "Explore",
+      "title": "Impact",
       "links": [
-        { "label": "What we do", "href": "/what-we-do" },
-        { "label": "Impact", "href": "/impact" },
-        { "label": "Resources", "href": "/tools#resources" },
-        { "label": "Videos & webinars", "href": "/videos" }
+        {
+          "label": "Countries & projects",
+          "href": "/impact#countries"
+        },
+        {
+          "label": "Results",
+          "href": "/impact#results"
+        },
+        {
+          "label": "Case studies",
+          "href": "/impact#case-studies"
+        },
+        {
+          "label": "Videos & webinars",
+          "href": "/videos"
+        }
       ]
     },
     {
-      "title": "Community",
+      "title": "Community & About",
       "links": [
-        { "label": "Partners", "href": "/community#partners" },
-        { "label": "News & events", "href": "/community#news" },
-        { "label": "Get involved", "href": "/community#involved" },
-        { "label": "About GEOGLOWS", "href": "/about" },
-        { "label": "LinkedIn", "href": "https://www.linkedin.com/company/geoglows" },
-        { "label": "Contact", "href": "mailto:secretariat@geoglows.org" }
+        {
+          "label": "Partners",
+          "href": "/community#partners"
+        },
+        {
+          "label": "News & events",
+          "href": "/community#news"
+        },
+        {
+          "label": "Get involved",
+          "href": "/community#involved"
+        },
+        {
+          "label": "About GEOGLOWS",
+          "href": "/about#mission"
+        },
+        {
+          "label": "LinkedIn",
+          "href": "https://www.linkedin.com/company/geoglows"
+        },
+        {
+          "label": "Contact",
+          "href": "mailto:secretariat@geoglows.org"
+        }
       ]
     }
   ],
   "footerLegal": [
-    { "label": "Privacy", "href": "/legal/privacy-policy" },
-    { "label": "Terms", "href": "/legal/terms-of-service" },
-    { "label": "Cookies", "href": "/legal/cookie-policy" }
+    {
+      "label": "Privacy",
+      "href": "/legal/privacy-policy"
+    },
+    {
+      "label": "Terms",
+      "href": "/legal/terms-of-service"
+    },
+    {
+      "label": "Cookies",
+      "href": "/legal/cookie-policy"
+    }
   ],
   "headerLogoLight": "/images/geoglows-logo.webp",
   "headerLogoDark": "/images/geoglows-logo-white.webp",
