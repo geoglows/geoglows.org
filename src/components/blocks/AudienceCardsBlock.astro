@@ -7,6 +7,13 @@ const { eyebrow, heading, intro, items, contactEmail } = Astro.props as Extract<
   Block,
   { type: "audienceCards" }
 >;
+
+// Not every way in carries the same weight. The primary paths stay cards; the
+// lighter ones render as a row beneath, so six equal boxes stop reading as a grid.
+const primary = items.filter((i) => !i.minor);
+const secondary = items.filter((i) => i.minor);
+const linkAttrs = (href?: string) =>
+  href ? (isExternal(href) ? { href, target: "_blank", rel: "noopener" } : { href }) : {};
 ---
 
 <section class="block muted">
@@ -14,15 +21,10 @@ const { eyebrow, heading, intro, items, contactEmail } = Astro.props as Extract<
     <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />
     <div class="grid">
       {
-        items.map((item) => {
+        primary.map((item) => {
           const Tag = item.href ? "a" : "div";
-          const attrs = item.href
-            ? isExternal(item.href)
-              ? { href: item.href, target: "_blank", rel: "noopener" }
-              : { href: item.href }
-            : {};
           return (
-            <Tag class="card" {...attrs}>
+            <Tag class="card" {...linkAttrs(item.href)}>
               <span class="kicker">{item.kicker}</span>
               <h3>{item.title}</h3>
               <p>{item.text}</p>
@@ -33,10 +35,20 @@ const { eyebrow, heading, intro, items, contactEmail } = Astro.props as Extract<
       }
     </div>
     {
-      contactEmail && (
-        <p class="contact">
-          Start a conversation: <a href={`mailto:${contactEmail}`}>{contactEmail}</a>
-        </p>
+      secondary.length > 0 && (
+        <ul class="also">
+          {secondary.map((item) => {
+            const Tag = item.href ? "a" : "span";
+            return (
+              <li>
+                <Tag class="also-link" {...linkAttrs(item.href)}>
+                  <span class="also-title">{item.title}</span>
+                  <span class="also-text">{item.text}</span>
+                </Tag>
+              </li>
+            );
+          })}
+        </ul>
       )
     }
   </div>
@@ -48,8 +60,41 @@ const { eyebrow, heading, intro, items, contactEmail } = Astro.props as Extract<
   }
   .grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
     gap: 18px;
+  }
+
+  /* Secondary ways in: same information, a quieter shape. */
+  .also {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 10px 32px;
+    list-style: none;
+    margin: 26px 0 0;
+    padding: 22px 0 0;
+    border-top: 1px solid var(--border);
+  }
+  .also-link {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-height: 44px;
+    padding: 6px 0;
+    color: inherit;
+    text-decoration: none;
+  }
+  .also-title {
+    color: var(--accent-text);
+    font-weight: 800;
+    font-size: 0.92rem;
+  }
+  a.also-link:hover .also-title {
+    text-decoration: underline;
+  }
+  .also-text {
+    color: var(--text-body);
+    font-size: 0.86rem;
+    line-height: 1.5;
   }
   @media (max-width: 900px) {
     .grid {
@@ -111,15 +156,5 @@ const { eyebrow, heading, intro, items, contactEmail } = Astro.props as Extract<
     color: var(--text-body);
     font-size: 0.9rem;
     line-height: 1.5;
-  }
-  .contact {
-    margin-top: 24px;
-    color: var(--text-body);
-    font-size: 0.95rem;
-  }
-  .contact a {
-    color: var(--accent-text);
-    font-weight: 700;
-    text-decoration: none;
   }
 </style>
