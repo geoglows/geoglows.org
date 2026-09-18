@@ -47,6 +47,7 @@ blocks:
     eyebrow: Research & Capacity Building
     heading: Training, courses, and research that build local capacity
     image: /images/story-training.webp
+    imageAlt: "Aerial view of a turquoise geothermal pool ringed by mineral terraces."
     imageSide: right
     background: muted
     body: >-

@@ -4,8 +4,9 @@ import type { Block } from "../../schemas/blocks";
 import { isExternal } from "../../lib/links";
 import GeoGlyph from "../site/GeoGlyph.astro";
 
-const { eyebrow, heading, tag, body, image, imageSide, background, points, cta } =
+const { eyebrow, heading, tag, body, image, imageAlt, imageSide, background, points, cta } =
   Astro.props as Extract<Block, { type: "featureSection" }>;
+const priority = Astro.props.priority === true;
 const bodyHtml = marked.parse(body);
 const flip = imageSide === "left";
 const external = cta ? isExternal(cta.href) : false;
@@ -50,7 +51,20 @@ const external = cta ? isExternal(cta.href) : false;
         )
       }
     </div>
-    {image && <div class="media" style={`background-image:url("${image}")`} />}
+    {
+      image && (
+        <img
+          class="media"
+          src={image}
+          alt={imageAlt ?? ""}
+          width="1600"
+          height="1200"
+          loading={priority ? "eager" : "lazy"}
+          fetchpriority={priority ? "high" : "auto"}
+          decoding={priority ? "sync" : "async"}
+        />
+      )
+    }
   </div>
 </section>
 
@@ -162,12 +176,15 @@ const external = cta ? isExternal(cta.href) : false;
     text-decoration: none;
   }
   .media {
-    background-size: cover;
-    background-position: center;
+    display: block;
+    /* height:auto lets aspect-ratio win over the width/height attributes,
+       which are there to reserve the box before CSS arrives. */
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
     border-radius: var(--radius);
     box-shadow: var(--shadow-md);
-    aspect-ratio: 4 / 3;
-    width: 100%;
   }
   @media (min-width: 860px) {
     .media {

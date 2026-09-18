@@ -73,10 +73,11 @@ const { blocks } = Astro.props;
 ---
 
 {
-  blocks.map((block) => {
+  blocks.map((block, i) => {
     const Component = registry[block.type];
     const anchor = (block as any).anchor;
-    const rendered = <Component {...(block as any)} />;
+    /* Only the first block can hold the LCP element, so only it gets priority. */
+    const rendered = <Component {...(block as any)} priority={i === 0} />;
     return anchor ? (
       <div id={anchor} class="block-anchor">
         {rendered}

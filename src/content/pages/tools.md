@@ -7,6 +7,7 @@ blocks:
     anchor: getting-started
     heading: Everything you need to work with GEOGLOWS data
     image: /images/showcase/hydroviewer.webp
+    imageAlt: "The GEOGLOWS HydroViewer app showing the modelled river network across Europe."
     imageSide: right
     body: >-
       A connected suite of open applications and data services for exploring,

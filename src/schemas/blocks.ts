@@ -119,6 +119,7 @@ const featureSectionBlock = z.object({
   tag: z.string().optional(),
   body: z.string(),
   image: z.string().optional(),
+  imageAlt: z.string().optional(),
   imageSide: z.enum(["left", "right"]).optional(),
   background: backgroundSchema.optional(),
   points: z

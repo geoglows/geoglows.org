@@ -7,6 +7,7 @@ blocks:
     anchor: mission
     heading: "The Group on Earth Observations' initiative for global water sustainability."
     image: /images/hero-delta.webp
+    imageAlt: "Aerial view of a braided river delta, its channels carrying sediment out across the floodplain."
     imageSide: right
     body: >-
       GEOGLOWS coordinates the institutions that produce water information:
