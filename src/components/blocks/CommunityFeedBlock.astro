@@ -87,12 +87,6 @@ const events = (settingsEntry?.data.ticker ?? []).slice(0, 4);
     grid-template-columns: 1fr;
     gap: 20px;
   }
-  @media (min-width: 900px) {
-    .grid {
-      grid-template-columns: 1.5fr 1fr;
-      align-items: start;
-    }
-  }
   .main {
     display: grid;
     gap: 20px;
@@ -306,5 +300,28 @@ const events = (settingsEntry?.data.ticker ?? []).slice(0, 4);
     font-weight: 700;
     font-size: 0.82rem;
     text-decoration: none;
+  }
+  /* Events are three short lines; the feed is six rich items. Side by side they
+     strand space in the shorter column, so events run as a strip across the top
+     and the feed uses the full width beneath in as many columns as it fits. */
+  @media (min-width: 760px) {
+    .elist {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      column-gap: 30px;
+    }
+    .elist li {
+      border-bottom: 0;
+    }
+    .posts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      column-gap: 30px;
+      align-items: start;
+    }
+    .post {
+      margin: 0;
+      padding: 14px 0;
+    }
   }
 </style>

@@ -70,7 +70,7 @@ blocks:
     heading: News, events, and announcements
     intro: "Upcoming webinars, workshops, and events, with the latest announcements straight from GEOGLOWS on LinkedIn. Recorded technical webinars live under Tools & Data, in Documentation & Resources."
     webinarsCount: 4
-    newsCount: 5
+    newsCount: 6
   - type: audienceCards
     eyebrow: Get involved
     anchor: involved
