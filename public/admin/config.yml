@@ -227,7 +227,9 @@ collections:
                 fields:
                   - { label: Location, name: location, widget: string }
                   - { label: Title, name: title, widget: string }
-                  - { label: Text, name: text, widget: text }
+                  - { label: Text, name: text, widget: text, required: false }
+                  - { label: Kind, name: kind, widget: select, options: ["Case study", "Field story"], required: false }
+                  - { label: Image, name: image, widget: image, required: false }
                   - { label: Source, name: source, widget: string, required: false }
                   - { label: Link, name: href, widget: string, required: false }
               - label: Button

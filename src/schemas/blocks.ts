@@ -56,7 +56,9 @@ const caseStudiesBlock = z.object({
     z.object({
       location: z.string(),
       title: z.string(),
-      text: z.string(),
+      text: z.string().optional(),
+      kind: z.string().optional(),
+      image: z.string().optional(),
       source: z.string().optional(),
       href: z.string().optional(),
     }),

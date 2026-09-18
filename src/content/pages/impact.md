@@ -32,7 +32,7 @@ blocks:
       - { country: Thailand, lat: 15.87, lng: 100.99, pos: right }
     note: "Teal markers have a documented project below: hover or tab to one for the country name, and select it to jump to its entry. Grey markers are further deployments."
     directoryHeading: Project directory
-    directoryIntro: "Every documented deployment, with the problem it was brought in to solve, the institution that runs it, what was built, and what came of it. Pins on the map above link to their entry."
+    directoryIntro: "Every documented deployment. Open a country for the problem it was brought in to solve, what was built, and what came of it. Markers on the map above open their entry directly."
     projects:
       - country: Ecuador
         challenge: >-
@@ -257,48 +257,64 @@ blocks:
     eyebrow: Case studies
     anchor: case-studies
     heading: GEOGLOWS in the field
-    intro: "Documented deployments where national services and regional partners put GEOGLOWS forecasts to work."
+    intro: "Documented deployments where national services and regional partners put GEOGLOWS forecasts to work, at both depths: longer case studies and shorter field stories."
     items:
       - location: Malawi
+        kind: Case study
         title: "Community flood early warning on the Shire River"
         text: "GEOGLOWS-ECMWF forecasts were integrated into a Community-Based Flood Early Warning System (CBFEWS) so downstream communities receive actionable warnings before the water arrives."
         source: "SERVIR · GEO"
         href: "https://www.youtube.com/watch?v=Okyf_YIgVWc"
       - location: Nepal · Hindu Kush Himalaya
+        kind: Case study
         title: "Combining ground and satellite data to forecast floods"
         text: "SERVIR-HKH and ICIMOD paired GEOGLOWS forecasts with ground and satellite observations to deliver flood forecasts up to ten days ahead across the region."
         source: "SERVIR-HKH · ICIMOD"
         href: "https://servir.icimod.org/news/combining-ground-and-satellite-data-to-forecast-flood-in-nepal/"
       - location: Central America
+        kind: Case study
         title: "A shared platform for seven national services"
         text: "National hydrological and meteorological services across Central America use daily GEOGLOWS forecasts and the historical simulation through the regional CRRH-SICA platform."
         source: "CRRH-SICA"
         href: "https://www.youtube.com/watch?v=5wasYThy54g"
       - location: Peru
+        kind: Case study
         title: "A national streamflow platform at SENAMHI"
         text: "Peru's national service SENAMHI runs a GEOGLOWS-based streamflow platform to support water-resource and drought monitoring in Andean basins."
         source: "SENAMHI"
         href: "https://www.youtube.com/watch?v=A9s7rWH2u5I"
       - location: Amazon Basin
+        kind: Case study
         title: "Bringing streamflow forecasting to the Amazon"
         text: "SERVIR-Amazonia customized the GEOGLOWS service with regional partners to extend streamflow forecasting across the Amazon basin."
         source: "SERVIR-Amazonia"
         href: "https://www.youtube.com/watch?v=Q3RPtxfSj1k"
       - location: Honduras
+        kind: Case study
         title: "Forecasts for reservoir and hydropower operations"
         text: "Honduras's national electricity utility ENEE applied GEOGLOWS forecasts to inform reservoir and hydropower decisions."
         source: "ENEE"
         href: "https://www.youtube.com/watch?v=l3Gjy2ZAV8E"
-    cta: { label: See more from the community, href: /community#news }
-  - type: impactStories
-    eyebrow: Field stories
-    heading: Shorter stories from the field
-    intro: "From flood early warning to reservoir operations, national services and communities put GEOGLOWS to work every day."
-    stories:
-      - { image: /images/story-brahmaputra.webp, location: Bangladesh, title: "Anticipating monsoon floods days ahead on the Brahmaputra", href: "/community#news" }
-      - { image: /images/story-magdalena.webp, location: Colombia, title: "Bias-corrected forecasts guide the Magdalena basin", href: "/community#news" }
-      - { image: /images/story-training.webp, location: East Africa, title: "Training national hydrological services on ensemble forecasts", href: "/community#news" }
-      - { image: /images/story-andes.webp, location: Peru, title: "Drought monitoring for Andean water supply planning", href: "/community#news" }
+      - location: Bangladesh
+        kind: Field story
+        title: "Anticipating monsoon floods days ahead on the Brahmaputra"
+        image: /images/story-brahmaputra.webp
+        href: "/community#news"
+      - location: Colombia
+        kind: Field story
+        title: "Bias-corrected forecasts guide the Magdalena basin"
+        image: /images/story-magdalena.webp
+        href: "/community#news"
+      - location: East Africa
+        kind: Field story
+        title: "Training national hydrological services on ensemble forecasts"
+        image: /images/story-training.webp
+        href: "/community#news"
+      - location: Peru
+        kind: Field story
+        title: "Drought monitoring for Andean water supply planning"
+        image: /images/story-andes.webp
+        href: "/community#news"
     cta: { label: See more from the community, href: /community#news }
   - type: closingCta
     heading: Put GEOGLOWS to work in your region
