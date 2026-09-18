@@ -47,6 +47,7 @@ blocks:
     anchor: leadership
     heading: Project leaders
     group: Project leaders
+    background: muted
   - type: peopleGrid
     anchor: steering
     heading: Steering committee
@@ -55,7 +56,6 @@ blocks:
     eyebrow: Reports
     anchor: reports
     heading: Annual & organizational reports
-    background: muted
     body: >-
       GEOGLOWS annual reports and organizational documents are published here as
       they are released, tracking the initiative's progress, governance, and the

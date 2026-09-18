@@ -445,6 +445,7 @@ collections:
               - { label: Heading, name: heading, widget: string }
               - { label: Group filter, name: group, widget: string, required: false, hint: "e.g. Project leaders, Steering committee, Collaborators" }
               - { label: Anchor ID, name: anchor, widget: string, required: false, hint: "Optional id for deep-linking, e.g. team." }
+              - { label: Background, name: background, widget: select, options: [page, muted], default: page }
           - label: Working groups
             name: workingGroups
             widget: object

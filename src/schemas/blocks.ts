@@ -226,6 +226,7 @@ const peopleGridBlock = z.object({
   heading: z.string(),
   group: z.string().optional(),
   anchor: z.string().optional(),
+  background: backgroundSchema.optional(),
 });
 
 const workingGroupsBlock = z.object({
