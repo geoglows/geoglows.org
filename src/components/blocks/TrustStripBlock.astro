@@ -1,12 +1,64 @@
 ---
 import type { Block } from "../../schemas/blocks";
 import SectionHeader from "../ui/SectionHeader.astro";
+import path from "node:path";
+import sharp from "sharp";
 
 const { eyebrow, heading, intro, cta, groups } = Astro.props as Extract<
   Block,
   { type: "trustStrip" }
 >;
 const hasHeader = Boolean(eyebrow || heading);
+
+/**
+ * Optical sizing.
+ *
+ * A logo wall looks even when each mark occupies roughly the same *area*, not
+ * when each sits in a box of the same size. These marks run from 1:1 (NOAA) to
+ * 7.9:1 (SERVIR HKH); a single box makes the square ones tower and the wide ones
+ * vanish. So each mark is sized from its own aspect ratio to a target area,
+ * then clamped so neither extreme runs away.
+ */
+const TARGET_AREA = 8600;
+const MAX_W = 250;
+const MAX_H = 76;
+const MIN_H = 28;
+
+const ratioCache = new Map<string, number>();
+async function ratioOf(src: string): Promise<number | null> {
+  if (ratioCache.has(src)) return ratioCache.get(src)!;
+  try {
+    const file = path.join(process.cwd(), "public", src.replace(/^\//, ""));
+    const { width, height } = await sharp(file).metadata();
+    if (!width || !height) return null;
+    const r = width / height;
+    ratioCache.set(src, r);
+    return r;
+  } catch {
+    return null; // missing or unreadable asset falls back to the CSS box
+  }
+}
+
+async function opticalSize(src?: string) {
+  if (!src) return null;
+  const r = await ratioOf(src);
+  if (!r) return null;
+  let h = Math.sqrt(TARGET_AREA / r);
+  let w = Math.sqrt(TARGET_AREA * r);
+  if (h > MAX_H) { h = MAX_H; w = h * r; }
+  if (w > MAX_W) { w = MAX_W; h = w / r; }
+  if (h < MIN_H) { h = MIN_H; w = h * r; }
+  return { w: Math.round(w), h: Math.round(h) };
+}
+
+const sized = await Promise.all(
+  groups.map(async (group) => ({
+    ...group,
+    logos: await Promise.all(
+      group.logos.map(async (logo) => ({ ...logo, box: await opticalSize(logo.image) })),
+    ),
+  })),
+);
 ---
 
 <section class="block trust">
@@ -14,7 +66,7 @@ const hasHeader = Boolean(eyebrow || heading);
     {hasHeader && <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />}
     <div class="categories">
       {
-        groups.map((group) => (
+        sized.map((group) => (
           <section class="group">
             {group.label && <h3 class="label">{group.label}</h3>}
             <ul class="logo-strip">
@@ -31,7 +83,10 @@ const hasHeader = Boolean(eyebrow || heading);
                   <span class="wordmark">{logo.name}</span>
                 );
                 return (
-                  <li class:list={["slot", { "slot-word": !logo.image }]}>
+                  <li
+                    class:list={["slot", { "slot-word": !logo.image }]}
+                    style={logo.box ? `--mark-w:${logo.box.w}px;--mark-h:${logo.box.h}px` : undefined}
+                  >
                     {logo.url ? (
                       <a href={logo.url} target="_blank" rel="noopener" aria-label={logo.name}>
                         {body}
@@ -101,7 +156,7 @@ const hasHeader = Boolean(eyebrow || heading);
     align-items: center;
     justify-content: flex-start;
     flex-wrap: wrap;
-    gap: 14px 10px;
+    gap: 22px clamp(28px, 3vw, 46px);
   }
 
   /* The SERVIR hubs have no marks of their own. Rather than dress the names as
@@ -159,11 +214,13 @@ const hasHeader = Boolean(eyebrow || heading);
     text-decoration: none;
   }
 
+  /* The slot is the mark's own optical size, not a uniform box. Marks with no
+     computed size (a missing asset) fall back to the old bounded box. */
   .slot {
     display: grid;
     place-items: center;
-    width: 228px;
-    height: 92px;
+    width: var(--mark-w, 200px);
+    height: var(--mark-h, 60px);
   }
 
   .slot-word {
@@ -185,7 +242,7 @@ const hasHeader = Boolean(eyebrow || heading);
     outline-offset: 6px;
   }
   .logo {
-    max-height: 82px;
+    max-height: 100%;
     max-width: 100%;
     width: auto;
     object-fit: contain;
