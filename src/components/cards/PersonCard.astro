@@ -38,9 +38,9 @@ const affiliation = [organization, country].filter(Boolean).join(" · ");
             target="_blank"
             rel="noopener"
             aria-label={`${name} on LinkedIn`}
+            title={`${name} on LinkedIn`}
           >
-            <Icon name="linkedin" size={15} />
-            <span>LinkedIn</span>
+            <Icon name="linkedin" size={17} />
           </a>
         )
       }
@@ -108,11 +108,15 @@ const affiliation = [organization, country].filter(Boolean).join(" · ");
     color: var(--text-faint);
     font-size: 0.8rem;
   }
+  /* The two links sit at opposite ends: the profile is the card's action,
+     LinkedIn is a quiet aside that should not read as a second CTA. */
   .links {
     display: flex;
     align-items: center;
-    gap: 14px;
-    margin-top: 8px;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 10px;
+    min-height: 26px;
   }
   .more {
     color: var(--accent-text);
@@ -130,16 +134,24 @@ const affiliation = [organization, country].filter(Boolean).join(" · ");
   .li {
     position: relative;
     z-index: 1;
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
+    display: grid;
+    place-items: center;
+    /* 26px of ink, 44px of target: the negative margins keep the icon
+       optically aligned with the profile link's baseline row. */
+    width: 44px;
+    height: 44px;
+    margin: -9px -9px -9px 0;
     color: var(--text-faint);
-    font-size: 0.78rem;
-    font-weight: 700;
     text-decoration: none;
+    transition: color 0.16s ease;
   }
-  .li:hover {
+  .li:hover,
+  .li:focus-visible {
     color: var(--accent-text);
-    text-decoration: underline;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .li {
+      transition: none;
+    }
   }
 </style>
