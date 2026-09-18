@@ -3,24 +3,17 @@ import { getCollection, getEntry } from "astro:content";
 import type { Block } from "../../schemas/blocks";
 import SectionHeader from "../ui/SectionHeader.astro";
 import { bgImage } from "../../lib/css";
-import { youtubeWatchUrl } from "../../lib/youtube";
 import { formatPostDate } from "../../lib/date";
 
-const { eyebrow, heading, intro, webinarsCount, newsCount } = Astro.props as Extract<
+const { eyebrow, heading, intro, newsCount } = Astro.props as Extract<
   Block,
   { type: "communityFeed" }
 >;
 
-const [webinarEntries, socialEntries, settingsEntry] = await Promise.all([
-  getCollection("webinars"),
+const [socialEntries, settingsEntry] = await Promise.all([
   getCollection("social"),
   getEntry("settings", "site"),
 ]);
-
-const webinars = webinarEntries
-  .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, webinarsCount)
-  .map((w) => w.data);
 
 const posts = socialEntries
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
@@ -37,35 +30,8 @@ const events = (settingsEntry?.data.ticker ?? []).slice(0, 4);
       <div class="main">
         <div class="panel">
           <div class="p-head">
-            <h3>Webinars</h3>
-            <a href="/videos#webinars">All webinars →</a>
-          </div>
-          <ul class="wlist">
-            {
-              webinars.map((w) => (
-                <li>
-                  <a href={youtubeWatchUrl(w.youtubeId)} target="_blank" rel="noopener">
-                    <span class="play" aria-hidden="true">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </span>
-                    <span class="w-body">
-                      <span class="w-title">{w.title}</span>
-                      <span class="w-meta">
-                        {w.date} · {w.presenter}
-                      </span>
-                    </span>
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-
-        <div class="panel">
-          <div class="p-head">
-            <h3>Events</h3>
+            <h3>Events &amp; workshops</h3>
+            <a href="/tools#resources">Recorded webinars →</a>
           </div>
           <ul class="elist">
             {
