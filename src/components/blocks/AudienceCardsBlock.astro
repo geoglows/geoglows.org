@@ -19,16 +19,18 @@ const linkAttrs = (href?: string) =>
 <section class="block muted">
   <div class="shell">
     <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />
-    <div class="grid">
+    <div class="paths">
       {
         primary.map((item) => {
           const Tag = item.href ? "a" : "div";
           return (
-            <Tag class="card" {...linkAttrs(item.href)}>
-              <span class="kicker">{item.kicker}</span>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-              {item.href && <span class="go">Learn more →</span>}
+            <Tag class="path" {...linkAttrs(item.href)}>
+              <span class="who">
+                <span class="kicker">{item.kicker}</span>
+                <span class="ask">{item.title}</span>
+              </span>
+              <span class="body">{item.text}</span>
+              {item.href && <span class="go">{item.cta ?? "Learn more"} →</span>}
             </Tag>
           );
         })
@@ -42,6 +44,7 @@ const linkAttrs = (href?: string) =>
             return (
               <li>
                 <Tag class="also-link" {...linkAttrs(item.href)}>
+                  <span class="also-kicker">{item.kicker}</span>
                   <span class="also-title">{item.title}</span>
                   <span class="also-text">{item.text}</span>
                 </Tag>
@@ -58,13 +61,84 @@ const linkAttrs = (href?: string) =>
   .muted {
     background: var(--surface-wash);
   }
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 18px;
+  /* No cards. Four identical boxes added chrome without adding meaning, and the
+     border separated nothing the spacing did not already separate. Each pathway
+     is a row: who it is for on the left, what it involves on the right. */
+  .paths {
+    border-top: 1px solid var(--border);
   }
 
-  /* Secondary ways in: same information, a quieter shape. */
+  .path {
+    display: grid;
+    grid-template-columns: minmax(180px, 260px) minmax(0, 1fr) auto;
+    align-items: baseline;
+    column-gap: clamp(22px, 3.4vw, 52px);
+    row-gap: 10px;
+    padding-block: clamp(20px, 2.4vw, 28px);
+    border-bottom: 1px solid var(--border);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .who {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .kicker {
+    color: var(--accent-text);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .ask {
+    font-family: "Raleway", "Open Sans", system-ui, sans-serif;
+    font-size: clamp(1.08rem, 1.5vw, 1.3rem);
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--text-strong);
+  }
+
+  a.path:hover .ask {
+    color: var(--accent-text);
+  }
+
+  .body {
+    max-width: 62ch;
+    color: var(--text-body);
+    font-size: 0.93rem;
+    line-height: 1.55;
+  }
+
+  .go {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 44px;
+    white-space: nowrap;
+    color: var(--accent-text);
+    font-weight: 800;
+    font-size: 0.86rem;
+  }
+
+  a.path:hover .go {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 900px) {
+    .path {
+      grid-template-columns: 1fr;
+      row-gap: 10px;
+    }
+    .go {
+      justify-content: flex-start;
+    }
+  }
+
   .also {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -82,6 +156,13 @@ const linkAttrs = (href?: string) =>
     padding: 6px 0;
     color: inherit;
     text-decoration: none;
+  }
+  .also-kicker {
+    color: var(--text-faint);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
   }
   .also-title {
     color: var(--accent-text);

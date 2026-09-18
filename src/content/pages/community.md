@@ -77,12 +77,12 @@ blocks:
     heading: Ways to work with us
     intro: "Whether you run a hydromet service, research water, train practitioners, fund resilience work, or want to contribute to the code and data, there is a concrete way in."
     items:
-      - { kicker: Partner, title: "Partner with GEOGLOWS", text: "Become an implementation partner, the way SERVIR's regional hubs and national services already have.", href: "mailto:secretariat@geoglows.org" }
-      - { kicker: Research, title: "Research with GEOGLOWS", text: "Use the open forecast and retrospective data in your own work, and publish alongside the community.", href: "/publications" }
-      - { kicker: Training, title: "Training and capacity-building collaboration", text: "Co-develop training for a national service or region, or host a workshop with us.", href: "/community#researchers" }
-      - { kicker: Funders, title: "Fund GEOGLOWS", text: "Floods and droughts hit hardest where forecasting capacity is thinnest. Existing pathways (GCF, CREWS, the Adaptation Fund, SOFF, GEF) each finance a piece of that chain.", href: "mailto:secretariat@geoglows.org" }
-      - { kicker: Contribute, title: "Contribute", text: "The model code, the Python and JavaScript packages, and the data services are open. Issues and contributions are welcome.", href: "/tools#data", minor: true }
-      - { kicker: Contact, title: "Contact the team", text: "Questions, proposals, or anything that does not fit the paths above: secretariat@geoglows.org.", href: "mailto:secretariat@geoglows.org", minor: true }
+      - { kicker: "Agencies & hubs", title: "Partner with GEOGLOWS", text: "Become an implementation partner, the way SERVIR's regional hubs and national hydromet services already have.", cta: "Email the secretariat", href: "mailto:secretariat@geoglows.org" }
+      - { kicker: "Scientists & students", title: "Research with GEOGLOWS", text: "Use the open forecast and 85-year retrospective in your own work, and publish alongside the community.", cta: "Browse the publications", href: "/publications" }
+      - { kicker: "Trainers & institutions", title: "Collaborate on training", text: "Co-develop training for a national service or region, or host a workshop with us.", cta: "See the programmes", href: "/community#researchers" }
+      - { kicker: Funders, title: "Fund GEOGLOWS", text: "Floods and droughts hit hardest where forecasting capacity is thinnest. Existing pathways (GCF, CREWS, the Adaptation Fund, SOFF, GEF) each finance a piece of that chain.", cta: "Talk to us about funding", href: "mailto:secretariat@geoglows.org" }
+      - { kicker: Developers, title: "Contribute", text: "The model code, the Python and JavaScript packages, and the data services are all open.", cta: "Access the data and packages", href: "/tools#data", minor: true }
+      - { kicker: Anyone, title: "Contact the team", text: "Questions, proposals, or anything that does not fit the paths above.", cta: "secretariat@geoglows.org", href: "mailto:secretariat@geoglows.org", minor: true }
   - type: closingCta
     heading: Join the GEOGLOWS community
     ctas:

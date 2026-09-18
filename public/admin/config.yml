@@ -628,6 +628,7 @@ collections:
                   - { label: Title, name: title, widget: string }
                   - { label: Text, name: text, widget: text }
                   - { label: Link, name: href, widget: string, required: false, hint: "Makes the card clickable" }
+                  - { label: Link label, name: cta, widget: string, required: false, hint: "What the link says, e.g. Email the secretariat. Defaults to Learn more" }
                   - { label: Secondary, name: minor, widget: boolean, required: false, default: false, hint: "Shows as a lighter link below the cards instead of a full card" }
               - { label: Contact email, name: contactEmail, widget: string, required: false }
           - label: Timeline

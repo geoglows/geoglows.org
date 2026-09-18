@@ -365,6 +365,7 @@ const audienceCardsBlock = z.object({
       text: z.string(),
       href: z.string().optional(),
       minor: z.boolean().default(false),
+      cta: z.string().optional(),
     }),
   ),
   contactEmail: z.string().optional(),
