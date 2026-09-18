@@ -16,7 +16,7 @@ const linkAttrs = (href?: string) =>
   href ? (isExternal(href) ? { href, target: "_blank", rel: "noopener" } : { href }) : {};
 ---
 
-<section class="block muted">
+<section class="block">
   <div class="shell">
     <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />
     <div class="paths">
@@ -58,9 +58,6 @@ const linkAttrs = (href?: string) =>
 </section>
 
 <style>
-  .muted {
-    background: var(--surface-muted);
-  }
   /* No cards. Four identical boxes added chrome without adding meaning, and the
      border separated nothing the spacing did not already separate. Each pathway
      is a row: who it is for on the left, what it involves on the right. */
