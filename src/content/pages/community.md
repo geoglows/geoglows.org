@@ -7,7 +7,7 @@ blocks:
     eyebrow: Partners
     heading: Built through collaboration
     intro: "GEOGLOWS is delivered by a global network of space agencies, weather centres, universities, and technology partners, each contributing data, science, or infrastructure to the service."
-    cta: { label: Meet our partners, href: /about#collaborators }
+    cta: { label: Explore the partner network, href: /community#partners }
     groups:
       - label: Partners
         logos:
@@ -46,8 +46,8 @@ blocks:
         href: /community#involved
   - type: featureSection
     anchor: researchers
-    eyebrow: Researchers & students
-    heading: The next generation of water scientists
+    eyebrow: Research & Capacity Building
+    heading: Research, training, and local capacity
     image: /images/story-training.webp
     imageSide: right
     background: muted
@@ -60,26 +60,17 @@ blocks:
       - { title: "Capstone in the field", text: "Since 2011, BYU civil-engineering students have completed Kennedy Center capstone projects abroad, building and deploying hydro-informatics systems with local communities, more than 150 students to date." }
       - { title: "Working with SERVIR hubs", text: "Student teams travel to SERVIR regional hubs, from Nairobi and Accra to Kathmandu and Quito, to build RFS-based forecast bulletins and stakeholder assessments, then hand them to local partners." }
       - { title: "Open, published research", text: "Methods and results are documented in the peer-reviewed literature and shared openly, so each cohort builds on the work of the last." }
+      - { title: "National services", text: "Working through existing hydromet institutions and their data policies, not around them, so forecasts fit into daily operations." }
+      - { title: "Research and students", text: "BYU's Capstone program pairs student teams with SERVIR regional hubs to build basin-specific applications and extend the science into new use cases." }
+      - { title: "Regional hubs", text: "SERVIR hubs and GEO regional structures carry training and support into each region, building durable local expertise." }
     cta: { label: "Explore the BYU Hydroinformatics Lab", href: "https://hydroinformatics.byu.edu" }
   - type: communityFeed
-    eyebrow: News, events & webinars
+    eyebrow: News & Events
     anchor: news
     heading: Latest from the community
     intro: "Webinar recordings and upcoming events, with the latest updates straight from GEOGLOWS on LinkedIn."
     webinarsCount: 4
     newsCount: 5
-  - type: investment
-    eyebrow: Investment
-    anchor: investment
-    heading: "The funding case for closing the forecast gap"
-    intro: "Floods and droughts cost billions of dollars and displace millions of people every year, and the hardest-hit regions are usually the ones with the least capacity to forecast, warn, or prepare. Closing that gap means connecting data and models that already exist to the people who need them."
-    stats:
-      - { value: "$490M+", label: "GCF funding approved for hydromet & early warning" }
-      - { value: "$361M", label: "Nepal's GCF glacial-flood program, GEOGLOWS-adjacent" }
-      - { value: "$2M", label: "specific AI flood-mapping opportunity identified now" }
-      - { value: "193", label: "WMO Member states the chain is built to reach" }
-    note: "Funding pathways already exist for this work: GCF, CREWS, the Adaptation Fund, SOFF, and GEF each finance a different piece of the same chain, from observing networks to institutional capacity to the climate information systems built on top."
-    cta: { label: "Partner with us on funding", href: "/community#involved", style: blue }
   - type: audienceCards
     eyebrow: Get involved
     anchor: involved
@@ -87,7 +78,7 @@ blocks:
     intro: "Whether you run a hydromet service, fund resilience work, or want hands-on field experience, there's a concrete way in."
     items:
       - { kicker: "Agencies & hubs", title: "Bring GEOGLOWS to your region", text: "Become an implementation partner, the way SERVIR's regional hubs already have.", href: "mailto:secretariat@geoglows.org" }
-      - { kicker: Funders, title: "Fund a deployment", text: "See the investment case above, or reach out directly to scope a project.", href: "/community#investment" }
+      - { kicker: Funders, title: "Fund a deployment", text: "Floods and droughts hit hardest where forecasting capacity is thinnest. Existing pathways (GCF, CREWS, the Adaptation Fund, SOFF, GEF) each finance a piece of that chain. Reach out to scope a deployment.", href: "mailto:secretariat@geoglows.org" }
       - { kicker: Students, title: "Join a field program", text: "BYU's study-abroad course places student teams at SERVIR hubs every year.", href: "/community#researchers" }
       - { kicker: Everyone, title: "Follow our work", text: "LinkedIn and the GEO page carry the latest deployments and research.", href: "https://www.linkedin.com/company/geoglows" }
     contactEmail: secretariat@geoglows.org
