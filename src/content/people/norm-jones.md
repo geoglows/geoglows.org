@@ -3,6 +3,7 @@ name: "Norm Jones"
 title: "Professor and Department Chair, Civil & Construction Engineering"
 organization: "Brigham Young University"
 country: "USA"
+photo: /images/people/norm-jones.webp
 groups: ["Project leaders"]
 linkedin: https://www.linkedin.com/in/norm-jones-9546291/
 order: 5
