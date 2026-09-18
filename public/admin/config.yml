@@ -438,6 +438,26 @@ collections:
                 fields:
                   - { label: Label, name: label, widget: string }
                   - { label: Link, name: href, widget: string }
+          - label: Identity statement
+            name: identityStatement
+            widget: object
+            fields:
+              - { label: Eyebrow, name: eyebrow, widget: string, required: false }
+              - { label: Anchor ID, name: anchor, widget: string, required: false, hint: "Optional id for deep-linking, e.g. mission." }
+              - { label: Heading, name: heading, widget: string }
+              - { label: Lede, name: lede, widget: text }
+              - { label: Image, name: image, widget: image, required: false }
+              - { label: Image alt text, name: imageAlt, widget: string, required: false, hint: "Describes the photo for screen readers." }
+              - { label: Statement label, name: statementLabel, widget: string, required: false, hint: "e.g. Mission" }
+              - { label: Statement, name: statement, widget: text, required: false }
+              - label: Facts
+                name: facts
+                widget: list
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Text, name: text, widget: text }
+              - { label: Background, name: background, widget: select, options: [page, muted], default: page }
           - label: People grid
             name: peopleGrid
             widget: object

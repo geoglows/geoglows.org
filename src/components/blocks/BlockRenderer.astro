@@ -31,6 +31,7 @@ import AudienceCardsBlock from "./AudienceCardsBlock.astro";
 import TimelineBlock from "./TimelineBlock.astro";
 import FeaturedMediaBlock from "./FeaturedMediaBlock.astro";
 import ResourceTabsBlock from "./ResourceTabsBlock.astro";
+import IdentityStatementBlock from "./IdentityStatementBlock.astro";
 
 const registry = {
   hero: HeroBlock,
@@ -64,6 +65,7 @@ const registry = {
   timeline: TimelineBlock,
   featuredMedia: FeaturedMediaBlock,
   resourceTabs: ResourceTabsBlock,
+  identityStatement: IdentityStatementBlock,
 } as const;
 
 interface Props {

@@ -386,6 +386,20 @@ const timelineBlock = z.object({
     .default([]),
 });
 
+const identityStatementBlock = z.object({
+  type: z.literal("identityStatement"),
+  eyebrow: z.string().optional(),
+  anchor: z.string().optional(),
+  heading: z.string(),
+  lede: z.string(),
+  image: z.string().optional(),
+  imageAlt: z.string().optional(),
+  statementLabel: z.string().optional(),
+  statement: z.string().optional(),
+  facts: z.array(z.object({ label: z.string(), text: z.string() })).default([]),
+  background: backgroundSchema.optional(),
+});
+
 const featuredMediaBlock = z.object({
   type: z.literal("featuredMedia"),
   eyebrow: z.string().optional(),
@@ -455,6 +469,7 @@ export const blockSchema = z.discriminatedUnion("type", [
   audienceCardsBlock,
   timelineBlock,
   featuredMediaBlock,
+  identityStatementBlock,
   resourceTabsBlock,
 ]);
 
