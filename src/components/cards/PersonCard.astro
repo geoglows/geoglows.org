@@ -78,6 +78,12 @@ const affiliation = [organization, country].filter(Boolean).join(" · ");
       transform: none;
     }
   }
+  /* Fills the card so the LinkedIn mark lands on the card's right edge
+     rather than at the ragged end of each card's text. */
+  .info {
+    flex: 1;
+    min-width: 0;
+  }
   .photo,
   .avatar {
     flex: none;
