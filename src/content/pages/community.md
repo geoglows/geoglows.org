@@ -25,11 +25,11 @@ blocks:
           - { name: ICIMOD, image: /images/partners/icimod.png, url: "https://www.icimod.org" }
       - label: SERVIR hubs
         logos:
-          - { name: SERVIR, image: /images/partners/servir.webp, url: https://servirglobal.net }
-          - { name: Hindu Kush Himalaya, url: "https://servirglobal.net/regions/hindu-kush-himalaya" }
-          - { name: Amazonia }
-          - { name: West Africa }
-          - { name: Mekong }
+          - { name: SERVIR Hindu Kush Himalaya, image: /images/partners/servir-hkh.png, url: "https://servir.icimod.org/" }
+          - { name: SERVIR Southeast Asia, image: /images/partners/servir-southeast-asia.png, url: "https://servir.adpc.net/" }
+          - { name: SERVIR West Africa, image: /images/partners/servir-west-africa.png, url: "https://servir.icrisat.org/" }
+          - { name: SERVIR Central America, image: /images/partners/servir-central-america.png, url: "https://servir.catie.ac.cr/" }
+          - { name: SERVIR Amazonia, url: "https://alliancebioversityciat.org/projects/servir-amazonia" }
       - label: Universities
         logos:
           - { name: Brigham Young University, image: /images/partners/byu.svg, url: https://www.byu.edu }
