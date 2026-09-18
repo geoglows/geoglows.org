@@ -20,9 +20,9 @@ blocks:
           - { name: NOAA, image: /images/partners/noaa.svg, url: https://www.noaa.gov, emblem: true }
       - label: Regional organizations
         logos:
-          - { name: AfriGEO, url: "https://afrigeo.africageoportal.com" }
-          - { name: CRRH-SICA, url: "https://www.recursoshidricos.org" }
-          - { name: ICIMOD, url: "https://www.icimod.org" }
+          - { name: AfriGEO, image: /images/partners/afrigeo.png, url: "https://afrigeo.africageoportal.com", emblem: true }
+          - { name: CRRH-SICA, image: /images/partners/crrh-sica.webp, url: "https://www.recursoshidricos.org", emblem: true }
+          - { name: ICIMOD, image: /images/partners/icimod.png, url: "https://www.icimod.org" }
         tail: "Structured regional data-flow assessments, piloted with AfriGEO in West Africa and extensible to other GEO regional organizations."
       - label: SERVIR hubs
         logos:
