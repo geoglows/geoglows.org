@@ -14,17 +14,24 @@ blocks:
           - { name: GEO, image: /images/partners/geo.svg, url: https://earthobservations.org }
           - { name: WMO, image: /images/partners/wmo.svg, url: https://wmo.int }
           - { name: ECMWF, image: /images/partners/ecmwf.svg, url: https://www.ecmwf.int }
-        tail: "Global standards come through WMO (WIGOS, WHOS, HydroSOS); forecast meteorology comes through ECMWF."
       - label: National agencies
         logos:
           - { name: NASA, image: /images/partners/nasa.webp, url: https://www.nasa.gov, emblem: true }
           - { name: NOAA, image: /images/partners/noaa.svg, url: https://www.noaa.gov, emblem: true }
       - label: Regional organizations
-        tail: "Structured regional data-flow assessments, piloted with AfriGEO in West Africa and extensible to other GEO regional organizations and flagships."
+        logos:
+          - { name: AfriGEO, url: "https://afrigeo.africageoportal.com" }
+          - { name: CRRH-SICA, url: "https://www.recursoshidricos.org" }
+          - { name: ICIMOD, url: "https://www.icimod.org" }
+        tail: "Structured regional data-flow assessments, piloted with AfriGEO in West Africa and extensible to other GEO regional organizations."
       - label: SERVIR hubs
         logos:
           - { name: SERVIR, image: /images/partners/servir.webp, url: https://servirglobal.net }
-        tail: "Regional collaboration across the SERVIR hub network: HKH, Mekong, West Africa, and beyond."
+          - { name: Hindu Kush Himalaya, url: "https://servirglobal.net/regions/hindu-kush-himalaya" }
+          - { name: Amazonia }
+          - { name: West Africa }
+          - { name: Mekong }
+        tail: "Regional hubs carry GEOGLOWS into each region, training national services and building basin-specific applications."
       - label: Universities
         logos:
           - { name: Brigham Young University, image: /images/partners/byu.svg, url: https://www.byu.edu }
