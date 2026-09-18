@@ -254,6 +254,21 @@ collections:
                   - { label: Latitude, name: lat, widget: number, value_type: float, hint: "-90 to 90" }
                   - { label: Longitude, name: lng, widget: number, value_type: float, hint: "-180 to 180" }
                   - { label: Label position, name: pos, widget: select, options: [top, bottom, left, right], default: top, required: false }
+              - { label: Directory heading, name: directoryHeading, widget: string, required: false }
+              - { label: Directory intro, name: directoryIntro, widget: text, required: false }
+              - label: Projects
+                name: projects
+                widget: list
+                required: false
+                summary: "{{fields.country}} - {{fields.status}}"
+                fields:
+                  - { label: Country, name: country, widget: string, hint: "Must match a pin's country exactly for the map link to work." }
+                  - { label: Challenge, name: challenge, widget: text }
+                  - { label: Partner, name: partner, widget: string, required: false }
+                  - { label: GEOGLOWS application, name: application, widget: text }
+                  - { label: Project status, name: status, widget: string, hint: "e.g. Operational, Pilot, In validation" }
+                  - { label: Result, name: result, widget: text }
+                  - { label: Source link, name: href, widget: string, required: false }
               - label: Button
                 name: cta
                 widget: object
