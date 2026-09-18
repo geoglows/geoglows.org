@@ -3,7 +3,7 @@ title: About | GEOGLOWS
 description: The mission, people, and governance behind the GEOGLOWS initiative.
 blocks:
   - type: featureSection
-    eyebrow: Mission
+    eyebrow: About GEOGLOWS
     anchor: mission
     heading: "Enabling organizations and individuals to solve local water challenges with global water intelligence."
     image: /images/hero-delta.webp
@@ -15,12 +15,6 @@ blocks:
       collaboration that provides relevant, actionable water information and
       promotes the use of Earth observations in decision-making, while
       strengthening observational networks.
-  - type: richText
-    eyebrow: About GEOGLOWS
-    anchor: who-we-are
-    heading: Who we are
-    background: muted
-    body: >-
       GEOGLOWS promotes the GEO Data Sharing Principles and broad, open data
       policies, supporting the right to access information in the public domain and
       apply it to decisions. The initiative was established in 2017 by the GEO
@@ -36,10 +30,6 @@ blocks:
     anchor: steering
     heading: Steering committee
     group: Steering committee
-  - type: peopleGrid
-    anchor: collaborators
-    heading: Collaborators
-    group: Collaborators
   - type: richText
     eyebrow: Reports
     anchor: reports
