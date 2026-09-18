@@ -2,36 +2,6 @@
 title: Impact | GEOGLOWS
 description: What changes for people when forecasts reach them, with stories and results from around the world.
 blocks:
-  - type: impactCycle
-    eyebrow: Outcomes
-    anchor: beyond
-    heading: "Beyond forecasts, what changes for people"
-    intro: "We start with the user's problem before the solution, then measure whether the forecast actually changed a decision."
-    steps:
-      - { idx: Listen, title: Assess needs, text: "Understand local capacity, stakeholders, and the decisions that matter." }
-      - { idx: Adapt, title: Fit the data, text: "Configure forecasts and tools to the basin and the institution." }
-      - { idx: Deploy, title: Put it to work, text: "Training, dashboards, and integration into daily operations." }
-      - { idx: Sustain, title: Track outcomes, text: "Follow adoption and impact long after the rollout ends." }
-    stats:
-      - { num: 30+, lbl: countries with active deployments }
-      - { num: "~100K", lbl: forecast requests daily }
-    story:
-      image: /images/aerial-basin.webp
-      location: "Malawi · Flood early warning"
-      title: "No lives lost this flood season after early-warning alerts reached communities in time."
-      href: /community#news
-      note: "Impact and adoption work supported by Google.org."
-  - type: impactStories
-    eyebrow: Impact stories
-    anchor: stories
-    heading: Impact around the world
-    intro: "From flood early warning to reservoir operations, national services and communities put GEOGLOWS to work every day."
-    stories:
-      - { image: /images/story-brahmaputra.webp, location: Bangladesh, title: "Anticipating monsoon floods days ahead on the Brahmaputra", href: "/community#news" }
-      - { image: /images/story-magdalena.webp, location: Colombia, title: "Bias-corrected forecasts guide the Magdalena basin", href: "/community#news" }
-      - { image: /images/story-training.webp, location: East Africa, title: "Training national hydrological services on ensemble forecasts", href: "/community#news" }
-      - { image: /images/story-andes.webp, location: Peru, title: "Drought monitoring for Andean water supply planning", href: "/community#news" }
-    cta: { label: See more from the community, href: /community#news }
   - type: countriesMap
     eyebrow: Countries & projects
     anchor: countries
@@ -52,6 +22,24 @@ blocks:
       - { country: Afghanistan, lat: 33.94, lng: 67.71, pos: top }
       - { country: Nepal, lat: 28.39, lng: 84.12, pos: right }
       - { country: Thailand, lat: 15.87, lng: 100.99, pos: top }
+  - type: impactCycle
+    eyebrow: Outcomes
+    heading: "Beyond forecasts, what changes for people"
+    intro: "We start with the user's problem before the solution, then measure whether the forecast actually changed a decision."
+    steps:
+      - { idx: Listen, title: Assess needs, text: "Understand local capacity, stakeholders, and the decisions that matter." }
+      - { idx: Adapt, title: Fit the data, text: "Configure forecasts and tools to the basin and the institution." }
+      - { idx: Deploy, title: Put it to work, text: "Training, dashboards, and integration into daily operations." }
+      - { idx: Sustain, title: Track outcomes, text: "Follow adoption and impact long after the rollout ends." }
+    stats:
+      - { num: 30+, lbl: countries with active deployments }
+      - { num: "~100K", lbl: forecast requests daily }
+    story:
+      image: /images/aerial-basin.webp
+      location: "Malawi · Flood early warning"
+      title: "No lives lost this flood season after early-warning alerts reached communities in time."
+      href: /community#news
+      note: "Impact and adoption work supported by Google.org."
   - type: statBand
     eyebrow: Results
     anchor: results
@@ -98,6 +86,16 @@ blocks:
         text: "Honduras's national electricity utility ENEE applied GEOGLOWS forecasts to inform reservoir and hydropower decisions."
         source: "ENEE"
         href: "https://www.youtube.com/watch?v=l3Gjy2ZAV8E"
+    cta: { label: See more from the community, href: /community#news }
+  - type: impactStories
+    eyebrow: Field stories
+    heading: Shorter stories from the field
+    intro: "From flood early warning to reservoir operations, national services and communities put GEOGLOWS to work every day."
+    stories:
+      - { image: /images/story-brahmaputra.webp, location: Bangladesh, title: "Anticipating monsoon floods days ahead on the Brahmaputra", href: "/community#news" }
+      - { image: /images/story-magdalena.webp, location: Colombia, title: "Bias-corrected forecasts guide the Magdalena basin", href: "/community#news" }
+      - { image: /images/story-training.webp, location: East Africa, title: "Training national hydrological services on ensemble forecasts", href: "/community#news" }
+      - { image: /images/story-andes.webp, location: Peru, title: "Drought monitoring for Andean water supply planning", href: "/community#news" }
     cta: { label: See more from the community, href: /community#news }
   - type: closingCta
     heading: Put GEOGLOWS to work in your region
