@@ -1,18 +1,21 @@
 ---
+import Icon from "../ui/Icon.astro";
+
 interface Props {
   name: string;
   title?: string;
   organization?: string;
   country?: string;
   photo?: string;
+  linkedin?: string;
   initials: string;
   href: string;
 }
-const { name, title, organization, country, photo, initials, href } = Astro.props;
+const { name, title, organization, country, photo, linkedin, initials, href } = Astro.props;
 const affiliation = [organization, country].filter(Boolean).join(" · ");
 ---
 
-<a class="person" href={href}>
+<article class="person">
   {
     photo ? (
       <img class="photo" src={photo} alt={name} width="56" height="56" loading="lazy" decoding="async" />
@@ -24,12 +27,30 @@ const affiliation = [organization, country].filter(Boolean).join(" · ");
     <h3>{name}</h3>
     {title && <p class="title">{title}</p>}
     {affiliation && <p class="affiliation">{affiliation}</p>}
-    <span class="more">View profile →</span>
+    <span class="links">
+      {/* Covers the whole card, so the card stays one big target. */}
+      <a class="more" href={href}>View profile →</a>
+      {
+        linkedin && (
+          <a
+            class="li"
+            href={linkedin}
+            target="_blank"
+            rel="noopener"
+            aria-label={`${name} on LinkedIn`}
+          >
+            <Icon name="linkedin" size={15} />
+            <span>LinkedIn</span>
+          </a>
+        )
+      }
+    </span>
   </div>
-</a>
+</article>
 
 <style>
   .person {
+    position: relative;
     display: flex;
     gap: 14px;
     align-items: center;
@@ -38,7 +59,6 @@ const affiliation = [organization, country].filter(Boolean).join(" · ");
     border-radius: var(--radius);
     background: var(--surface-page);
     box-shadow: var(--shadow-sm);
-    text-decoration: none;
     color: var(--text-strong);
     transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
   }
@@ -47,7 +67,13 @@ const affiliation = [organization, country].filter(Boolean).join(" · ");
     box-shadow: var(--shadow-md);
     border-color: var(--accent-text);
   }
+  .person:focus-within {
+    border-color: var(--accent-text);
+  }
   @media (prefers-reduced-motion: reduce) {
+    .person {
+      transition: none;
+    }
     .person:hover {
       transform: none;
     }
@@ -82,11 +108,38 @@ const affiliation = [organization, country].filter(Boolean).join(" · ");
     color: var(--text-faint);
     font-size: 0.8rem;
   }
-  .more {
-    display: inline-block;
+  .links {
+    display: flex;
+    align-items: center;
+    gap: 14px;
     margin-top: 8px;
+  }
+  .more {
     color: var(--accent-text);
     font-size: 0.78rem;
     font-weight: 700;
+    text-decoration: none;
+  }
+  /* The profile link owns the card surface; LinkedIn sits above it. */
+  .more::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+  }
+  .li {
+    position: relative;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--text-faint);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+  .li:hover {
+    color: var(--accent-text);
+    text-decoration: underline;
   }
 </style>
