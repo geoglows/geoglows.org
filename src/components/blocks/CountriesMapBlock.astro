@@ -5,10 +5,13 @@ import { feature } from "topojson-client";
 import type { Block } from "../../schemas/blocks";
 import SectionHeader from "../ui/SectionHeader.astro";
 
-const { eyebrow, heading, intro, note, points, cta } = Astro.props as Extract<
-  Block,
-  { type: "countriesMap" }
->;
+const { eyebrow, heading, intro, note, points, projects, directoryHeading, directoryIntro, cta } =
+  Astro.props as Extract<Block, { type: "countriesMap" }>;
+
+const slug = (s: string) =>
+  "project-" + s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+// A pin only becomes a link when the directory actually holds that country.
+const documented = new Set(projects.map((pr) => pr.country));
 
 const require = createRequire(import.meta.url);
 const topo = require("world-atlas/countries-110m.json");
@@ -53,16 +56,69 @@ const pins = points
         </svg>
         <div class="pins">
           {
-            pins.map((p) => (
-              <span class="pin" style={`left:${p.xPct}%;top:${p.yPct}%`}>
-                <span class:list={["lbl", `lbl-${p.pos}`]}>{p.country}</span>
-              </span>
-            ))
+            pins.map((p) =>
+              documented.has(p.country) ? (
+                <a
+                  class="pin pin-link"
+                  style={`left:${p.xPct}%;top:${p.yPct}%`}
+                  href={`#${slug(p.country)}`}
+                >
+                  <span class="dot" />
+                  <span class:list={["lbl", `lbl-${p.pos}`]}>{p.country}</span>
+                </a>
+              ) : (
+                <span class="pin" style={`left:${p.xPct}%;top:${p.yPct}%`}>
+                  <span class="dot" />
+                  <span class:list={["lbl", `lbl-${p.pos}`]}>{p.country}</span>
+                </span>
+              ),
+            )
           }
         </div>
       </div>
     </div>
     {note && <p class="note">{note}</p>}
+    {
+      projects.length > 0 && (
+        <div class="directory">
+          {directoryHeading && <h3 class="dir-head">{directoryHeading}</h3>}
+          {directoryIntro && <p class="dir-intro">{directoryIntro}</p>}
+          {projects.map((pr) => (
+            <article class="project" id={slug(pr.country)}>
+              <div class="who">
+                <h4>{pr.country}</h4>
+                <span class="status">{pr.status}</span>
+                {pr.partner && <p class="partner">{pr.partner}</p>}
+              </div>
+              <dl class="detail">
+                <div>
+                  <dt>Challenge</dt>
+                  <dd>{pr.challenge}</dd>
+                </div>
+                <div>
+                  <dt>GEOGLOWS application</dt>
+                  <dd>{pr.application}</dd>
+                </div>
+                <div class="res">
+                  <dt>Result</dt>
+                  <dd>
+                    {pr.result}
+                    {pr.href && (
+                      <>
+                        {" "}
+                        <a class="src" href={pr.href} target="_blank" rel="noopener">
+                          Read more →
+                        </a>
+                      </>
+                    )}
+                  </dd>
+                </div>
+              </dl>
+            </article>
+          ))}
+        </div>
+      )
+    }
     {
       cta && (
         <p class="all">
@@ -79,23 +135,31 @@ const pins = points
     --map-ocean: #e7ecf0;
     --map-land: #d3dbe1;
     --map-border: #ffffff;
+    --map-pin: #7d93a5;
+    --map-pin-live: var(--color-teal-green);
   }
   @media (prefers-color-scheme: dark) {
     :global(:root:not([data-theme="light"])) .countries {
       --map-ocean: #101b28;
       --map-land: #263749;
       --map-border: #101b28;
+      --map-pin: #6c8296;
+      --map-pin-live: #4fb3a4;
     }
   }
   :global(:root[data-theme="dark"]) .countries {
     --map-ocean: #101b28;
     --map-land: #263749;
     --map-border: #101b28;
+    --map-pin: #6c8296;
+    --map-pin-live: #4fb3a4;
   }
   :global(:root[data-theme="light"]) .countries {
     --map-ocean: #e7ecf0;
     --map-land: #d3dbe1;
     --map-border: #ffffff;
+    --map-pin: #7d93a5;
+    --map-pin-live: var(--color-teal-green);
   }
 
   .map-wrap {
@@ -124,18 +188,53 @@ const pins = points
     inset: 0;
   }
 
+  /* 22 markers cannot all carry a permanent label without colliding, so the
+     dot is always visible and the name appears on hover, tap or focus. */
   .pin {
     position: absolute;
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    transform: translate(-50%, -50%);
+    text-decoration: none;
+  }
+  .dot {
     width: 13px;
     height: 13px;
-    transform: translate(-50%, -50%);
     border-radius: 50%;
-    background: var(--color-amber);
+    background: var(--map-pin);
     border: 2px solid var(--surface-page);
     box-shadow: 0 1px 4px rgba(15, 23, 32, 0.45);
+    transition: transform 0.16s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .pin-link .dot {
+    background: var(--map-pin-live);
+  }
+  .pin:hover,
+  .pin:focus {
+    z-index: 5;
+  }
+  .pin:hover .dot,
+  .pin:focus .dot {
+    transform: scale(1.35);
+  }
+  .pin-link:focus-visible {
+    outline: 2px solid var(--color-amber);
+    outline-offset: 2px;
+    border-radius: 50%;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .dot {
+      transition: none;
+    }
   }
   .lbl {
     position: absolute;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.14s ease;
+    z-index: 6;
     padding: 2px 7px;
     border-radius: 6px;
     background: var(--surface-page);
@@ -148,23 +247,29 @@ const pins = points
     white-space: nowrap;
   }
 
+  /* :focus as well as :focus-visible, so the name shows however focus arrives. */
+  .pin:hover .lbl,
+  .pin:focus .lbl,
+  .pin:focus-visible .lbl {
+    opacity: 1;
+  }
   .lbl-top {
-    bottom: calc(100% + 5px);
+    bottom: calc(100% - 4px);
     left: 50%;
     transform: translateX(-50%);
   }
   .lbl-bottom {
-    top: calc(100% + 5px);
+    top: calc(100% - 4px);
     left: 50%;
     transform: translateX(-50%);
   }
   .lbl-left {
-    right: calc(100% + 7px);
+    right: calc(100% - 2px);
     top: 50%;
     transform: translateY(-50%);
   }
   .lbl-right {
-    left: calc(100% + 7px);
+    left: calc(100% - 2px);
     top: 50%;
     transform: translateY(-50%);
   }
@@ -185,6 +290,101 @@ const pins = points
     .lbl {
       font-size: 0.58rem;
       padding: 1px 5px;
+    }
+  }
+
+  /* The definitive record: one row per documented project, country and status
+     on the left, the six-field record on the right. */
+  .directory {
+    margin-top: clamp(44px, 5.5vw, 74px);
+  }
+  .dir-head {
+    font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+    letter-spacing: -0.01em;
+  }
+  .dir-intro {
+    max-width: 66ch;
+    margin-top: 10px;
+    color: var(--text-body);
+    font-size: 0.97rem;
+    line-height: 1.6;
+  }
+  .project {
+    display: grid;
+    grid-template-columns: minmax(190px, 258px) minmax(0, 1fr);
+    gap: 14px clamp(24px, 4vw, 54px);
+    margin-top: clamp(26px, 3vw, 34px);
+    padding-top: clamp(22px, 2.6vw, 30px);
+    border-top: 1px solid var(--border);
+    scroll-margin-top: 90px;
+  }
+  .project:first-of-type {
+    border-top-width: 2px;
+    border-top-color: var(--accent-text);
+  }
+  .who h4 {
+    font-family: "Raleway", "Open Sans", system-ui, sans-serif;
+    font-size: 1.22rem;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    color: var(--text-strong);
+  }
+  .status {
+    display: inline-block;
+    margin-top: 9px;
+    padding: 3px 10px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--accent-text);
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .partner {
+    margin-top: 10px;
+    color: var(--text-body);
+    font-size: 0.85rem;
+    line-height: 1.5;
+  }
+  .detail {
+    display: grid;
+    /* Two even columns: auto-fit opened a third that only ever sat empty. */
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px clamp(22px, 3vw, 40px);
+    margin: 0;
+  }
+  .detail .res {
+    grid-column: 1 / -1;
+  }
+  .detail dt {
+    color: var(--text-faint);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .detail dd {
+    margin: 5px 0 0;
+    color: var(--text-body);
+    font-size: 0.89rem;
+    line-height: 1.55;
+  }
+  .detail .res dd {
+    color: var(--text-strong);
+  }
+  .src {
+    color: var(--accent-text);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  @media (max-width: 760px) {
+    .project {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .detail {
+      grid-template-columns: 1fr;
     }
   }
 </style>

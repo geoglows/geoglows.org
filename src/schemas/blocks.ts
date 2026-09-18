@@ -79,6 +79,21 @@ const countriesMapBlock = z.object({
       pos: z.enum(["top", "bottom", "left", "right"]).optional(),
     }),
   ),
+  directoryHeading: z.string().optional(),
+  directoryIntro: z.string().optional(),
+  projects: z
+    .array(
+      z.object({
+        country: z.string(),
+        challenge: z.string(),
+        partner: z.string().optional(),
+        application: z.string(),
+        status: z.string(),
+        result: z.string(),
+        href: z.string().optional(),
+      }),
+    )
+    .default([]),
   cta: linkSchema.optional(),
 });
 

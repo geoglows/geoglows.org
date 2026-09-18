@@ -8,38 +8,241 @@ blocks:
     heading: Where GEOGLOWS is at work
     intro: "GEOGLOWS is deployed with national hydrological services and regional partners in more than 30 countries, usually through SERVIR hubs and local institutions. A sample of documented deployments:"
     points:
-      - { country: Honduras, lat: 14.97, lng: -86.24, pos: left }
+      - { country: Costa Rica, lat: 9.75, lng: -83.75, pos: left }
+      - { country: Honduras, lat: 14.97, lng: -86.24, pos: top }
+      - { country: Guatemala, lat: 15.5, lng: -90.23, pos: left }
+      - { country: El Salvador, lat: 13.79, lng: -88.9, pos: bottom }
       - { country: Dominican Republic, lat: 18.74, lng: -70.16, pos: top }
-      - { country: Colombia, lat: 4.1, lng: -73.0, pos: top }
+      - { country: Colombia, lat: 4.1, lng: -73.0, pos: left }
+      - { country: Ecuador, lat: -1.83, lng: -78.18, pos: left }
       - { country: Peru, lat: -9.19, lng: -75.02, pos: left }
-      - { country: "Amazon Basin", lat: -4.5, lng: -60.0, pos: right }
-      - { country: Senegal, lat: 14.5, lng: -14.45, pos: top }
+      - { country: Brazil, lat: -10.0, lng: -52.0, pos: right }
+      - { country: "Amazon Basin", lat: -4.5, lng: -64.0, pos: bottom }
+      - { country: Senegal, lat: 14.5, lng: -14.45, pos: left }
       - { country: Ghana, lat: 7.95, lng: -1.03, pos: bottom }
-      - { country: Ethiopia, lat: 9.15, lng: 40.49, pos: top }
+      - { country: Ethiopia, lat: 9.15, lng: 40.49, pos: right }
       - { country: Kenya, lat: 0.02, lng: 37.9, pos: right }
       - { country: Malawi, lat: -13.25, lng: 34.3, pos: bottom }
       - { country: Israel, lat: 31.4, lng: 35.0, pos: left }
       - { country: Afghanistan, lat: 33.94, lng: 67.71, pos: top }
-      - { country: Nepal, lat: 28.39, lng: 84.12, pos: right }
-      - { country: Thailand, lat: 15.87, lng: 100.99, pos: top }
-  - type: impactCycle
-    eyebrow: Outcomes
-    heading: "Beyond forecasts, what changes for people"
-    intro: "We start with the user's problem before the solution, then measure whether the forecast actually changed a decision."
-    steps:
-      - { idx: Listen, title: Assess needs, text: "Understand local capacity, stakeholders, and the decisions that matter." }
-      - { idx: Adapt, title: Fit the data, text: "Configure forecasts and tools to the basin and the institution." }
-      - { idx: Deploy, title: Put it to work, text: "Training, dashboards, and integration into daily operations." }
-      - { idx: Sustain, title: Track outcomes, text: "Follow adoption and impact long after the rollout ends." }
-    stats:
-      - { num: 30+, lbl: countries with active deployments }
-      - { num: "~100K", lbl: forecast requests daily }
-    story:
-      image: /images/aerial-basin.webp
-      location: "Malawi · Flood early warning"
-      title: "No lives lost this flood season after early-warning alerts reached communities in time."
-      href: /community#news
-      note: "Impact and adoption work supported by Google.org."
+      - { country: India, lat: 21.5, lng: 78.96, pos: left }
+      - { country: Nepal, lat: 28.39, lng: 84.12, pos: top }
+      - { country: Bhutan, lat: 27.51, lng: 90.9, pos: right }
+      - { country: Bangladesh, lat: 23.68, lng: 90.36, pos: bottom }
+      - { country: Thailand, lat: 15.87, lng: 100.99, pos: right }
+    note: "Teal markers have a documented project below: hover or tab to one for the country name, and select it to jump to its entry. Grey markers are further deployments."
+    directoryHeading: Project directory
+    directoryIntro: "Every documented deployment, with the problem it was brought in to solve, the institution that runs it, what was built, and what came of it. Pins on the map above link to their entry."
+    projects:
+      - country: Ecuador
+        challenge: >-
+          Around 40% of Azuay's 882,000 residents have reliable water access, and
+          many rivers carry no observed data, leaving floods unexplained and
+          unforecast.
+        partner: "INAMHI · GAD Azuay"
+        application: >-
+          INAMHI GEOGLOWS Tethys Portal (12 apps) and Hydroviewer Ecuador;
+          historical streamflow feeding HEC-RAS designs.
+        status: Operational
+        result: >-
+          INAMHI now issues flood forecasts on timing, magnitude and impact for
+          technical, government and public users. An approved irrigation design
+          drawn from the historical record will serve around 5,000 people.
+        href: "https://stories.geoglows.org/south-america/ecuador"
+      - country: Colombia
+        challenge: >-
+          IDEAM has few or recent stations across large areas, especially the
+          Amazon, and no forecasting tools to cover them.
+        partner: "IDEAM · NASA SERVIR-Amazonia"
+        application: >-
+          Hydroviewer Colombia and the 15-day ensemble forecast, with bias
+          correction from the SERVIR-Amazonia project.
+        status: Operational
+        result: >-
+          IDEAM's early-warning office uses the 15-day forecast to produce its daily
+          Hydrological Bulletin and to decide whether to hold or lower warning
+          levels.
+        href: "https://stories.geoglows.org/south-america/colombia"
+      - country: Peru
+        challenge: >-
+          National flood observation needed reliable thresholds on river stretches
+          beyond those the local model covered.
+        partner: "SENAMHI"
+        application: >-
+          GEOGLOWS combined with SONICS, SENAMHI's ARNO/VIC and RAPID model
+          calibrated on 43 hydrometric stations over 1981 to 2020.
+        status: Operational
+        result: >-
+          Flood thresholds are published for 2.33, 5 and 10-year return periods on
+          each river stretch, and the forecast drives a decision-making game used in
+          training.
+        href: "https://stories.geoglows.org/south-america/peru"
+      - country: Brazil
+        challenge: >-
+          CEMADEN needed to extend its disaster-warning capability with flows
+          accurate enough for local decisions.
+        partner: "CEMADEN"
+        application: >-
+          Hydroviewer Brazil, a Historical Validation Tool, and a National Water
+          Level Forecast built on bias-corrected GEOGLOWS data.
+        status: Operational
+        result: >-
+          Catchment-level alerts are colour-coded and searchable by station, backed
+          by a bias-corrected national water level forecast.
+        href: "https://stories.geoglows.org/south-america/brazil"
+      - country: Honduras
+        challenge: >-
+          During Hurricanes Eta and Iota in 2020 the El Cajón Dam reached maximum
+          storage, threatening the Sula Valley's agriculture and industry.
+        partner: "ENEE (national power company)"
+        application: >-
+          The 15-day discharge forecast from the GEOGLOWS Streamflow Forecast
+          service, used to plan reservoir releases.
+        status: Operational
+        result: >-
+          Controlled releases before Iota and closure of the dam's inflow during the
+          storm avoided severe damage, saving over 30% of the economic losses
+          recorded for Hurricane Mitch in 1998.
+        href: "https://stories.geoglows.org/central-america/honduras"
+      - country: Guatemala
+        challenge: >-
+          Lake Atitlán has been contaminated by sewage and agricultural runoff since
+          2009, and algal-bloom prediction software was too costly for the small
+          communities that depend on the lake.
+        partner: "CEPREDENAC · local organizations"
+        application: >-
+          The GEOGLOWS Python package and Hydroviewer, generating 14-day streamflow
+          and inflow volume for the three rivers feeding the lake.
+        status: Operational
+        result: >-
+          A script integrating all three rivers now feeds an algal-bloom algorithm
+          local organizations use to target interventions. CEPREDENAC uses the same
+          service for hurricane early warning.
+        href: "https://stories.geoglows.org/central-america/guatemala"
+      - country: El Salvador
+        challenge: >-
+          The Lempa basin supplies water to over half the population and much of its
+          hydropower, yet is exposed to floods, droughts and landslides.
+        application: >-
+          GEOGLOWS ECMWF streamflow forecasts across the Lempa River basin.
+        status: Demonstrated
+        result: >-
+          The forecast anticipated the rapid flood at Citalá on 16 November 2020,
+          later verified against the Citalá hydrometric record, showing the service
+          could be folded into routine monitoring.
+        href: "https://stories.geoglows.org/central-america/el-salvador"
+      - country: Dominican Republic
+        challenge: >-
+          The country is highly exposed to floods and hurricanes, and installing in-
+          situ monitoring nationwide would be costly and impractical.
+        partner: "INDRHI · WMO · BYU"
+        application: >-
+          INDRHI GEOGLOWS Portal, a Tethys platform of 12 apps, with model output
+          refined through GIS analysis of raw station data.
+        status: Operational
+        result: >-
+          Decision-makers have national hydrological coverage without nationwide
+          gauging. INDRHI presented the platform and its HydroSOS collaboration at
+          the 19th World Meteorological Congress in Geneva in May 2023.
+        href: "https://stories.geoglows.org/caribbean/dominican-republic"
+      - country: Bangladesh
+        challenge: >-
+          Upstream flows from the Ganges and Brahmaputra account for 92% of the
+          drainage area and drive repeated flooding, but streamflow forecasts were
+          unavailable.
+        partner: "Flood Forecast and Warning Centre (FFWC)"
+        application: >-
+          A Tethys application reading ECMWF ensemble forecasts through the
+          streamflow prediction API at each transboundary river.
+        status: Operational
+        result: >-
+          FFWC issues probabilistic forecasts on the transboundary rivers with a
+          15-day lead time.
+        href: "https://stories.geoglows.org/east-asia/bangladesh"
+      - country: Nepal
+        challenge: >-
+          DHM had to forecast floods and droughts across the Karnali, Gandaki and
+          Koshi basins, all fed by high-mountain glaciers.
+        partner: "Department of Hydrology and Meteorology (DHM)"
+        application: >-
+          A Tethys web application embedding DHM's own national model with real-time
+          forecast access by province and district.
+        status: Operational
+        result: >-
+          DHM runs 24/7 flood forecasting and early warning for the public and
+          partner agencies through the monsoon, without assembling global datasets
+          itself.
+        href: "https://stories.geoglows.org/east-asia/nepal"
+      - country: Bhutan
+        challenge: >-
+          Despite modernised hydromet infrastructure, flood prediction was limited
+          by a shortage of qualified staff and decision-support tools.
+        partner: "National Center for Hydrology and Meteorology (NCHM)"
+        application: >-
+          Customised GEOGLOWS web apps giving free access to flood information.
+        status: In validation
+        result: >-
+          NCHM has assessed performance across the major basins and identified
+          gauging sites for validation, with river infrastructure, hydropower and
+          disaster agencies now sharing data and resources.
+        href: "https://stories.geoglows.org/east-asia/bhutan"
+      - country: India
+        challenge: >-
+          Dam-controlled streams and heavy human modification make raw global
+          forecasts unreliable without bias correction.
+        partner: "World Bank National Hydrology Project · Aquaveo"
+        application: >-
+          The GEOGLOWS ECMWF Streamflow Service, covering data access and forecast
+          bias correction.
+        status: Capacity building
+        result: >-
+          Virtual workshops trained agencies and engineers to reproduce the
+          Hydrologic Modeling as a Service approach on their own data ahead of the
+          monsoon season.
+        href: "https://stories.geoglows.org/east-asia/india"
+      - country: Malawi
+        challenge: >-
+          Cyclone Ana in January 2022 affected over 193,000 households and destroyed
+          croplands, and flood warning lead time was measured in hours.
+        partner: "RCMRD (SERVIR-Africa) · UNDP · Malawi Red Cross Society"
+        application: >-
+          A hybrid Community Based Flood Early Warning System combining telemetry
+          from 21 rivers with bias-corrected GEOGLOWS-ECMWF forecasts across eight
+          flood-prone regions.
+        status: Operational
+        result: >-
+          Warning lead time went from hours to 15 days. During Cyclone Ana the
+          forecast correctly predicted peak flows on the Phalombe River, verified by
+          water-level sensors the same day, and alerted the Red Cross by SMS and
+          email for emergency coordination.
+        href: "https://stories.geoglows.org/africa-malawi"
+      - country: Israel
+        challenge: >-
+          Streamflow forecasting tools were scarce, and the available GloFAS and
+          EFAS services were limited in scale or accessibility.
+        application: >-
+          GEOGLOWS ECMWF high-resolution streamflow data behind an early-warning
+          system for flooding and inundation in Tel Aviv.
+        status: Evaluated
+        result: >-
+          GEOGLOWS was assessed as accurate and comparable to the tools previously
+          in use, and now supplies forecasts and historical data for small rivers,
+          including work supporting the West Bank.
+        href: "https://stories.geoglows.org/middle-east-israel-palestinegaza"
+      - country: Costa Rica
+        challenge: >-
+          Women working in emergency management and decision-making faced gender
+          disparities, limited access to information, and gaps in technology skills.
+        partner: "BYU Ballard Center"
+        application: >-
+          GEOGLOWS applications taught alongside the Social Impact Cycle
+          methodology.
+        status: Pilot
+        result: >-
+          Fifty women were trained, with pre- and post-training surveys measuring
+          the change and a six-month follow-up planned to track what reached their
+          communities.
+        href: "https://stories.geoglows.org/our-impact/costa-rica-pilot"
   - type: statBand
     eyebrow: Results
     anchor: results
