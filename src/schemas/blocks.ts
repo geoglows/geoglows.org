@@ -212,6 +212,7 @@ const richTextBlock = z.object({
 const toolsGridBlock = z.object({
   type: z.literal("toolsGrid"),
   eyebrow: z.string().optional(),
+  anchor: z.string().optional(),
   heading: z.string(),
   intro: z.string().optional(),
   category: z.string().optional(),
