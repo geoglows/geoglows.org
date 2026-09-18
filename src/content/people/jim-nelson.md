@@ -5,6 +5,7 @@ organization: "Brigham Young University"
 country: "USA"
 groups: ["Project leaders"]
 photo: /images/people/jim-nelson.webp
+linkedin: https://www.linkedin.com/in/jim-nelson-96a74b1/
 order: 1
 ---
 

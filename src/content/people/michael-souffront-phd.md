@@ -5,6 +5,7 @@ organization: "Aquaveo"
 country: "USA"
 groups: ["Steering committee"]
 photo: /images/people/michael-souffront-phd.webp
+linkedin: https://www.linkedin.com/in/michaelsouffront/
 order: 4
 ---
 

@@ -5,6 +5,7 @@ organization: "Brigham Young University"
 country: "USA"
 groups: ["Project leaders", "Technical team"]
 photo: /images/people/riley-hales-phd.webp
+linkedin: https://www.linkedin.com/in/rileyhales/
 order: 3
 ---
 

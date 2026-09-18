@@ -5,6 +5,7 @@ organization: "Esri"
 country: "USA"
 groups: ["Steering committee"]
 photo: /images/people/steve-kopp.webp
+linkedin: https://www.linkedin.com/in/stevekoppgeo/
 order: 7
 ---
 

@@ -5,6 +5,7 @@ organization: "NOAA (Ret.)"
 country: "USA"
 groups: ["Project leaders", "Steering committee"]
 photo: /images/people/angelica-gutierrez.webp
+linkedin: https://www.linkedin.com/in/angelicagutierrezphd/
 order: 2
 ---
 
