@@ -186,7 +186,11 @@ const howItWorksBlock = z.object({
   heading: z.string(),
   intro: z.string().optional(),
   anchor: z.string().optional(),
-  steps: z.array(z.object({ title: z.string(), text: z.string() })),
+  // token is what the stage actually hands on, so the chain carries information
+  // the headings do not rather than restating them.
+  steps: z.array(
+    z.object({ title: z.string(), token: z.string().optional(), text: z.string() }),
+  ),
 });
 
 const newsletterBlock = z.object({
