@@ -217,6 +217,7 @@ collections:
             name: caseStudies
             widget: object
             fields:
+              - { label: Background, name: background, widget: select, options: [page, muted], default: muted }
               - { label: Eyebrow, name: eyebrow, widget: string, required: false }
               - { label: Heading, name: heading, widget: string }
               - { label: Intro, name: intro, widget: text, required: false }
@@ -230,6 +231,18 @@ collections:
                   - { label: Text, name: text, widget: text, required: false }
                   - { label: Kind, name: kind, widget: select, options: ["Case study", "Field story"], required: false }
                   - { label: Image, name: image, widget: image, required: false }
+                  - { label: Challenge, name: challenge, widget: text, required: false }
+                  - { label: Intervention, name: intervention, widget: text, required: false }
+                  - label: Partners
+                    name: partners
+                    widget: list
+                    required: false
+                    summary: "{{fields.name}}"
+                    fields:
+                      - { label: Name, name: name, widget: string }
+                      - { label: Official website, name: url, widget: string, required: false }
+                  - { label: Results, name: results, widget: text, required: false }
+                  - { label: Lessons, name: lessons, widget: text, required: false }
                   - { label: Source, name: source, widget: string, required: false }
                   - { label: Link, name: href, widget: string, required: false }
               - label: Button

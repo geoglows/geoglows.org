@@ -268,6 +268,7 @@ blocks:
       - { value: "~100K", label: forecast requests daily }
       - { value: "193", label: WMO member states the chain can reach }
   - type: caseStudies
+    background: page
     eyebrow: Case studies
     anchor: case-studies
     heading: GEOGLOWS in the field
@@ -276,37 +277,137 @@ blocks:
       - location: Malawi
         kind: Case study
         title: "Community flood early warning on the Shire River"
-        text: "GEOGLOWS-ECMWF forecasts were integrated into a Community-Based Flood Early Warning System (CBFEWS) so downstream communities receive actionable warnings before the water arrives."
+        challenge: >-
+          Cyclone Ana in January 2022 affected over 193,000 households and destroyed
+          croplands. Flood warning lead time was measured in hours.
+        intervention: >-
+          A hybrid Community Based Flood Early Warning System pairing telemetry from
+          21 rivers with bias-corrected GEOGLOWS-ECMWF forecasts across eight flood-
+          prone regions. Sirens and SMS fire on pre-set thresholds, and community
+          caretakers verify each alert before it goes out.
+        partners:
+          - name: "RCMRD (SERVIR-Africa)"
+            url: https://www.rcmrd.org
+          - name: "UNDP"
+            url: https://www.undp.org
+          - name: "Malawi Red Cross Society"
+            url: https://www.redcross.mw
+        results: >-
+          Warning lead time went from hours to 15 days. During Cyclone Ana the
+          forecast correctly predicted peak flows on the Phalombe River, confirmed
+          by water-level sensors the same day, and the Red Cross was alerted by SMS
+          and email for emergency coordination.
+        lessons: >-
+          The system is deliberately hybrid: the global forecast buys the lead time,
+          local telemetry and community caretakers confirm the alert before sirens
+          sound.
         source: "SERVIR · GEO"
         href: "https://www.youtube.com/watch?v=Okyf_YIgVWc"
       - location: Nepal · Hindu Kush Himalaya
         kind: Case study
         title: "Combining ground and satellite data to forecast floods"
-        text: "SERVIR-HKH and ICIMOD paired GEOGLOWS forecasts with ground and satellite observations to deliver flood forecasts up to ten days ahead across the region."
+        challenge: >-
+          DHM had to forecast floods across the Karnali, Gandaki and Koshi basins,
+          all glacier-fed and thinly gauged.
+        intervention: >-
+          SERVIR-HKH and ICIMOD paired GEOGLOWS forecasts with ground and satellite
+          observations, delivered through a Tethys application that embeds DHM's own
+          national model.
+        partners:
+          - name: "SERVIR-HKH"
+            url: https://www.icimod.org/initiative/servir-hkh/
+          - name: "ICIMOD"
+            url: https://www.icimod.org
+          - name: "Department of Hydrology and Meteorology"
+            url: https://www.dhm.gov.np
+        results: >-
+          Flood forecasts up to ten days ahead across the region, and DHM runs 24/7
+          forecasting and early warning through the monsoon without assembling
+          global datasets itself.
         source: "SERVIR-HKH · ICIMOD"
         href: "https://servir.icimod.org/news/combining-ground-and-satellite-data-to-forecast-flood-in-nepal/"
       - location: Central America
         kind: Case study
         title: "A shared platform for seven national services"
-        text: "National hydrological and meteorological services across Central America use daily GEOGLOWS forecasts and the historical simulation through the regional CRRH-SICA platform."
+        challenge: >-
+          Seven national hydrological and meteorological services each needed a
+          forecasting basis, and none had the means to build one alone.
+        intervention: >-
+          Daily GEOGLOWS forecasts and the 85-year historical simulation delivered
+          through the regional CRRH-SICA platform rather than seven separate
+          systems.
+        partners:
+          - name: "CRRH-SICA"
+            url: https://www.recursoshidricos.org
+        results: >-
+          National services across Central America work from the same daily forecast
+          and the same retrospective, which makes their outputs comparable across
+          borders.
+        lessons: >-
+          Delivering through an existing regional body reached seven countries at
+          once, where seven bilateral rollouts would not have.
         source: "CRRH-SICA"
         href: "https://www.youtube.com/watch?v=5wasYThy54g"
       - location: Peru
         kind: Case study
         title: "A national streamflow platform at SENAMHI"
-        text: "Peru's national service SENAMHI runs a GEOGLOWS-based streamflow platform to support water-resource and drought monitoring in Andean basins."
+        challenge: >-
+          SENAMHI needed dependable flood thresholds on river stretches its own
+          model did not reach.
+        intervention: >-
+          GEOGLOWS combined with SONICS, SENAMHI's coupled ARNO/VIC and RAPID model,
+          calibrated nationally on 43 hydrometric stations over 1981 to 2020.
+        partners:
+          - name: "SENAMHI"
+            url: https://www.senamhi.gob.pe
+        results: >-
+          Flood thresholds are published for 2.33, 5 and 10-year return periods on
+          each river stretch, and the forecast drives a decision-making game used in
+          training.
+        lessons: >-
+          The global forecast earned its place once it was calibrated against the
+          national station record, not used raw.
         source: "SENAMHI"
         href: "https://www.youtube.com/watch?v=A9s7rWH2u5I"
       - location: Amazon Basin
         kind: Case study
         title: "Bringing streamflow forecasting to the Amazon"
-        text: "SERVIR-Amazonia customized the GEOGLOWS service with regional partners to extend streamflow forecasting across the Amazon basin."
+        challenge: >-
+          The Amazon is thinly gauged, and IDEAM in particular had few stations and
+          no forecasting tools across large areas of it.
+        intervention: >-
+          SERVIR-Amazonia customised the GEOGLOWS service with regional partners,
+          including the bias correction that IDEAM now applies to the 15-day
+          ensemble.
+        partners:
+          - name: "SERVIR-Amazonia"
+            url: https://alliancebioversityciat.org/projects/servir-amazonia
+          - name: "IDEAM"
+            url: https://www.ideam.gov.co
+        results: >-
+          Streamflow forecasting extended across the basin, and IDEAM's early-
+          warning office uses the bias-corrected forecast to produce its daily
+          Hydrological Bulletin.
         source: "SERVIR-Amazonia"
         href: "https://www.youtube.com/watch?v=Q3RPtxfSj1k"
       - location: Honduras
         kind: Case study
         title: "Forecasts for reservoir and hydropower operations"
-        text: "Honduras's national electricity utility ENEE applied GEOGLOWS forecasts to inform reservoir and hydropower decisions."
+        challenge: >-
+          During Hurricanes Eta and Iota in 2020 the El Cajón Dam reached maximum
+          storage, threatening the Sula Valley's agriculture and industry.
+        intervention: >-
+          ENEE used the 15-day discharge forecast to make controlled releases before
+          Iota arrived and to close the dam's inflow during the storm.
+        partners:
+          - name: "ENEE"
+            url: https://www.enee.hn
+        results: >-
+          Severe damage in the Sula Valley was avoided, saving over 30% of the
+          economic losses recorded for Hurricane Mitch in 1998.
+        lessons: >-
+          Reservoir operations need days of warning, not hours: the forecast
+          mattered because it arrived early enough to change what the operator did.
         source: "ENEE"
         href: "https://www.youtube.com/watch?v=l3Gjy2ZAV8E"
       - location: Bangladesh

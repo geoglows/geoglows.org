@@ -52,6 +52,7 @@ const caseStudiesBlock = z.object({
   heading: z.string(),
   intro: z.string().optional(),
   anchor: z.string().optional(),
+  background: backgroundSchema.optional(),
   items: z.array(
     z.object({
       location: z.string(),
@@ -59,6 +60,15 @@ const caseStudiesBlock = z.object({
       text: z.string().optional(),
       kind: z.string().optional(),
       image: z.string().optional(),
+      // The five-part case-study shape. Shorter field stories leave them empty
+      // and carry a title and image instead.
+      challenge: z.string().optional(),
+      intervention: z.string().optional(),
+      partners: z
+        .array(z.object({ name: z.string(), url: z.string().optional() }))
+        .default([]),
+      results: z.string().optional(),
+      lessons: z.string().optional(),
       source: z.string().optional(),
       href: z.string().optional(),
     }),
