@@ -113,12 +113,37 @@ const people = defineCollection({
   }),
 });
 
+const caseStudies = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/case-studies" }),
+  schema: z.object({
+    location: z.string(),
+    title: z.string(),
+    summary: z.string().optional(),
+    kind: z.string().default("Case study"),
+    image: z.string().optional(),
+    imageAlt: z.string().optional(),
+    // A full case study carries the arc and gets its own page. A field story
+    // leaves it empty and links out instead.
+    challenge: z.string().optional(),
+    intervention: z.string().optional(),
+    partners: z
+      .array(z.object({ name: z.string(), url: z.string().optional() }))
+      .default([]),
+    results: z.string().optional(),
+    lessons: z.string().optional(),
+    source: z.string().optional(),
+    sourceUrl: z.string().optional(),
+    href: z.string().optional(),
+    order: z.number().default(0),
+  }),
+});
+
 const workingGroups = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/working-groups" }),
   schema: z.object({
     number: z.number(),
     title: z.string(),
-    summary: z.string(),
+    summary: z.string().optional(),
     order: z.number().default(0),
   }),
 });
@@ -173,6 +198,7 @@ export const collections = {
   publications,
   tools,
   people,
+  "case-studies": caseStudies,
   workingGroups,
   videos,
   webinars,
