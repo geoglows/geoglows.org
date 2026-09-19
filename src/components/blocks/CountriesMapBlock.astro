@@ -125,10 +125,31 @@ const fallbackPins = projects
           {projects.map((pr) => (
             <article class="project" id={slug(pr.country)} data-card={slug(pr.country)}>
               <header>
-                <h4>{pr.country}</h4>
+                {/* The heading is the control, so selection works without JS
+                    and lands in the tab order once per card. */}
+                <h4>
+                  <a class="pick" href={`#${slug(pr.country)}`}>{pr.country}</a>
+                </h4>
                 <span class="status">{pr.status}</span>
               </header>
-              {pr.partner && <p class="partner">{pr.partner}</p>}
+              {
+                pr.partners.length > 0 && (
+                  <p class="partners">
+                    {pr.partners.map((o, i) => (
+                      <>
+                        {i > 0 && <span class="sep"> · </span>}
+                        {o.url ? (
+                          <a href={o.url} target="_blank" rel="noopener">
+                            {o.name}
+                          </a>
+                        ) : (
+                          <span>{o.name}</span>
+                        )}
+                      </>
+                    ))}
+                  </p>
+                )
+              }
               <dl class="detail">
                 <div>
                   <dt>Challenge</dt>
@@ -182,23 +203,36 @@ const fallbackPins = projects
       if (!card) return;
       cards.forEach((c) => c.classList.toggle("is-active", c === card));
       lands.forEach((l) => l.classList.toggle("is-active", l.dataset.land === id));
-      if (scroll) {
-        // Restart the glow even when the same country is picked twice.
-        card.classList.remove("is-active");
-        void card.offsetWidth;
-        card.classList.add("is-active");
-        card.scrollIntoView({ block: "center", behavior: "smooth" });
-      }
+      // Restart the glow even when the same country is picked twice.
+      card.classList.remove("is-active");
+      void card.offsetWidth;
+      card.classList.add("is-active");
+      if (scroll) card.scrollIntoView({ block: "center", behavior: "smooth" });
     };
 
     lands.forEach((land) =>
       land.addEventListener("click", (e) => {
         e.preventDefault();
-        const id = land.dataset.land;
-        history.replaceState(null, "", "#" + id);
-        select(id, true);
+        pick(land.dataset.land, true);
       }),
     );
+
+    // Clicking anywhere on a card selects it too, but never steals a click that
+    // was aimed at a partner site or a source link.
+    cards.forEach((card) =>
+      card.addEventListener("click", (e) => {
+        const link = e.target.closest("a");
+        if (link && !link.classList.contains("pick")) return;
+        e.preventDefault();
+        // No scroll: the card you clicked is already in front of you.
+        pick(card.id, false);
+      }),
+    );
+
+    const pick = (id, scroll) => {
+      history.replaceState(null, "", "#" + id);
+      select(id, scroll);
+    };
 
     window.addEventListener("hashchange", () =>
       select(location.hash.slice(1), true),
@@ -376,11 +410,44 @@ const fallbackPins = projects
     text-transform: uppercase;
     white-space: nowrap;
   }
-  .partner {
+  .partners {
     margin-top: 9px;
     color: var(--text-faint);
     font-size: 0.81rem;
-    line-height: 1.45;
+    line-height: 1.5;
+  }
+  .partners a {
+    color: var(--text-faint);
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 3px;
+    transition: color 0.16s ease, text-decoration-color 0.16s ease;
+  }
+  .partners a:hover,
+  .partners a:focus-visible {
+    color: var(--accent-text);
+    text-decoration-color: currentColor;
+  }
+  .pick {
+    color: inherit;
+    text-decoration: none;
+  }
+  .pick:focus-visible {
+    outline: 2px solid var(--color-amber);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  .project:hover .pick {
+    color: var(--accent-text);
+  }
+  /* The whole card is a convenience target; the heading link is the real one. */
+  .project {
+    cursor: pointer;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .partners a {
+      transition: none;
+    }
   }
   .detail {
     margin: 15px 0 0;

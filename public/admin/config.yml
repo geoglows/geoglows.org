@@ -266,7 +266,14 @@ collections:
                 fields:
                   - { label: Country, name: country, widget: string, hint: "Must match a pin's country exactly for the map link to work." }
                   - { label: Challenge, name: challenge, widget: text }
-                  - { label: Partner, name: partner, widget: string, required: false }
+                  - label: Partners
+                    name: partners
+                    widget: list
+                    required: false
+                    summary: "{{fields.name}}"
+                    fields:
+                      - { label: Name, name: name, widget: string }
+                      - { label: Official website, name: url, widget: string, required: false }
                   - { label: GEOGLOWS application, name: application, widget: text }
                   - { label: Project status, name: status, widget: string, hint: "e.g. Operational, Pilot, In validation" }
                   - { label: Result, name: result, widget: text }

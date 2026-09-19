@@ -31,7 +31,11 @@ blocks:
           Around 40% of Azuay's 882,000 residents have reliable water access, and
           many rivers carry no observed data, leaving floods unexplained and
           unforecast.
-        partner: "INAMHI · GAD Azuay"
+        partners:
+          - name: "INAMHI"
+            url: https://www.inamhi.gob.ec
+          - name: "GAD Azuay"
+            url: https://www.azuay.gob.ec
         application: >-
           INAMHI GEOGLOWS Tethys Portal (12 apps) and Hydroviewer Ecuador;
           historical streamflow feeding HEC-RAS designs.
@@ -45,7 +49,11 @@ blocks:
         challenge: >-
           IDEAM has few or recent stations across large areas, especially the
           Amazon, and no forecasting tools to cover them.
-        partner: "IDEAM · NASA SERVIR-Amazonia"
+        partners:
+          - name: "IDEAM"
+            url: https://www.ideam.gov.co
+          - name: "NASA SERVIR-Amazonia"
+            url: https://alliancebioversityciat.org/projects/servir-amazonia
         application: >-
           Hydroviewer Colombia and the 15-day ensemble forecast, with bias
           correction from the SERVIR-Amazonia project.
@@ -59,7 +67,9 @@ blocks:
         challenge: >-
           National flood observation needed reliable thresholds on river stretches
           beyond those the local model covered.
-        partner: "SENAMHI"
+        partners:
+          - name: "SENAMHI"
+            url: https://www.senamhi.gob.pe
         application: >-
           GEOGLOWS combined with SONICS, SENAMHI's ARNO/VIC and RAPID model
           calibrated on 43 hydrometric stations over 1981 to 2020.
@@ -73,7 +83,9 @@ blocks:
         challenge: >-
           CEMADEN needed to extend its disaster-warning capability with flows
           accurate enough for local decisions.
-        partner: "CEMADEN"
+        partners:
+          - name: "CEMADEN"
+            url: https://www.gov.br/cemaden
         application: >-
           Hydroviewer Brazil, a Historical Validation Tool, and a National Water
           Level Forecast built on bias-corrected GEOGLOWS data.
@@ -86,7 +98,9 @@ blocks:
         challenge: >-
           During Hurricanes Eta and Iota in 2020 the El Cajón Dam reached maximum
           storage, threatening the Sula Valley's agriculture and industry.
-        partner: "ENEE (national power company)"
+        partners:
+          - name: "ENEE (national power company)"
+            url: https://www.enee.hn
         application: >-
           The 15-day discharge forecast from the GEOGLOWS Streamflow Forecast
           service, used to plan reservoir releases.
@@ -101,7 +115,10 @@ blocks:
           Lake Atitlán has been contaminated by sewage and agricultural runoff since
           2009, and algal-bloom prediction software was too costly for the small
           communities that depend on the lake.
-        partner: "CEPREDENAC · local organizations"
+        partners:
+          - name: "CEPREDENAC"
+            url: https://www.cepredenac.org
+          - name: "local organizations"
         application: >-
           The GEOGLOWS Python package and Hydroviewer, generating 14-day streamflow
           and inflow volume for the three rivers feeding the lake.
@@ -127,7 +144,13 @@ blocks:
         challenge: >-
           The country is highly exposed to floods and hurricanes, and installing in-
           situ monitoring nationwide would be costly and impractical.
-        partner: "INDRHI · WMO · BYU"
+        partners:
+          - name: "INDRHI"
+            url: https://www.indrhi.gob.do
+          - name: "WMO"
+            url: https://wmo.int
+          - name: "BYU"
+            url: https://www.byu.edu
         application: >-
           INDRHI GEOGLOWS Portal, a Tethys platform of 12 apps, with model output
           refined through GIS analysis of raw station data.
@@ -142,7 +165,9 @@ blocks:
           Upstream flows from the Ganges and Brahmaputra account for 92% of the
           drainage area and drive repeated flooding, but streamflow forecasts were
           unavailable.
-        partner: "Flood Forecast and Warning Centre (FFWC)"
+        partners:
+          - name: "Flood Forecast and Warning Centre (FFWC)"
+            url: https://www.ffwc.gov.bd
         application: >-
           A Tethys application reading ECMWF ensemble forecasts through the
           streamflow prediction API at each transboundary river.
@@ -155,7 +180,9 @@ blocks:
         challenge: >-
           DHM had to forecast floods and droughts across the Karnali, Gandaki and
           Koshi basins, all fed by high-mountain glaciers.
-        partner: "Department of Hydrology and Meteorology (DHM)"
+        partners:
+          - name: "Department of Hydrology and Meteorology (DHM)"
+            url: https://www.dhm.gov.np
         application: >-
           A Tethys web application embedding DHM's own national model with real-time
           forecast access by province and district.
@@ -169,7 +196,9 @@ blocks:
         challenge: >-
           Despite modernised hydromet infrastructure, flood prediction was limited
           by a shortage of qualified staff and decision-support tools.
-        partner: "National Center for Hydrology and Meteorology (NCHM)"
+        partners:
+          - name: "National Center for Hydrology and Meteorology (NCHM)"
+            url: https://www.nchm.gov.bt
         application: >-
           Customised GEOGLOWS web apps giving free access to flood information.
         status: In validation
@@ -182,7 +211,11 @@ blocks:
         challenge: >-
           Dam-controlled streams and heavy human modification make raw global
           forecasts unreliable without bias correction.
-        partner: "World Bank National Hydrology Project · Aquaveo"
+        partners:
+          - name: "World Bank National Hydrology Project"
+            url: https://www.worldbank.org
+          - name: "Aquaveo"
+            url: https://aquaveo.com
         application: >-
           The GEOGLOWS ECMWF Streamflow Service, covering data access and forecast
           bias correction.
@@ -196,7 +229,13 @@ blocks:
         challenge: >-
           Cyclone Ana in January 2022 affected over 193,000 households and destroyed
           croplands, and flood warning lead time was measured in hours.
-        partner: "RCMRD (SERVIR-Africa) · UNDP · Malawi Red Cross Society"
+        partners:
+          - name: "RCMRD (SERVIR-Africa)"
+            url: https://www.rcmrd.org
+          - name: "UNDP"
+            url: https://www.undp.org
+          - name: "Malawi Red Cross Society"
+            url: https://www.redcross.mw
         application: >-
           A hybrid Community Based Flood Early Warning System combining telemetry
           from 21 rivers with bias-corrected GEOGLOWS-ECMWF forecasts across eight
@@ -225,7 +264,9 @@ blocks:
         challenge: >-
           Women working in emergency management and decision-making faced gender
           disparities, limited access to information, and gaps in technology skills.
-        partner: "BYU Ballard Center"
+        partners:
+          - name: "BYU Ballard Center"
+            url: https://ballard.byu.edu
         application: >-
           GEOGLOWS applications taught alongside the Social Impact Cycle
           methodology.

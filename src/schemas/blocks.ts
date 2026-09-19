@@ -88,7 +88,9 @@ const countriesMapBlock = z.object({
       z.object({
         country: z.string(),
         challenge: z.string(),
-        partner: z.string().optional(),
+        partners: z
+          .array(z.object({ name: z.string(), url: z.string().optional() }))
+          .default([]),
         application: z.string(),
         status: z.string(),
         result: z.string(),
