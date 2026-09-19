@@ -122,6 +122,9 @@ const caseStudies = defineCollection({
     kind: z.string().default("Case study"),
     image: z.string().optional(),
     imageAlt: z.string().optional(),
+    // Drives the locator drawn from the same atlas as the Impact map, so every
+    // study says where it happened without needing a photograph.
+    countries: z.array(z.string()).default([]),
     // A full case study carries the arc and gets its own page. A field story
     // leaves it empty and links out instead.
     challenge: z.string().optional(),

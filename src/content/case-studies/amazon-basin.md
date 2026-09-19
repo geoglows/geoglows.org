@@ -4,6 +4,12 @@ title: "Bringing streamflow forecasting to the Amazon"
 summary: >-
   Streamflow forecasting extended across a thinly gauged basin, feeding IDEAM's
   daily bulletin.
+countries:
+  - "Brazil"
+  - "Peru"
+  - "Colombia"
+  - "Ecuador"
+  - "Bolivia"
 kind: "Case study"
 challenge: >-
   The Amazon is thinly gauged, and IDEAM in particular had few stations and no
@@ -12,7 +18,7 @@ intervention: >-
   SERVIR-Amazonia customised the GEOGLOWS service with regional partners,
   including the bias correction that IDEAM now applies to the 15-day ensemble.
 results: >-
-  Streamflow forecasting extended across the basin, and IDEAM's early- warning
+  Streamflow forecasting extended across the basin, and IDEAM's early-warning
   office uses the bias-corrected forecast to produce its daily Hydrological
   Bulletin.
 partners:

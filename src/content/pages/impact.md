@@ -133,8 +133,8 @@ blocks:
         href: "https://stories.geoglows.org/central-america/el-salvador"
       - country: Dominican Republic
         challenge: >-
-          The country is highly exposed to floods and hurricanes, and nationwide in-
-          situ monitoring would be costly and impractical.
+          The country is highly exposed to floods and hurricanes, and nationwide in-s
+          itu monitoring would be costly and impractical.
         partners:
           - name: "INDRHI"
             url: https://www.indrhi.gob.do
@@ -254,7 +254,7 @@ blocks:
           methodology.
         status: Pilot
         result: >-
-          Fifty women trained, with pre- and post-training surveys measuring the
+          Fifty women trained, with pre-and post-training surveys measuring the
           change and a six-month follow-up planned.
         href: "https://stories.geoglows.org/our-impact/costa-rica-pilot"
   - type: statBand

@@ -4,6 +4,8 @@ title: "A national streamflow platform at SENAMHI"
 summary: >-
   SENAMHI calibrated the global forecast against 43 stations to publish national
   flood thresholds.
+countries:
+  - "Peru"
 kind: "Case study"
 challenge: >-
   SENAMHI needed dependable flood thresholds on river stretches its own model

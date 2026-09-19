@@ -3,6 +3,8 @@ location: "Honduras"
 title: "Forecasts for reservoir and hydropower operations"
 summary: >-
   A 15-day forecast let ENEE manage the El Cajón Dam through two hurricanes.
+countries:
+  - "Honduras"
 kind: "Case study"
 challenge: >-
   During Hurricanes Eta and Iota in 2020 the El Cajón Dam reached maximum

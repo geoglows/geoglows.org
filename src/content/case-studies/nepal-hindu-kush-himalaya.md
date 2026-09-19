@@ -4,6 +4,8 @@ title: "Combining ground and satellite data to forecast floods"
 summary: >-
   Ground and satellite observations paired with GEOGLOWS give ten days of flood
   warning.
+countries:
+  - "Nepal"
 kind: "Case study"
 challenge: >-
   DHM had to forecast floods across the Karnali, Gandaki and Koshi basins, all

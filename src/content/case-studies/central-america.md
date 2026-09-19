@@ -4,6 +4,14 @@ title: "A shared platform for seven national services"
 summary: >-
   Seven national services work from one shared forecast through a regional
   platform.
+countries:
+  - "Guatemala"
+  - "Belize"
+  - "Honduras"
+  - "El Salvador"
+  - "Nicaragua"
+  - "Costa Rica"
+  - "Panama"
 kind: "Case study"
 challenge: >-
   Seven national hydrological and meteorological services each needed a

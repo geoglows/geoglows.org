@@ -4,13 +4,15 @@ title: "Community flood early warning on the Shire River"
 summary: >-
   A hybrid early-warning system took flood warning lead time from hours to 15
   days.
+countries:
+  - "Malawi"
 kind: "Case study"
 challenge: >-
   Cyclone Ana in January 2022 affected over 193,000 households and destroyed
   croplands. Flood warning lead time was measured in hours.
 intervention: >-
   A hybrid Community Based Flood Early Warning System pairing telemetry from 21
-  rivers with bias-corrected GEOGLOWS-ECMWF forecasts across eight flood- prone
+  rivers with bias-corrected GEOGLOWS-ECMWF forecasts across eight flood-prone
   regions. Sirens and SMS fire on pre-set thresholds, and community caretakers
   verify each alert before it goes out.
 results: >-
