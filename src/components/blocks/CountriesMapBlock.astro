@@ -33,25 +33,46 @@ const k = W / ((LNG1 - LNG0) * RAD);
 const projection = geoEquirectangular()
   .scale(k)
   .translate([-k * LNG0 * RAD, k * LAT1 * RAD]);
-const worldPath = geoPath(projection)(countries) ?? "";
-const pins = points
-  .map((pt) => {
-    const xy = projection([pt.lng, pt.lat]);
+const path = geoPath(projection);
+
+// The map is now a choropleth: the countries carrying a project are the markers.
+// world-atlas abbreviates a few names, so the aliases bridge content to shapes.
+const ALIAS: Record<string, string> = { "Dominican Republic": "Dominican Rep." };
+const shapeName = (c: string) => ALIAS[c] ?? c;
+const byName = new Map(
+  (countries as any).features.map((f: any) => [f.properties?.name, f]),
+);
+const wanted = new Set(projects.map((pr) => shapeName(pr.country)));
+
+const basePath =
+  path({
+    type: "FeatureCollection",
+    features: (countries as any).features.filter(
+      (f: any) => !wanted.has(f.properties?.name),
+    ),
+  } as any) ?? "";
+
+const shapes = projects
+  .map((pr) => {
+    const f = byName.get(shapeName(pr.country));
+    const d = f ? path(f) : null;
+    return d ? { country: pr.country, id: slug(pr.country), d } : null;
+  })
+  .filter(Boolean) as { country: string; id: string; d: string }[];
+
+// Anything the atlas cannot draw would silently vanish from the map, so it keeps
+// a marker instead of disappearing.
+const drawn = new Set(shapes.map((s) => s.country));
+const fallbackPins = projects
+  .filter((pr) => !drawn.has(pr.country))
+  .map((pr) => {
+    const pt = points.find((x) => x.country === pr.country);
+    const xy = pt ? projection([pt.lng, pt.lat]) : null;
     return xy
-      ? {
-          country: pt.country,
-          pos: pt.pos ?? "top",
-          xPct: (xy[0] / W) * 100,
-          yPct: (xy[1] / H) * 100,
-        }
+      ? { country: pr.country, id: slug(pr.country), xPct: (xy[0] / W) * 100, yPct: (xy[1] / H) * 100 }
       : null;
   })
-  .filter(Boolean) as {
-  country: string;
-  pos: string;
-  xPct: number;
-  yPct: number;
-}[];
+  .filter(Boolean) as { country: string; id: string; xPct: number; yPct: number }[];
 ---
 
 <section class="block countries">
@@ -63,24 +84,35 @@ const pins = points
           viewBox={`0 0 ${W} ${H}`}
           class="map"
           role="img"
-          aria-label="World map showing countries with documented GEOGLOWS deployments"
+          aria-label="Map of the countries with a documented GEOGLOWS project"
         >
-          <path d={worldPath} class="world" />
-        </svg>
-        <div class="pins">
+          <path d={basePath} class="world" />
           {
-            pins.map((p) => (
-              <a
-                class="pin pin-link"
-                style={`left:${p.xPct}%;top:${p.yPct}%`}
-                href={`#${slug(p.country)}`}
-              >
-                <span class="dot" />
-                <span class:list={["lbl", `lbl-${p.pos}`]}>{p.country}</span>
+            shapes.map((s) => (
+              <a href={`#${s.id}`} class="land" data-land={s.id} aria-label={s.country}>
+                <title>{s.country}</title>
+                <path d={s.d} />
               </a>
             ))
           }
-        </div>
+        </svg>
+        {
+          fallbackPins.length > 0 && (
+            <div class="pins">
+              {fallbackPins.map((f) => (
+                <a
+                  class="pin"
+                  style={`left:${f.xPct}%;top:${f.yPct}%`}
+                  href={`#${f.id}`}
+                  data-land={f.id}
+                  aria-label={f.country}
+                >
+                  <span class="dot" />
+                </a>
+              ))}
+            </div>
+          )
+        }
       </div>
     </div>
     {note && <p class="note">{note}</p>}
@@ -91,16 +123,12 @@ const pins = points
           {directoryIntro && <p class="dir-intro">{directoryIntro}</p>}
           <div class="grid">
           {projects.map((pr) => (
-            <details class="project" id={slug(pr.country)}>
-              <summary>
-                <span class="who">
-                  <span class="name">{pr.country}</span>
-                  <span class="status">{pr.status}</span>
-                </span>
-                <span class="partner">{pr.partner}</span>
-                <span class="teaser">{pr.result}</span>
-                <span class="chev" aria-hidden="true" />
-              </summary>
+            <article class="project" id={slug(pr.country)} data-card={slug(pr.country)}>
+              <header>
+                <h4>{pr.country}</h4>
+                <span class="status">{pr.status}</span>
+              </header>
+              {pr.partner && <p class="partner">{pr.partner}</p>}
               <dl class="detail">
                 <div>
                   <dt>Challenge</dt>
@@ -110,7 +138,7 @@ const pins = points
                   <dt>GEOGLOWS application</dt>
                   <dd>{pr.application}</dd>
                 </div>
-                <div class="res">
+                <div>
                   <dt>Result</dt>
                   <dd>
                     {pr.result}
@@ -125,7 +153,7 @@ const pins = points
                   </dd>
                 </div>
               </dl>
-            </details>
+            </article>
           ))}
           </div>
         </div>
@@ -142,69 +170,73 @@ const pins = points
 </section>
 
 <script>
-  // The cards open and close on their own, so nothing here is required to read
-  // the directory. This only keeps one card open at a time and lets a map
-  // marker open its card.
+  // Nothing here is required to read the directory: every field is already on
+  // every card. This only links the map to the cards and marks the selection.
   document.querySelectorAll("[data-directory]").forEach((dir) => {
-    const cards = [...dir.querySelectorAll("details.project")];
+    const cards = [...dir.querySelectorAll("[data-card]")];
     if (!cards.length) return;
-    const pins = [...document.querySelectorAll(".pin-link")];
+    const lands = [...document.querySelectorAll("[data-land]")];
 
-    const sync = () =>
-      pins.forEach((pin) =>
-        pin.classList.toggle(
-          "is-active",
-          cards.some((c) => c.open && "#" + c.id === pin.getAttribute("href")),
-        ),
-      );
+    const select = (id, scroll) => {
+      const card = cards.find((c) => c.id === id);
+      if (!card) return;
+      cards.forEach((c) => c.classList.toggle("is-active", c === card));
+      lands.forEach((l) => l.classList.toggle("is-active", l.dataset.land === id));
+      if (scroll) {
+        // Restart the glow even when the same country is picked twice.
+        card.classList.remove("is-active");
+        void card.offsetWidth;
+        card.classList.add("is-active");
+        card.scrollIntoView({ block: "center", behavior: "smooth" });
+      }
+    };
 
-    cards.forEach((card) =>
-      card.addEventListener("toggle", () => {
-        if (card.open) cards.forEach((other) => other !== card && (other.open = false));
-        sync();
+    lands.forEach((land) =>
+      land.addEventListener("click", (e) => {
+        e.preventDefault();
+        const id = land.dataset.land;
+        history.replaceState(null, "", "#" + id);
+        select(id, true);
       }),
     );
 
-    const openFromHash = (scroll) => {
-      if (!location.hash) return;
-      const card = cards.find((c) => "#" + c.id === location.hash);
-      if (!card) return;
-      card.open = true;
-      if (scroll) card.scrollIntoView({ block: "center" });
-    };
-    window.addEventListener("hashchange", () => openFromHash(true));
-    openFromHash(false);
-    sync();
+    window.addEventListener("hashchange", () =>
+      select(location.hash.slice(1), true),
+    );
+    if (location.hash) select(location.hash.slice(1), false);
   });
 </script>
 
 <style>
-
   .countries {
     --map-ocean: #e7ecf0;
     --map-land: #d3dbe1;
     --map-border: #ffffff;
-    --map-pin: var(--color-teal-green);
+    --map-project: #7fc4ba;
+    --map-project-on: var(--color-teal-green);
   }
   @media (prefers-color-scheme: dark) {
     :global(:root:not([data-theme="light"])) .countries {
       --map-ocean: #101b28;
       --map-land: #263749;
       --map-border: #101b28;
-      --map-pin: #4fb3a4;
+      --map-project: #2f7d74;
+      --map-project-on: #5fd0be;
     }
   }
   :global(:root[data-theme="dark"]) .countries {
     --map-ocean: #101b28;
     --map-land: #263749;
     --map-border: #101b28;
-    --map-pin: #4fb3a4;
+    --map-project: #2f7d74;
+    --map-project-on: #5fd0be;
   }
   :global(:root[data-theme="light"]) .countries {
     --map-ocean: #e7ecf0;
     --map-land: #d3dbe1;
     --map-border: #ffffff;
-    --map-pin: var(--color-teal-green);
+    --map-project: #7fc4ba;
+    --map-project-on: var(--color-teal-green);
   }
 
   .map-wrap {
@@ -217,135 +249,77 @@ const pins = points
     position: relative;
   }
   .map {
+    display: block;
     width: 100%;
     height: auto;
-    display: block;
   }
   .world {
     fill: var(--map-land);
     stroke: var(--map-border);
-    stroke-width: 0.6;
-    stroke-linejoin: round;
+    stroke-width: 0.4;
   }
-
+  /* The countries carrying a project are the markers now. */
+  .land path {
+    fill: var(--map-project);
+    stroke: var(--map-border);
+    stroke-width: 0.4;
+    transition: fill 0.18s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .land:hover path,
+  .land:focus-visible path {
+    fill: var(--map-project-on);
+  }
+  .land:focus-visible {
+    outline: 2px solid var(--color-amber);
+    outline-offset: 2px;
+  }
+  .land.is-active path {
+    fill: var(--map-project-on);
+    stroke: var(--map-project-on);
+    stroke-width: 1.6;
+    paint-order: stroke;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .land path {
+      transition: none;
+    }
+  }
+  /* Only for a country the atlas cannot draw, so it never silently vanishes. */
   .pins {
     position: absolute;
     inset: 0;
   }
-
-  /* 22 markers cannot all carry a permanent label without colliding, so the
-     dot is always visible and the name appears on hover, tap or focus. */
-  /* The tightest pair sits 11.5px apart, so a 28px hit box swallowed its
-     neighbour: aiming at Guatemala selected El Salvador. 16px keeps each dot's
-     centre its own: that pair is 6.8px apart horizontally and 8.8px vertically,
-     so a 16px box still overlapped by a pixel and :hover lifted the wrong pin
-     on top. The chip rail is the accessible full-size control. */
   .pin {
     position: absolute;
     display: grid;
     place-items: center;
-    width: 12px;
-    height: 12px;
+    width: 14px;
+    height: 14px;
     transform: translate(-50%, -50%);
-    text-decoration: none;
   }
   .dot {
     width: 9px;
     height: 9px;
     border-radius: 50%;
-    background: var(--map-pin);
+    background: var(--map-project-on);
     border: 2px solid var(--surface-page);
-    box-shadow: 0 1px 4px rgba(15, 23, 32, 0.45);
-    transition: transform 0.16s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .pin-link.is-active .dot {
-    transform: scale(1.5);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--map-pin) 34%, transparent);
-  }
-  .pin:hover,
-  .pin:focus {
-    z-index: 5;
-  }
-  .pin:hover .dot,
-  .pin:focus .dot {
-    transform: scale(1.35);
-  }
-  .pin-link:focus-visible {
-    outline: 2px solid var(--color-amber);
-    outline-offset: 2px;
-    border-radius: 50%;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .dot {
-      transition: none;
-    }
-  }
-  .lbl {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.14s ease;
-    z-index: 6;
-    padding: 2px 7px;
-    border-radius: 6px;
-    background: var(--surface-page);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-sm);
-    color: var(--text-strong);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.01em;
-    white-space: nowrap;
   }
 
-  /* :focus as well as :focus-visible, so the name shows however focus arrives. */
-  .pin:hover .lbl,
-  .pin:focus .lbl,
-  .pin:focus-visible .lbl {
-    opacity: 1;
-  }
-  .lbl-top {
-    bottom: calc(100% - 4px);
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  .lbl-bottom {
-    top: calc(100% - 4px);
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  .lbl-left {
-    right: calc(100% - 2px);
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  .lbl-right {
-    left: calc(100% - 2px);
-    top: 50%;
-    transform: translateY(-50%);
-  }
   .note {
     margin-top: 14px;
-    color: var(--text-faint);
-    font-size: 0.9rem;
+    color: var(--text-body);
+    font-size: 0.88rem;
+    line-height: 1.55;
   }
   .all {
-    margin-top: 20px;
+    margin-top: 22px;
   }
   .all a {
     color: var(--accent-text);
     font-weight: 800;
     text-decoration: none;
   }
-  @media (max-width: 640px) {
-    .lbl {
-      font-size: 0.58rem;
-      padding: 1px 5px;
-    }
-  }
 
-  /* The definitive record: one row per documented project, country and status
-     on the left, the six-field record on the right. */
   .directory {
     margin-top: clamp(44px, 5.5vw, 74px);
   }
@@ -360,112 +334,35 @@ const pins = points
     font-size: 0.97rem;
     line-height: 1.6;
   }
-  /* A directory of discrete records is what cards are actually for. The face
-     carries the four things worth scanning; the record itself opens in place and
-     takes the full row, so the grid rhythm breaks rather than repeating. */
+
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 14px;
-    margin-top: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    gap: 16px;
+    margin-top: 22px;
   }
+  /* Every field is on the face: nothing opens, so nothing is hidden. */
   .project {
+    padding: 20px 20px 18px;
     border: 1px solid var(--border);
     border-radius: var(--radius);
     background: var(--surface-page);
-    scroll-margin-top: 90px;
-    transition: border-color 0.16s ease;
+    scroll-margin-top: 100px;
+    transition: border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .project:hover {
-    border-color: var(--accent-text);
-  }
-  .project[open] {
-    grid-column: 1 / -1;
-    border-color: var(--accent-text);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .project {
-      transition: none;
-    }
-  }
-  summary {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 18px;
-    gap: 9px 14px;
-    padding: 18px 18px 17px;
-    cursor: pointer;
-    list-style: none;
-  }
-  summary::-webkit-details-marker {
-    display: none;
-  }
-  summary:focus-visible {
-    outline: 2px solid var(--color-amber);
-    outline-offset: 3px;
-    border-radius: var(--radius);
-  }
-  .who {
+  .project header {
     display: flex;
     align-items: center;
     gap: 10px;
     flex-wrap: wrap;
   }
-  .name {
+  .project h4 {
     font-family: "Raleway", "Open Sans", system-ui, sans-serif;
-    font-size: 1.12rem;
+    font-size: 1.16rem;
     font-weight: 800;
     letter-spacing: -0.015em;
     color: var(--text-strong);
-  }
-  .partner,
-  .teaser {
-    grid-column: 1 / -1;
-  }
-  .partner:empty {
-    display: none;
-  }
-  summary {
-    align-content: start;
-  }
-  .teaser {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    color: var(--text-body);
-    font-size: 0.86rem;
-    line-height: 1.5;
-  }
-  /* The open record repeats it in full, so the teaser stands down. */
-  .project[open] .teaser {
-    display: none;
-  }
-  .project[open] .name {
-    font-size: 1.3rem;
-  }
-  /* The chevron rotates; nothing in the layout box animates. */
-  .chev {
-    /* Pinned to the first row beside the name. Left to flow it landed under the
-       teaser on a line of its own, costing a row of height on every card. */
-    grid-row: 1;
-    grid-column: 2;
-    justify-self: end;
-    align-self: start;
-    margin-top: 9px;
-    width: 9px;
-    height: 9px;
-    border-right: 2px solid var(--text-faint);
-    border-bottom: 2px solid var(--text-faint);
-    transform: rotate(45deg) translate(-2px, -2px);
-    transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  .project[open] .chev {
-    transform: rotate(-135deg) translate(-3px, -3px);
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .chev {
-      transition: none;
-    }
   }
   .status {
     display: inline-block;
@@ -473,68 +370,63 @@ const pins = points
     border: 1px solid var(--border);
     border-radius: 999px;
     color: var(--accent-text);
-    font-size: 0.7rem;
+    font-size: 0.68rem;
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
+    white-space: nowrap;
   }
   .partner {
+    margin-top: 9px;
     color: var(--text-faint);
-    font-size: 0.8rem;
+    font-size: 0.81rem;
     line-height: 1.45;
   }
   .detail {
-    padding: 2px 18px 20px;
+    margin: 15px 0 0;
     display: grid;
-    /* Two even columns: auto-fit opened a third that only ever sat empty. */
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px clamp(22px, 3vw, 40px);
-    margin: 0;
-  }
-  .detail .res {
-    grid-column: 1 / -1;
+    gap: 13px;
   }
   .detail dt {
     color: var(--text-faint);
-    font-size: 0.68rem;
+    font-size: 0.66rem;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
   .detail dd {
-    margin: 5px 0 0;
+    margin: 4px 0 0;
     color: var(--text-body);
-    font-size: 0.89rem;
-    line-height: 1.55;
-  }
-  .detail .res dd {
-    color: var(--text-strong);
+    font-size: 0.87rem;
+    line-height: 1.5;
   }
   .src {
     color: var(--accent-text);
     font-weight: 700;
     white-space: nowrap;
   }
-  @media (max-width: 760px) {
-    summary {
-      grid-template-columns: minmax(0, 1fr) 18px;
-      align-items: start;
-    }
-    .partner {
-      grid-column: 1 / 2;
-      text-align: left;
-    }
-    .detail {
-      grid-template-columns: 1fr;
+
+  /* Selection: the border and ring carry it, and a brief glow pulls the eye to
+     the card that just scrolled into view. Colour and shadow only; the card's
+     box never changes size, so no layout is animated. */
+  .project.is-active {
+    border-color: var(--map-project-on);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--map-project-on) 26%, transparent);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .project.is-active {
+      animation: card-land 1.15s cubic-bezier(0.22, 1, 0.36, 1);
     }
   }
-
-  @media (max-width: 899px) {
-    /* Hover labels cannot fire on touch, and edge pins pushed them past the
-       viewport, which gave the page a horizontal scroll. Tapping a pin opens
-       the record, which names the country anyway. */
-    .lbl {
-      display: none;
+  @keyframes card-land {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--map-project-on) 55%, transparent);
+    }
+    38% {
+      box-shadow: 0 0 0 11px color-mix(in srgb, var(--map-project-on) 34%, transparent);
+    }
+    100% {
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--map-project-on) 26%, transparent);
     }
   }
 </style>
