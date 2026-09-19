@@ -30,7 +30,7 @@ blocks:
       - { country: Bhutan, lat: 27.51, lng: 90.9, pos: right }
       - { country: Bangladesh, lat: 23.68, lng: 90.36, pos: bottom }
       - { country: Thailand, lat: 15.87, lng: 100.99, pos: right }
-    note: "Teal markers have a documented project below: hover or tab to one for the country name, and select it to jump to its entry. Grey markers are further deployments."
+    note: "Teal markers have a documented project: select one to open its record below. Grey markers are further deployments."
     directoryHeading: Project directory
     directoryIntro: "Every documented deployment. Open a country for the problem it was brought in to solve, what was built, and what came of it. Markers on the map above open their entry directly."
     projects:
