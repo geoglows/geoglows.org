@@ -121,7 +121,12 @@ const fallbackPins = projects
         <div class="directory" data-directory>
           {directoryHeading && <h3 class="dir-head">{directoryHeading}</h3>}
           {directoryIntro && <p class="dir-intro">{directoryIntro}</p>}
-          <div class="grid">
+          <div
+            class="grid"
+            tabindex="0"
+            role="region"
+            aria-label="Projects, scroll horizontally"
+          >
           {projects.map((pr) => (
             <article class="project" id={slug(pr.country)} data-card={slug(pr.country)}>
               <header>
@@ -207,7 +212,17 @@ const fallbackPins = projects
       card.classList.remove("is-active");
       void card.offsetWidth;
       card.classList.add("is-active");
-      if (scroll) card.scrollIntoView({ block: "center", behavior: "smooth" });
+      if (scroll) {
+        const rail = card.parentElement;
+        const railed = getComputedStyle(rail).overflowX === "auto";
+        // inline:"center" moves the rail; block:"nearest" keeps the map in frame
+        // instead of throwing the page down to the card.
+        card.scrollIntoView(
+          railed
+            ? { block: "nearest", inline: "center", behavior: "smooth" }
+            : { block: "center", behavior: "smooth" },
+        );
+      }
     };
 
     lands.forEach((land) =>
@@ -369,15 +384,49 @@ const fallbackPins = projects
     line-height: 1.6;
   }
 
+  /* Phones keep the vertical stack: a horizontal rail of tall cards is wrong on
+     a small screen. The rail only appears where the map and a card can share the
+     viewport. */
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+    grid-template-columns: 1fr;
     gap: 16px;
     margin-top: 22px;
   }
+  @media (min-width: 900px) {
+    .grid {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding: 0 2px;
+      padding-bottom: 14px;
+      /* The map stays the index, so the rail is the detail viewport, not the
+         way projects are discovered. All 15 stay in the DOM either way. */
+      scrollbar-color: var(--map-project) transparent;
+    }
+    .grid > .project {
+      flex: 0 0 clamp(310px, 31%, 390px);
+      scroll-snap-align: start;
+    }
+    .grid:focus-visible {
+      outline: 2px solid var(--color-amber);
+      outline-offset: 4px;
+      border-radius: var(--radius);
+    }
+    .grid::-webkit-scrollbar {
+      height: 8px;
+    }
+    .grid::-webkit-scrollbar-thumb {
+      background: var(--map-project);
+      border-radius: 999px;
+    }
+    .grid::-webkit-scrollbar-track {
+      background: transparent;
+    }
+  }
   /* Every field is on the face: nothing opens, so nothing is hidden. */
   .project {
-    padding: 20px 20px 18px;
+    padding: 17px 18px 16px;
     border: 1px solid var(--border);
     border-radius: var(--radius);
     background: var(--surface-page);
@@ -411,7 +460,7 @@ const fallbackPins = projects
     white-space: nowrap;
   }
   .partners {
-    margin-top: 9px;
+    margin-top: 8px;
     color: var(--text-faint);
     font-size: 0.81rem;
     line-height: 1.5;
@@ -450,9 +499,9 @@ const fallbackPins = projects
     }
   }
   .detail {
-    margin: 15px 0 0;
+    margin: 13px 0 0;
     display: grid;
-    gap: 13px;
+    gap: 11px;
   }
   .detail dt {
     color: var(--text-faint);
@@ -462,7 +511,7 @@ const fallbackPins = projects
     text-transform: uppercase;
   }
   .detail dd {
-    margin: 4px 0 0;
+    margin: 3px 0 0;
     color: var(--text-body);
     font-size: 0.87rem;
     line-height: 1.5;
