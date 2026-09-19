@@ -17,22 +17,14 @@ blocks:
       - { country: Ecuador, lat: -1.83, lng: -78.18, pos: left }
       - { country: Peru, lat: -9.19, lng: -75.02, pos: left }
       - { country: Brazil, lat: -10.0, lng: -52.0, pos: right }
-      - { country: "Amazon Basin", lat: -4.5, lng: -64.0, pos: bottom }
-      - { country: Senegal, lat: 14.5, lng: -14.45, pos: left }
-      - { country: Ghana, lat: 7.95, lng: -1.03, pos: bottom }
-      - { country: Ethiopia, lat: 9.15, lng: 40.49, pos: right }
-      - { country: Kenya, lat: 0.02, lng: 37.9, pos: right }
       - { country: Malawi, lat: -13.25, lng: 34.3, pos: bottom }
       - { country: Israel, lat: 31.4, lng: 35.0, pos: left }
-      - { country: Afghanistan, lat: 33.94, lng: 67.71, pos: top }
       - { country: India, lat: 21.5, lng: 78.96, pos: left }
       - { country: Nepal, lat: 28.39, lng: 84.12, pos: top }
       - { country: Bhutan, lat: 27.51, lng: 90.9, pos: right }
       - { country: Bangladesh, lat: 23.68, lng: 90.36, pos: bottom }
-      - { country: Thailand, lat: 15.87, lng: 100.99, pos: right }
-    note: "Teal markers have a documented project: select one to open its record below. Grey markers are further deployments."
     directoryHeading: Project directory
-    directoryIntro: "Every documented deployment. Open a country for the problem it was brought in to solve, what was built, and what came of it. Markers on the map above open their entry directly."
+    directoryIntro: "Select a country on the map or below."
     projects:
       - country: Ecuador
         challenge: >-

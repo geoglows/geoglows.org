@@ -10,8 +10,6 @@ const { eyebrow, heading, intro, note, points, projects, directoryHeading, direc
 
 const slug = (s: string) =>
   "project-" + s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
-// A pin only becomes a link when the directory actually holds that country.
-const documented = new Set(projects.map((pr) => pr.country));
 
 const require = createRequire(import.meta.url);
 const topo = require("world-atlas/countries-110m.json");
@@ -71,23 +69,16 @@ const pins = points
         </svg>
         <div class="pins">
           {
-            pins.map((p) =>
-              documented.has(p.country) ? (
-                <a
-                  class="pin pin-link"
-                  style={`left:${p.xPct}%;top:${p.yPct}%`}
-                  href={`#${slug(p.country)}`}
-                >
-                  <span class="dot" />
-                  <span class:list={["lbl", `lbl-${p.pos}`]}>{p.country}</span>
-                </a>
-              ) : (
-                <span class="pin" style={`left:${p.xPct}%;top:${p.yPct}%`}>
-                  <span class="dot" />
-                  <span class:list={["lbl", `lbl-${p.pos}`]}>{p.country}</span>
-                </span>
-              ),
-            )
+            pins.map((p) => (
+              <a
+                class="pin pin-link"
+                style={`left:${p.xPct}%;top:${p.yPct}%`}
+                href={`#${slug(p.country)}`}
+              >
+                <span class="dot" />
+                <span class:list={["lbl", `lbl-${p.pos}`]}>{p.country}</span>
+              </a>
+            ))
           }
         </div>
       </div>
@@ -227,31 +218,27 @@ const pins = points
     --map-ocean: #e7ecf0;
     --map-land: #d3dbe1;
     --map-border: #ffffff;
-    --map-pin: #7d93a5;
-    --map-pin-live: var(--color-teal-green);
+    --map-pin: var(--color-teal-green);
   }
   @media (prefers-color-scheme: dark) {
     :global(:root:not([data-theme="light"])) .countries {
       --map-ocean: #101b28;
       --map-land: #263749;
       --map-border: #101b28;
-      --map-pin: #6c8296;
-      --map-pin-live: #4fb3a4;
+      --map-pin: #4fb3a4;
     }
   }
   :global(:root[data-theme="dark"]) .countries {
     --map-ocean: #101b28;
     --map-land: #263749;
     --map-border: #101b28;
-    --map-pin: #6c8296;
-    --map-pin-live: #4fb3a4;
+    --map-pin: #4fb3a4;
   }
   :global(:root[data-theme="light"]) .countries {
     --map-ocean: #e7ecf0;
     --map-land: #d3dbe1;
     --map-border: #ffffff;
-    --map-pin: #7d93a5;
-    --map-pin-live: var(--color-teal-green);
+    --map-pin: var(--color-teal-green);
   }
 
   .map-wrap {
@@ -305,13 +292,9 @@ const pins = points
     box-shadow: 0 1px 4px rgba(15, 23, 32, 0.45);
     transition: transform 0.16s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  .pin-link .dot {
-    background: var(--map-pin-live);
-  }
   .pin-link.is-active .dot {
-    background: var(--map-pin-live);
     transform: scale(1.5);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--map-pin-live) 34%, transparent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--map-pin) 34%, transparent);
   }
   .pin:hover,
   .pin:focus {
@@ -544,27 +527,28 @@ const pins = points
   .rail {
     display: flex;
     flex-wrap: wrap;
-    gap: 7px;
-    margin: 22px 0 6px;
+    align-items: baseline;
+    margin: 18px 0 4px;
   }
   .chip {
-    padding: 6px 13px;
-    border: 1px solid var(--border);
-    border-radius: 999px;
+    padding: 5px 0;
     color: var(--text-body);
-    font-size: 0.82rem;
-    font-weight: 700;
+    font-size: 0.87rem;
     text-decoration: none;
-    transition: color 0.16s ease, border-color 0.16s ease;
+    transition: color 0.16s ease;
+  }
+  /* A separator rather than 15 borders: this is an index, not a toolbar. */
+  .chip + .chip::before {
+    content: "·";
+    margin: 0 8px;
+    color: var(--text-faint);
   }
   .chip:hover {
     color: var(--accent-text);
-    border-color: var(--accent-text);
   }
   .chip.is-active {
-    color: var(--surface-page);
-    background: var(--accent-text);
-    border-color: var(--accent-text);
+    color: var(--accent-text);
+    font-weight: 800;
   }
   @media (prefers-reduced-motion: reduce) {
     .chip {
