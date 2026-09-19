@@ -9,16 +9,21 @@ export async function getStaticPaths() {
   const all = (await getCollection("case-studies")).sort(
     (a, b) => a.data.order - b.data.order,
   );
-  // Only a full case study earns a page; a field story links out instead.
-  const studies = all.filter((s) => s.data.challenge);
-  return studies.map((s, i) => ({
-    params: { slug: s.id },
-    props: {
-      study: s,
-      prev: studies[(i - 1 + studies.length) % studies.length],
-      next: studies[(i + 1) % studies.length],
-    },
-  }));
+  // Both depths get a page now. Prev/next walks within the same depth so a
+  // reader following case studies is not dropped into a field story.
+  const studies = all.filter((s) => s.data.challenge || s.data.story.length);
+  return studies.map((s, i) => {
+    const kin = studies.filter((x) => x.data.kind === s.data.kind);
+    const k = kin.indexOf(s);
+    return {
+      params: { slug: s.id },
+      props: {
+        study: s,
+        prev: kin[(k - 1 + kin.length) % kin.length],
+        next: kin[(k + 1) % kin.length],
+      },
+    };
+  });
 }
 
 const { study, prev, next } = Astro.props;
@@ -126,6 +131,11 @@ const steps = [
         </aside>
 
         <div class="arc">
+          {
+            d.story.map((para) => (
+              <p class="para">{para}</p>
+            ))
+          }
           {
             steps.map((s) => (
               <section class="step">
@@ -282,6 +292,21 @@ const steps = [
 
   /* Numbered so the three steps read as a sequence rather than three equal
      blocks, and the lesson is set apart because it is the payoff. */
+  /* A field story is prose, not an arc, so it gets a reading measure and no
+     numbered scaffolding it does not earn. */
+  .para {
+    max-width: 66ch;
+    color: var(--text-body);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  .para:first-child {
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .para + .para {
+    margin-top: 20px;
+  }
   .step {
     padding-top: 24px;
     border-top: 1px solid var(--border);

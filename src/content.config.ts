@@ -134,6 +134,9 @@ const caseStudies = defineCollection({
       .default([]),
     results: z.string().optional(),
     lessons: z.string().optional(),
+    // A field story is genuinely shorter, so it carries prose rather than being
+    // forced into the case-study arc.
+    story: z.array(z.string()).default([]),
     source: z.string().optional(),
     sourceUrl: z.string().optional(),
     href: z.string().optional(),

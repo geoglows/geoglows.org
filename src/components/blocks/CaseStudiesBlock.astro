@@ -14,8 +14,9 @@ const { eyebrow, heading, intro, background, cta } = Astro.props as Extract<
 const studies = (await getCollection("case-studies")).sort(
   (a, b) => a.data.order - b.data.order,
 );
+// Both depths have a page now; href stays as a fallback for a stub with neither.
 const target = (s: (typeof studies)[number]) =>
-  s.data.challenge ? `/case-studies/${s.id}` : s.data.href;
+  s.data.challenge || s.data.story.length ? `/case-studies/${s.id}` : s.data.href;
 ---
 
 <section class:list={["block", { muted: background !== "page" }]}>
@@ -55,7 +56,7 @@ const target = (s: (typeof studies)[number]) =>
               {s.data.summary && <p>{s.data.summary}</p>}
               {href && (
                 <a class="more" href={href} {...(out ? { target: "_blank", rel: "noopener" } : {})}>
-                  {s.data.challenge ? "Read the case study" : "Learn more"} →
+                  {s.data.challenge ? "Read the case study" : "Read the story"} →
                 </a>
               )}
             </article>
