@@ -89,21 +89,16 @@ const pins = points
         <div class="directory" data-directory>
           {directoryHeading && <h3 class="dir-head">{directoryHeading}</h3>}
           {directoryIntro && <p class="dir-intro">{directoryIntro}</p>}
-          <nav class="rail" aria-label="Countries with a documented project">
-            {projects.map((pr) => (
-              <a class="chip" href={`#${slug(pr.country)}`} data-chip={slug(pr.country)}>
-                {pr.country}
-              </a>
-            ))}
-          </nav>
+          <div class="grid">
           {projects.map((pr) => (
-            <details class="project" id={slug(pr.country)} tabindex="-1">
+            <details class="project" id={slug(pr.country)}>
               <summary>
                 <span class="who">
                   <span class="name">{pr.country}</span>
                   <span class="status">{pr.status}</span>
                 </span>
                 <span class="partner">{pr.partner}</span>
+                <span class="teaser">{pr.result}</span>
                 <span class="chev" aria-hidden="true" />
               </summary>
               <dl class="detail">
@@ -132,6 +127,7 @@ const pins = points
               </dl>
             </details>
           ))}
+          </div>
         </div>
       )
     }
@@ -146,69 +142,39 @@ const pins = points
 </section>
 
 <script>
-  // Progressive enhancement. Without JS every record stays in the page as the
-  // collapsible list that already ships, which is what keeps this a definitive
-  // record for print, in-page search and crawlers. JS upgrades wide viewports to
-  // one-record-at-a-time; narrow ones keep the list.
-  const WIDE = window.matchMedia("(min-width: 900px)");
-
+  // The cards open and close on their own, so nothing here is required to read
+  // the directory. This only keeps one card open at a time and lets a map
+  // marker open its card.
   document.querySelectorAll("[data-directory]").forEach((dir) => {
-    const records = [...dir.querySelectorAll("details.project")];
-    if (!records.length) return;
-    const chips = [...dir.querySelectorAll("[data-chip]")];
+    const cards = [...dir.querySelectorAll("details.project")];
+    if (!cards.length) return;
     const pins = [...document.querySelectorAll(".pin-link")];
-    dir.dataset.mode = "panel";
 
-    const select = (id, moveFocus) => {
-      const target = records.find((r) => r.id === id) || records[0];
-      records.forEach((r) => {
-        const on = r === target;
-        r.classList.toggle("is-active", on);
-        if (WIDE.matches) r.open = on;
-      });
-      chips.forEach((c) => {
-        const on = c.dataset.chip === target.id;
-        c.classList.toggle("is-active", on);
-        if (on) c.setAttribute("aria-current", "true");
-        else c.removeAttribute("aria-current");
-      });
-      pins.forEach((pin) => {
-        pin.classList.toggle("is-active", pin.getAttribute("href") === "#" + target.id);
-      });
-      // Focus follows selection so screen-reader and keyboard users land on the
-      // record they just chose, but never on first paint.
-      if (moveFocus && WIDE.matches) target.focus({ preventScroll: true });
-      return target;
-    };
+    const sync = () =>
+      pins.forEach((pin) =>
+        pin.classList.toggle(
+          "is-active",
+          cards.some((c) => c.open && "#" + c.id === pin.getAttribute("href")),
+        ),
+      );
 
-    const fromHash = () => (location.hash ? location.hash.slice(1) : records[0].id);
-
-    [...chips, ...pins].forEach((el) => {
-      el.addEventListener("click", (e) => {
-        const id = (el.dataset && el.dataset.chip) || el.getAttribute("href").slice(1);
-        if (!records.some((r) => r.id === id)) return;
-        if (WIDE.matches) {
-          e.preventDefault();
-          history.replaceState(null, "", "#" + id);
-          select(id, true);
-        }
-      });
-    });
-
-    // In list mode a record opens on its own; keep the panel state in step.
-    records.forEach((r) =>
-      r.addEventListener("toggle", () => {
-        if (!WIDE.matches && r.open) select(r.id, false);
+    cards.forEach((card) =>
+      card.addEventListener("toggle", () => {
+        if (card.open) cards.forEach((other) => other !== card && (other.open = false));
+        sync();
       }),
     );
 
-    WIDE.addEventListener("change", () => {
-      if (WIDE.matches) select(fromHash(), false);
-      else records.forEach((r) => (r.open = false));
-    });
-
-    window.addEventListener("hashchange", () => select(fromHash(), true));
-    select(fromHash(), false);
+    const openFromHash = (scroll) => {
+      if (!location.hash) return;
+      const card = cards.find((c) => "#" + c.id === location.hash);
+      if (!card) return;
+      card.open = true;
+      if (scroll) card.scrollIntoView({ block: "center" });
+    };
+    window.addEventListener("hashchange", () => openFromHash(true));
+    openFromHash(false);
+    sync();
   });
 </script>
 
@@ -394,44 +360,54 @@ const pins = points
     font-size: 0.97rem;
     line-height: 1.6;
   }
-  /* 15 full records ran to 3.7 screens. The record is unchanged; only the
-     Challenge/Application/Result detail is folded away until asked for. */
+  /* A directory of discrete records is what cards are actually for. The face
+     carries the four things worth scanning; the record itself opens in place and
+     takes the full row, so the grid rhythm breaks rather than repeating. */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 14px;
+    margin-top: 20px;
+  }
   .project {
-    border-top: 1px solid var(--border);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-page);
     scroll-margin-top: 90px;
+    transition: border-color 0.16s ease;
   }
-  .project:first-of-type {
-    border-top-width: 2px;
-    border-top-color: var(--accent-text);
+  .project:hover {
+    border-color: var(--accent-text);
   }
-  .project:last-of-type {
-    border-bottom: 1px solid var(--border);
+  .project[open] {
+    grid-column: 1 / -1;
+    border-color: var(--accent-text);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .project {
+      transition: none;
+    }
   }
   summary {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto 18px;
-    align-items: center;
-    gap: 10px clamp(16px, 2.4vw, 32px);
-    min-height: 56px;
-    padding: 9px 0;
+    grid-template-columns: minmax(0, 1fr) 18px;
+    gap: 9px 14px;
+    padding: 18px 18px 17px;
     cursor: pointer;
     list-style: none;
   }
   summary::-webkit-details-marker {
     display: none;
   }
-  summary:hover .name,
-  .project[open] .name {
-    color: var(--accent-text);
-  }
   summary:focus-visible {
     outline: 2px solid var(--color-amber);
     outline-offset: 3px;
+    border-radius: var(--radius);
   }
   .who {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     flex-wrap: wrap;
   }
   .name {
@@ -441,9 +417,41 @@ const pins = points
     letter-spacing: -0.015em;
     color: var(--text-strong);
   }
+  .partner,
+  .teaser {
+    grid-column: 1 / -1;
+  }
+  .partner:empty {
+    display: none;
+  }
+  summary {
+    align-content: start;
+  }
+  .teaser {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    color: var(--text-body);
+    font-size: 0.86rem;
+    line-height: 1.5;
+  }
+  /* The open record repeats it in full, so the teaser stands down. */
+  .project[open] .teaser {
+    display: none;
+  }
+  .project[open] .name {
+    font-size: 1.3rem;
+  }
   /* The chevron rotates; nothing in the layout box animates. */
   .chev {
+    /* Pinned to the first row beside the name. Left to flow it landed under the
+       teaser on a line of its own, costing a row of height on every card. */
+    grid-row: 1;
+    grid-column: 2;
     justify-self: end;
+    align-self: start;
+    margin-top: 9px;
     width: 9px;
     height: 9px;
     border-right: 2px solid var(--text-faint);
@@ -472,12 +480,11 @@ const pins = points
   }
   .partner {
     color: var(--text-faint);
-    font-size: 0.83rem;
+    font-size: 0.8rem;
     line-height: 1.45;
-    text-align: right;
   }
   .detail {
-    padding: 2px 0 clamp(22px, 2.6vw, 30px);
+    padding: 2px 18px 20px;
     display: grid;
     /* Two even columns: auto-fit opened a third that only ever sat empty. */
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -522,93 +529,7 @@ const pins = points
     }
   }
 
-  /* The chip rail is navigation, not decoration: in panel mode the map would
-     otherwise be the only way to reach a country. */
-  .rail {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    margin: 18px 0 4px;
-  }
-  .chip {
-    padding: 5px 0;
-    color: var(--text-body);
-    font-size: 0.87rem;
-    text-decoration: none;
-    transition: color 0.16s ease;
-  }
-  /* A separator rather than 15 borders: this is an index, not a toolbar. */
-  .chip + .chip::before {
-    content: "·";
-    margin: 0 8px;
-    color: var(--text-faint);
-  }
-  .chip:hover {
-    color: var(--accent-text);
-  }
-  .chip.is-active {
-    color: var(--accent-text);
-    font-weight: 800;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .chip {
-      transition: none;
-    }
-  }
-
-  /* Panel mode: wide viewports show one record, narrow ones keep the list.
-     Without JS neither rule applies and all 15 stay browsable. */
-  @media (min-width: 900px) {
-    [data-directory][data-mode="panel"] .project {
-      display: none;
-      border-top: 0;
-    }
-    [data-directory][data-mode="panel"] .project.is-active {
-      display: block;
-    }
-    [data-directory][data-mode="panel"] .project:last-of-type {
-      border-bottom: 0;
-    }
-    [data-directory][data-mode="panel"] summary {
-      cursor: default;
-      border-top: 2px solid var(--accent-text);
-    }
-    [data-directory][data-mode="panel"] .chev {
-      display: none;
-    }
-    [data-directory][data-mode="panel"] .project[open] .name {
-      color: var(--text-strong);
-    }
-    [data-directory][data-mode="panel"] .name {
-      font-size: 1.32rem;
-    }
-    [data-directory][data-mode="panel"] .project.is-active {
-      animation: record-in 0.26s cubic-bezier(0.22, 1, 0.36, 1);
-    }
-    [data-directory][data-mode="panel"] .project:focus-visible {
-      outline: 2px solid var(--color-amber);
-      outline-offset: 6px;
-    }
-  }
-  @media (min-width: 900px) and (prefers-reduced-motion: reduce) {
-    [data-directory][data-mode="panel"] .project.is-active {
-      animation: none;
-    }
-  }
-  /* Opacity only; nothing in the layout box animates. */
-  @keyframes record-in {
-    from {
-      opacity: 0;
-    }
-    to {
-      opacity: 1;
-    }
-  }
-  /* The rail replaces the list as the index, so it is panel-mode only. */
   @media (max-width: 899px) {
-    .rail {
-      display: none;
-    }
     /* Hover labels cannot fire on touch, and edge pins pushed them past the
        viewport, which gave the page a horizontal scroll. Tapping a pin opens
        the record, which names the country anyway. */
