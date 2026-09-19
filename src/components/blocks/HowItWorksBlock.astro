@@ -12,6 +12,18 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
 <section class="block steps-flow">
   <div class="shell">
     <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} />
+    {/* The stages are a chain, so the chain is shown before it is explained.
+        aria-hidden because the ordered list below carries the same sequence. */}
+    <p class="chain" aria-hidden="true">
+      {
+        steps.map((step, index) => (
+          <>
+            {index > 0 && <span class="link">→</span>}
+            <span class="stage">{step.title}</span>
+          </>
+        ))
+      }
+    </p>
     <ol class="grid">
       {
         steps.map((step, index) => (
@@ -32,12 +44,33 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
   .steps-flow {
     padding-block: clamp(52px, 7vw, 96px);
   }
+  .chain {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 7px 10px;
+    margin: 0 0 clamp(34px, 4vw, 48px);
+  }
+  .stage {
+    padding: 5px 12px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--text-strong);
+    font-size: 0.8rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .link {
+    color: var(--accent-text);
+    font-weight: 800;
+  }
   .grid {
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    /* Seven stages orphan the last one in a fixed 3-up; auto-fit reflows. */
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     column-gap: 56px;
     row-gap: clamp(36px, 4vw, 52px);
   }
