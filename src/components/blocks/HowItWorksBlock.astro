@@ -25,16 +25,16 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
         </ol>
       )
     }
-    <PipelineSchematic />
     <ol class="grid">
       {
         steps.map((step, index) => (
-          <li class="step">
+          <li class:list={["step", { wide: !!step.figure }]}>
             <span class="node">{pad(index)}</span>
             <div class="body">
               <h3>{step.title}</h3>
               <p>{step.text}</p>
-              {index === steps.length - 1 && <PipelineForecast />}
+              {step.figure === "network" && <PipelineSchematic />}
+              {step.figure === "forecast" && <PipelineForecast />}
             </div>
           </li>
         ))
@@ -139,16 +139,16 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
     }
   }
 
-  .step:last-child {
+  .step.wide {
     grid-column: 1 / -1;
     margin-top: 6px;
     padding-top: clamp(26px, 3vw, 34px);
     border-top: 2px solid var(--accent-text);
   }
-  .step:last-child .body h3 {
+  .step.wide .body h3 {
     font-size: 1.24rem;
   }
-  .step:last-child .body p {
+  .step.wide .body p {
     max-width: 62ch;
     font-size: 1.02rem;
   }

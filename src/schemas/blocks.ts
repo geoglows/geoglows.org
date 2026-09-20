@@ -189,7 +189,14 @@ const howItWorksBlock = z.object({
   // token is what the stage actually hands on, so the chain carries information
   // the headings do not rather than restating them.
   steps: z.array(
-    z.object({ title: z.string(), token: z.string().optional(), text: z.string() }),
+    z.object({
+      title: z.string(),
+      token: z.string().optional(),
+      text: z.string(),
+      // Names the figure this stage carries, so a figure belongs to a stage
+      // rather than floating beside the list.
+      figure: z.enum(["network", "forecast"]).optional(),
+    }),
   ),
 });
 

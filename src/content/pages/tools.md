@@ -37,6 +37,7 @@ blocks:
           moving.
       - title: "TDX-Hydro river network"
         token: "7.2M reaches"
+        figure: network
         text: >-
           Runoff is mapped onto TDX-Hydro, a stream network derived from 12 m
           TanDEM-X elevation data: about 7.2 million river reaches and their
@@ -60,6 +61,7 @@ blocks:
           levels.
       - title: "Forecast"
         token: "15-day ensemble"
+        figure: forecast
         text: >-
           The 15-day ensemble is published against those levels, so a reach
           carries both an expected flow and whether that flow is unusual for it.

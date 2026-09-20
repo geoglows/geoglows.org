@@ -72,8 +72,9 @@ const marker = plotted ? plotted.d[Math.floor(plotted.d.length / 2)] : null;
       <span class="k"><i class="k-pin"></i>The reach plotted below</span>
     </span>
     <span class="src">
-      Real TDX-Hydro geometry, {net.label}, retrieved {net.retrieved}. This is the step
-      the chain turns on: a coarse grid of weather becomes a vector network of rivers.
+      {/* The figure sits inside its stage now, so it no longer has to announce
+          which stage it belongs to. */}
+      Real TDX-Hydro geometry, {net.label}, retrieved {net.retrieved}.
     </span>
   </figcaption>
 </figure>
