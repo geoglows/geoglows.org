@@ -1,144 +1,175 @@
 ---
-// A cross-section of the chain: weather over a catchment, runoff down a hillside
-// into a stream network, routed into a channel. Drawn, not photographed, because
-// the subject is a process rather than a place.
-const labels = [
-  { x: 118, t: "Meteorology" },
-  { x: 340, t: "Runoff" },
-  { x: 592, t: "Network" },
-  { x: 840, t: "Channel" },
+import net from "../../data/pipeline-network.json";
+
+// Three panels over one patch of ground, so the transformation is shown rather
+// than asserted: a coarse meteorological grid becomes a vector river network.
+// Geometry is real TDX-Hydro, baked at build time.
+const W = 300;
+const H = 232;
+const busiest = Math.max(...net.cells.map((c) => c.n));
+const maxOrder = Math.max(...net.reaches.map((r) => r.order));
+
+const X = (v: number) => (v * W).toFixed(1);
+const Y = (v: number) => (v * H).toFixed(1);
+const line = (pts: number[][]) =>
+  pts.map(([x, y], i) => `${i ? "L" : "M"}${X(x)} ${Y(y)}`).join("");
+
+// Runoff shading stands in for "more water off this cell", using reach density
+// as the proxy the figure already earns. Labelled as such in the caption.
+const shade = (n: number) => (n === 0 ? 0 : 0.14 + 0.62 * (n / busiest));
+const width = (order: number) => 0.5 + 1.9 * (order / maxOrder);
+
+// A single reach among 256 reads as nothing at this size, so the one the chart
+// plots gets a marker as well as a heavier stroke.
+const plotted = net.reaches.find((r) => r.main);
+const marker = plotted ? plotted.d[Math.floor(plotted.d.length / 2)] : null;
+
+const panels = [
+  { key: "grid", n: "01", label: "Meteorological grid", note: `${net.cell_degrees}° cells` },
+  { key: "runoff", n: "02", label: "Runoff per cell", note: "same cells, shaded" },
+  { key: "network", n: "03", label: "TDX-Hydro reaches", note: `${net.reach_count} in view, one plotted below` },
 ];
 ---
 
-<figure class="schema" aria-hidden="true">
-  <svg viewBox="0 0 960 230" role="presentation">
-    <defs>
-      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" class="sky-a" />
-        <stop offset="1" class="sky-b" />
-      </linearGradient>
-    </defs>
-
-    <rect x="0" y="0" width="960" height="230" fill="url(#sky)" rx="10" />
-
-    <g class="cloud">
-      <ellipse cx="120" cy="44" rx="52" ry="20" />
-      <ellipse cx="156" cy="38" rx="34" ry="16" />
-      <ellipse cx="88" cy="38" rx="30" ry="14" />
-    </g>
-    <g class="rain">
-      {[86, 104, 122, 140, 158].map((x, i) => (
-        <line x1={x} y1={64 + (i % 2) * 6} x2={x - 7} y2={84 + (i % 2) * 6} />
-      ))}
-    </g>
-
-    {/* The catchment: runoff leaves the hillside and gathers downslope. */}
-    <path
-      class="land"
-      d="M0 176 L120 128 L214 150 L318 104 L430 142 L534 116 L650 148 L760 132 L880 158 L960 146 L960 230 L0 230 Z"
-    />
-    <g class="runoff">
-      {[
-        "M150 140 L168 166",
-        "M246 160 L262 182",
-        "M352 118 L370 150",
-        "M458 152 L474 176",
-        "M566 128 L582 158",
-      ].map((d) => (
-        <path d={d} />
-      ))}
-    </g>
-
-    {/* Tributaries gathering into one routed channel. */}
-    <g class="net">
-      <path d="M168 168 C214 186 250 190 300 196" />
-      <path d="M262 184 C308 198 340 200 392 202" />
-      <path d="M370 152 C404 180 430 196 486 205" />
-      <path d="M474 178 C520 196 548 202 598 207" />
-      <path d="M582 160 C622 186 656 200 712 209" />
-    </g>
-    <path class="channel" d="M300 196 C420 206 560 212 700 212 C800 212 880 211 960 210" />
-    <path class="channel-wide" d="M700 212 C800 212 880 211 960 210" />
-
-    <g class="ticks">
-      {labels.map((l) => (
-        <line x1={l.x} y1="222" x2={l.x} y2="228" />
-      ))}
-    </g>
-  </svg>
+<figure class="schema">
+  <div class="panels">
+    {
+      panels.map((p) => (
+        <div class="panel">
+          <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${p.label}: ${p.note}`}>
+            {/* Panel 03 keeps the grid, faintly, so a reader can count reaches
+                inside one cell instead of taking the caption's word for it. */}
+            {net.cells.map((c) => (
+                <rect
+                  class:list={["cell", { filled: p.key === "runoff", ghost: p.key === "network" }]}
+                  x={X(c.x)}
+                  y={Y(c.y)}
+                  width={X(c.w)}
+                  height={Y(c.h)}
+                  style={p.key === "runoff" ? `opacity:${shade(c.n).toFixed(3)}` : undefined}
+                />
+              ))}
+            {p.key === "network" &&
+              net.reaches.map((r) => (
+                <path
+                  class:list={["reach", { main: r.main }]}
+                  d={line(r.d)}
+                  style={`stroke-width:${width(r.order).toFixed(2)}`}
+                />
+              ))}
+            {p.key === "network" && marker && (
+              <>
+                <circle class="pin-halo" cx={X(marker[0])} cy={Y(marker[1])} r="7" />
+                <circle class="pin" cx={X(marker[0])} cy={Y(marker[1])} r="3.4" />
+              </>
+            )}
+          </svg>
+          <p class="cap">
+            <span class="num">{p.n}</span>
+            <span class="lab">{p.label}</span>
+            <span class="note">{p.note}</span>
+          </p>
+        </div>
+      ))
+    }
+  </div>
   <figcaption>
-    {labels.map((l) => <span>{l.t}</span>)}
+    One {net.cell_degrees}° cell of the meteorological grid holds up to {busiest} modelled
+    river reaches. Real TDX-Hydro geometry for the {net.label}, the basin the forecast
+    below is drawn from, retrieved {net.retrieved}. Panel 02 shades each cell by the
+    reaches it contains.
   </figcaption>
 </figure>
 
 <style>
   .schema {
-    margin: 0 0 clamp(30px, 4vw, 44px);
+    margin: 0 0 clamp(32px, 4vw, 46px);
+  }
+  .panels {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(14px, 2vw, 26px);
   }
   svg {
     display: block;
     width: 100%;
     height: auto;
+    background: var(--surface-page);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
   }
-  .sky-a {
-    stop-color: var(--surface-muted);
-  }
-  .sky-b {
-    stop-color: var(--surface-page);
-  }
-  .cloud ellipse {
-    fill: var(--border);
-  }
-  .rain line {
-    stroke: var(--accent-strong);
-    stroke-width: 2;
-    stroke-linecap: round;
-    opacity: 0.75;
-  }
-  .land {
-    fill: var(--surface-alt);
-  }
-  .runoff path {
-    stroke: var(--accent-strong);
-    stroke-width: 2;
-    stroke-linecap: round;
+  .cell {
     fill: none;
-    opacity: 0.8;
-  }
-  .net path {
-    stroke: var(--accent);
-    stroke-width: 2.2;
-    fill: none;
-    stroke-linecap: round;
-    opacity: 0.85;
-  }
-  .channel {
-    stroke: var(--accent-text);
-    stroke-width: 4;
-    fill: none;
-    stroke-linecap: round;
-  }
-  .channel-wide {
-    stroke: var(--accent-text);
-    stroke-width: 8;
-    fill: none;
-    stroke-linecap: round;
-  }
-  .ticks line {
-    stroke: var(--text-faint);
+    stroke: var(--border);
     stroke-width: 1;
   }
-  figcaption {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    margin-top: 8px;
-    color: var(--text-faint);
-    font-size: 0.72rem;
-    font-weight: 700;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+  .cell.ghost {
+    stroke: var(--border);
+    opacity: 0.55;
   }
-  figcaption span {
-    text-align: center;
+  .cell.filled {
+    fill: var(--accent);
+    stroke: var(--surface-page);
+    stroke-width: 0.5;
+  }
+  .reach {
+    fill: none;
+    stroke: var(--accent);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.75;
+  }
+  /* The reach the chart below plots, so figure and chart are the same river. */
+  .reach.main {
+    stroke: var(--accent-text);
+    stroke-width: 3 !important;
+    opacity: 1;
+  }
+  .pin-halo {
+    fill: none;
+    stroke: var(--accent-text);
+    stroke-width: 1.4;
+    opacity: 0.55;
+  }
+  .pin {
+    fill: var(--accent-text);
+    stroke: var(--surface-page);
+    stroke-width: 1.4;
+  }
+  .cap {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 3px 8px;
+    margin-top: 10px;
+  }
+  .num {
+    color: var(--accent-text);
+    font-family: "Raleway", "Open Sans", system-ui, sans-serif;
+    font-size: 0.82rem;
+    font-weight: 800;
+  }
+  .lab {
+    color: var(--text-strong);
+    font-size: 0.82rem;
+    font-weight: 700;
+  }
+  .note {
+    flex-basis: 100%;
+    color: var(--text-faint);
+    font-size: 0.74rem;
+  }
+  figcaption {
+    max-width: 78ch;
+    margin-top: 16px;
+    color: var(--text-faint);
+    font-size: 0.78rem;
+    line-height: 1.55;
+  }
+  @media (max-width: 720px) {
+    .panels {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
   }
 </style>
