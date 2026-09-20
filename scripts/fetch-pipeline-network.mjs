@@ -6,7 +6,8 @@ import { writeFileSync } from "node:fs";
 // Centred on the Karnali reach the forecast chart plots, so the figure and the
 // chart below it are the same river.
 const REACH = 441185104;
-const BOX = { w: 80.98, s: 28.5, e: 81.52, n: 28.92 };
+// Banner proportions: one wide frame reads better than three small ones.
+const BOX = { w: 80.62, s: 28.55, e: 81.72, n: 29.01 };
 const CELL = 0.1; // ECMWF IFS 48r1 ensemble grid, about 9 km
 const SERVICE =
   "https://livefeeds3.arcgis.com/arcgis/rest/services/GEOGLOWS/GlobalWaterModel_Medium/MapServer/0/query";
