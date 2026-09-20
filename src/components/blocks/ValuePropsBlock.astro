@@ -83,7 +83,8 @@ const { eyebrow, heading, intro, items, compact, cta } = Astro.props as Extract<
   }
   .grid.strip p {
     margin-top: 3px;
-    color: var(--text-faint);
+    /* --text-faint measured 3.83:1 on the muted surface, under AA. */
+    color: var(--text-body);
     font-size: 0.83rem;
     line-height: 1.45;
   }
