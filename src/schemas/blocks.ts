@@ -147,6 +147,9 @@ const valuePropsBlock = z.object({
   heading: z.string(),
   anchor: z.string().optional(),
   intro: z.string().optional(),
+  // A tight term-and-gloss strip instead of cards, for facts the surrounding
+  // content already explains and that only need stating once.
+  compact: z.boolean().default(false),
   items: z.array(titleTextItem),
   cta: linkSchema.optional(),
 });

@@ -66,35 +66,30 @@ blocks:
           The 15-day ensemble is published against those levels, so a reach
           carries both an expected flow and whether that flow is unusual for it.
   - type: valueProps
+    compact: true
     eyebrow: GEOGLOWS V2
     anchor: whats-new
     heading: V2 specifications
-    intro: "The numbers behind the chain above, as GEOGLOWS V2 runs it today."
+    intro: "What changed in V2, beyond the stages above."
     items:
       - title: "~7.2 million river reaches"
         text: >-
-          TDX-Hydro maps about 7.2 million reaches and their catchments across 125
-          vector processing units, up from roughly 1 million in V1.
+          Up from roughly 1 million in V1.
       - title: "15-day forecast"
         text: >-
-          A 51-member ECMWF ensemble runs out to 15 days, so each reach carries a
-          range of outcomes rather than a single number.
+          51-member ECMWF ensemble.
       - title: "85-year retrospective"
         text: >-
-          The historical simulation starts in 1940 on ERA5 reanalysis, extending
-          V1's record that began in 1979.
+          From 1940; V1's record began in 1979.
       - title: "3-hourly outputs"
         text: >-
-          Discharge is reported at a consistent 3-hour interval across the
-          forecast and the retrospective alike.
+          Forecast and retrospective alike.
       - title: "TDX-Hydro"
         text: >-
-          The hydro fabric is derived from the 12 m TanDEM-X DEM, replacing the 90
-          m SRTM data behind V1.
+          12 m TanDEM-X, replacing V1's 90 m SRTM.
       - title: "Routing and model methodology"
         text: >-
-          RAPID routes runoff with a matrix Muskingum method, with routing
-          calibration improved by a machine-learning regression model.
+          Matrix Muskingum, calibration improved by a machine-learning regression.
   - type: toolsGrid
     eyebrow: Applications
     anchor: tools
