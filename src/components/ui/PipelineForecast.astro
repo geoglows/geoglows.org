@@ -1,0 +1,158 @@
+---
+import data from "../../data/pipeline-forecast.json";
+
+// Drawn at build time from a committed snapshot of real GEOGLOWS output, so the
+// page never waits on the API and the figure cannot change under a reader.
+const W = 1000;
+const H = 300;
+const PAD = { t: 18, r: 16, b: 34, l: 58 };
+
+const f = data.forecast;
+const n = data.normal;
+const hi = Math.max(...f.map((d) => d.hi), ...n.map((d) => d.p90));
+const lo = Math.min(...f.map((d) => d.lo), ...n.map((d) => d.p10));
+const top = Math.ceil(hi / 2000) * 2000;
+const bottom = Math.max(0, Math.floor(lo / 2000) * 2000);
+
+const x = (i: number) => PAD.l + (i / (f.length - 1)) * (W - PAD.l - PAD.r);
+const y = (v: number) =>
+  PAD.t + (1 - (v - bottom) / (top - bottom)) * (H - PAD.t - PAD.b);
+
+const band = (upper: number[], lower: number[]) =>
+  upper.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join("") +
+  lower
+    .map((v, i) => `L${x(lower.length - 1 - i).toFixed(1)} ${y(lower[lower.length - 1 - i]).toFixed(1)}`)
+    .join("") +
+  "Z";
+const line = (vals: number[]) =>
+  vals.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join("");
+
+const normalBand = band(n.map((d) => d.p90), n.map((d) => d.p10));
+const spread = band(f.map((d) => d.hi), f.map((d) => d.lo));
+const middle = band(f.map((d) => d.p75), f.map((d) => d.p25));
+const median = line(f.map((d) => d.med));
+
+const ticks = [0, 1, 2, 3, 4].map((k) => {
+  const v = bottom + ((top - bottom) * k) / 4;
+  return { v, label: v >= 1000 ? `${Math.round(v / 1000)}k` : String(Math.round(v)) };
+});
+const days = f
+  .map((d, i) => ({ i, t: d.t }))
+  .filter(({ t }) => t.slice(11, 13) === "00")
+  .filter((_, k) => k % 3 === 0);
+const fmt = (t: string) =>
+  new Date(t).toLocaleDateString("en-GB", { day: "numeric", month: "short", timeZone: "UTC" });
+---
+
+<figure class="fc">
+  <svg
+    viewBox={`0 0 ${W} ${H}`}
+    role="img"
+    aria-label={`Fifteen-day ensemble forecast for the ${data.label}. ${data.members} members spread from ${Math.round(f[f.length - 1].lo).toLocaleString()} to ${Math.round(f[f.length - 1].hi).toLocaleString()} cubic metres per second by the final day, against the normal range from ${data.retrospective_years} years of retrospective simulation.`}
+  >
+    {
+      ticks.map((t) => (
+        <>
+          <line class="grid" x1={PAD.l} x2={W - PAD.r} y1={y(t.v)} y2={y(t.v)} />
+          <text class="tick" x={PAD.l - 10} y={y(t.v) + 4} text-anchor="end">
+            {t.label}
+          </text>
+        </>
+      ))
+    }
+    {
+      days.map((d) => (
+        <text class="tick" x={x(d.i)} y={H - 12} text-anchor="middle">
+          {fmt(d.t)}
+        </text>
+      ))
+    }
+    <path class="normal" d={normalBand} />
+    <path class="spread" d={spread} />
+    <path class="middle" d={middle} />
+    <path class="median" d={median} />
+  </svg>
+  <figcaption>
+    <span class="key"><i class="s-median"></i>Ensemble median</span>
+    <span class="key"><i class="s-middle"></i>Middle half</span>
+    <span class="key"><i class="s-spread"></i>Full {data.members}-member spread</span>
+    <span class="key"><i class="s-normal"></i>Normal range, {data.retrospective_years} years</span>
+    <span class="src">
+      {data.label}, reach {data.river_id}. Real GEOGLOWS output retrieved {data.retrieved}.
+    </span>
+  </figcaption>
+</figure>
+
+<style>
+  .fc {
+    margin: clamp(22px, 3vw, 32px) 0 0;
+  }
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+  .grid {
+    stroke: var(--border);
+    stroke-width: 1;
+  }
+  .tick {
+    fill: var(--text-faint);
+    font-family: "Open Sans", system-ui, sans-serif;
+    font-size: 12px;
+  }
+  /* 87 years of retrospective: what is normal for these calendar days. */
+  .normal {
+    fill: var(--surface-muted);
+  }
+  .spread {
+    fill: color-mix(in srgb, var(--accent) 22%, transparent);
+  }
+  .middle {
+    fill: color-mix(in srgb, var(--accent) 42%, transparent);
+  }
+  .median {
+    fill: none;
+    stroke: var(--accent-text);
+    stroke-width: 2.4;
+    stroke-linejoin: round;
+  }
+  figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 18px;
+    margin-top: 14px;
+    color: var(--text-faint);
+    font-size: 0.78rem;
+  }
+  .key {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--text-body);
+  }
+  .key i {
+    width: 14px;
+    height: 10px;
+    border-radius: 2px;
+  }
+  .s-median {
+    height: 3px;
+    background: var(--accent-text);
+  }
+  .s-middle {
+    background: color-mix(in srgb, var(--accent) 42%, transparent);
+  }
+  .s-spread {
+    background: color-mix(in srgb, var(--accent) 22%, transparent);
+  }
+  .s-normal {
+    background: var(--surface-muted);
+    border: 1px solid var(--border);
+  }
+  .src {
+    flex-basis: 100%;
+  }
+</style>

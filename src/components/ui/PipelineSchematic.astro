@@ -1,0 +1,144 @@
+---
+// A cross-section of the chain: weather over a catchment, runoff down a hillside
+// into a stream network, routed into a channel. Drawn, not photographed, because
+// the subject is a process rather than a place.
+const labels = [
+  { x: 118, t: "Meteorology" },
+  { x: 340, t: "Runoff" },
+  { x: 592, t: "Network" },
+  { x: 840, t: "Channel" },
+];
+---
+
+<figure class="schema" aria-hidden="true">
+  <svg viewBox="0 0 960 230" role="presentation">
+    <defs>
+      <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" class="sky-a" />
+        <stop offset="1" class="sky-b" />
+      </linearGradient>
+    </defs>
+
+    <rect x="0" y="0" width="960" height="230" fill="url(#sky)" rx="10" />
+
+    <g class="cloud">
+      <ellipse cx="120" cy="44" rx="52" ry="20" />
+      <ellipse cx="156" cy="38" rx="34" ry="16" />
+      <ellipse cx="88" cy="38" rx="30" ry="14" />
+    </g>
+    <g class="rain">
+      {[86, 104, 122, 140, 158].map((x, i) => (
+        <line x1={x} y1={64 + (i % 2) * 6} x2={x - 7} y2={84 + (i % 2) * 6} />
+      ))}
+    </g>
+
+    {/* The catchment: runoff leaves the hillside and gathers downslope. */}
+    <path
+      class="land"
+      d="M0 176 L120 128 L214 150 L318 104 L430 142 L534 116 L650 148 L760 132 L880 158 L960 146 L960 230 L0 230 Z"
+    />
+    <g class="runoff">
+      {[
+        "M150 140 L168 166",
+        "M246 160 L262 182",
+        "M352 118 L370 150",
+        "M458 152 L474 176",
+        "M566 128 L582 158",
+      ].map((d) => (
+        <path d={d} />
+      ))}
+    </g>
+
+    {/* Tributaries gathering into one routed channel. */}
+    <g class="net">
+      <path d="M168 168 C214 186 250 190 300 196" />
+      <path d="M262 184 C308 198 340 200 392 202" />
+      <path d="M370 152 C404 180 430 196 486 205" />
+      <path d="M474 178 C520 196 548 202 598 207" />
+      <path d="M582 160 C622 186 656 200 712 209" />
+    </g>
+    <path class="channel" d="M300 196 C420 206 560 212 700 212 C800 212 880 211 960 210" />
+    <path class="channel-wide" d="M700 212 C800 212 880 211 960 210" />
+
+    <g class="ticks">
+      {labels.map((l) => (
+        <line x1={l.x} y1="222" x2={l.x} y2="228" />
+      ))}
+    </g>
+  </svg>
+  <figcaption>
+    {labels.map((l) => <span>{l.t}</span>)}
+  </figcaption>
+</figure>
+
+<style>
+  .schema {
+    margin: 0 0 clamp(30px, 4vw, 44px);
+  }
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .sky-a {
+    stop-color: var(--surface-muted);
+  }
+  .sky-b {
+    stop-color: var(--surface-page);
+  }
+  .cloud ellipse {
+    fill: var(--border);
+  }
+  .rain line {
+    stroke: var(--accent-strong);
+    stroke-width: 2;
+    stroke-linecap: round;
+    opacity: 0.75;
+  }
+  .land {
+    fill: var(--surface-alt);
+  }
+  .runoff path {
+    stroke: var(--accent-strong);
+    stroke-width: 2;
+    stroke-linecap: round;
+    fill: none;
+    opacity: 0.8;
+  }
+  .net path {
+    stroke: var(--accent);
+    stroke-width: 2.2;
+    fill: none;
+    stroke-linecap: round;
+    opacity: 0.85;
+  }
+  .channel {
+    stroke: var(--accent-text);
+    stroke-width: 4;
+    fill: none;
+    stroke-linecap: round;
+  }
+  .channel-wide {
+    stroke: var(--accent-text);
+    stroke-width: 8;
+    fill: none;
+    stroke-linecap: round;
+  }
+  .ticks line {
+    stroke: var(--text-faint);
+    stroke-width: 1;
+  }
+  figcaption {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin-top: 8px;
+    color: var(--text-faint);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  figcaption span {
+    text-align: center;
+  }
+</style>
