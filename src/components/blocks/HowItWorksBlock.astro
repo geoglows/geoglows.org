@@ -1,7 +1,6 @@
 ---
 import type { Block } from "../../schemas/blocks";
 import SectionHeader from "../ui/SectionHeader.astro";
-import NetworkWatermark from "../ui/NetworkWatermark.astro";
 
 const { eyebrow, heading, intro, steps, cta } = Astro.props as Extract<
   Block,
@@ -14,7 +13,7 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
   <div class="shell">
     <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} />
     <div class="flow">
-      <div class="mark-zone"><NetworkWatermark /></div>
+      <div class="mark-zone"></div>
       <ol class="chain">
         {
           steps.map((step, index) => (
@@ -195,6 +194,25 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
   }
   :root[data-theme="dark"] .mark-zone {
     opacity: 0.14;
+  }
+  /* The texture ships as an image rather than inline markup, and the rule that
+     loads it lives inside the width it is drawn at, so a phone never fetches
+     13 KB of river geometry it was never going to see. An external image
+     cannot read the theme variables, so there is one file per theme. */
+  @media (min-width: 1101px) {
+    .mark-zone {
+      background: url("/network-watermark-light.svg") center / cover no-repeat;
+    }
+  }
+  @media (min-width: 1101px) and (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) .mark-zone {
+      background-image: url("/network-watermark-dark.svg");
+    }
+  }
+  @media (min-width: 1101px) {
+    :root[data-theme="dark"] .mark-zone {
+      background-image: url("/network-watermark-dark.svg");
+    }
   }
   /* Below this the free column beside the 600px chain is too narrow to hold a
      lattice, and the texture reads as smudge rather than rivers. */
