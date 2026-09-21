@@ -35,7 +35,6 @@ blocks:
           runoff over every landmass, the water that reaches the ground and starts
           moving.
       - title: "TDX-Hydro river network"
-        figure: network
         text: >-
           Runoff is mapped onto TDX-Hydro, a stream network derived from 12 m
           TanDEM-X elevation data: about 7.2 million river reaches and their
@@ -55,7 +54,6 @@ blocks:
           which establishes each reach's normal range and its return-period
           levels.
       - title: "Forecast"
-        figure: forecast
         text: >-
           The 15-day ensemble is published against those levels, so a reach
           carries both an expected flow and whether that flow is unusual for it.
