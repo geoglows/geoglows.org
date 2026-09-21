@@ -140,85 +140,74 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
   }
 
   /* One column leaves the right of the shell open for the full height of the
-     chain, which is a far better home for the texture than the sliver the old
-     last row left over. */
+     chain, which is where the texture lives when there is room for it. */
   .mark-zone {
     position: absolute;
     top: -12px;
     bottom: -12px;
-    /* Anchored to the chain's own cap, not a percentage: a percentage put the
-       zone inside the text column as soon as the viewport narrowed. */
-    left: 648px;
-    width: 60vw;
     z-index: 0;
-    /* Teal on near-white carries less than the same teal on navy, so light
-       needs more of it to read as rivers rather than as a faint smudge. */
-    opacity: 0.16;
     pointer-events: none;
-    /* The network now runs the full height, so the ends are held off by a long
+    /* Theme sets the ink, breakpoint sets how far it steps back. */
+    --mark-alpha: 0.16;
+    --mark-shy: 1;
+    opacity: calc(var(--mark-alpha) * var(--mark-shy));
+    background: var(--mark-image) center / cover no-repeat;
+    /* The network runs the full height, so the ends are held off by a long
        soft fade rather than a hard stop: it should look like the basin carries
        on past the section, not like it was cropped. */
-    -webkit-mask-image:
-      linear-gradient(to right, transparent, #000 26%),
-      linear-gradient(
-        to bottom,
-        transparent 0%,
-        rgba(0, 0, 0, 0.25) 7%,
-        rgba(0, 0, 0, 0.75) 15%,
-        #000 24%,
-        #000 76%,
-        rgba(0, 0, 0, 0.75) 85%,
-        rgba(0, 0, 0, 0.25) 93%,
-        transparent 100%
-      );
-    mask-image:
-      linear-gradient(to right, transparent, #000 26%),
-      linear-gradient(
-        to bottom,
-        transparent 0%,
-        rgba(0, 0, 0, 0.25) 7%,
-        rgba(0, 0, 0, 0.75) 15%,
-        #000 24%,
-        #000 76%,
-        rgba(0, 0, 0, 0.75) 85%,
-        rgba(0, 0, 0, 0.25) 93%,
-        transparent 100%
-      );
-    -webkit-mask-composite: source-in;
-    mask-composite: intersect;
+    --mark-fade: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.25) 7%,
+      rgba(0, 0, 0, 0.75) 15%,
+      #000 24%,
+      #000 76%,
+      rgba(0, 0, 0, 0.75) 85%,
+      rgba(0, 0, 0, 0.25) 93%,
+      transparent 100%
+    );
+    /* The texture ships as an image rather than inline markup, and an external
+       image cannot read the theme variables, so there is one file per theme. */
+    --mark-image: url("/network-watermark-light.svg");
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) .mark-zone {
-      opacity: 0.14;
+      --mark-alpha: 0.14;
+      --mark-image: url("/network-watermark-dark.svg");
     }
   }
   :root[data-theme="dark"] .mark-zone {
-    opacity: 0.14;
+    --mark-alpha: 0.14;
+    --mark-image: url("/network-watermark-dark.svg");
   }
-  /* The texture ships as an image rather than inline markup, and the rule that
-     loads it lives inside the width it is drawn at, so a phone never fetches
-     13 KB of river geometry it was never going to see. An external image
-     cannot read the theme variables, so there is one file per theme. */
-  @media (min-width: 1101px) {
+
+  /* Wide enough for a free column beside the chain: the texture sits in it and
+     never crosses a line of text, so it can carry its full weight. Anchored to
+     the chain's own cap in pixels, because a percentage put the zone inside the
+     text column as soon as the viewport narrowed. */
+  @media (min-width: 900px) {
     .mark-zone {
-      background: url("/network-watermark-light.svg") center / cover no-repeat;
+      left: 648px;
+      width: 60vw;
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 26%), var(--mark-fade);
+      mask-image: linear-gradient(to right, transparent, #000 26%), var(--mark-fade);
+      -webkit-mask-composite: source-in;
+      mask-composite: intersect;
     }
   }
-  @media (min-width: 1101px) and (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) .mark-zone {
-      background-image: url("/network-watermark-dark.svg");
-    }
-  }
-  @media (min-width: 1101px) {
-    :root[data-theme="dark"] .mark-zone {
-      background-image: url("/network-watermark-dark.svg");
-    }
-  }
-  /* Below this the free column beside the 600px chain is too narrow to hold a
-     lattice, and the texture reads as smudge rather than rivers. */
-  @media (max-width: 1100px) {
+
+  /* Narrower than that, the chain fills the width and there is no column left,
+     so the texture goes behind the text instead of beside it. Stepping it back
+     to about a third keeps every line of body copy above its contrast floor;
+     the measured worst case is in the commit. */
+  @media (max-width: 899px) {
     .mark-zone {
-      display: none;
+      left: 50%;
+      width: 100vw;
+      transform: translateX(-50%);
+      --mark-shy: 0.42;
+      -webkit-mask-image: var(--mark-fade);
+      mask-image: var(--mark-fade);
     }
   }
 
