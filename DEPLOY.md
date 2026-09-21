@@ -37,7 +37,6 @@ Variables), under the `staging` environment:
 is the only router: there is no framework routing at the edge. It handles
 
 - `/apps` and `/apps/*` -> 302 to `apps.geoglows.org`
-- `/what-we-do` and `/what-we-do/` -> 302 to `/tools` (the section was retired)
 - directory-index rewriting, so `/tools` and `/tools/` both serve `/tools/index.html`
 
 Anything that needs a redirect has to be added here.
