@@ -78,6 +78,9 @@ a:focus-visible .go-link {
 img {
   max-width: 100%;
   display: block;
+  /* Without this the width/height attributes pin a used height, which beats any
+     aspect-ratio a component declares and silently stretches the box. */
+  height: auto;
 }
 
 :focus-visible {
