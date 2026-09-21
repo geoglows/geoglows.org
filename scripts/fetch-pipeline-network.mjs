@@ -164,6 +164,18 @@ const perCell = cells.map((c) => {
   return { ...c, n };
 });
 
+// A 200 carrying zero features is the normal ArcGIS answer when a layer is
+// re-indexed or the envelope filter is ignored, and it passes both guards
+// above. Overwriting a good snapshot with it renders a bare graticule and says
+// nothing, so refuse. The committed snapshot holds 884; this is a drift guard,
+// not a quality bar, so a deliberate BOX change moves the floor in that commit.
+const FLOOR = 200;
+if (reaches.length < FLOOR) {
+  throw new Error(
+    `refusing to overwrite the snapshot: ${reaches.length} reaches is under the ${FLOOR} floor`,
+  );
+}
+
 writeFileSync(
   "src/data/pipeline-network.json",
   JSON.stringify(

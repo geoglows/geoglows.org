@@ -1,8 +1,10 @@
 import net from "../data/pipeline-network.json";
 
 // Builds the section watermark as a standalone SVG document, one per theme.
-// It ships as an image rather than inline markup so that a phone, where the
-// texture is not drawn at all, never downloads 13 KB of river geometry.
+// It ships as an image rather than inline markup so the geometry is fetched
+// once and cached, instead of riding in the HTML of every page that draws it.
+// Every width draws it, so phones fetch it too; below 900px it sits behind the
+// text at a third of the opacity rather than beside it.
 // Colours are baked here because an external image cannot read the page's
 // custom properties.
 
@@ -18,7 +20,10 @@ const path = (pts: number[][]) =>
 // Every order, down to the headwaters. Drawing the trunks alone left the
 // network as a handful of parallel lines ending in mid-air; the capillaries are
 // what make it read as one drainage basin rather than fragments.
-const minOrder = Math.min(...net.reaches.map((r) => r.order));
+// reduce, not spread: the comments below invite BOX and CELL to change, and a
+// spread of a few hundred thousand reaches throws RangeError from a library
+// import, a long way from the edit that caused it.
+const minOrder = net.reaches.reduce((m, r) => Math.min(m, r.order), Infinity);
 // Geometric, not linear. A linear ramp put a headwater and a trunk within 2:1
 // of each other, which is the one relationship a river drawing has to get
 // right. The floor keeps the smallest streams above a hairline.
@@ -32,7 +37,7 @@ const rowEdges = uniq(net.cells.flatMap((c) => [c.y * H, (c.y + c.h) * H]));
 // The first and last gaps are cells the bounding box cut through, so the true
 // pitch is the widest one. Anchoring on an interior edge keeps the lattice in
 // register with the cells the reaches were counted into.
-const widestGap = (e: number[]) => Math.max(...e.slice(1).map((v, i) => v - e[i]));
+const widestGap = (e: number[]) => e.slice(1).reduce((m, v, i) => Math.max(m, v - e[i]), 0);
 const [pitchX, pitchY] = [widestGap(colEdges), widestGap(rowEdges)];
 const [anchorX, anchorY] = [colEdges[1], rowEdges[1]];
 

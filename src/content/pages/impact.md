@@ -8,21 +8,21 @@ blocks:
     heading: Where GEOGLOWS is at work
     intro: "GEOGLOWS is deployed with national hydrological services and regional partners in more than 30 countries, usually through SERVIR hubs and local institutions. Bias-corrected, where it appears below, means the global forecast has been adjusted to match a country's own gauge records."
     points:
-      - { country: Costa Rica, lat: 9.75, lng: -83.75, pos: left }
-      - { country: Honduras, lat: 14.97, lng: -86.24, pos: top }
-      - { country: Guatemala, lat: 15.5, lng: -90.23, pos: left }
-      - { country: El Salvador, lat: 13.79, lng: -88.9, pos: bottom }
-      - { country: Dominican Republic, lat: 18.74, lng: -70.16, pos: top }
-      - { country: Colombia, lat: 4.1, lng: -73.0, pos: left }
-      - { country: Ecuador, lat: -1.83, lng: -78.18, pos: left }
-      - { country: Peru, lat: -9.19, lng: -75.02, pos: left }
-      - { country: Brazil, lat: -10.0, lng: -52.0, pos: right }
-      - { country: Malawi, lat: -13.25, lng: 34.3, pos: bottom }
-      - { country: Israel, lat: 31.4, lng: 35.0, pos: left }
-      - { country: India, lat: 21.5, lng: 78.96, pos: left }
-      - { country: Nepal, lat: 28.39, lng: 84.12, pos: top }
-      - { country: Bhutan, lat: 27.51, lng: 90.9, pos: right }
-      - { country: Bangladesh, lat: 23.68, lng: 90.36, pos: bottom }
+      - { country: Costa Rica, lat: 9.75, lng: -83.75 }
+      - { country: Honduras, lat: 14.97, lng: -86.24 }
+      - { country: Guatemala, lat: 15.5, lng: -90.23 }
+      - { country: El Salvador, lat: 13.79, lng: -88.9 }
+      - { country: Dominican Republic, lat: 18.74, lng: -70.16 }
+      - { country: Colombia, lat: 4.1, lng: -73.0 }
+      - { country: Ecuador, lat: -1.83, lng: -78.18 }
+      - { country: Peru, lat: -9.19, lng: -75.02 }
+      - { country: Brazil, lat: -10.0, lng: -52.0 }
+      - { country: Malawi, lat: -13.25, lng: 34.3 }
+      - { country: Israel, lat: 31.4, lng: 35.0 }
+      - { country: India, lat: 21.5, lng: 78.96 }
+      - { country: Nepal, lat: 28.39, lng: 84.12 }
+      - { country: Bhutan, lat: 27.51, lng: 90.9 }
+      - { country: Bangladesh, lat: 23.68, lng: 90.36 }
     directoryHeading: Projects
     directoryIntro: "Select a country on the map or below."
     projects:
