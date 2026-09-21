@@ -40,6 +40,7 @@ const t = (await getEntry("pageSections", "publications"))?.data ?? {};
           <span id="pub-count" class="count">{entries.length} of {entries.length}</span>
         </div>
       </div>
+      <h2 class="visually-hidden">All publications</h2>
       <div class="grid">
         {entries.map((entry) => <PublicationCard {...entry.data} />)}
       </div>
@@ -93,10 +94,13 @@ const t = (await getEntry("pageSections", "publications"))?.data ?? {};
   .topic-chip[aria-pressed="true"] {
     background: var(--accent-text);
     border-color: var(--accent-text);
-    color: #fff;
+    /* Not #fff: --accent-text is dark in light mode and light in dark mode, so
+       a fixed white label measured 1.83:1 once the theme flipped. This tracks
+       it, giving 7.09:1 light and 9.55:1 dark. */
+    color: var(--surface-page);
   }
   .topic-chip[aria-pressed="true"]:hover {
-    color: #fff;
+    color: var(--surface-page);
   }
   .count {
     margin-left: auto;

@@ -39,7 +39,17 @@ const posts = (await getCollection("social"))
     </div>
 
     <div class="rail">
-      {image && <img class="hero-img" src={image} alt="" loading="eager" fetchpriority="high" />}
+      {image && (
+        <img
+          class="hero-img"
+          src={image}
+          alt=""
+          width="1600"
+          height="840"
+          loading="eager"
+          fetchpriority="high"
+        />
+      )}
       <aside class="panel" aria-label={socialHeading}>
         <div class="p-head">
           <span class="li-badge" aria-hidden="true">

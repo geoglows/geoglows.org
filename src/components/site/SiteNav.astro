@@ -129,6 +129,8 @@ const {
   .group-label {
     display: inline-flex;
     align-items: center;
+    /* 23px tall before this, one short of WCAG 2.5.8's 24x24 minimum. */
+    min-height: 24px;
     gap: 5px;
     color: var(--text-strong);
     font-weight: 700;

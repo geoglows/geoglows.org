@@ -57,12 +57,14 @@ const favicon = site.favicon ?? "/images/geo-logo-navy.svg";
     </script>
   </head>
   <body>
-    <SiteNav
-      nav={site.nav}
-      cta={site.navCta}
-      logoLight={site.headerLogoLight}
-      logoDark={site.headerLogoDark}
-    />
+    <header>
+      <SiteNav
+        nav={site.nav}
+        cta={site.navCta}
+        logoLight={site.headerLogoLight}
+        logoDark={site.headerLogoDark}
+      />
+    </header>
     <main>
       <slot />
     </main>

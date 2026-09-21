@@ -44,9 +44,15 @@ const Heading = `h${level}` as "h1" | "h2";
     line-height: 1.15;
   }
   .intro {
+    /* Measured at 83ch before this cap, well past the 65-75ch a reader can
+       track back to the start of the next line. */
+    max-width: 70ch;
     margin-top: 14px;
     color: var(--text-body);
     font-size: 1rem;
     line-height: 1.6;
+  }
+  .center .intro {
+    margin-inline: auto;
   }
 </style>

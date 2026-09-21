@@ -56,6 +56,11 @@ a {
   /* Inline boxes cannot be transformed. The text still wraps inside the box;
      only the box itself stays whole, which is right for a standalone link. */
   display: inline-block;
+  /* WCAG 2.2 AA 2.5.8 wants 24x24 for a target that is not inline in a
+     sentence; these measured 20-23px tall. The padding grows the hit box and
+     the negative margin keeps the visual rhythm unchanged. */
+  padding-block: 3px;
+  margin-block: -3px;
   transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
 }
 a.go-link:hover,

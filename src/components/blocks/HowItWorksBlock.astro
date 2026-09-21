@@ -132,6 +132,10 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
     font-size: 0.85rem;
   }
   .body p.ref a {
+    /* Standalone, so WCAG 2.5.8's 24x24 applies; these measured 19px tall. */
+    display: inline-block;
+    padding-block: 3px;
+    margin-block: -3px;
     color: var(--accent-text);
     text-decoration: none;
   }

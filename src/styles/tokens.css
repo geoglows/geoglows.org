@@ -38,6 +38,9 @@
 
   --ink-on-dark: #eaf2f7;
   --ink-on-dark-muted: #a6bccb;
+  /* The footer's legal row. #748399 measured 4.35:1 on --color-navy-deep, just
+     under AA; this is the same hue held to 5.43:1. */
+  --ink-on-dark-faint: #8494ab;
   --hairline-on-dark: rgba(233, 240, 246, 0.15);
 
   --logo-tint: grayscale(1);

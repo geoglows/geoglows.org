@@ -178,7 +178,9 @@ const steps = [
   }
   .back {
     display: inline-block;
-    margin-bottom: 30px;
+    /* 23px tall, one short of WCAG 2.5.8's 24x24. */
+    padding-block: 3px;
+    margin-bottom: 27px;
     color: var(--accent-text);
     font-weight: 700;
     font-size: 0.9rem;
@@ -279,6 +281,10 @@ const steps = [
     line-height: 1.45;
   }
   .meta-block a {
+    /* Standalone links in the meta rail, so 2.5.8 applies; 19px before this. */
+    display: inline-block;
+    padding-block: 3px;
+    margin-block: -3px;
     color: var(--text-strong);
     text-decoration: underline;
     text-decoration-color: var(--border);
@@ -385,7 +391,7 @@ const steps = [
   .more span {
     color: var(--text-faint);
     font-family: "Open Sans", system-ui, sans-serif;
-    font-size: 0.68rem;
+    font-size: 0.75rem;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
