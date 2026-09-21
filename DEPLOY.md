@@ -5,7 +5,9 @@ manage content through a form-based admin at `/admin`; every save is a commit to
 repo, which triggers a rebuild. No third-party CMS service is used — GitHub OAuth is
 handled by the Lambda in `infra/oauth-lambda/`.
 
-There is currently **no production environment**. Staging is the only deployment.
+There is currently **no production environment** — staging is the only deployment, and
+`main` does not build or deploy. The intent is two environments later, with `main`
+serving production and `staging` continuing to serve staging.
 
 ## 1. How a deploy happens
 
@@ -27,6 +29,7 @@ Variables), under the `staging` environment:
 | `AWS_DEPLOY_ROLE_ARN` | role GitHub OIDC assumes to write the bucket and invalidate |
 | `S3_BUCKET` | bucket the built site syncs into |
 | `CLOUDFRONT_DISTRIBUTION_ID` | distribution to invalidate |
+| `CLOUDFRONT_FUNCTION_NAME` | optional; set it to publish the router on each deploy (see below) |
 
 ## 2. Routing
 
@@ -37,8 +40,14 @@ is the only router: there is no framework routing at the edge. It handles
 - `/what-we-do` and `/what-we-do/` -> 302 to `/tools` (the section was retired)
 - directory-index rewriting, so `/tools` and `/tools/` both serve `/tools/index.html`
 
-Anything that needs a redirect has to be added here. Editing the file in the repo does
-not deploy it; publish the new function version to the distribution.
+Anything that needs a redirect has to be added here.
+
+A CloudFront Function lives on the distribution, not in the bucket, so syncing the site
+does not update it. Set the `CLOUDFRONT_FUNCTION_NAME` variable and the deploy publishes
+it on every run; leave it unset and the step is skipped, in which case the file has to be
+published by hand and the repo can drift from what is actually routing traffic. Publishing
+also needs `cloudfront:DescribeFunction`, `cloudfront:UpdateFunction` and
+`cloudfront:PublishFunction` on the deploy role.
 
 ## 3. Editor login (GitHub OAuth)
 

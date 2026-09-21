@@ -33,10 +33,37 @@ jobs:
           role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN }}
           aws-region: us-east-1
 
+      # Two passes so HTML and assets get different cache headers. Both carry
+      # --delete, and the filters apply to deletions too: the first pass only
+      # ever removes assets, the second only ever removes HTML. Without
+      # --delete on the second, a page removed from the site stayed in the
+      # bucket and kept serving indefinitely.
       - name: Sync to S3
         run: |
           aws s3 sync dist/ "s3://${{ vars.S3_BUCKET }}/" --delete --exclude "*.html" --cache-control "public,max-age=3600" --no-progress
-          aws s3 sync dist/ "s3://${{ vars.S3_BUCKET }}/" --exclude "*" --include "*.html" --cache-control "no-cache" --no-progress
+          aws s3 sync dist/ "s3://${{ vars.S3_BUCKET }}/" --delete --exclude "*" --include "*.html" --cache-control "no-cache" --no-progress
+
+      # The router is a CloudFront Function, which lives on the distribution
+      # rather than in the bucket, so syncing the site never updates it and the
+      # repo can silently disagree with what is actually routing traffic.
+      # Inert until CLOUDFRONT_FUNCTION_NAME is set, so it cannot break a deploy
+      # before the role has cloudfront:DescribeFunction, UpdateFunction and
+      # PublishFunction.
+      - name: Publish the CloudFront router
+        if: vars.CLOUDFRONT_FUNCTION_NAME != ''
+        run: |
+          NAME="${{ vars.CLOUDFRONT_FUNCTION_NAME }}"
+          DESC=$(aws cloudfront describe-function --name "$NAME")
+          # Reuse the live config so publishing cannot silently change runtime.
+          CONFIG=$(echo "$DESC" | jq -c '.FunctionSummary.FunctionConfig')
+          aws cloudfront update-function \
+            --name "$NAME" \
+            --function-code "fileb://infra/cloudfront/staging-router.js" \
+            --function-config "$CONFIG" \
+            --if-match "$(echo "$DESC" | jq -r '.ETag')" > /dev/null
+          aws cloudfront publish-function \
+            --name "$NAME" \
+            --if-match "$(aws cloudfront describe-function --name "$NAME" --query ETag --output text)"
 
       - name: Invalidate CloudFront
         run: aws cloudfront create-invalidation --distribution-id "${{ vars.CLOUDFRONT_DISTRIBUTION_ID }}" --paths '/*'
