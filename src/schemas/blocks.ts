@@ -69,7 +69,6 @@ const countriesMapBlock = z.object({
       country: z.string(),
       lat: z.number(),
       lng: z.number(),
-      pos: z.enum(["top", "bottom", "left", "right"]).optional(),
     }),
   ),
   directoryHeading: z.string().optional(),
@@ -98,7 +97,6 @@ const communityFeedBlock = z.object({
   heading: z.string().optional(),
   intro: z.string().optional(),
   anchor: z.string().optional(),
-  webinarsCount: z.number().default(3),
   newsCount: z.number().default(5),
 });
 
@@ -393,7 +391,6 @@ const audienceCardsBlock = z.object({
       cta: z.string().optional(),
     }),
   ),
-  contactEmail: z.string().optional(),
 });
 
 const timelineBlock = z.object({

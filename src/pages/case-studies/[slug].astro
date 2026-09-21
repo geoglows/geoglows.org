@@ -1,7 +1,6 @@
 ---
-import { createRequire } from "module";
 import { geoEquirectangular, geoPath } from "d3-geo";
-import { feature } from "topojson-client";
+import { countries as world } from "../../lib/world-map";
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
@@ -31,9 +30,6 @@ const d = study.data;
 
 // Locator drawn from the same atlas as the Impact map, fitted to the subject so
 // a reader sees where this happened before reading a word of it.
-const require = createRequire(import.meta.url);
-const topo = require("world-atlas/countries-110m.json");
-const world = feature(topo, topo.objects.countries) as any;
 const subject = world.features.filter((f: any) => d.countries.includes(f.properties?.name));
 const LW = 300;
 const LH = 200;

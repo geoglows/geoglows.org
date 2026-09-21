@@ -247,7 +247,6 @@ collections:
                   - { label: Country, name: country, widget: string }
                   - { label: Latitude, name: lat, widget: number, value_type: float, hint: "-90 to 90" }
                   - { label: Longitude, name: lng, widget: number, value_type: float, hint: "-180 to 180" }
-                  - { label: Label position, name: pos, widget: select, options: [top, bottom, left, right], default: top, required: false }
               - { label: Directory heading, name: directoryHeading, widget: string, required: false }
               - { label: Directory intro, name: directoryIntro, widget: text, required: false }
               - label: Projects
@@ -417,7 +416,6 @@ collections:
               - { label: Heading, name: heading, widget: string, required: false }
               - { label: Intro, name: intro, widget: text, required: false }
               - { label: Anchor ID, name: anchor, widget: string, required: false }
-              - { label: Webinars count, name: webinarsCount, widget: number, default: 3, value_type: int }
               - { label: News count, name: newsCount, widget: number, default: 5, value_type: int }
           - label: Rich text
             name: richText
@@ -686,7 +684,6 @@ collections:
                   - { label: Link, name: href, widget: string, required: false, hint: "Makes the card clickable" }
                   - { label: Link label, name: cta, widget: string, required: false, hint: "What the link says, e.g. Email the secretariat. Defaults to Learn more" }
                   - { label: Secondary, name: minor, widget: boolean, required: false, default: false, hint: "Shows as a lighter link below the cards instead of a full card" }
-              - { label: Contact email, name: contactEmail, widget: string, required: false }
           - label: Timeline
             name: timeline
             widget: object

@@ -24,19 +24,24 @@ const MAX_W = 250;
 const MAX_H = 76;
 const MIN_H = 28;
 
-const ratioCache = new Map<string, number>();
-async function ratioOf(src: string): Promise<number | null> {
-  if (ratioCache.has(src)) return ratioCache.get(src)!;
-  try {
-    const file = path.join(process.cwd(), "public", src.replace(/^\//, ""));
-    const { width, height } = await sharp(file).metadata();
-    if (!width || !height) return null;
-    const r = width / height;
-    ratioCache.set(src, r);
-    return r;
-  } catch {
-    return null; // missing or unreadable asset falls back to the CSS box
-  }
+// Keyed on the promise, not the value: every logo is sized concurrently, so
+// caching after the await let two lookups of one src both miss and read twice.
+const ratioCache = new Map<string, Promise<number | null>>();
+function ratioOf(src: string): Promise<number | null> {
+  const cached = ratioCache.get(src);
+  if (cached) return cached;
+  const pending = (async () => {
+    try {
+      const file = path.join(process.cwd(), "public", src.replace(/^\//, ""));
+      const { width, height } = await sharp(file).metadata();
+      if (!width || !height) return null;
+      return width / height;
+    } catch {
+      return null; // missing or unreadable asset falls back to the CSS box
+    }
+  })();
+  ratioCache.set(src, pending);
+  return pending;
 }
 
 async function opticalSize(src?: string) {

@@ -19,7 +19,7 @@ const target = (s: (typeof studies)[number]) =>
   s.data.challenge || s.data.story.length ? `/case-studies/${s.id}` : s.data.href;
 ---
 
-<section class:list={["block", { muted: background !== "page" }]}>
+<section class:list={["block", { muted: background === "muted" }]}>
   <div class="shell">
     <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />
     <div class="grid">

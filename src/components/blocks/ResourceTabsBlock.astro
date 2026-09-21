@@ -1,6 +1,6 @@
 ---
 import type { Block } from "../../schemas/blocks";
-import { isExternal } from "../../lib/links";
+import { externalAttrs } from "../../lib/links";
 import SectionHeader from "../ui/SectionHeader.astro";
 import Icon from "../ui/Icon.astro";
 
@@ -36,8 +36,7 @@ const labelled = grouped.some((g) => g.name);
                   <a
                     class="row"
                     href={tab.href}
-                    target={isExternal(tab.href) ? "_blank" : undefined}
-                    rel={isExternal(tab.href) ? "noopener" : undefined}
+                    {...externalAttrs(tab.href)}
                   >
                     {tab.icon && (
                       <span class="glyph">
