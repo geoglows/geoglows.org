@@ -29,8 +29,8 @@ const posts = (await getCollection("social"))
               </div>
             ))}
             {spotlightLink && (
-              <a class="more" href={spotlightLink.href}>
-                {spotlightLink.label} →
+              <a class="go-rule more" href={spotlightLink.href}>
+                {spotlightLink.label}
               </a>
             )}
           </div>
@@ -64,8 +64,8 @@ const posts = (await getCollection("social"))
           ))}
         </div>
         <div class="follow">
-          <a href="https://www.linkedin.com/company/geoglows" target="_blank" rel="noopener">Follow on LinkedIn →</a>
-          <a href="/community#news">All updates →</a>
+          <a class="go-rule" href="https://www.linkedin.com/company/geoglows" target="_blank" rel="noopener">Follow on LinkedIn</a>
+          <a class="go-rule" href="/community#news">All updates</a>
         </div>
       </aside>
     </div>

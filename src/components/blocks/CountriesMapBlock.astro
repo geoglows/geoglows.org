@@ -171,8 +171,8 @@ const fallbackPins = projects
                     {pr.href && (
                       <>
                         {" "}
-                        <a class="src" href={pr.href} target="_blank" rel="noopener">
-                          Read more →
+                        <a class="go-rule src" href={pr.href} target="_blank" rel="noopener">
+                          Read more
                         </a>
                       </>
                     )}
@@ -188,7 +188,7 @@ const fallbackPins = projects
     {
       cta && (
         <p class="all">
-          <a href={cta.href}>{cta.label} →</a>
+          <a class="go-rule" href={cta.href}>{cta.label}</a>
         </p>
       )
     }

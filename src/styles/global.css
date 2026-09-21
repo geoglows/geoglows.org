@@ -47,6 +47,36 @@ a {
   color: var(--accent-strong);
 }
 
+/* Standalone navigational links carry a short rule instead of an arrow: it
+   reads as direction without an arrowhead, takes the link's own colour, and
+   extends on hover. Drawn as a pseudo-element so no screen reader announces
+   it, which a literal arrow in the link text used to force. */
+.go-rule::after {
+  content: "";
+  display: inline-block;
+  width: 26px;
+  height: 1.5px;
+  margin-left: 0.55em;
+  vertical-align: 0.22em;
+  background: currentColor;
+  /* Scaled, not resized: width is a layout property, and animating it would
+     reflow the line. The box stays 26px wide, so nothing shifts. */
+  transform: scaleX(0.6);
+  transform-origin: left center;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+}
+a.go-rule:hover::after,
+a.go-rule:focus-visible::after,
+a:hover .go-rule::after,
+a:focus-visible .go-rule::after {
+  transform: scaleX(1);
+}
+@media (prefers-reduced-motion: reduce) {
+  .go-rule::after {
+    transition: none;
+  }
+}
+
 img {
   max-width: 100%;
   display: block;

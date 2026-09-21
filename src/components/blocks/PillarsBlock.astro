@@ -13,7 +13,7 @@ const { eyebrow, heading, intro, introLink, items } = Astro.props as Extract<
 <section class="block">
   <div class="shell">
     <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />
-    {introLink && <a class="intro-link" href={introLink.href}>{introLink.label} →</a>}
+    {introLink && <a class="go-rule intro-link" href={introLink.href}>{introLink.label}</a>}
     <div class="grid">
       {
         items.map((item) => (

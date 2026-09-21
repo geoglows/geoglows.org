@@ -29,7 +29,7 @@ const affiliation = [organization, country].filter(Boolean).join(" · ");
     {affiliation && <p class="affiliation">{affiliation}</p>}
     <span class="links">
       {/* Covers the whole card, so the card stays one big target. */}
-      <a class="more" href={href}>View profile →</a>
+      <a class="go-rule more" href={href}>View profile</a>
       {
         linkedin && (
           <a

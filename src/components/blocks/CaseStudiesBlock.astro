@@ -55,8 +55,8 @@ const target = (s: (typeof studies)[number]) =>
               </h3>
               {s.data.summary && <p>{s.data.summary}</p>}
               {href && (
-                <a class="more" href={href} {...(out ? { target: "_blank", rel: "noopener" } : {})}>
-                  {s.data.challenge ? "Read the case study" : "Read the story"} →
+                <a class="go-rule more" href={href} {...(out ? { target: "_blank", rel: "noopener" } : {})}>
+                  {s.data.challenge ? "Read the case study" : "Read the story"}
                 </a>
               )}
             </article>
@@ -67,7 +67,7 @@ const target = (s: (typeof studies)[number]) =>
     {
       cta && (
         <p class="all">
-          <a href={cta.href}>{cta.label} →</a>
+          <a class="go-rule" href={cta.href}>{cta.label}</a>
         </p>
       )
     }
