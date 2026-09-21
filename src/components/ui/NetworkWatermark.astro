@@ -6,7 +6,9 @@ import net from "../../data/pipeline-network.json";
 // read, so the cell counts, the callout and the pin are all dropped: a
 // watermark that carries a claim is a figure nobody can see.
 const W = 1100;
-const H = 460;
+// Height follows the frame's own aspect, so a degree is the same distance in
+// both axes and the 0.1 degree cells stay square whatever box is baked.
+const H = Math.round((W * (net.box.n - net.box.s)) / (net.box.e - net.box.w));
 const line = (pts: number[][]) =>
   // Integer precision: one unit is 0.09% of the frame, and nothing here is
   // read, so one decimal place cost 34% more path data for no visible change.
@@ -35,14 +37,12 @@ const [pitchX, pitchY] = [step(colEdges), step(rowEdges)];
 const [anchorX, anchorY] = [colEdges[1], rowEdges[1]];
 
 // One frame for both layers, so every cell boundary lands on the streams
-// exactly where it does in the data. The frame is far taller than the basin
-// because the column it sits in is: a lattice tiles happily at any aspect, so
-// the grid runs the whole height at its true pitch while the streams stay at
-// their true scale and read as a band across it. Stretching either one to fill
-// the column would have put the cell boundaries in the wrong place.
-const VIEW = { w: 1114, h: 2177 };
-const VIEW_X = Math.round(W / 2 - VIEW.w / 2);
-const VIEW_Y = Math.round(H / 2 - VIEW.h / 2);
+// exactly where it does in the data. The baked box is cut to this column's
+// aspect, so the frame is the data itself: the network runs the full height
+// rather than banding across the middle of an empty lattice.
+const VIEW = { w: W, h: H };
+const VIEW_X = 0;
+const VIEW_Y = 0;
 
 // Half-degree lines carry the graticule; the 0.1 degree cells sit inside them.
 // A flat lattice of identical lines read as graph paper, which is the one thing

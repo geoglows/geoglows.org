@@ -6,9 +6,14 @@ import { writeFileSync } from "node:fs";
 // Centred on the Karnali reach the forecast chart plots, so the figure and the
 // chart below it are the same river.
 const REACH = 441185104;
-// Banner proportions: one wide frame reads better than three small ones.
-const BOX = { w: 80.62, s: 28.55, e: 81.72, n: 29.01 };
-const CELL = 0.1; // ECMWF IFS 48r1 ensemble grid, about 9 km
+// Portrait, because the column this draws in is. The frame is 0.80 by 1.08
+// degrees, the aspect of that column, so the network fills its whole height
+// instead of sitting as a band across the middle of an empty lattice. Centred
+// on the plotted reach at 81.256, 28.736, which puts the Terai plains at the
+// bottom of the frame and the Himalayan headwaters at the top.
+const BOX = { w: 80.856, s: 28.196, e: 81.656, n: 29.276 };
+const CELL = 0.1;
+const SIMPLIFY_DEG = 0.0016; // about one screen pixel at the size this draws // ECMWF IFS 48r1 ensemble grid, about 9 km
 const SERVICE =
   "https://livefeeds3.arcgis.com/arcgis/rest/services/GEOGLOWS/GlobalWaterModel_Medium/MapServer/0/query";
 
@@ -115,11 +120,17 @@ for (const f of gj.features ?? []) {
     for (const run of clipPolyline(part)) {
       const full = run.map(([x, y]) => [px(x), py(y)]);
       const order = f.properties.streamorder ?? 1;
-      // 0.0015 is about a pixel at the size this draws. Coarser tolerances
-      // straightened the headwaters into scratches: at 0.005, 45% of order-2
-      // reaches collapsed to two points, and a river network of straight lines
-      // stops looking like one.
-      const pts = rdp(full, 0.0015).map(([x, y]) => [+x.toFixed(3), +y.toFixed(3)]);
+      // Simplify in degrees, before projecting. A tolerance in box-relative
+      // units silently got finer or coarser whenever the box changed, and it
+      // was anisotropic whenever the box was not square. This is about a pixel
+      // at the size this draws. Coarser straightened the headwaters into
+      // scratches: at three times this, 45% of order-2 reaches collapsed to
+      // two points, and a river network of straight lines stops looking like
+      // one.
+      const pts = rdp(run, SIMPLIFY_DEG).map(([x, y]) => [
+        +px(x).toFixed(4),
+        +py(y).toFixed(4),
+      ]);
       reaches.push({
         order,
         main: f.properties.comid === REACH,
