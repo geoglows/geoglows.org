@@ -101,7 +101,7 @@ blocks:
           The 15-day discharge forecast, used to plan reservoir releases.
         status: Operational
         result: >-
-          Controlled releases and a closed inflow avoided severe damage, saving over
+          Controlled releases and a closed inflow avoided severe damage, worth over
           30% of the losses recorded for Hurricane Mitch in 1998.
         href: "https://stories.geoglows.org/central-america/honduras"
       - country: Guatemala
