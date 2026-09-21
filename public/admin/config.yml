@@ -222,29 +222,8 @@ collections:
               - { label: Heading, name: heading, widget: string }
               - { label: Intro, name: intro, widget: text, required: false }
               - { label: Anchor ID, name: anchor, widget: string, required: false }
-              - label: Items
-                name: items
-                widget: list
-                fields:
-                  - { label: Location, name: location, widget: string }
-                  - { label: Title, name: title, widget: string }
-                  - { label: Text, name: text, widget: text, required: false }
-                  - { label: Kind, name: kind, widget: select, options: ["Case study", "Field story"], required: false }
-                  - { label: Image, name: image, widget: image, required: false }
-                  - { label: Challenge, name: challenge, widget: text, required: false }
-                  - { label: Intervention, name: intervention, widget: text, required: false }
-                  - label: Partners
-                    name: partners
-                    widget: list
-                    required: false
-                    summary: "{{fields.name}}"
-                    fields:
-                      - { label: Name, name: name, widget: string }
-                      - { label: Official website, name: url, widget: string, required: false }
-                  - { label: Results, name: results, widget: text, required: false }
-                  - { label: Lessons, name: lessons, widget: text, required: false }
-                  - { label: Source, name: source, widget: string, required: false }
-                  - { label: Link, name: href, widget: string, required: false }
+              # Case studies are edited in the "Case Studies & Field Stories" collection;
+              # this block just selects and renders them.
               - label: Button
                 name: cta
                 widget: object
@@ -302,6 +281,7 @@ collections:
             name: valueProps
             widget: object
             fields:
+              - { label: Compact, name: compact, widget: boolean, required: false, default: false, hint: "Tighter layout for a short specification list" }
               - { label: Eyebrow, name: eyebrow, widget: string, required: false }
               - { label: Heading, name: heading, widget: string }
               - { label: Intro, name: intro, widget: text, required: false }
@@ -373,12 +353,27 @@ collections:
               - { label: Heading, name: heading, widget: string }
               - { label: Intro, name: intro, widget: text, required: false }
               - { label: Anchor ID, name: anchor, widget: string, required: false }
+              - label: Call to action
+                name: cta
+                widget: object
+                required: false
+                fields:
+                  - { label: Label, name: label, widget: string }
+                  - { label: Link, name: href, widget: string }
               - label: Steps
                 name: steps
                 widget: list
                 fields:
                   - { label: Title, name: title, widget: string }
                   - { label: Text, name: text, widget: text }
+                  - label: Source link
+                    name: ref
+                    widget: object
+                    required: false
+                    hint: "Where a stage names an outside dataset or model, link to it"
+                    fields:
+                      - { label: Label, name: label, widget: string }
+                      - { label: Link, name: href, widget: string }
           - label: Newsletter
             name: newsletter
             widget: object
@@ -391,6 +386,7 @@ collections:
             widget: object
             fields:
               - { label: Heading, name: heading, widget: string }
+              - { label: Text, name: text, widget: text, required: false }
               - label: Buttons
                 name: ctas
                 widget: list
@@ -463,6 +459,7 @@ collections:
             name: toolsGrid
             widget: object
             fields:
+              - { label: Anchor, name: anchor, widget: string, required: false, hint: "Used by the nav, e.g. tools" }
               - { label: Eyebrow, name: eyebrow, widget: string, required: false }
               - { label: Heading, name: heading, widget: string }
               - { label: Intro, name: intro, widget: text, required: false }
@@ -786,6 +783,56 @@ collections:
                     fields:
                       - { label: Label, name: label, widget: string }
                       - { label: Link, name: href, widget: string }
+
+  - name: case-studies
+    label: Case Studies & Field Stories
+    label_singular: Case study
+    folder: src/content/case-studies
+    extension: md
+    format: yaml-frontmatter
+    create: true
+    identifier_field: title
+    sortable_fields: [order, title, location]
+    summary: "{{location}} - {{title}}"
+    fields:
+      - { label: Location, name: location, widget: string, hint: "Country or basin, shown above the title" }
+      - { label: Title, name: title, widget: string }
+      - { label: Summary, name: summary, widget: text, required: false }
+      - label: Kind
+        name: kind
+        widget: select
+        options: [Case study, Field story]
+        default: Case study
+        hint: "A case study gets its own page and uses the arc below. A field story is shorter and uses Story paragraphs instead."
+      - { label: Image, name: image, widget: image, required: false }
+      - { label: Image alt text, name: imageAlt, widget: string, required: false }
+      - label: Countries
+        name: countries
+        widget: list
+        required: false
+        field: { label: Country, name: country, widget: string }
+        hint: "Drives the locator map. Use the country name as it appears on the Impact map."
+      - { label: Challenge, name: challenge, widget: text, required: false }
+      - { label: Intervention, name: intervention, widget: text, required: false }
+      - label: Partners
+        name: partners
+        widget: list
+        required: false
+        fields:
+          - { label: Name, name: name, widget: string }
+          - { label: Website, name: url, widget: string, required: false }
+      - { label: Results, name: results, widget: text, required: false }
+      - { label: Lessons, name: lessons, widget: text, required: false }
+      - label: Story paragraphs
+        name: story
+        widget: list
+        required: false
+        field: { label: Paragraph, name: paragraph, widget: text }
+        hint: "Field stories only. Leave empty for a case study."
+      - { label: Source name, name: source, widget: string, required: false }
+      - { label: Source link, name: sourceUrl, widget: string, required: false }
+      - { label: External link, name: href, widget: string, required: false, hint: "Send readers off-site instead of to a detail page" }
+      - { label: Order, name: order, widget: number, default: 0, value_type: int }
 
   - name: tools
     label: Tools
