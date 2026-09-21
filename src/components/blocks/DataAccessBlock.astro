@@ -34,7 +34,7 @@ const { eyebrow, heading, intro, background, items } = Astro.props as Extract<
             {item.links.length > 0 && (
               <div class="links">
                 {item.links.map((link) => (
-                  <a class="go-rule"
+                  <a class="go-link"
                     href={link.href}
                     {...(isExternal(link.href)
                       ? { target: "_blank", rel: "noopener" }
