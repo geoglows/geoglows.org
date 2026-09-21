@@ -1,0 +1,48 @@
+---
+import net from "../../data/pipeline-network.json";
+
+// The same TDX-Hydro geometry step 03 plots, reused as section texture: no new
+// payload, and nothing on this layer is meant to be read. Cells, the callout
+// and the pin are all dropped, because a watermark that carries a claim is a
+// figure nobody can see.
+const W = 1100;
+const H = 460;
+const line = (pts: number[][]) =>
+  // Integer precision: one unit is 0.09% of the frame, and nothing here is
+  // read, so one decimal place cost 34% more path data for no visible change.
+  pts.map(([x, y], i) => `${i ? "L" : "M"}${Math.round(x * W)} ${Math.round(y * H)}`).join("");
+const maxOrder = Math.max(...net.reaches.map((r) => r.order));
+
+// Order 2 is 63% of the reaches and 62% of the points, and every one of them
+// is a capillary that disappears at this opacity. Drawing the trunks only is
+// what the eye reads anyway, at a third of the weight.
+const trunks = net.reaches.filter((r) => r.order >= 3);
+---
+
+<svg
+  class="mark"
+  viewBox={`0 0 ${W} ${H}`}
+  preserveAspectRatio="xMidYMid slice"
+  aria-hidden="true"
+  focusable="false"
+>
+  {
+    trunks.map((r) => (
+      <path d={line(r.d)} style={`stroke-width:${(1.2 + 3.6 * (r.order / maxOrder)).toFixed(2)}`} />
+    ))
+  }
+</svg>
+
+<style>
+  .mark {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .mark path {
+    fill: none;
+    stroke: var(--accent-text);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+</style>
