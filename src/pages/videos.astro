@@ -29,7 +29,8 @@ const t = (await getEntry("pageSections", "videos"))?.data ?? {};
             align="left"
             level={1}
           />
-          <div class="webinar-grid">
+          <h2 class="visually-hidden">Webinars in this series</h2>
+        <div class="webinar-grid">
             {webinars.map((w) => (
               <WebinarCard {...w.data} />
             ))}

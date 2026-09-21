@@ -1,6 +1,6 @@
 ---
 import type { Block } from "../../schemas/blocks";
-import { isExternal } from "../../lib/links";
+import { externalAttrs } from "../../lib/links";
 import SectionHeader from "../ui/SectionHeader.astro";
 import Icon from "../ui/Icon.astro";
 
@@ -34,13 +34,11 @@ const { eyebrow, heading, intro, background, items } = Astro.props as Extract<
             {item.links.length > 0 && (
               <div class="links">
                 {item.links.map((link) => (
-                  <a
+                  <a class="go-link"
                     href={link.href}
-                    {...(isExternal(link.href)
-                      ? { target: "_blank", rel: "noopener" }
-                      : {})}
+                    {...externalAttrs(link.href)}
                   >
-                    {link.label} →
+                    {link.label}
                   </a>
                 ))}
               </div>
@@ -153,7 +151,7 @@ const { eyebrow, heading, intro, background, items } = Astro.props as Extract<
     text-decoration: none;
   }
   .links a:hover {
-    text-decoration: underline;
+    color: var(--accent-hover);
   }
 
   @media (prefers-reduced-motion: no-preference) {

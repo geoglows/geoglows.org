@@ -52,15 +52,8 @@ const caseStudiesBlock = z.object({
   heading: z.string(),
   intro: z.string().optional(),
   anchor: z.string().optional(),
-  items: z.array(
-    z.object({
-      location: z.string(),
-      title: z.string(),
-      text: z.string(),
-      source: z.string().optional(),
-      href: z.string().optional(),
-    }),
-  ),
+  background: backgroundSchema.optional(),
+  // Entries live in the case-studies collection so each one can have its own page.
   cta: linkSchema.optional(),
 });
 
@@ -76,9 +69,25 @@ const countriesMapBlock = z.object({
       country: z.string(),
       lat: z.number(),
       lng: z.number(),
-      pos: z.enum(["top", "bottom", "left", "right"]).optional(),
     }),
   ),
+  directoryHeading: z.string().optional(),
+  directoryIntro: z.string().optional(),
+  projects: z
+    .array(
+      z.object({
+        country: z.string(),
+        challenge: z.string(),
+        partners: z
+          .array(z.object({ name: z.string(), url: z.string().optional() }))
+          .default([]),
+        application: z.string(),
+        status: z.string(),
+        result: z.string(),
+        href: z.string().optional(),
+      }),
+    )
+    .default([]),
   cta: linkSchema.optional(),
 });
 
@@ -88,7 +97,6 @@ const communityFeedBlock = z.object({
   heading: z.string().optional(),
   intro: z.string().optional(),
   anchor: z.string().optional(),
-  webinarsCount: z.number().default(3),
   newsCount: z.number().default(5),
 });
 
@@ -119,6 +127,7 @@ const featureSectionBlock = z.object({
   tag: z.string().optional(),
   body: z.string(),
   image: z.string().optional(),
+  imageAlt: z.string().optional(),
   imageSide: z.enum(["left", "right"]).optional(),
   background: backgroundSchema.optional(),
   points: z
@@ -136,6 +145,9 @@ const valuePropsBlock = z.object({
   heading: z.string(),
   anchor: z.string().optional(),
   intro: z.string().optional(),
+  // A tight term-and-gloss strip instead of cards, for facts the surrounding
+  // content already explains and that only need stating once.
+  compact: z.boolean().default(false),
   items: z.array(titleTextItem),
   cta: linkSchema.optional(),
 });
@@ -175,7 +187,16 @@ const howItWorksBlock = z.object({
   heading: z.string(),
   intro: z.string().optional(),
   anchor: z.string().optional(),
-  steps: z.array(z.object({ title: z.string(), text: z.string() })),
+  steps: z.array(
+    z.object({
+      title: z.string(),
+      text: z.string(),
+      // Where a stage names an outside dataset or model, the stage links to it
+      // rather than making the reader carry the acronym unexplained.
+      ref: linkSchema.optional(),
+    }),
+  ),
+  cta: linkSchema.optional(),
 });
 
 const newsletterBlock = z.object({
@@ -188,6 +209,7 @@ const newsletterBlock = z.object({
 const closingCtaBlock = z.object({
   type: z.literal("closingCta"),
   heading: z.string(),
+  text: z.string().optional(),
   ctas: z.array(ctaSchema).default([]),
 });
 
@@ -212,6 +234,7 @@ const richTextBlock = z.object({
 const toolsGridBlock = z.object({
   type: z.literal("toolsGrid"),
   eyebrow: z.string().optional(),
+  anchor: z.string().optional(),
   heading: z.string(),
   intro: z.string().optional(),
   category: z.string().optional(),
@@ -225,6 +248,7 @@ const peopleGridBlock = z.object({
   heading: z.string(),
   group: z.string().optional(),
   anchor: z.string().optional(),
+  background: backgroundSchema.optional(),
 });
 
 const workingGroupsBlock = z.object({
@@ -363,9 +387,10 @@ const audienceCardsBlock = z.object({
       title: z.string(),
       text: z.string(),
       href: z.string().optional(),
+      minor: z.boolean().default(false),
+      cta: z.string().optional(),
     }),
   ),
-  contactEmail: z.string().optional(),
 });
 
 const timelineBlock = z.object({
@@ -379,6 +404,20 @@ const timelineBlock = z.object({
   cards: z
     .array(z.object({ title: z.string(), items: z.array(z.string()) }))
     .default([]),
+});
+
+const identityStatementBlock = z.object({
+  type: z.literal("identityStatement"),
+  eyebrow: z.string().optional(),
+  anchor: z.string().optional(),
+  heading: z.string(),
+  lede: z.string(),
+  image: z.string().optional(),
+  imageAlt: z.string().optional(),
+  statementLabel: z.string().optional(),
+  statement: z.string().optional(),
+  facts: z.array(z.object({ label: z.string(), text: z.string() })).default([]),
+  background: backgroundSchema.optional(),
 });
 
 const featuredMediaBlock = z.object({
@@ -450,6 +489,7 @@ export const blockSchema = z.discriminatedUnion("type", [
   audienceCardsBlock,
   timelineBlock,
   featuredMediaBlock,
+  identityStatementBlock,
   resourceTabsBlock,
 ]);
 

@@ -11,6 +11,14 @@ function handler(event) {
     };
   }
 
+  if (uri === '/what-we-do' || uri.startsWith('/what-we-do/')) {
+    return {
+      statusCode: 302,
+      statusDescription: 'Found',
+      headers: { 'location': { value: '/tools' } }
+    };
+  }
+
   if (uri.endsWith('/')) {
     request.uri = uri + 'index.html';
   } else {

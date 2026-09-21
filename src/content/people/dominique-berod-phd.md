@@ -4,6 +4,7 @@ title: "Head, Earth System Monitoring Division"
 organization: "World Meteorological Organization"
 groups: ["Steering committee"]
 photo: /images/people/dominique-berod-phd.webp
+linkedin: https://www.linkedin.com/in/dom-berod-wmo/
 order: 1
 ---
 

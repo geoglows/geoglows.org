@@ -1,18 +1,21 @@
 ---
+import Icon from "../ui/Icon.astro";
+
 interface Props {
   name: string;
   title?: string;
   organization?: string;
   country?: string;
   photo?: string;
+  linkedin?: string;
   initials: string;
   href: string;
 }
-const { name, title, organization, country, photo, initials, href } = Astro.props;
+const { name, title, organization, country, photo, linkedin, initials, href } = Astro.props;
 const affiliation = [organization, country].filter(Boolean).join(" · ");
 ---
 
-<a class="person" href={href}>
+<article class="person">
   {
     photo ? (
       <img class="photo" src={photo} alt={name} width="56" height="56" loading="lazy" decoding="async" />
@@ -24,12 +27,30 @@ const affiliation = [organization, country].filter(Boolean).join(" · ");
     <h3>{name}</h3>
     {title && <p class="title">{title}</p>}
     {affiliation && <p class="affiliation">{affiliation}</p>}
-    <span class="more">View profile →</span>
+    <span class="links">
+      {/* Covers the whole card, so the card stays one big target. */}
+      <a class="go-link more" href={href}>View profile</a>
+      {
+        linkedin && (
+          <a
+            class="li"
+            href={linkedin}
+            target="_blank"
+            rel="noopener"
+            aria-label={`${name} on LinkedIn`}
+            title={`${name} on LinkedIn`}
+          >
+            <Icon name="linkedin" size={17} />
+          </a>
+        )
+      }
+    </span>
   </div>
-</a>
+</article>
 
 <style>
   .person {
+    position: relative;
     display: flex;
     gap: 14px;
     align-items: center;
@@ -38,7 +59,6 @@ const affiliation = [organization, country].filter(Boolean).join(" · ");
     border-radius: var(--radius);
     background: var(--surface-page);
     box-shadow: var(--shadow-sm);
-    text-decoration: none;
     color: var(--text-strong);
     transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
   }
@@ -47,10 +67,22 @@ const affiliation = [organization, country].filter(Boolean).join(" · ");
     box-shadow: var(--shadow-md);
     border-color: var(--accent-text);
   }
+  .person:focus-within {
+    border-color: var(--accent-text);
+  }
   @media (prefers-reduced-motion: reduce) {
+    .person {
+      transition: none;
+    }
     .person:hover {
       transform: none;
     }
+  }
+  /* Fills the card so the LinkedIn mark lands on the card's right edge
+     rather than at the ragged end of each card's text. */
+  .info {
+    flex: 1;
+    min-width: 0;
   }
   .photo,
   .avatar {
@@ -65,8 +97,8 @@ const affiliation = [organization, country].filter(Boolean).join(" · ");
   .avatar {
     display: grid;
     place-items: center;
-    background: radial-gradient(circle at 30% 30%, #3a5a7a, #243754);
-    color: #fff;
+    background: radial-gradient(circle at 30% 30%, var(--avatar-from), var(--avatar-to));
+    color: var(--avatar-ink);
     font-weight: 800;
     font-size: 0.95rem;
   }
@@ -82,11 +114,50 @@ const affiliation = [organization, country].filter(Boolean).join(" · ");
     color: var(--text-faint);
     font-size: 0.8rem;
   }
+  /* The two links sit at opposite ends: the profile is the card's action,
+     LinkedIn is a quiet aside that should not read as a second CTA. */
+  .links {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 10px;
+    min-height: 26px;
+  }
   .more {
-    display: inline-block;
-    margin-top: 8px;
     color: var(--accent-text);
     font-size: 0.78rem;
     font-weight: 700;
+    text-decoration: none;
+  }
+  /* The profile link owns the card surface; LinkedIn sits above it. */
+  .more::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+  }
+  .li {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    /* 26px of ink, 44px of target: the negative margins keep the icon
+       optically aligned with the profile link's baseline row. */
+    width: 44px;
+    height: 44px;
+    margin: -9px -9px -9px 0;
+    color: var(--text-faint);
+    text-decoration: none;
+    transition: color 0.16s ease;
+  }
+  .li:hover,
+  .li:focus-visible {
+    color: var(--accent-text);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .li {
+      transition: none;
+    }
   }
 </style>

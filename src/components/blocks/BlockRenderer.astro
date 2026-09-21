@@ -31,6 +31,7 @@ import AudienceCardsBlock from "./AudienceCardsBlock.astro";
 import TimelineBlock from "./TimelineBlock.astro";
 import FeaturedMediaBlock from "./FeaturedMediaBlock.astro";
 import ResourceTabsBlock from "./ResourceTabsBlock.astro";
+import IdentityStatementBlock from "./IdentityStatementBlock.astro";
 
 const registry = {
   hero: HeroBlock,
@@ -64,6 +65,7 @@ const registry = {
   timeline: TimelineBlock,
   featuredMedia: FeaturedMediaBlock,
   resourceTabs: ResourceTabsBlock,
+  identityStatement: IdentityStatementBlock,
 } as const;
 
 interface Props {
@@ -73,10 +75,11 @@ const { blocks } = Astro.props;
 ---
 
 {
-  blocks.map((block) => {
+  blocks.map((block, i) => {
     const Component = registry[block.type];
     const anchor = (block as any).anchor;
-    const rendered = <Component {...(block as any)} />;
+    /* Only the first block can hold the LCP element, so only it gets priority. */
+    const rendered = <Component {...(block as any)} priority={i === 0} />;
     return anchor ? (
       <div id={anchor} class="block-anchor">
         {rendered}

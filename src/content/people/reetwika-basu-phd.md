@@ -5,6 +5,7 @@ organization: "University of Alabama, Huntsville"
 country: "USA"
 groups: ["Project leaders"]
 photo: /images/people/reetwika-basu-phd.webp
+linkedin: https://www.linkedin.com/in/reetwikab/
 order: 4
 ---
 

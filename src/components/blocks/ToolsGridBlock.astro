@@ -26,7 +26,7 @@ const tools = limit ? sorted.slice(0, limit) : sorted;
             tagline={tool.data.tagline}
             category={tool.data.category}
             icon={tool.data.icon}
-            href={tool.data.appUrl ?? `/tools/${tool.id}`}
+            href={`/tools/${tool.id}`}
             comingSoon={tool.data.comingSoon}
           />
         ))
@@ -35,8 +35,8 @@ const tools = limit ? sorted.slice(0, limit) : sorted;
     {
       cta && (
         <div class="center">
-          <a class="all" href={cta.href}>
-            {cta.label} →
+          <a class="go-link all" href={cta.href}>
+            {cta.label}
           </a>
         </div>
       )

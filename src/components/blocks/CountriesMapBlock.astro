@@ -1,41 +1,39 @@
 ---
-import { createRequire } from "module";
-import { geoEquirectangular, geoPath } from "d3-geo";
-import { feature } from "topojson-client";
 import type { Block } from "../../schemas/blocks";
 import SectionHeader from "../ui/SectionHeader.astro";
+import { LNG0, LNG1, LAT0, LAT1, W, H, projection, path, countries, shapeName } from "../../lib/world-map";
 
-const { eyebrow, heading, intro, note, points, cta } = Astro.props as Extract<
-  Block,
-  { type: "countriesMap" }
->;
+const { eyebrow, heading, intro, note, points, projects, directoryHeading, directoryIntro, cta } =
+  Astro.props as Extract<Block, { type: "countriesMap" }>;
 
-const require = createRequire(import.meta.url);
-const topo = require("world-atlas/countries-110m.json");
-const countries = feature(topo, topo.objects.countries);
+const slug = (s: string) =>
+  "project-" + s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
-const W = 1000;
-const H = 500;
-const projection = geoEquirectangular().fitSize([W, H], { type: "Sphere" });
-const worldPath = geoPath(projection)(countries) ?? "";
-const pins = points
-  .map((pt) => {
-    const xy = projection([pt.lng, pt.lat]);
+const byName = new Map(
+  countries.features.map((f: any) => [f.properties?.name, f]),
+);
+
+const shapes = projects
+  .map((pr) => {
+    const f = byName.get(shapeName(pr.country));
+    const d = f ? path(f) : null;
+    return d ? { country: pr.country, id: slug(pr.country), d } : null;
+  })
+  .filter(Boolean) as { country: string; id: string; d: string }[];
+
+// Anything the atlas cannot draw would silently vanish from the map, so it keeps
+// a marker instead of disappearing.
+const drawn = new Set(shapes.map((s) => s.country));
+const fallbackPins = projects
+  .filter((pr) => !drawn.has(pr.country))
+  .map((pr) => {
+    const pt = points.find((x) => x.country === pr.country);
+    const xy = pt ? projection([pt.lng, pt.lat]) : null;
     return xy
-      ? {
-          country: pt.country,
-          pos: pt.pos ?? "top",
-          xPct: (xy[0] / W) * 100,
-          yPct: (xy[1] / H) * 100,
-        }
+      ? { country: pr.country, id: slug(pr.country), xPct: (xy[0] / W) * 100, yPct: (xy[1] / H) * 100 }
       : null;
   })
-  .filter(Boolean) as {
-  country: string;
-  pos: string;
-  xPct: number;
-  yPct: number;
-}[];
+  .filter(Boolean) as { country: string; id: string; xPct: number; yPct: number }[];
 ---
 
 <section class="block countries">
@@ -47,55 +45,207 @@ const pins = points
           viewBox={`0 0 ${W} ${H}`}
           class="map"
           role="img"
-          aria-label="World map showing countries with documented GEOGLOWS deployments"
+          aria-label="Map of the countries with a documented GEOGLOWS project"
         >
-          <path d={worldPath} class="world" />
-        </svg>
-        <div class="pins">
           {
-            pins.map((p) => (
-              <span class="pin" style={`left:${p.xPct}%;top:${p.yPct}%`}>
-                <span class:list={["lbl", `lbl-${p.pos}`]}>{p.country}</span>
-              </span>
+            shapes.map((s) => (
+              <a href={`#${s.id}`} class="land" data-land={s.id} aria-label={s.country}>
+                <title>{s.country}</title>
+                <path d={s.d} />
+              </a>
             ))
           }
-        </div>
+        </svg>
+        {
+          fallbackPins.length > 0 && (
+            <div class="pins">
+              {fallbackPins.map((f) => (
+                <a
+                  class="pin"
+                  style={`left:${f.xPct}%;top:${f.yPct}%`}
+                  href={`#${f.id}`}
+                  data-land={f.id}
+                  aria-label={f.country}
+                >
+                  <span class="dot" />
+                </a>
+              ))}
+            </div>
+          )
+        }
       </div>
     </div>
     {note && <p class="note">{note}</p>}
     {
+      projects.length > 0 && (
+        <div class="directory" data-directory>
+          {directoryHeading && <h3 class="dir-head">{directoryHeading}</h3>}
+          {directoryIntro && <p class="dir-intro">{directoryIntro}</p>}
+          <div
+            class="grid"
+            tabindex="0"
+            role="region"
+            aria-label="Projects, scroll horizontally"
+          >
+          {projects.map((pr) => (
+            <article class="project" id={slug(pr.country)} data-card={slug(pr.country)}>
+              <header>
+                {/* The heading is the control, so selection works without JS
+                    and lands in the tab order once per card. */}
+                <h4>
+                  <a class="pick" href={`#${slug(pr.country)}`}>{pr.country}</a>
+                </h4>
+                <span class="status">{pr.status}</span>
+              </header>
+              {
+                pr.partners.length > 0 && (
+                  <p class="partners">
+                    {pr.partners.map((o, i) => (
+                      <>
+                        {i > 0 && <span class="sep"> · </span>}
+                        {o.url ? (
+                          <a href={o.url} target="_blank" rel="noopener">
+                            {o.name}
+                          </a>
+                        ) : (
+                          <span>{o.name}</span>
+                        )}
+                      </>
+                    ))}
+                  </p>
+                )
+              }
+              <dl class="detail">
+                <div>
+                  <dt>Challenge</dt>
+                  <dd>{pr.challenge}</dd>
+                </div>
+                <div>
+                  <dt>GEOGLOWS application</dt>
+                  <dd>{pr.application}</dd>
+                </div>
+                <div>
+                  <dt>Result</dt>
+                  <dd>
+                    {pr.result}
+                    {pr.href && (
+                      <>
+                        {" "}
+                        <a class="go-link src" href={pr.href} target="_blank" rel="noopener">
+                          Read more
+                        </a>
+                      </>
+                    )}
+                  </dd>
+                </div>
+              </dl>
+            </article>
+          ))}
+          </div>
+        </div>
+      )
+    }
+    {
       cta && (
         <p class="all">
-          <a href={cta.href}>{cta.label} →</a>
+          <a class="go-link" href={cta.href}>{cta.label}</a>
         </p>
       )
     }
   </div>
 </section>
 
-<style>
+<script>
+  // Nothing here is required to read the directory: every field is already on
+  // every card. This only links the map to the cards and marks the selection.
+  document.querySelectorAll("[data-directory]").forEach((dir) => {
+    const cards = [...dir.querySelectorAll("[data-card]")];
+    if (!cards.length) return;
+    const lands = [...document.querySelectorAll("[data-land]")];
 
+    const select = (id, scroll) => {
+      const card = cards.find((c) => c.id === id);
+      if (!card) return;
+      cards.forEach((c) => c.classList.toggle("is-active", c === card));
+      lands.forEach((l) => l.classList.toggle("is-active", l.dataset.land === id));
+      // Restart the glow even when the same country is picked twice.
+      card.classList.remove("is-active");
+      void card.offsetWidth;
+      card.classList.add("is-active");
+      if (scroll) {
+        const rail = card.parentElement;
+        const railed = getComputedStyle(rail).overflowX === "auto";
+        // inline:"center" moves the rail; block:"nearest" keeps the map in frame
+        // instead of throwing the page down to the card.
+        card.scrollIntoView(
+          railed
+            ? { block: "nearest", inline: "center", behavior: "smooth" }
+            : { block: "center", behavior: "smooth" },
+        );
+      }
+    };
+
+    lands.forEach((land) =>
+      land.addEventListener("click", (e) => {
+        e.preventDefault();
+        pick(land.dataset.land, true);
+      }),
+    );
+
+    // Clicking anywhere on a card selects it too, but never steals a click that
+    // was aimed at a partner site or a source link.
+    cards.forEach((card) =>
+      card.addEventListener("click", (e) => {
+        const link = e.target.closest("a");
+        if (link && !link.classList.contains("pick")) return;
+        e.preventDefault();
+        // No scroll: the card you clicked is already in front of you.
+        pick(card.id, false);
+      }),
+    );
+
+    const pick = (id, scroll) => {
+      history.replaceState(null, "", "#" + id);
+      select(id, scroll);
+    };
+
+    window.addEventListener("hashchange", () =>
+      select(location.hash.slice(1), true),
+    );
+    if (location.hash) select(location.hash.slice(1), false);
+  });
+</script>
+
+<style>
   .countries {
     --map-ocean: #e7ecf0;
     --map-land: #d3dbe1;
     --map-border: #ffffff;
+    --map-project: #7fc4ba;
+    --map-project-on: var(--color-teal-green);
   }
   @media (prefers-color-scheme: dark) {
     :global(:root:not([data-theme="light"])) .countries {
       --map-ocean: #101b28;
       --map-land: #263749;
       --map-border: #101b28;
+      --map-project: #2f7d74;
+      --map-project-on: #5fd0be;
     }
   }
   :global(:root[data-theme="dark"]) .countries {
     --map-ocean: #101b28;
     --map-land: #263749;
     --map-border: #101b28;
+    --map-project: #2f7d74;
+    --map-project-on: #5fd0be;
   }
   :global(:root[data-theme="light"]) .countries {
     --map-ocean: #e7ecf0;
     --map-land: #d3dbe1;
     --map-border: #ffffff;
+    --map-project: #7fc4ba;
+    --map-project-on: var(--color-teal-green);
   }
 
   .map-wrap {
@@ -108,83 +258,267 @@ const pins = points
     position: relative;
   }
   .map {
+    display: block;
     width: 100%;
     height: auto;
-    display: block;
   }
-  .world {
-    fill: var(--map-land);
+  /* The base landmass is a cached image, not inline markup: it is the one part
+     of the map nothing can click, and it was 149 KB of coastline in the HTML of
+     every page view. Sized to the box, and the viewBox matches, so the
+     clickable country shapes above it line up exactly. */
+  .map {
+    background-image: url("/world-base-light.svg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+  @media (prefers-color-scheme: dark) {
+    :global(:root:not([data-theme="light"])) .map {
+      background-image: url("/world-base-dark.svg");
+    }
+  }
+  :global(:root[data-theme="dark"]) .map {
+    background-image: url("/world-base-dark.svg");
+  }
+  /* The countries carrying a project are the markers now. */
+  .land path {
+    fill: var(--map-project);
     stroke: var(--map-border);
-    stroke-width: 0.6;
-    stroke-linejoin: round;
+    stroke-width: 0.4;
+    transition: fill 0.18s cubic-bezier(0.22, 1, 0.36, 1);
   }
-
+  .land:hover path,
+  .land:focus-visible path {
+    fill: var(--map-project-on);
+  }
+  .land:focus-visible {
+    outline: 2px solid var(--color-amber);
+    outline-offset: 2px;
+  }
+  .land.is-active path {
+    fill: var(--map-project-on);
+    stroke: var(--map-project-on);
+    stroke-width: 1.6;
+    paint-order: stroke;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .land path {
+      transition: none;
+    }
+  }
+  /* Only for a country the atlas cannot draw, so it never silently vanishes. */
   .pins {
     position: absolute;
     inset: 0;
   }
-
   .pin {
     position: absolute;
-    width: 13px;
-    height: 13px;
+    display: grid;
+    place-items: center;
+    width: 14px;
+    height: 14px;
     transform: translate(-50%, -50%);
-    border-radius: 50%;
-    background: var(--color-amber);
-    border: 2px solid var(--surface-page);
-    box-shadow: 0 1px 4px rgba(15, 23, 32, 0.45);
   }
-  .lbl {
-    position: absolute;
-    padding: 2px 7px;
-    border-radius: 6px;
-    background: var(--surface-page);
-    border: 1px solid var(--border);
-    box-shadow: var(--shadow-sm);
-    color: var(--text-strong);
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.01em;
-    white-space: nowrap;
+  .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--map-project-on);
+    border: 2px solid var(--surface-page);
   }
 
-  .lbl-top {
-    bottom: calc(100% + 5px);
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  .lbl-bottom {
-    top: calc(100% + 5px);
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  .lbl-left {
-    right: calc(100% + 7px);
-    top: 50%;
-    transform: translateY(-50%);
-  }
-  .lbl-right {
-    left: calc(100% + 7px);
-    top: 50%;
-    transform: translateY(-50%);
-  }
   .note {
     margin-top: 14px;
-    color: var(--text-faint);
-    font-size: 0.9rem;
+    color: var(--text-body);
+    font-size: 0.88rem;
+    line-height: 1.55;
   }
   .all {
-    margin-top: 20px;
+    margin-top: 22px;
   }
   .all a {
     color: var(--accent-text);
     font-weight: 800;
     text-decoration: none;
   }
-  @media (max-width: 640px) {
-    .lbl {
-      font-size: 0.58rem;
-      padding: 1px 5px;
+
+  .directory {
+    margin-top: clamp(44px, 5.5vw, 74px);
+  }
+  .dir-head {
+    font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+    letter-spacing: -0.01em;
+  }
+  .dir-intro {
+    max-width: 66ch;
+    margin-top: 10px;
+    color: var(--text-body);
+    font-size: 0.97rem;
+    line-height: 1.6;
+  }
+
+  /* Phones keep the vertical stack: a horizontal rail of tall cards is wrong on
+     a small screen. The rail only appears where the map and a card can share the
+     viewport. */
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 16px;
+    margin-top: 22px;
+  }
+  @media (min-width: 900px) {
+    .grid {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-padding: 0 2px;
+      padding-bottom: 14px;
+      /* The map stays the index, so the rail is the detail viewport, not the
+         way projects are discovered. All 15 stay in the DOM either way. */
+      scrollbar-color: var(--map-project) transparent;
+    }
+    .grid > .project {
+      flex: 0 0 clamp(310px, 31%, 390px);
+      scroll-snap-align: start;
+    }
+    .grid:focus-visible {
+      outline: 2px solid var(--color-amber);
+      outline-offset: 4px;
+      border-radius: var(--radius);
+    }
+    .grid::-webkit-scrollbar {
+      height: 8px;
+    }
+    .grid::-webkit-scrollbar-thumb {
+      background: var(--map-project);
+      border-radius: 999px;
+    }
+    .grid::-webkit-scrollbar-track {
+      background: transparent;
+    }
+  }
+  /* Every field is on the face: nothing opens, so nothing is hidden. */
+  .project {
+    padding: 17px 18px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-page);
+    scroll-margin-top: 100px;
+    transition: border-color 0.2s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .project header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .project h4 {
+    font-family: "Raleway", "Open Sans", system-ui, sans-serif;
+    font-size: 1.16rem;
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    color: var(--text-strong);
+  }
+  .status {
+    display: inline-block;
+    padding: 3px 10px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    color: var(--accent-text);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+  .partners {
+    margin-top: 8px;
+    color: var(--text-faint);
+    font-size: 0.81rem;
+    line-height: 1.5;
+  }
+  .partners a {
+    color: var(--text-faint);
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 3px;
+    transition: color 0.16s ease, text-decoration-color 0.16s ease;
+  }
+  .partners a:hover,
+  .partners a:focus-visible {
+    color: var(--accent-text);
+    text-decoration-color: currentColor;
+  }
+  .pick {
+    /* 21px before this, under WCAG 2.5.8's 24x24 minimum. */
+    min-height: 24px;
+    display: inline-flex;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
+  }
+  .pick:focus-visible {
+    outline: 2px solid var(--color-amber);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+  .project:hover .pick {
+    color: var(--accent-text);
+  }
+  /* The whole card is a convenience target; the heading link is the real one. */
+  .project {
+    cursor: pointer;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .partners a {
+      transition: none;
+    }
+  }
+  .detail {
+    margin: 13px 0 0;
+    display: grid;
+    gap: 11px;
+  }
+  .detail dt {
+    color: var(--text-faint);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .detail dd {
+    margin: 3px 0 0;
+    color: var(--text-body);
+    font-size: 0.87rem;
+    line-height: 1.5;
+  }
+  .src {
+    color: var(--accent-text);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  /* Selection: the border and ring carry it, and a brief glow pulls the eye to
+     the card that just scrolled into view. Colour and shadow only; the card's
+     box never changes size, so no layout is animated. */
+  .project.is-active {
+    border-color: var(--map-project-on);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--map-project-on) 26%, transparent);
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    .project.is-active {
+      animation: card-land 1.15s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+  }
+  @keyframes card-land {
+    0% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--map-project-on) 55%, transparent);
+    }
+    38% {
+      box-shadow: 0 0 0 11px color-mix(in srgb, var(--map-project-on) 34%, transparent);
+    }
+    100% {
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--map-project-on) 26%, transparent);
     }
   }
 </style>

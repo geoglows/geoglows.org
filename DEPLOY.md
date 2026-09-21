@@ -1,33 +1,59 @@
 # Deploying geoglows.org
 
-Astro (static) + Sveltia CMS (Git-based) on Vercel. Editors manage content through a
-form-based admin at `/admin`; every save is a commit to this repo, which triggers a
-Vercel rebuild. No third-party CMS service is used — GitHub OAuth is handled by the
-serverless functions in `api/`.
+Astro (static) + Sveltia CMS (Git-based), served from **S3 behind CloudFront**. Editors
+manage content through a form-based admin at `/admin`; every save is a commit to this
+repo, which triggers a rebuild. No third-party CMS service is used — GitHub OAuth is
+handled by the Lambda in `infra/oauth-lambda/`.
 
-## 1. Deploy the site
+There is currently **no production environment**. Staging is the only deployment.
 
-1. Push this repo to `github.com/geoglows/geoglows.org`.
-2. In Vercel, import the repo (framework preset **Astro** is auto-detected; static build,
-   no adapter needed). The functions in `api/` deploy automatically.
-3. Note the production domain (e.g. `https://geoglows-org.vercel.app`).
+## 1. How a deploy happens
 
-## 2. Wire up editor login (GitHub OAuth)
+`.github/workflows/deploy-staging.yml` runs on every push to `staging`, and can be run by
+hand with **workflow_dispatch**. It:
 
-1. Create a GitHub OAuth App (Settings → Developer settings → OAuth Apps) in the
-   `geoglows` org:
-   - **Homepage URL:** the production domain
-   - **Authorization callback URL:** `https://<domain>/api/callback`
-2. In Vercel → Project → Settings → Environment Variables, add:
-   - `OAUTH_GITHUB_CLIENT_ID`
-   - `OAUTH_GITHUB_CLIENT_SECRET`
-3. Set `base_url` in `public/admin/config.yml` to the final production domain, commit,
-   and redeploy.
+1. `npm ci` and `npm run build` on Node 22.
+2. Assumes an AWS role via GitHub OIDC (no long-lived keys) in `us-east-1`.
+3. `aws s3 sync dist/` twice, so the cache headers differ by asset type:
+   - everything except `*.html` -> `public,max-age=3600`
+   - `*.html` -> `no-cache`, so a content edit is visible on the next request
+4. Invalidates the CloudFront distribution at `/*`.
 
-Editors then open `https://<domain>/admin`, sign in with GitHub (they need write access
-to the repo), and edit content. Saves commit to `main` and redeploy the site.
+Repository **variables** it needs (Settings -> Secrets and variables -> Actions ->
+Variables), under the `staging` environment:
 
-## 3. Local development
+| Variable | What it is |
+|---|---|
+| `AWS_DEPLOY_ROLE_ARN` | role GitHub OIDC assumes to write the bucket and invalidate |
+| `S3_BUCKET` | bucket the built site syncs into |
+| `CLOUDFRONT_DISTRIBUTION_ID` | distribution to invalidate |
+
+## 2. Routing
+
+`infra/cloudfront/staging-router.js` is a **CloudFront Function** on viewer-request. It
+is the only router: there is no framework routing at the edge. It handles
+
+- `/apps` and `/apps/*` -> 302 to `apps.geoglows.org`
+- `/what-we-do` and `/what-we-do/` -> 302 to `/tools` (the section was retired)
+- directory-index rewriting, so `/tools` and `/tools/` both serve `/tools/index.html`
+
+Anything that needs a redirect has to be added here. Editing the file in the repo does
+not deploy it; publish the new function version to the distribution.
+
+## 3. Editor login (GitHub OAuth)
+
+The relay is `infra/oauth-lambda/index.js`, reachable at `/api/*` through CloudFront. It
+needs `OAUTH_GITHUB_CLIENT_ID`, `OAUTH_GITHUB_CLIENT_SECRET`, and `PUBLIC_ORIGIN` in its
+environment, and it answers `/api/auth` and `/api/callback`.
+
+The GitHub OAuth App (in the `geoglows` org, Settings -> Developer settings -> OAuth Apps)
+needs its **Authorization callback URL** set to `<PUBLIC_ORIGIN>/api/callback`.
+
+`public/admin/config.yml` must agree with all of that: `base_url` is the deployment
+origin, `auth_endpoint` is `api/auth`, and `branch` is the branch saves commit to
+(currently `staging`). Editors need write access to the repo.
+
+## 4. Local development
 
 ```bash
 nvm use 22
@@ -36,14 +62,24 @@ npm run dev                     # site at http://localhost:4321
 npx @sveltia/cms-proxy-server   # in a second terminal, enables /admin against local files
 ```
 
-`local_backend: true` in `config.yml` makes the admin edit local files during development
-(no GitHub login required). Remove or ignore it in production.
+`local_backend: true` in `config.yml` makes the admin edit local files during development,
+with no GitHub login. It is ignored by the hosted admin.
 
-## 4. Backfilling publications from a DOI
+## 5. Backfilling publications from a DOI
 
 ```bash
 node scripts/fetch-doi.mjs 10.3390/hydrology9070113 "Bias correction"
 ```
 
-Fetches metadata from the open Crossref API and writes a publication entry. Run it for
-each missing DOI, or loop it over a list to seed the publications section.
+Fetches metadata from the open Crossref API and writes a publication entry.
+
+## 6. Refreshing the baked river geometry
+
+```bash
+node scripts/fetch-pipeline-network.mjs
+```
+
+Re-queries the GEOGLOWS ArcGIS service and rewrites `src/data/pipeline-network.json`,
+which the Tools page watermark is drawn from. Run it from the repo root. It refuses to
+overwrite the snapshot with fewer than 200 reaches, so a degraded response fails loudly
+instead of shipping a blank figure.

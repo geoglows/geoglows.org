@@ -1,0 +1,428 @@
+---
+import { geoEquirectangular, geoPath } from "d3-geo";
+import { countries as world, shapeName } from "../../lib/world-map";
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+export async function getStaticPaths() {
+  const all = (await getCollection("case-studies")).sort(
+    (a, b) => a.data.order - b.data.order,
+  );
+  // Both depths get a page now. Prev/next walks within the same depth so a
+  // reader following case studies is not dropped into a field story.
+  const studies = all.filter((s) => s.data.challenge || s.data.story.length);
+  return studies.map((s, i) => {
+    const kin = studies.filter((x) => x.data.kind === s.data.kind);
+    const k = kin.indexOf(s);
+    return {
+      params: { slug: s.id },
+      props: {
+        study: s,
+        // A kind with one member would otherwise make both neighbours itself.
+        prev: kin.length > 1 ? kin[(k - 1 + kin.length) % kin.length] : null,
+        next: kin.length > 1 ? kin[(k + 1) % kin.length] : null,
+      },
+    };
+  });
+}
+
+const { study, prev, next } = Astro.props;
+const d = study.data;
+
+// Locator drawn from the same atlas as the Impact map, fitted to the subject so
+// a reader sees where this happened before reading a word of it.
+// Through the same alias the Impact map uses: the atlas calls it "Dominican
+// Rep.", content calls it "Dominican Republic", and a raw match drops it.
+const wanted = new Set(d.countries.map(shapeName));
+const subject = world.features.filter((f: any) => wanted.has(f.properties?.name));
+const LW = 300;
+const LH = 200;
+let locator: { context: string; subject: string } | null = null;
+if (subject.length) {
+  const fc = { type: "FeatureCollection", features: subject };
+  const proj = geoEquirectangular().fitExtent(
+    [
+      [26, 26],
+      [LW - 26, LH - 26],
+    ],
+    fc as any,
+  );
+  // The viewBox already hides everything outside the frame, so drawing it was
+  // 187 KB of invisible coastline in a single path on every one of these pages.
+  // Clipping to the frame and dropping sub-pixel precision leaves the picture
+  // identical: that path measured 168,779 chars before, 9,395 after.
+  const path = geoPath(proj.clipExtent([[0, 0], [LW, LH]])).digits(1);
+  locator = {
+    context: path({ type: "FeatureCollection", features: world.features } as any) ?? "",
+    subject: path(fc as any) ?? "",
+  };
+}
+
+const steps = [
+  { n: "01", label: "Challenge", body: d.challenge },
+  { n: "02", label: "Intervention", body: d.intervention },
+  { n: "03", label: "Results", body: d.results },
+].filter((s) => s.body);
+---
+
+<BaseLayout title={`${d.title} | GEOGLOWS`} description={d.summary}>
+  <article class="block study">
+    <div class="shell">
+      <a class="back" href="/impact#case-studies">← All case studies</a>
+
+      <header class="head">
+        {
+          locator && (
+            <svg class="locator" viewBox={`0 0 ${LW} ${LH}`} role="img" aria-label={`Locator map of ${d.location}`}>
+              <path d={locator.context} class="ctx" />
+              <path d={locator.subject} class="subj" />
+            </svg>
+          )
+        }
+        <div class="title">
+          <p class="loc">
+            {d.location}
+            <span class="kind">{d.kind}</span>
+          </p>
+          <h1>{d.title}</h1>
+          <p class="lede">{d.summary}</p>
+        </div>
+      </header>
+
+      {
+        d.image && (
+          <img class="band" src={d.image} alt={d.imageAlt ?? ""} width="1600" height="900" loading="eager" fetchpriority="high" />
+        )
+      }
+
+      <div class="body">
+        {/* Meta leaves the reading column so it stops reading as a fifth step. */}
+        <aside class="meta">
+          {
+            d.partners.length > 0 && (
+              <div class="meta-block">
+                <h2>Partners</h2>
+                <ul>
+                  {d.partners.map((o) => (
+                    <li>
+                      {o.url ? (
+                        <a href={o.url} target="_blank" rel="noopener">
+                          {o.name}
+                        </a>
+                      ) : (
+                        o.name
+                      )}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )
+          }
+          {
+            d.sourceUrl && (
+              <div class="meta-block">
+                <h2>Source</h2>
+                <ul>
+                  <li>
+                    <a class="go-link" href={d.sourceUrl} target="_blank" rel="noopener">
+                      {d.source ?? "Read the original"}
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            )
+          }
+        </aside>
+
+        <div class="arc">
+          {
+            d.story.map((para) => (
+              <p class="para">{para}</p>
+            ))
+          }
+          {
+            steps.map((s) => (
+              <section class="step">
+                <h2>
+                  <span class="n">{s.n}</span>
+                  {s.label}
+                </h2>
+                <p>{s.body}</p>
+              </section>
+            ))
+          }
+          {
+            d.lessons && (
+              <section class="lesson">
+                <h2>What it taught us</h2>
+                <p>{d.lessons}</p>
+              </section>
+            )
+          }
+        </div>
+      </div>
+
+      {
+        (prev || next) && (
+          <nav class="more" aria-label="More case studies">
+            {prev && (
+              <a class="prev" href={`/case-studies/${prev.id}`}>
+                <span>Previous</span>
+                {prev.data.location}
+              </a>
+            )}
+            {next && (
+              <a class="next" href={`/case-studies/${next.id}`}>
+                <span>Next</span>
+                {next.data.location}
+              </a>
+            )}
+          </nav>
+        )
+      }
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .shell {
+    max-width: 1000px;
+  }
+  .back {
+    display: inline-block;
+    /* 23px tall, one short of WCAG 2.5.8's 24x24. */
+    padding-block: 3px;
+    margin-bottom: 27px;
+    color: var(--accent-text);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+
+  .head {
+    display: grid;
+    grid-template-columns: 210px minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(20px, 4vw, 48px);
+  }
+  .locator {
+    display: block;
+    width: 100%;
+    height: auto;
+    /* The context path runs far past the frame by design; the viewBox has to
+       clip it, so overflow must stay hidden. */
+    overflow: hidden;
+    border-radius: var(--radius);
+    background: var(--surface-page);
+  }
+  .ctx {
+    fill: var(--surface-muted);
+    stroke: var(--surface-page);
+    stroke-width: 0.5;
+  }
+  .subj {
+    fill: var(--accent);
+    stroke: var(--accent);
+    stroke-width: 1.4;
+    paint-order: stroke;
+  }
+  .loc {
+    color: var(--accent-text);
+    font-size: 0.74rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .kind {
+    margin-left: 10px;
+    padding-left: 10px;
+    border-left: 1px solid var(--border);
+    color: var(--text-faint);
+  }
+  h1 {
+    margin-top: 12px;
+    max-width: 18ch;
+    font-size: clamp(1.85rem, 3.4vw, 2.7rem);
+    line-height: 1.06;
+    letter-spacing: -0.02em;
+  }
+  .lede {
+    max-width: 54ch;
+    margin-top: 16px;
+    color: var(--text-body);
+    font-size: clamp(1rem, 1.3vw, 1.14rem);
+    line-height: 1.6;
+  }
+  .band {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    margin-top: 34px;
+    border-radius: var(--radius);
+  }
+
+  .body {
+    display: grid;
+    grid-template-columns: 210px minmax(0, 1fr);
+    gap: clamp(20px, 4vw, 48px);
+    margin-top: clamp(36px, 5vw, 60px);
+  }
+  .meta {
+    align-self: start;
+    position: sticky;
+    top: 96px;
+    display: grid;
+    gap: 22px;
+  }
+  .meta-block h2 {
+    color: var(--text-faint);
+    font-size: 0.66rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .meta-block ul {
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 5px;
+    font-size: 0.88rem;
+    line-height: 1.45;
+  }
+  .meta-block a {
+    /* Standalone links in the meta rail, so 2.5.8 applies; 19px before this. */
+    display: inline-block;
+    padding-block: 3px;
+    margin-block: -3px;
+    color: var(--text-strong);
+    text-decoration: underline;
+    text-decoration-color: var(--border);
+    text-underline-offset: 3px;
+  }
+  .meta-block a:hover,
+  .meta-block a:focus-visible {
+    color: var(--accent-text);
+    text-decoration-color: currentColor;
+  }
+
+  /* Numbered so the three steps read as a sequence rather than three equal
+     blocks, and the lesson is set apart because it is the payoff. */
+  /* A field story is prose, not an arc, so it gets a reading measure and no
+     numbered scaffolding it does not earn. */
+  .para {
+    max-width: 66ch;
+    color: var(--text-body);
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+  .para:first-child {
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .para + .para {
+    margin-top: 20px;
+  }
+  .step {
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+  .step + .step {
+    margin-top: 28px;
+  }
+  .step h2 {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    color: var(--text-strong);
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+  .n {
+    color: var(--accent-text);
+    font-family: "Raleway", "Open Sans", system-ui, sans-serif;
+    font-size: 1.5rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .step p {
+    max-width: 66ch;
+    margin-top: 10px;
+    color: var(--text-body);
+    font-size: 1rem;
+    line-height: 1.68;
+  }
+  .lesson {
+    margin-top: 34px;
+    padding: 26px 28px;
+    border-radius: var(--radius);
+    background: var(--surface-muted);
+  }
+  .lesson h2 {
+    color: var(--accent-text);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .lesson p {
+    max-width: 58ch;
+    margin-top: 10px;
+    color: var(--text-strong);
+    font-family: "Raleway", "Open Sans", system-ui, sans-serif;
+    font-size: clamp(1.1rem, 1.7vw, 1.35rem);
+    font-weight: 800;
+    line-height: 1.38;
+    letter-spacing: -0.015em;
+  }
+
+  .more {
+    display: flex;
+    justify-content: space-between;
+    gap: 18px;
+    margin-top: clamp(44px, 6vw, 72px);
+    padding-top: 22px;
+    border-top: 1px solid var(--border);
+  }
+  .more a {
+    display: grid;
+    gap: 4px;
+    color: var(--text-strong);
+    font-family: "Raleway", "Open Sans", system-ui, sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+  .more .next {
+    text-align: right;
+  }
+  .more span {
+    color: var(--text-faint);
+    font-family: "Open Sans", system-ui, sans-serif;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .more a:hover {
+    color: var(--accent-text);
+  }
+
+  @media (max-width: 860px) {
+    .head,
+    .body {
+      grid-template-columns: 1fr;
+    }
+    .locator {
+      max-width: 190px;
+    }
+    .meta {
+      position: static;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    }
+  }
+</style>

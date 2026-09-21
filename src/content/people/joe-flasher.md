@@ -5,6 +5,7 @@ organization: "Amazon Web Services"
 country: "USA"
 groups: ["Steering committee"]
 photo: /images/people/joe-flasher.webp
+linkedin: https://www.linkedin.com/in/joeflasher/
 order: 3
 ---
 

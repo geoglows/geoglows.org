@@ -1,37 +1,65 @@
 ---
+import { getCollection } from "astro:content";
 import type { Block } from "../../schemas/blocks";
 import { isExternal } from "../../lib/links";
 import SectionHeader from "../ui/SectionHeader.astro";
 
-const { eyebrow, heading, intro, items, cta } = Astro.props as Extract<
+const { eyebrow, heading, intro, background, cta } = Astro.props as Extract<
   Block,
   { type: "caseStudies" }
 >;
+
+// The card is deliberately thin. A full case study opens its own page, where
+// the Challenge to Lessons arc has room to read properly.
+const studies = (await getCollection("case-studies")).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+// Both depths have a page now; href stays as a fallback for a stub with neither.
+const target = (s: (typeof studies)[number]) =>
+  s.data.challenge || s.data.story.length ? `/case-studies/${s.id}` : s.data.href;
 ---
 
-<section class="block muted">
+<section class:list={["block", { muted: background === "muted" }]}>
   <div class="shell">
     <SectionHeader eyebrow={eyebrow} heading={heading} intro={intro} align="left" />
     <div class="grid">
       {
-        items.map((item) => {
-          const Tag = item.href ? "a" : "article";
-          const linkAttrs =
-            item.href && isExternal(item.href)
-              ? { href: item.href, target: "_blank", rel: "noopener" }
-              : item.href
-                ? { href: item.href }
-                : {};
+        studies.map((s) => {
+          const href = target(s);
+          const out = href ? isExternal(href) : false;
           return (
-            <Tag class="case" {...linkAttrs}>
-              <span class="loc">{item.location}</span>
-              <h3>{item.title}</h3>
-              <p>{item.text}</p>
-              <div class="foot">
-                {item.source && <span class="source">{item.source}</span>}
-                {item.href && <span class="more">Learn more →</span>}
-              </div>
-            </Tag>
+            <article class:list={["case", { illustrated: !!s.data.image }]}>
+              {s.data.image && (
+                <img
+                  class="shot"
+                  src={s.data.image}
+                  alt={s.data.imageAlt ?? ""}
+                  width="720"
+                  height="405"
+                  loading="lazy"
+                  decoding="async"
+                />
+              )}
+              <span class="loc">
+                {s.data.location}
+                <span class="kind">{s.data.kind}</span>
+              </span>
+              <h3>
+                {href ? (
+                  <a href={href} {...(out ? { target: "_blank", rel: "noopener" } : {})}>
+                    {s.data.title}
+                  </a>
+                ) : (
+                  s.data.title
+                )}
+              </h3>
+              {s.data.summary && <p>{s.data.summary}</p>}
+              {href && (
+                <a class="go-link more" href={href} {...(out ? { target: "_blank", rel: "noopener" } : {})}>
+                  {s.data.challenge ? "Read the case study" : "Read the story"}
+                </a>
+              )}
+            </article>
           );
         })
       }
@@ -39,7 +67,7 @@ const { eyebrow, heading, intro, items, cta } = Astro.props as Extract<
     {
       cta && (
         <p class="all">
-          <a href={cta.href}>{cta.label} →</a>
+          <a class="go-link" href={cta.href}>{cta.label}</a>
         </p>
       )
     }
@@ -52,74 +80,113 @@ const { eyebrow, heading, intro, items, cta } = Astro.props as Extract<
   }
   .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+    gap: 16px;
+    margin-top: 24px;
   }
   .case {
     display: flex;
     flex-direction: column;
-    padding: 24px 24px 20px;
+    padding: 20px 20px 18px;
     border: 1px solid var(--border);
     border-radius: var(--radius);
     background: var(--surface-page);
     box-shadow: var(--shadow-sm);
-    color: inherit;
-    text-decoration: none;
-    transition: transform 0.18s ease, box-shadow 0.18s ease;
+    transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.18s cubic-bezier(0.22, 1, 0.36, 1),
+      border-color 0.18s cubic-bezier(0.22, 1, 0.36, 1);
   }
-  a.case:hover {
+  .case:hover,
+  .case:focus-within {
     transform: translateY(-3px);
+    border-color: var(--accent-text);
     box-shadow: var(--shadow-md);
   }
-  a.case:hover .more {
-    text-decoration: underline;
-  }
   @media (prefers-reduced-motion: reduce) {
-    a.case:hover {
+    .case {
+      transition: none;
+    }
+    .case:hover,
+    .case:focus-within {
       transform: none;
     }
   }
+  .shot {
+    display: block;
+    /* 21px of bleed on each side clears the 20px padding and the 1px border.
+       max-width has to be released or the global img rule clamps it back. */
+    width: calc(100% + 42px);
+    max-width: none;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    margin: -1px -21px 16px;
+    border-radius: var(--radius) var(--radius) 0 0;
+  }
+  .illustrated {
+    padding-top: 0;
+  }
   .loc {
     color: var(--accent-text);
-    font-size: 0.72rem;
+    font-size: 0.7rem;
     font-weight: 700;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
+  }
+  .kind {
+    margin-left: 9px;
+    padding-left: 9px;
+    border-left: 1px solid var(--border);
+    color: var(--text-faint);
   }
   h3 {
     margin-top: 8px;
-    font-size: 1.12rem;
-    line-height: 1.3;
-    color: var(--text-strong);
+    font-size: 1.08rem;
+    line-height: 1.28;
+  }
+  h3 > a {
+    color: inherit;
+    text-decoration: none;
+  }
+  h3 > a::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius);
+  }
+  .case {
+    position: relative;
+  }
+  .case:hover h3 > a {
+    color: var(--accent-text);
+  }
+  h3 > a:focus-visible {
+    outline: 2px solid var(--color-amber);
+    outline-offset: 3px;
+    border-radius: 4px;
   }
   p {
-    margin-top: 10px;
+    margin-top: 9px;
     color: var(--text-body);
-    font-size: 0.95rem;
-    line-height: 1.6;
-  }
-  .foot {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-top: auto;
-    padding-top: 16px;
-  }
-  .source {
-    color: var(--text-faint);
-    font-size: 0.78rem;
-    font-weight: 600;
+    font-size: 0.88rem;
+    line-height: 1.55;
   }
   .more {
+    position: relative;
+    z-index: 1;
+    margin-top: auto;
+    padding-top: 15px;
     color: var(--accent-text);
     font-weight: 800;
-    font-size: 0.85rem;
+    font-size: 0.83rem;
     text-decoration: none;
-    white-space: nowrap;
+    align-self: flex-start;
+  }
+  .case:hover .more {
+    color: var(--accent-hover);
   }
   .all {
-    margin-top: 28px;
+    margin-top: 24px;
   }
   .all a {
     color: var(--accent-text);

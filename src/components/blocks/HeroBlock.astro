@@ -62,7 +62,7 @@ const ticker = (await getEntry("settings", "site"))!.data.ticker;
         <span class="tag">{featured.tag}</span>
         <h3>{featured.title}</h3>
         <p>{featured.text}</p>
-        <a href={featured.href}>Explore →</a>
+        <a class="go-link" href={featured.href}>Explore</a>
       </aside>
     )
   }

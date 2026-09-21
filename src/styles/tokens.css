@@ -23,14 +23,24 @@
   --text-faint: #5c5c61;
   --border: #d6dee1;
 
+  --avatar-from: #3a5a7a;
+  --avatar-to: var(--color-navy);
+  --avatar-ink: #f4f8fa;
+
   --accent: var(--color-teal-green);
   --accent-text: #0a6157;
+  /* Hover moves along the same hue rather than adding an underline: darker on
+     light surfaces, lighter on dark ones. */
+  --accent-hover: #04413a;
   --accent-strong: var(--color-blue);
   --cta: var(--color-amber);
   --cta-ink: #3a2a06;
 
   --ink-on-dark: #eaf2f7;
   --ink-on-dark-muted: #a6bccb;
+  /* The footer's legal row. #748399 measured 4.35:1 on --color-navy-deep, just
+     under AA; this is the same hue held to 5.43:1. */
+  --ink-on-dark-faint: #8494ab;
   --hairline-on-dark: rgba(233, 240, 246, 0.15);
 
   --logo-tint: grayscale(1);
@@ -62,8 +72,12 @@
     --text-body: #aabac2;
     --text-faint: #708491;
     --border: #26343d;
+    --avatar-from: #476c8f;
+    --avatar-to: #2b4260;
+    --avatar-ink: #f4f8fa;
     --accent: #4fb3a4;
     --accent-text: #6fd0c0;
+    --accent-hover: #a6ece0;
     --accent-strong: #4fb7d8;
 
     --logo-tint: brightness(0) invert(1);
@@ -82,8 +96,12 @@
   --text-body: #aabac2;
   --text-faint: #708491;
   --border: #26343d;
+  --avatar-from: #476c8f;
+  --avatar-to: #2b4260;
+  --avatar-ink: #f4f8fa;
   --accent: #4fb3a4;
   --accent-text: #6fd0c0;
+  --accent-hover: #a6ece0;
   --accent-strong: #4fb7d8;
   --logo-tint: brightness(0) invert(1);
   --logo-emblem-tint: grayscale(1) brightness(1.9) contrast(1.15);

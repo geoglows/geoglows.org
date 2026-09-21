@@ -3,24 +3,17 @@ import { getCollection, getEntry } from "astro:content";
 import type { Block } from "../../schemas/blocks";
 import SectionHeader from "../ui/SectionHeader.astro";
 import { bgImage } from "../../lib/css";
-import { youtubeWatchUrl } from "../../lib/youtube";
 import { formatPostDate } from "../../lib/date";
 
-const { eyebrow, heading, intro, webinarsCount, newsCount } = Astro.props as Extract<
+const { eyebrow, heading, intro, newsCount } = Astro.props as Extract<
   Block,
   { type: "communityFeed" }
 >;
 
-const [webinarEntries, socialEntries, settingsEntry] = await Promise.all([
-  getCollection("webinars"),
+const [socialEntries, settingsEntry] = await Promise.all([
   getCollection("social"),
   getEntry("settings", "site"),
 ]);
-
-const webinars = webinarEntries
-  .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, webinarsCount)
-  .map((w) => w.data);
 
 const posts = socialEntries
   .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
@@ -37,35 +30,8 @@ const events = (settingsEntry?.data.ticker ?? []).slice(0, 4);
       <div class="main">
         <div class="panel">
           <div class="p-head">
-            <h3>Webinars</h3>
-            <a href="/videos#webinars">All webinars →</a>
-          </div>
-          <ul class="wlist">
-            {
-              webinars.map((w) => (
-                <li>
-                  <a href={youtubeWatchUrl(w.youtubeId)} target="_blank" rel="noopener">
-                    <span class="play" aria-hidden="true">
-                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M8 5v14l11-7z" />
-                      </svg>
-                    </span>
-                    <span class="w-body">
-                      <span class="w-title">{w.title}</span>
-                      <span class="w-meta">
-                        {w.date} · {w.presenter}
-                      </span>
-                    </span>
-                  </a>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-
-        <div class="panel">
-          <div class="p-head">
-            <h3>Events</h3>
+            <h3>Events &amp; workshops</h3>
+            <a class="go-link" href="/tools#resources">Recorded webinars</a>
           </div>
           <ul class="elist">
             {
@@ -106,8 +72,8 @@ const events = (settingsEntry?.data.ticker ?? []).slice(0, 4);
           }
         </div>
         <div class="follow">
-          <a href="https://www.linkedin.com/company/geoglows" target="_blank" rel="noopener">
-            Follow on LinkedIn →
+          <a class="go-link" href="https://www.linkedin.com/company/geoglows" target="_blank" rel="noopener">
+            Follow on LinkedIn
           </a>
         </div>
       </aside>
@@ -120,12 +86,6 @@ const events = (settingsEntry?.data.ticker ?? []).slice(0, 4);
     display: grid;
     grid-template-columns: 1fr;
     gap: 20px;
-  }
-  @media (min-width: 900px) {
-    .grid {
-      grid-template-columns: 1.5fr 1fr;
-      align-items: start;
-    }
   }
   .main {
     display: grid;
@@ -155,65 +115,19 @@ const events = (settingsEntry?.data.ticker ?? []).slice(0, 4);
     color: var(--text-strong);
   }
   .p-head a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
     color: var(--accent-text);
     font-weight: 700;
     font-size: 0.8rem;
     text-decoration: none;
     white-space: nowrap;
   }
-  .wlist,
   .elist {
     list-style: none;
     margin: 0;
     padding: 0;
-  }
-  .wlist li {
-    border-top: 1px solid var(--border);
-  }
-  .wlist li:first-child {
-    border-top: none;
-  }
-  .wlist a {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    padding: 12px 0;
-    text-decoration: none;
-    color: inherit;
-  }
-  .play {
-    flex-shrink: 0;
-    display: grid;
-    place-items: center;
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    background: var(--surface-teal-wash);
-    color: var(--accent-text);
-    transition: background 0.16s ease, color 0.16s ease;
-  }
-  .wlist a:hover .play {
-    background: var(--color-teal-green);
-    color: #fff;
-  }
-  .w-body {
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    min-width: 0;
-  }
-  .w-title {
-    font-size: 0.92rem;
-    font-weight: 700;
-    color: var(--text-strong);
-    line-height: 1.3;
-  }
-  .wlist a:hover .w-title {
-    color: var(--accent-text);
-  }
-  .w-meta {
-    font-size: 0.76rem;
-    color: var(--text-faint);
   }
   .elist li {
     display: flex;
@@ -330,9 +244,35 @@ const events = (settingsEntry?.data.ticker ?? []).slice(0, 4);
     border-top: 1px solid var(--border);
   }
   .follow a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
     color: var(--accent-text);
     font-weight: 700;
     font-size: 0.82rem;
     text-decoration: none;
+  }
+  /* Events are three short lines; the feed is six rich items. Side by side they
+     strand space in the shorter column, so events run as a strip across the top
+     and the feed uses the full width beneath in as many columns as it fits. */
+  @media (min-width: 760px) {
+    .elist {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      column-gap: 30px;
+    }
+    .elist li {
+      border-bottom: 0;
+    }
+    .posts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      column-gap: 30px;
+      align-items: start;
+    }
+    .post {
+      margin: 0;
+      padding: 14px 0;
+    }
   }
 </style>

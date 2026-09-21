@@ -25,7 +25,7 @@ const linkAttrs = comingSoon
   <span class="category">{category}</span>
   <h3>{name}</h3>
   <p>{tagline}</p>
-  {comingSoon ? <span class="badge">Coming soon</span> : <span class="go">Explore</span>}
+  {comingSoon ? <span class="badge">Coming soon</span> : <span class="go-link go">Explore</span>}
 </Tag>
 
 <style>
@@ -82,9 +82,6 @@ const linkAttrs = comingSoon
     color: var(--accent-text);
     font-size: 0.82rem;
     font-weight: 800;
-  }
-  .go::after {
-    content: " →";
   }
   .badge {
     align-self: flex-start;
