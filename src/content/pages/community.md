@@ -52,18 +52,13 @@ blocks:
     background: muted
     body: >-
       GEOGLOWS grows through the institutions and people who carry it into new
-      basins and use cases. This is where the programmes live: training and
-      courses for practitioners, university involvement and student placements,
-      and open research collaboration with national services and regional hubs.
-      The materials themselves sit under Tools & Data, in Documentation &
-      Resources.
+      basins and use cases. The materials themselves sit under Tools & Data, in
+      Documentation & Resources.
     points:
-      - { title: "Training programs", text: "Structured training for national hydrological and meteorological services, delivered with regional hubs and tailored to each institution's operations." }
+      - { title: "Training programs", text: "Structured training for national hydrological and meteorological services, delivered with regional hubs and tailored to each institution's operations. The longer programmes move a forecast from a global model into a service's daily decisions, working through existing institutions and data policies." }
       - { title: "Workshops and courses", text: "Hands-on workshops and multilingual courses on the Training Portal, from model formulation to running the forecast system day to day." }
-      - { title: "Students and university involvement", text: "BYU's Hydroinformatics Lab and the David M. Kennedy Center pair coursework with real deployments; since 2011 more than 150 civil-engineering students have completed capstone projects abroad." }
+      - { title: "Students and university involvement", text: "BYU's Hydroinformatics Lab and the David M. Kennedy Center pair coursework with real deployments; since 2011 more than 150 civil-engineering students have completed capstone projects abroad. Teams travel to SERVIR hubs, from Nairobi and Accra to Kathmandu and Quito, to build forecast bulletins and stakeholder assessments, then hand them to local partners." }
       - { title: "Research opportunities and collaboration", text: "Open, published research with national services, universities, and regional partners, so each cohort builds on the work of the last rather than starting over." }
-      - { title: "Capacity-development programs", text: "Long-running programmes that move a forecast from a global model into a national service's daily decisions, working through existing institutions and data policies." }
-      - { title: "Institutional training", text: "Student teams travel to SERVIR regional hubs, from Nairobi and Accra to Kathmandu and Quito, to build RFS-based forecast bulletins and stakeholder assessments, then hand them to local partners." }
     cta: { label: "Explore the BYU Hydroinformatics Lab", href: "https://hydroinformatics.byu.edu" }
   - type: communityFeed
     eyebrow: News & Events

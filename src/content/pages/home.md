@@ -8,16 +8,16 @@ blocks:
     image: /images/hero-delta.webp
     spotlight:
       - tag: "SERVIR HKH · Nepal"
-        text: "Piloting GEOGLOWS-based flood mapping inside a $361M GCF glacial-flood program, with ICIMOD as the Adaptation Fund implementing entity."
+        text: "Piloting GEOGLOWS flood mapping inside a $361M Green Climate Fund programme on glacial floods, delivered with ICIMOD."
       - tag: "SERVIR West Africa"
-        text: "Extending the Nile Basin's HydroSOS precedent into a regional satellite-to-station flood early-warning pipeline."
+        text: "Extending the Nile Basin's hydrological status and outlook work into a regional satellite-to-station flood early-warning pipeline."
     spotlightLink: { label: "See how partners put GEOGLOWS to work", href: "/community#partners" }
     socialHeading: "Latest from GEOGLOWS"
     socialCount: 3
   - type: featuredMedia
     eyebrow: In the field
     heading: Project highlights
-    intro: "A closer look at how partners put GEOGLOWS to work in the field."
+    intro: "Short films and updates from partner deployments."
     video:
       youtubeId: dNpYlpXyfOY
       title: "GEOGLOWS at the front of the action"

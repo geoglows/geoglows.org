@@ -11,8 +11,9 @@ blocks:
     steps:
       - title: "Meteorological data"
         text: >-
-          ECMWF's forecasting system supplies the weather: the same forecast run
-          51 times from slightly different starting conditions, out to 15 days.
+          ECMWF's forecasting system supplies the weather as an ensemble: the same
+          forecast run 51 times from slightly different starting conditions, out to
+          15 days.
         ref: { label: "ECMWF forecast documentation", href: "https://www.ecmwf.int/en/forecasts/documentation-and-support" }
       - title: "Runoff"
         text: >-
@@ -62,10 +63,11 @@ blocks:
           Forecast and retrospective alike.
       - title: "TDX-Hydro"
         text: >-
-          12 m TanDEM-X, replacing V1's 90 m SRTM.
+          Traced from 12 m TanDEM-X satellite elevation, replacing V1's 90 m SRTM.
       - title: "Routing and model methodology"
         text: >-
-          Matrix Muskingum, calibration improved by a machine-learning regression.
+          A matrix Muskingum routing scheme, with calibration improved by a
+          machine-learning regression.
   - type: toolsGrid
     eyebrow: Applications
     anchor: tools
@@ -111,7 +113,7 @@ blocks:
   - type: resourceTabs
     eyebrow: Documentation & Resources
     anchor: resources
-    heading: Documentation & Resources
+    heading: Everything published about GEOGLOWS
     intro: "Documentation, research, reports, and training for every level, organized by what you are looking for."
     tabs:
       - { label: Publications, href: /publications, icon: document, group: Documents, description: "Scientific and technical papers using GEOGLOWS." }

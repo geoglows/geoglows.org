@@ -6,7 +6,7 @@ blocks:
     eyebrow: Countries & projects
     anchor: countries
     heading: Where GEOGLOWS is at work
-    intro: "GEOGLOWS is deployed with national hydrological services and regional partners in more than 30 countries, usually through SERVIR hubs and local institutions. A sample of documented deployments:"
+    intro: "GEOGLOWS is deployed with national hydrological services and regional partners in more than 30 countries, usually through SERVIR hubs and local institutions. Bias-corrected, where it appears below, means the global forecast has been adjusted to match a country's own gauge records."
     points:
       - { country: Costa Rica, lat: 9.75, lng: -83.75, pos: left }
       - { country: Honduras, lat: 14.97, lng: -86.24, pos: top }
@@ -37,7 +37,7 @@ blocks:
             url: https://www.azuay.gob.ec
         application: >-
           The INAMHI GEOGLOWS Tethys Portal, 12 apps, plus historical streamflow
-          feeding HEC-RAS designs.
+          feeding hydraulic designs in HEC-RAS.
         status: Operational
         result: >-
           INAMHI now forecasts flood timing, magnitude and impact. An irrigation
@@ -68,12 +68,12 @@ blocks:
           - name: "SENAMHI"
             url: https://www.senamhi.gob.pe
         application: >-
-          GEOGLOWS combined with SONICS, SENAMHI's ARNO/VIC and RAPID model
-          calibrated on 43 stations over 1981 to 2020.
+          GEOGLOWS combined with SONICS, SENAMHI's own national model, calibrated on
+          43 stations over 1981 to 2020.
         status: Operational
         result: >-
-          Flood thresholds are published for 2.33, 5 and 10-year return periods on
-          every river stretch.
+          Flood thresholds are published on every river stretch for floods expected
+          once in 2.33, 5 and 10 years.
         href: "https://stories.geoglows.org/south-america/peru"
       - country: Brazil
         challenge: >-
@@ -133,8 +133,8 @@ blocks:
         href: "https://stories.geoglows.org/central-america/el-salvador"
       - country: Dominican Republic
         challenge: >-
-          The country is highly exposed to floods and hurricanes, and nationwide in-s
-          itu monitoring would be costly and impractical.
+          The country is highly exposed to floods and hurricanes, and nationwide
+          in-situ monitoring would be costly and impractical.
         partners:
           - name: "INDRHI"
             url: https://www.indrhi.gob.do
@@ -223,8 +223,8 @@ blocks:
           - name: "Malawi Red Cross Society"
             url: https://www.redcross.mw
         application: >-
-          A hybrid early-warning system combining telemetry from 21 rivers with
-          bias-corrected forecasts across eight regions.
+          A hybrid early-warning system combining live gauge readings from 21 rivers
+          with bias-corrected forecasts across eight regions.
         status: Operational
         result: >-
           Lead time went from hours to 15 days. During Cyclone Ana it predicted the
@@ -261,18 +261,17 @@ blocks:
     eyebrow: Results
     anchor: results
     heading: Impact by the numbers
-    intro: "Adoption and reach across the service, from the rivers it covers to the institutions that depend on it every day."
     stats:
       - { value: "30+", label: countries with active deployments }
       - { value: "7.2M", label: river reaches covered }
       - { value: "~100K", label: forecast requests daily }
-      - { value: "193", label: WMO member states the chain can reach }
+      - { value: "193", label: WMO member states the forecast can reach }
   - type: caseStudies
     background: page
     eyebrow: Case studies
     anchor: case-studies
     heading: GEOGLOWS in the field
-    intro: "Documented deployments where national services and regional partners put GEOGLOWS forecasts to work, at both depths: longer case studies and shorter field stories."
+    intro: "Documented deployments where national services and regional partners run GEOGLOWS operationally: longer case studies, and shorter field stories."
     cta: { label: See more from the community, href: /community#news }
   - type: closingCta
     heading: Put GEOGLOWS to work in your region

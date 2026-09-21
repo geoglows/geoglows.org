@@ -56,9 +56,8 @@ blocks:
     anchor: reports
     heading: Annual & organizational reports
     body: >-
-      GEOGLOWS annual reports and organizational documents are published here as
-      they are released, tracking the initiative's progress, governance, and the
-      state of the service. Check back as new reports are added.
+      Published as they are released, tracking the initiative's progress,
+      governance, and the state of the service.
   - type: closingCta
     heading: Join the GEOGLOWS community
     ctas:
