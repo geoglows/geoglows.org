@@ -211,6 +211,7 @@ const newsletterBlock = z.object({
 const closingCtaBlock = z.object({
   type: z.literal("closingCta"),
   heading: z.string(),
+  text: z.string().optional(),
   ctas: z.array(ctaSchema).default([]),
 });
 

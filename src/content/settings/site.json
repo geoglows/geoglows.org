@@ -7,10 +7,6 @@
       "href": "/tools",
       "children": [
         {
-          "label": "Getting started",
-          "href": "/tools#getting-started"
-        },
-        {
           "label": "How GEOGLOWS works",
           "href": "/tools#how-it-works"
         },
@@ -114,10 +110,6 @@
     {
       "title": "Tools & Data",
       "links": [
-        {
-          "label": "Getting started",
-          "href": "/tools#getting-started"
-        },
         {
           "label": "How GEOGLOWS works",
           "href": "/tools#how-it-works"

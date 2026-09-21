@@ -2,21 +2,6 @@
 title: Tools & Data | GEOGLOWS
 description: The GEOGLOWS apps, open data services, and resources, all in one place.
 blocks:
-  - type: featureSection
-    eyebrow: Tools & data
-    anchor: getting-started
-    heading: Everything you need to work with GEOGLOWS data
-    image: /images/showcase/hydroviewer.webp
-    imageAlt: "The GEOGLOWS HydroViewer app showing the modelled river network across Europe."
-    imageSide: right
-    body: >-
-      A connected suite of open applications and data services for exploring,
-      analyzing, and downloading global streamflow forecasts and the 85-year
-      retrospective, whatever your work with water requires.
-    points:
-      - { title: "Applications", text: "Interactive apps for streamflow forecasting, groundwater, and hydrological analysis." }
-      - { title: "Open data, four ways", text: "Esri web layers, a public REST API, Python and JavaScript packages, and direct AWS S3 access." }
-      - { title: "Learn and cite", text: "Publications, videos, webinars, and hands-on training for every level." }
   - type: howItWorks
     eyebrow: How GEOGLOWS works
     anchor: how-it-works
@@ -137,6 +122,10 @@ blocks:
       - { label: Tutorials, href: "https://training.geoglows.org", icon: book, group: Watch & learn, description: "In-depth, multilingual courses on the Training Portal." }
   - type: closingCta
     heading: Start building with open water data
+    text: >-
+      A connected suite of open applications and data services for exploring,
+      analyzing, and downloading global streamflow forecasts and the 85-year
+      retrospective, whatever your work with water requires.
     ctas:
       - { label: Open GEOGLOWS RFS, href: https://apps.geoglows.org, style: blue }
       - { label: Read the publications, href: /publications, style: navy }
