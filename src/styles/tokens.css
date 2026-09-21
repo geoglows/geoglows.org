@@ -29,6 +29,9 @@
 
   --accent: var(--color-teal-green);
   --accent-text: #0a6157;
+  /* Hover moves along the same hue rather than adding an underline: darker on
+     light surfaces, lighter on dark ones. */
+  --accent-hover: #04413a;
   --accent-strong: var(--color-blue);
   --cta: var(--color-amber);
   --cta-ink: #3a2a06;
@@ -71,6 +74,7 @@
     --avatar-ink: #f4f8fa;
     --accent: #4fb3a4;
     --accent-text: #6fd0c0;
+    --accent-hover: #a6ece0;
     --accent-strong: #4fb7d8;
 
     --logo-tint: brightness(0) invert(1);
@@ -94,6 +98,7 @@
   --avatar-ink: #f4f8fa;
   --accent: #4fb3a4;
   --accent-text: #6fd0c0;
+  --accent-hover: #a6ece0;
   --accent-strong: #4fb7d8;
   --logo-tint: brightness(0) invert(1);
   --logo-emblem-tint: grayscale(1) brightness(1.9) contrast(1.15);
