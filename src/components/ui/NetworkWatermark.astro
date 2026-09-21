@@ -32,11 +32,12 @@ const [pitchX, pitchY] = [step(colEdges), step(rowEdges)];
 const [anchorX, anchorY] = [colEdges[1], rowEdges[1]];
 
 // One frame for both layers, so every cell boundary lands on the streams
-// exactly where it does in the data. It is wider than the basin because the
-// meteorological grid does not stop at a bounding box: pulling back until the
-// band holds about three rows is what makes the lattice read as a grid rather
-// than as a row of stripes.
-const VIEW = { w: 1426, h: 327 };
+// exactly where it does in the data. The frame is far taller than the basin
+// because the column it sits in is: a lattice tiles happily at any aspect, so
+// the grid runs the whole height at its true pitch while the streams stay at
+// their true scale and read as a band across it. Stretching either one to fill
+// the column would have put the cell boundaries in the wrong place.
+const VIEW = { w: 1114, h: 2177 };
 const VIEW_X = Math.round(W / 2 - VIEW.w / 2);
 const VIEW_Y = Math.round(H / 2 - VIEW.h / 2);
 const ticks = (anchor: number, pitch: number, from: number, to: number) => {
@@ -85,6 +86,6 @@ const rows = ticks(anchorY, pitchY, VIEW_Y, VIEW_Y + VIEW.h);
     stroke: var(--accent-text);
     stroke-width: 1;
     vector-effect: non-scaling-stroke;
-    stroke-opacity: 0.5;
+    stroke-opacity: 0.65;
   }
 </style>

@@ -193,6 +193,9 @@ const howItWorksBlock = z.object({
     z.object({
       title: z.string(),
       text: z.string(),
+      // Where a stage names an outside dataset or model, the stage links to it
+      // rather than making the reader carry the acronym unexplained.
+      ref: linkSchema.optional(),
     }),
   ),
   cta: linkSchema.optional(),

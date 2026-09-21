@@ -26,36 +26,35 @@ blocks:
     steps:
       - title: "Meteorological data"
         text: >-
-          ECMWF's Integrated Forecast System supplies the meteorology: a 51-member
-          ensemble out to 15 days for the forecast, and ERA5 reanalysis for the
-          historical record.
+          ECMWF's forecasting system supplies the weather: the same forecast run
+          51 times from slightly different starting conditions, out to 15 days.
+        ref: { label: "ECMWF forecast documentation", href: "https://www.ecmwf.int/en/forecasts/documentation-and-support" }
       - title: "Runoff"
         text: >-
-          A global land-surface model converts that meteorology into gridded
-          runoff over every landmass, the water that reaches the ground and starts
-          moving.
+          A global land-surface model turns that weather into runoff over every
+          landmass, the water that reaches the ground and starts moving.
       - title: "TDX-Hydro river network"
         text: >-
-          Runoff is mapped onto TDX-Hydro, a stream network derived from 12 m
-          TanDEM-X elevation data: about 7.2 million river reaches and their
-          catchments across 125 vector processing units.
+          Runoff is mapped onto TDX-Hydro, a river network traced from 12 m
+          satellite elevation data: about 7.2 million reaches, each with the
+          catchment that drains into it.
+        ref: { label: "TDX-Hydro at NGA", href: "https://earth-info.nga.mil/index.php?dir=coordsys&action=tdx-hydro" }
       - title: "Routing"
         text: >-
-          RAPID, the Routing Application for Parallel computation of Discharge,
-          moves water downstream through that network with a matrix Muskingum
-          method.
+          A routing model called RAPID moves that water downstream from reach to
+          reach, so every reach carries what everything above it contributes.
       - title: "Streamflow"
         text: >-
-          The result is discharge at every reach, gauged or not, reported at a
-          consistent 3-hour interval.
+          The result is a flow rate at every reach, gauged or not, reported every
+          three hours.
       - title: "Retrospective"
         text: >-
-          The same chain run on ERA5 back to 1940 gives an 85-year simulation,
-          which establishes each reach's normal range and its return-period
-          levels.
+          The same chain run on 85 years of past weather, back to 1940, sets what
+          counts as normal for each reach and how rare a given high flow is.
+        ref: { label: "ERA5, the past-weather record", href: "https://cds.climate.copernicus.eu/datasets/reanalysis-era5-single-levels" }
       - title: "Forecast"
         text: >-
-          The 15-day ensemble is published against those levels, so a reach
+          The 15-day forecast is published against those levels, so a reach
           carries both an expected flow and whether that flow is unusual for it.
   - type: valueProps
     compact: true
