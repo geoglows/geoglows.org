@@ -48,31 +48,36 @@ a {
 }
 
 /* Standalone navigational links carry a short rule instead of an arrow: it
-   reads as direction without an arrowhead, takes the link's own colour, and
-   extends on hover. Drawn as a pseudo-element so no screen reader announces
-   it, which a literal arrow in the link text used to force. */
+   reads as direction without an arrowhead, and takes the link's own colour.
+   Drawn as a pseudo-element so no screen reader announces it, which a literal
+   arrow in the link text used to force. */
+.go-rule {
+  /* Inline boxes cannot be transformed. The text still wraps inside the box;
+     only the box itself stays whole, which is right for a standalone link. */
+  display: inline-block;
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
 .go-rule::after {
   content: "";
   display: inline-block;
-  width: 26px;
+  width: 22px;
   height: 1.5px;
   margin-left: 0.55em;
   vertical-align: 0.22em;
   background: currentColor;
-  /* Scaled, not resized: width is a layout property, and animating it would
-     reflow the line. The box stays 26px wide, so nothing shifts. */
-  transform: scaleX(0.6);
-  transform-origin: left center;
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
-a.go-rule:hover::after,
-a.go-rule:focus-visible::after,
-a:hover .go-rule::after,
-a:focus-visible .go-rule::after {
-  transform: scaleX(1);
+/* Hover moves the label and its rule together rather than changing the rule's
+   length. A line that grows is a progress idiom; a link should read as going
+   somewhere. Transform only, so nothing below reflows: animating font-size
+   here moved the card and the whole grid by 2px under the cursor. */
+a.go-rule:hover,
+a.go-rule:focus-visible,
+a:hover .go-rule,
+a:focus-visible .go-rule {
+  transform: translateX(3px);
 }
 @media (prefers-reduced-motion: reduce) {
-  .go-rule::after {
+  .go-rule {
     transition: none;
   }
 }
