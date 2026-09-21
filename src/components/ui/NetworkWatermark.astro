@@ -1,10 +1,10 @@
 ---
 import net from "../../data/pipeline-network.json";
 
-// The same TDX-Hydro geometry step 03 plots, reused as section texture: no new
-// payload, and nothing on this layer is meant to be read. Cells, the callout
-// and the pin are all dropped, because a watermark that carries a claim is a
-// figure nobody can see.
+// The same TDX-Hydro geometry step 03 used to plot, reused as section texture:
+// no new payload, and nothing on this layer is meant to be read. The cell
+// counts, the callout and the pin are all dropped, because a watermark that
+// carries a claim is a figure nobody can see.
 const W = 1100;
 const H = 460;
 const line = (pts: number[][]) =>
@@ -17,10 +17,35 @@ const maxOrder = Math.max(...net.reaches.map((r) => r.order));
 // is a capillary that disappears at this opacity. Drawing the trunks only is
 // what the eye reads anyway, at a third of the weight.
 const trunks = net.reaches.filter((r) => r.order >= 3);
+
+// The 0.1 degree meteorological grid the runoff arrives on, taken from both
+// edges of every cell so the partial row at the top frame edge is not invented
+// away. Stages 01 to 03 are this grid meeting that network, which is why the
+// lattice is the structure the texture carries.
+const edges = (pick: (c: (typeof net.cells)[number]) => [number, number]) =>
+  [...new Set(net.cells.flatMap((c) => pick(c).map((v) => v.toFixed(4))))]
+    .map(Number)
+    .sort((a, b) => a - b);
+const columns = edges((c) => [c.x, c.x + c.w]);
+const rows = edges((c) => [c.y, c.y + c.h]);
 ---
 
+{/* Two layers, because they want opposite treatment in a wide, short band.
+    Cropping the lattice to preserve its aspect left two of its six rows
+    visible, which reads as stripes, and a stretched lattice is still a
+    lattice. The rivers are a shape, so they keep their proportions and crop. */}
 <svg
-  class="mark"
+  class="mesh"
+  viewBox={`0 0 ${W} ${H}`}
+  preserveAspectRatio="none"
+  aria-hidden="true"
+  focusable="false"
+>
+  {columns.map((x) => <line x1={Math.round(x * W)} y1="0" x2={Math.round(x * W)} y2={H} />)}
+  {rows.map((y) => <line x1="0" y1={Math.round(y * H)} x2={W} y2={Math.round(y * H)} />)}
+</svg>
+<svg
+  class="rivers"
   viewBox={`0 0 ${W} ${H}`}
   preserveAspectRatio="xMidYMid slice"
   aria-hidden="true"
@@ -34,15 +59,27 @@ const trunks = net.reaches.filter((r) => r.order >= 3);
 </svg>
 
 <style>
-  .mark {
+  .mesh,
+  .rivers {
+    position: absolute;
+    inset: 0;
     display: block;
     width: 100%;
     height: 100%;
   }
-  .mark path {
+  .rivers path {
     fill: none;
     stroke: var(--accent-text);
     stroke-linecap: round;
     stroke-linejoin: round;
+  }
+  /* Lighter than the rivers on top of it: the grid is the surface the water
+     arrives on, not the subject. A non-scaling stroke keeps the lines even
+     after the stretch. */
+  .mesh line {
+    stroke: var(--accent-text);
+    stroke-width: 1;
+    vector-effect: non-scaling-stroke;
+    stroke-opacity: 0.55;
   }
 </style>
