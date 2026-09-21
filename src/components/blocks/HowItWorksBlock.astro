@@ -4,7 +4,7 @@ import SectionHeader from "../ui/SectionHeader.astro";
 import PipelineSchematic from "../ui/PipelineSchematic.astro";
 import PipelineForecast from "../ui/PipelineForecast.astro";
 
-const { eyebrow, heading, intro, steps } = Astro.props as Extract<
+const { eyebrow, heading, intro, steps, cta } = Astro.props as Extract<
   Block,
   { type: "howItWorks" }
 >;
@@ -21,7 +21,6 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
             <span class="node">{pad(index)}</span>
             <div class="body">
               <h3>{step.title}</h3>
-              {step.token && <p class="token">{step.token}</p>}
               <p>{step.text}</p>
               {step.figure === "network" && <PipelineSchematic />}
               {step.figure === "forecast" && <PipelineForecast />}
@@ -30,6 +29,15 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
         ))
       }
     </ol>
+    {
+      cta && (
+        <p class="go">
+          <a href={cta.href} target="_blank" rel="noopener">
+            {cta.label} →
+          </a>
+        </p>
+      )
+    }
   </div>
 </section>
 
@@ -118,5 +126,22 @@ const pad = (index: number) => String(index + 1).padStart(2, "0");
   }
 
   @media (max-width: 720px) {
+  }
+  /* The heading promises "your river" and the section had no way to reach one. */
+  .go {
+    margin-top: clamp(30px, 3.5vw, 42px);
+  }
+  .go a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--accent-text);
+    font-family: "Raleway", "Open Sans", system-ui, sans-serif;
+    font-size: 1.02rem;
+    font-weight: 800;
+    text-decoration: none;
+  }
+  .go a:hover {
+    text-decoration: underline;
   }
 </style>

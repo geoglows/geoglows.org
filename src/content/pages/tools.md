@@ -21,46 +21,40 @@ blocks:
     eyebrow: How GEOGLOWS works
     anchor: how-it-works
     heading: From global weather to your river
-    intro: "One chain turns the meteorology behind the world's weather forecasts into river discharge for every stream on Earth, gauged or not."
+    intro: "One chain turns the meteorology behind the world's weather forecasts into river discharge for every stream on Earth, gauged or not. GEOGLOWS works in reaches: single stretches of river between one junction and the next."
+    cta: { label: "Look up any river in the Hydroviewer", href: "https://hydroviewer.geoglows.org" }
     steps:
       - title: "Meteorological data"
-        token: "ECMWF IFS + ERA5"
         text: >-
           ECMWF's Integrated Forecast System supplies the meteorology: a 51-member
           ensemble out to 15 days for the forecast, and ERA5 reanalysis for the
           historical record.
       - title: "Runoff"
-        token: "gridded runoff"
         text: >-
           A global land-surface model converts that meteorology into gridded
           runoff over every landmass, the water that reaches the ground and starts
           moving.
       - title: "TDX-Hydro river network"
-        token: "7.2M reaches"
         figure: network
         text: >-
           Runoff is mapped onto TDX-Hydro, a stream network derived from 12 m
           TanDEM-X elevation data: about 7.2 million river reaches and their
           catchments across 125 vector processing units.
       - title: "Routing"
-        token: "matrix Muskingum"
         text: >-
           RAPID, the Routing Application for Parallel computation of Discharge,
           moves water downstream through that network with a matrix Muskingum
           method.
       - title: "Streamflow"
-        token: "m³/s, 3-hourly"
         text: >-
           The result is discharge at every reach, gauged or not, reported at a
           consistent 3-hour interval.
       - title: "Retrospective"
-        token: "85 years from 1940"
         text: >-
           The same chain run on ERA5 back to 1940 gives an 85-year simulation,
           which establishes each reach's normal range and its return-period
           levels.
       - title: "Forecast"
-        token: "15-day ensemble"
         figure: forecast
         text: >-
           The 15-day ensemble is published against those levels, so a reach

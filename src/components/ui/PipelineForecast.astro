@@ -73,12 +73,21 @@ const fmt = (t: string) =>
     <path class="median" d={median} />
   </svg>
   <figcaption>
-    <span class="key"><i class="s-median"></i>Ensemble median</span>
-    <span class="key"><i class="s-middle"></i>Middle half</span>
-    <span class="key"><i class="s-spread"></i>Full {data.members}-member spread</span>
-    <span class="key"><i class="s-normal"></i>Normal range, {data.retrospective_years} years</span>
+    <span class="plain">
+      Every run of the model gives a slightly different answer, so GEOGLOWS runs {data.members} of
+      them. They agree for the first few days, then fan apart as the
+      weather gets less certain. The rise here is a flood building on the Karnali,
+      visible more than a week before it arrives.
+    </span>
+    <span class="keys">
+      <span class="key"><i class="s-median"></i>Ensemble median</span>
+      <span class="key"><i class="s-middle"></i>Middle half</span>
+      <span class="key"><i class="s-spread"></i>Full {data.members}-member spread</span>
+      <span class="key"><i class="s-normal"></i>Normal range, {data.retrospective_years} years</span>
+    </span>
     <span class="src">
-      {data.label}, reach {data.river_id}. Real GEOGLOWS output retrieved {data.retrieved}.
+      {data.label}, reach {data.river_id}, one of the basins Nepal's national service
+      forecasts with GEOGLOWS. Real output retrieved {data.retrieved}.
     </span>
   </figcaption>
 </figure>
@@ -118,14 +127,26 @@ const fmt = (t: string) =>
     stroke-width: 2.4;
     stroke-linejoin: round;
   }
+  .plain {
+    max-width: 68ch;
+    color: var(--text-body);
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
   figcaption {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 6px 18px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
     margin-top: 14px;
     color: var(--text-faint);
     font-size: 0.78rem;
+  }
+  .keys {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px 18px;
   }
   .key {
     display: inline-flex;
@@ -153,6 +174,6 @@ const fmt = (t: string) =>
     border: 1px solid var(--border);
   }
   .src {
-    flex-basis: 100%;
+    max-width: 90ch;
   }
 </style>

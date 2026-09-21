@@ -201,6 +201,7 @@ const howItWorksBlock = z.object({
       figure: z.enum(["network", "forecast"]).optional(),
     }),
   ),
+  cta: linkSchema.optional(),
 });
 
 const newsletterBlock = z.object({
