@@ -24,7 +24,12 @@ pnpm-debug.log*
 .idea/
 .vercel
 .env*
+
+# agent artifacts and context, deliberately untracked
 docs/plans/
 .compound-engineering/
+.impeccable/
 CLAUDE.md
 AGENTS.md
+PRODUCT.md
+DESIGN.md
